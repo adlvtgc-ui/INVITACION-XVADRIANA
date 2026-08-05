@@ -55,7 +55,6 @@ header {
 position: relative;
 padding: 10px 20px 0px 20px;
 border-radius: 12px 12px 0 0;
-/* overflow: hidden; ELIMINADO para evitar que el separador se recorte en celular */
 }
 
 .foto-inicio {
@@ -105,7 +104,7 @@ text-shadow: 2px 2px 4px #7B8B75;
 display: flex;
 justify-content: center;
 gap: 12px;
-margin: 15px auto 10px auto;
+margin: 15px auto 5px auto;
 position: relative;
 z-index: 20; 
 }
@@ -137,11 +136,11 @@ letter-spacing: 1px;
 font-weight: 600;
 }
 
-/* --- SEPARADOR CON MÁRGENES NEGATIVOS --- */
+/* --- SEPARADOR FLORAL --- */
 .separador-header {
 width: 100%;
-max-width: 380px;
-margin: -45px auto -45px auto; 
+max-width: 320px;
+margin: -10px auto -5px auto; /* Márgenes ligeros y seguros para evitar solapamientos */
 position: relative;
 z-index: 15;
 display: block;
@@ -158,12 +157,13 @@ display: block;
 background: rgba(242, 218, 236, 0.92);
 border: 1px solid #B87333;
 border-radius: 8px;
-margin: -25px 10px 30px 10px; 
+margin: 15px 10px 30px 10px; /* Margen positivo para separar la tarjeta del encabezado */
 padding: 25px;
 box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 position: relative;
 z-index: 5;
 }
+
 .card-title {
 color: var(--color-principal);
 font-size: 1.4rem;
@@ -246,22 +246,22 @@ border: none;
 background: none;
 }
 
-/* --- ADAPTACIÓN PARA CELULARES (NUEVO) --- */
+/* --- ADAPTACIÓN PARA CELULARES --- */
 @media (max-width: 600px) {
     header h1 {
         font-size: 1.8rem;
     }
     
     header h2 {
-        font-size: 4rem; /* Se reduce el nombre para que quepa en la pantalla */
+        font-size: 4rem; 
     }
 
     .separador-header {
-        margin: -25px auto -25px auto; /* Márgenes negativos más suaves en celular */
+        margin: -5px auto 0px auto; 
     }
 
     .card {
-        margin: -10px 10px 30px 10px; 
+        margin: 15px 10px 30px 10px; 
     }
     
     .contador-item {
@@ -400,26 +400,22 @@ audio.play();
 }, { once: true });
 
 // --- SCRIPT DE CUENTA REGRESIVA ---
-// Configurar la fecha objetivo: 19 de Diciembre de 2026 a las 18:00 hrs
-const fechaFiesta = new Date(2026, 11, 19, 18, 0, 0).getTime(); // Mes 11 es Diciembre en JavaScript
+const fechaFiesta = new Date(2026, 11, 19, 18, 0, 0).getTime(); 
 
 const intervalo = setInterval(function() {
 const ahora = new Date().getTime();
 const distancia = fechaFiesta - ahora;
 
-// Cálculos de tiempo
 const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
 const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
 const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
 
-// Mostrar resultados en los elementos HTML
 document.getElementById("dias").innerHTML = dias;
 document.getElementById("horas").innerHTML = horas < 10 ? "0" + horas : horas;
 document.getElementById("minutos").innerHTML = minutos < 10 ? "0" + minutos : minutos;
 document.getElementById("segundos").innerHTML = segundos < 10 ? "0" + segundos : segundos;
 
-// Si la cuenta regresiva termina, mostrar un mensaje
 if (distancia < 0) {
 clearInterval(intervalo);
 document.getElementById("contador").innerHTML = "<div class='contador-numero'>¡El gran día ha llegado!</div>";
