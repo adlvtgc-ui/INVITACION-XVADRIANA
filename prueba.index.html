@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV Años - Adri</title>
+    <!-- IMPORTACIÓN DE FUENTES -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Alex+Brush&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- ESTILOS GENERALES Y COLORES --- */
+        :root {
+            --color-principal: #85386e; 
+            --color-texto: #333333;
+            --color-dorado: #3b1138;     
+            --fuente-titulos: 'Cinzel', serif;
+            --fuente-cuerpo: 'Montserrat', sans-serif; 
+            --fuente-nombre: 'Alex Brush', cursive; 
+        }
+
+        /* Fondo atenuado y aclarado con una capa blanca semitransparente */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), 
+                              url('thumb-1920-1275718.jpg'); 
+            background-size: cover;          
+            background-position: center;     
+            background-attachment: fixed;    
+            background-repeat: no-repeat;  
+            font-family: var(--fuente-cuerpo);
+            color: var(--color-texto);
+            text-align: center; 
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 30px auto; 
+            padding: 30px;
+            
+            background: linear-gradient(rgba(249, 226, 245, 0.9), rgba(255, 250, 254, 0.30)), 
+                        url('linea.jpg'); 
+            background-size: cover;          
+            background-position: center;     
+            background-repeat: no-repeat;
+            
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            border-radius: 15px;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--fuente-titulos);
+            margin-bottom: 0;
+        }
+
+        header {
+            position: relative;
+            padding: 10px 20px 0px 20px; 
+            border-radius: 12px 12px 0 0;               
+            overflow: hidden; 
+        }
+
+        .foto-inicio {
+            position: relative;       
+            top: 0px;                 
+            margin: 0 auto;           
+            width: 50%;               
+            max-width: 100%;
+            height: auto;             
+            object-fit: contain;      
+            margin-top: -10px;        
+            margin-bottom: 0px;      
+            opacity: 0.95;            
+            display: block;
+            z-index: 10;  
+            mix-blend-mode: multiply;
+            filter: contrast(1.1) brightness(1.02);
+        }
+
+        /* --- "MIS XV AÑOS" --- */
+        header h1 {
+            position: relative;
+            z-index: 10;                
+            font-size: 2.4rem;
+            letter-spacing: 3px;
+            color: var(--color-principal); 
+            margin: 0;     
+            line-height: 1.2;
+        }
+
+        /* --- NOMBRE DE ADRIANA --- */
+        header h2 {
+            position: relative;
+            z-index: 10;                
+            font-family: var(--fuente-nombre); 
+            font-size: 5.8rem; 
+            color: var(--color-principal);
+            margin: 5px 0 0 0; 
+            font-weight: normal;
+            line-height: 1; 
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px #7B8B75;
+        }
+
+        /* --- CUENTA REGRESIVA --- */
+        .contador-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 15px auto 10px auto; 
+            position: relative;
+            z-index: 20; /* Asegura que quede por encima del fondo transparente del separador */
+        }
+        
+        .contador-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(242, 218, 236, 0.92); 
+            border: 1px solid #B87333; 
+            border-radius: 8px;
+            padding: 8px 10px;
+            min-width: 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .contador-numero {
+            font-family: var(--fuente-titulos);
+            font-size: 1.4rem;
+            color: var(--color-principal);
+            font-weight: bold;
+            line-height: 1;
+        }
+        
+        .contador-etiqueta {
+            font-family: var(--fuente-cuerpo);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--color-texto);
+            margin-top: 4px;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* --- SEPARADOR CON MÁRGENES NEGATIVOS PARA ELIMINAR EL ESPACIO EXTRA --- */
+        .separador-header {
+            width: 100%;
+            max-width: 380px; 
+            margin: -45px auto -45px auto; /* Sube el separador hacia la cuenta regresiva y reduce el espacio inferior */
+            position: relative;
+            z-index: 15;
+            display: block;
+        }
+
+        .separador-header img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .card {
+            background: rgba(242, 218, 236, 0.92); 
+            border: 1px solid #B87333;
+            border-radius: 8px;
+            margin: -25px 10px 30px 10px; /* Sube la tarjeta para pegarla al separador y eliminar el espacio libre */
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            position: relative;
+            z-index: 5;
+        }
+        
+        .card-title {
+            color: var(--color-principal);
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+        }
+
+        .separador-rizos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px auto 20px auto;
+            width: 80%;
+        }
+
+        .linea-centro {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #e2c0d9, var(--color-principal), #e2c0d9, transparent);
+            position: relative;
+        }
+
+        .card-lugar {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .info-row {
+            margin: 10px 0;
+            font-size: 0.95rem;
+            font-family: var(--fuente-titulos);
+            line-height: 1.4;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: var(--color-dorado);
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #66225c;
+        }
+
+        .logo-tienda {
+            height: 22px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 2px;
+        }
+
+        .prohibido {
+            color: var(--color-principal);
+            font-style: italic;
+            font-weight: bold;
+            margin-top: 15px;
+            font-family: var(--fuente-titulos);
+        }
+
+        .img-dress-code {
+            width: 60%;
+            max-width: 180px;
+            height: auto;
+            margin: 15px auto;
+            display: block;
+            border: none;
+            background: none;
+        }
+    </style> 
+</head>
+<body>
+
+    <audio id="musicaFondo" loop autoplay>
+        <source src="Can't Help Falling In Love - Viola Cover.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <header>
+            <img src="tiara.jpg" alt="Corona" class="foto-inicio">
+
+            <h1>Mis XV Años</h1>
+            
+            <h2>Adriana</h2>
+
+            <!-- SECCIÓN: Cuenta Regresiva (Agregada antes del separador) -->
+            <div id="contador" class="contador-container">
+                <div class="contador-item">
+                    <span class="contador-numero" id="dias">00</span>
+                    <span class="contador-etiqueta">Días</span>
+                </div>
+                <div class="contador-item">
+                    <span class="contador-numero" id="horas">00</span>
+                    <span class="contador-etiqueta">Hrs</span>
+                </div>
+                <div class="contador-item">
+                    <span class="contador-numero" id="minutos">00</span>
+                    <span class="contador-etiqueta">Min</span>
+                </div>
+                <div class="contador-item">
+                    <span class="contador-numero" id="segundos">00</span>
+                    <span class="contador-etiqueta">Seg</span>
+                </div>
+            </div>
+
+            <div class="separador-header">
+                <img src="Diseño_sin_título__1_-removebg-preview.png" alt="Separador floral">
+            </div>
+        </header>
+
+        <div class="card">
+            <div class="card-title">Ceremonia</div>
+            <div class="separador-rizos">
+                <div class="linea-centro"></div>
+            </div>
+            <div class="card-lugar">Salón de Eventos World Trade Center Mexiquense</div>
+            <div class="info-row"><strong>Hora:</strong> 19 de diciembre de 2026 - 18:00 hrs.</div>
+            <div class="info-row"><strong>Dirección:</strong> Cto. Circunvalación Ote. 10, Cd. Satélite, 53100 Naucalpan de Juárez, Méx. Tlalnepantla, Méx., México</div>
+            <a href="https://maps.app.goo.gl/FtNAS2uFb3nTH7ks7" target="_blank" class="btn">Ver mapa</a>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Recepción</div>
+            <div class="separador-rizos">
+                <div class="linea-centro"></div>
+            </div>
+            <div class="card-lugar">Salón de Eventos World Trade Center Mexiquense </div>
+            <div class="info-row"><strong>Hora:</strong> 19 de diciembre de 2026 - 19:00 hrs a 19:30 hrs.</div>
+            <div class="info-row"><strong>Dirección:</strong> Cto. Circunvalación Ote. 10, Cd. Satélite, 53100 Naucalpan de Juárez, Méx. Tlalnepantla, Méx., México</div>
+            <a href="https://maps.app.goo.gl/FtNAS2uFb3nTH7ks7" target="_blank" class="btn">Ver mapa</a>
+        </div>
+
+        <!-- DRESS CODE -->
+        <div class="card dress-code-card">
+            <div class="card-title">Dress Code</div>
+            <div class="separador-rizos">
+                <div class="linea-centro"></div>
+            </div>
+            <h3>- Rigurosa Etiqueta -</h3>
+            
+            <img src="dresscode-removebg-preview.png" alt="Rigurosa Etiqueta" class="img-dress-code">
+            
+            <p class="prohibido">Se reserva el color rosa en cualquiera de sus tonalidades para la quinceañera.</p>
+        </div> 
+
+        <!-- MESAS DE REGALOS -->
+        <div class="card">
+            <div class="card-title">Mesas de Regalos</div>
+            <div class="separador-rizos">
+                <div class="linea-centro"></div>
+            </div>
+            <div class="info-row">El mejor regalo es tu presencia, pero si deseas hacerme un obsequio, puedes consultar mis mesas de regalos:</div>
+            
+            <a href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/60011674" target="_blank" class="btn">
+                <img src="liverpool.jpeg" alt="Liverpool" class="logo-tienda">
+                Mesa Liverpool
+            </a>
+
+            <br>
+
+            <a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&language=en-US" target="_blank" class="btn">
+                <img src="amazon.jpg" alt="Amazon" class="logo-tienda">
+                Mesa Amazon
+            </a>
+        </div>
+
+        <!-- SECCIÓN: Confirmación de Asistencia -->
+        <div class="card">
+            <div class="card-title">Confirmación</div>
+            <div class="separador-rizos">
+                <div class="linea-centro"></div>
+            </div>
+            <div class="info-row">Nos encantaría contar con tu presencia. Por favor confirma tu asistencia antes del <strong>19 de noviembre de 2026</strong> indicando tu nombre completo.</div>
+            <a href="https://wa.me/525611760224?text=Hola,%20mi%20nombre%20es%20[Tu%20Nombre]%20y%20me%20gustaría%20confirmar%20mi%20asistencia%20a%20los%20XV%20Años%20de%20Adriana." target="_blank" class="btn">
+                Confirma a Adriana tu asistencia 
+            </a>
+        </div>
+    </div> 
+
+    <script>
+        // --- SCRIPT DE REPRODUCCIÓN DE AUDIO ---
+        window.addEventListener('click', () => {
+            const audio = document.getElementById('musicaFondo');
+            if (audio.paused) {
+                audio.play();
+            }
+        }, { once: true });
+
+        window.addEventListener('touchstart', () => {
+            const audio = document.getElementById('musicaFondo');
+            if (audio.paused) {
+                audio.play();
+            }
+        }, { once: true });
+
+        // --- SCRIPT DE CUENTA REGRESIVA ---
+        // Configurar la fecha objetivo: 19 de Diciembre de 2026 a las 18:00 hrs
+        const fechaFiesta = new Date(2026, 11, 19, 18, 0, 0).getTime(); // Mes 11 es Diciembre en JavaScript
+
+        const intervalo = setInterval(function() {
+            const ahora = new Date().getTime();
+            const distancia = fechaFiesta - ahora;
+
+            // Cálculos de tiempo
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+            // Mostrar resultados en los elementos HTML
+            document.getElementById("dias").innerHTML = dias;
+            document.getElementById("horas").innerHTML = horas < 10 ? "0" + horas : horas;
+            document.getElementById("minutos").innerHTML = minutos < 10 ? "0" + minutos : minutos;
+            document.getElementById("segundos").innerHTML = segundos < 10 ? "0" + segundos : segundos;
+
+            // Si la cuenta regresiva termina, mostrar un mensaje
+            if (distancia < 0) {
+                clearInterval(intervalo);
+                document.getElementById("contador").innerHTML = "<div class='contador-numero'>¡El gran día ha llegado!</div>";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
