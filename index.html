@@ -17,6 +17,11 @@
 --fuente-nombre: 'Alex Brush', cursive;
 }
 
+/* Corrección de renderizado de texto para iOS */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
 /* Fondo atenuado y aclarado con una capa blanca semitransparente */
 body {
 margin: 0;
@@ -267,7 +272,6 @@ background: none;
 
     .separador-header {
         max-width: 280px; 
-        /* Reducimos los espacios verticalmente en celular para acercar la cuenta regresiva y la tarjeta */
         margin: -15px auto -20px auto; 
     }
 
@@ -287,6 +291,14 @@ background: none;
     
     .foto-inicio {
         width: 60%;
+    }
+}
+
+/* --- CORRECCIÓN ESPECÍFICA PARA IOS (IPHONE / SAFARI) --- */
+@supports (-webkit-touch-callout: none) {
+    .foto-inicio {
+        mix-blend-mode: normal; /* Evita el fondo blanco brillante en Safari */
+        filter: none;
     }
 }
 </style>
@@ -434,6 +446,9 @@ document.getElementById("contador").innerHTML = "<div class='contador-numero'>¡
 }
 }, 1000);
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
