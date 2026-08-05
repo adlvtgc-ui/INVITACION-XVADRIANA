@@ -140,7 +140,7 @@ font-weight: 600;
 .separador-header {
 width: 100%;
 max-width: 320px;
-margin: -10px auto -5px auto; /* Márgenes ligeros y seguros para evitar solapamientos */
+margin: -10px auto -5px auto; 
 position: relative;
 z-index: 15;
 display: block;
@@ -157,7 +157,7 @@ display: block;
 background: rgba(242, 218, 236, 0.92);
 border: 1px solid #B87333;
 border-radius: 8px;
-margin: 15px 10px 30px 10px; /* Margen positivo para separar la tarjeta del encabezado */
+margin: 15px 10px 30px 10px; 
 padding: 25px;
 box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 position: relative;
@@ -248,6 +248,11 @@ background: none;
 
 /* --- ADAPTACIÓN PARA CELULARES --- */
 @media (max-width: 600px) {
+    body {
+        /* Esto elimina los tirones al hacer scroll en celular */
+        background-attachment: scroll; 
+    }
+
     header h1 {
         font-size: 1.8rem;
     }
@@ -256,12 +261,13 @@ background: none;
         font-size: 4rem; 
     }
 
+    /* Espaciados positivos para que los elementos fluyan correctamente hacia abajo */
     .separador-header {
-        margin: -5px auto 0px auto; 
+        margin: 15px auto 10px auto; 
     }
 
     .card {
-        margin: 15px 10px 30px 10px; 
+        margin: 10px 10px 30px 10px; 
     }
     
     .contador-item {
@@ -313,7 +319,8 @@ background: none;
 </div>
 
 <div class="separador-header">
-<img src="Diseño_sin_título__1_-removebg-preview.png" alt="Separador floral">
+<!-- IMPORTANTE: Renombra tu imagen en tu computadora a 'separador.png' -->
+<img src="separador.png" alt="Separador floral">
 </div>
 </header>
 
