@@ -79,12 +79,12 @@ backdrop-filter: blur(8px);
 /* --- GALERÍA CON MOVIMIENTO (CARRUSEL AUTOMÁTICO) --- */
 .galeria-inicio {
 position: relative;
-width: 160px;
-height: 180px;
-margin: 5px auto 12px auto;
-border-radius: 10px;
-border: 2px solid #B87333;
-box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+width: 260px; /* Más ancha para darle más presencia */
+height: 200px; /* Proporción más equilibrada */
+margin: 10px auto 10px auto;
+border-radius: 8px; /* Radio de 8px para integrar visualmente con las demás tarjetas */
+border: 1px solid #B87333; /* Borde de 1px igual que las tarjetas para mayor armonía */
+box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra suave acorde a la invitación */
 overflow: hidden;
 z-index: 10;
 background-color: #fff;
@@ -117,7 +117,7 @@ z-index: 10;
 font-size: 2.2rem;
 letter-spacing: 3px;
 color: var(--color-principal);
-margin: 0.1;
+margin: 0;
 line-height: 1.2;
 }
 
@@ -140,7 +140,7 @@ text-shadow: 2px 2px 4px #7B8B75;
 display: flex;
 justify-content: center;
 gap: 10px;
-margin: 10px auto 5px auto;
+margin: 15px auto 10px auto;
 position: relative;
 z-index: 20; 
 }
@@ -175,8 +175,8 @@ font-weight: 600;
 /* --- SEPARADOR FLORAL --- */
 .separador-header {
 width: 100%;
-max-width: 260px;
-margin: -5px auto -15px auto; 
+max-width: 240px; /* Tamaño unificado para ambos separadores */
+margin: 15px auto 15px auto; /* Espacios unificados y exactos arriba y abajo */
 position: relative;
 z-index: 15;
 display: block;
@@ -334,13 +334,13 @@ opacity: 0.95;
     }
 
     .galeria-inicio {
-        width: 150px;
-        height: 170px;
+        width: 240px; /* Ajuste proporcional para celulares */
+        height: 180px;
     }
 
     .separador-header {
-        max-width: 280px; 
-        margin: 8px auto 8px auto; 
+        max-width: 240px; 
+        margin: 15px auto 15px auto; /* Manteniendo el espaciado exacto en móvil */
     }
 
     .card {
@@ -376,6 +376,7 @@ opacity: 0.95;
 <img src="foto3.jpeg" alt="Foto 3 Adriana">
 </div>
 
+<!-- Primer separador con espaciado idéntico -->
 <div class="separador-header">
 <img src="separador.png" alt="Separador floral">
 </div>
@@ -403,6 +404,7 @@ opacity: 0.95;
 </div>
 </div>
 
+<!-- Segundo separador con espaciado idéntico -->
 <div class="separador-header">
 <img src="separador.png" alt="Separador floral">
 </div>
