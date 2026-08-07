@@ -11,7 +11,6 @@
 <style>
 /* --- ESTILOS GENERALES Y COLORES --- */
 :root {
-/* Forzamos el modo claro en las variables CSS */
 color-scheme: light; 
 --color-principal: #85386e;
 --color-texto: #333333;
@@ -21,12 +20,10 @@ color-scheme: light;
 --fuente-nombre: 'Alex Brush', cursive;
 }
 
-/* Corrección de renderizado de texto para iOS */
 html {
     -webkit-text-size-adjust: 100%;
 }
 
-/* Fondo atenuado y aclarado con una capa blanca semitransparente */
 body {
 margin: 0;
 padding: 0;
@@ -60,18 +57,13 @@ header {
 position: sticky;
 top: 0;
 z-index: 100;
-/* Ajustamos márgenes y padding para que cubra todo el ancho del contenedor */
 margin: -20px -20px 20px -20px;
 padding: 20px 10px 0px 10px;
 border-radius: 15px 15px 0 0;
-/* Mismo fondo traslúcido que el contenedor principal */
 background: linear-gradient(rgba(249, 226, 245, 0.9), rgba(255, 250, 254, 0.30)), url('linea.jpg');
 background-size: cover;
 background-position: top center;
-/* Sombra inferior para dar la ilusión de que flota sobre las tarjetas */
 box-shadow: 0 8px 15px -5px rgba(0,0,0,0.15);
-
-/* Efecto Blur (Vidrio esmerilado) */
 backdrop-filter: blur(8px);
 -webkit-backdrop-filter: blur(8px);
 }
@@ -79,12 +71,12 @@ backdrop-filter: blur(8px);
 /* --- GALERÍA CON MOVIMIENTO (CARRUSEL AUTOMÁTICO) --- */
 .galeria-inicio {
 position: relative;
-width: 260px; /* Más ancha para darle más presencia */
-height: 200px; /* Proporción más equilibrada */
+width: 260px; 
+height: 200px; 
 margin: 10px auto 10px auto;
-border-radius: 8px; /* Radio de 8px para integrar visualmente con las demás tarjetas */
-border: 1px solid #B87333; /* Borde de 1px igual que las tarjetas para mayor armonía */
-box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra suave acorde a la invitación */
+border-radius: 8px; 
+border: 1px solid #B87333; 
+box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
 overflow: hidden;
 z-index: 10;
 background-color: #fff;
@@ -110,7 +102,6 @@ font-family: var(--fuente-titulos);
 margin-bottom: 0;
 }
 
-/* --- "MIS XV AÑOS" --- */
 header h1 {
 position: relative;
 z-index: 10;
@@ -121,7 +112,6 @@ margin: 0;
 line-height: 1.2;
 }
 
-/* --- NOMBRE DE ADRIANA --- */
 header h2 {
 position: relative;
 z-index: 10;
@@ -135,7 +125,6 @@ letter-spacing: 2px;
 text-shadow: 2px 2px 4px #7B8B75;
 }
 
-/* --- CUENTA REGRESIVA --- */
 .contador-container {
 display: flex;
 justify-content: center;
@@ -175,8 +164,8 @@ font-weight: 600;
 /* --- SEPARADOR FLORAL --- */
 .separador-header {
 width: 100%;
-max-width: 240px; /* Tamaño unificado para ambos separadores */
-margin: 15px auto 15px auto; /* Espacios unificados y exactos arriba y abajo */
+max-width: 240px; 
+margin: 15px auto 15px auto; 
 position: relative;
 z-index: 15;
 display: block;
@@ -189,6 +178,7 @@ object-fit: contain;
 display: block;
 }
 
+/* --- TARJETAS --- */
 .card {
 background: rgba(242, 218, 236, 0.92);
 border: 1px solid #B87333;
@@ -198,6 +188,32 @@ padding: 20px;
 box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 position: relative;
 z-index: 5;
+}
+
+/* --- TARJETA DEL PASE DE ENTRADA (NUEVO) --- */
+#pase-entrada {
+display: none; /* Oculto por defecto, se muestra solo si hay link personalizado */
+background: linear-gradient(135deg, rgba(235, 204, 225, 0.95), rgba(249, 226, 245, 0.95));
+border: 2px dashed var(--color-dorado);
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.pase-contenido {
+margin: 15px 0;
+padding: 10px;
+background-color: rgba(255,255,255,0.6);
+border-radius: 5px;
+font-size: 1.1rem;
+color: var(--color-principal);
+}
+
+.pase-destacado {
+font-family: var(--fuente-titulos);
+font-weight: bold;
+font-size: 1.3rem;
+display: block;
+margin-top: 5px;
+color: var(--color-dorado);
 }
 
 .card-title {
@@ -282,7 +298,6 @@ border: none;
 background: none;
 }
 
-/* --- ESTILOS PARA LA FRASE Y MINI IMAGEN DENTRO DE LA INVITACIÓN --- */
 .frase-final-container {
 margin: 5px auto 0 auto;
 text-align: center;
@@ -310,52 +325,16 @@ opacity: 0.95;
 
 /* --- ADAPTACIÓN PARA CELULARES --- */
 @media (max-width: 600px) {
-    body {
-        background-attachment: scroll; 
-    }
-
-    .container {
-        margin: 10px 8px; 
-        padding: 15px 12px 20px 12px; 
-    }
-    
-    /* Ajustes específicos del encabezado fijo para móvil */
-    header {
-        margin: -15px -12px 15px -12px;
-        padding: 15px 10px 0 10px;
-    }
-
-    header h1 {
-        font-size: 1.6rem;
-    }
-    
-    header h2 {
-        font-size: 3.6rem; 
-    }
-
-    .galeria-inicio {
-        width: 240px; /* Ajuste proporcional para celulares */
-        height: 180px;
-    }
-
-    .separador-header {
-        max-width: 240px; 
-        margin: 15px auto 15px auto; /* Manteniendo el espaciado exacto en móvil */
-    }
-
-    .card {
-        margin: 5px 2px 20px 2px; 
-        padding: 15px; 
-    }
-    
-    .contador-item {
-        min-width: 38px;
-        padding: 5px 6px;
-    }
-    
-    .contador-numero {
-        font-size: 1.1rem;
-    }
+    body { background-attachment: scroll; }
+    .container { margin: 10px 8px; padding: 15px 12px 20px 12px; }
+    header { margin: -15px -12px 15px -12px; padding: 15px 10px 0 10px; }
+    header h1 { font-size: 1.6rem; }
+    header h2 { font-size: 3.6rem; }
+    .galeria-inicio { width: 240px; height: 180px; }
+    .separador-header { max-width: 240px; margin: 15px auto 15px auto; }
+    .card { margin: 5px 2px 20px 2px; padding: 15px; }
+    .contador-item { min-width: 38px; padding: 5px 6px; }
+    .contador-numero { font-size: 1.1rem; }
 }
 </style>
 </head>
@@ -369,14 +348,12 @@ opacity: 0.95;
 
 <!-- ENCABEZADO FIJO -->
 <header>
-<!-- GALERÍA DINÁMICA (CARRUSEL AUTOMÁTICO DE 3 FOTOS) -->
 <div class="galeria-inicio">
 <img src="foto1.jpeg" alt="Foto 1 Adriana" class="activa">
 <img src="foto2.jpeg" alt="Foto 2 Adriana">
 <img src="foto3.jpeg" alt="Foto 3 Adriana">
 </div>
 
-<!-- Primer separador con espaciado idéntico -->
 <div class="separador-header">
 <img src="separador.png" alt="Separador floral">
 </div>
@@ -384,7 +361,6 @@ opacity: 0.95;
 <h1>Mis XV Años</h1>
 <h2>Adriana</h2>
 
-<!-- SECCIÓN: Cuenta Regresiva -->
 <div id="contador" class="contador-container">
 <div class="contador-item">
 <span class="contador-numero" id="dias">00</span>
@@ -404,12 +380,25 @@ opacity: 0.95;
 </div>
 </div>
 
-<!-- Segundo separador con espaciado idéntico -->
 <div class="separador-header">
 <img src="separador.png" alt="Separador floral">
 </div>
 </header>
 <!-- FIN DEL ENCABEZADO FIJO -->
+
+<!-- NUEVA SECCIÓN: PASE DE ENTRADA -->
+<div class="card" id="pase-entrada">
+<div class="card-title">Pase de Entrada</div>
+<div class="separador-rizos">
+<div class="linea-centro"></div>
+</div>
+<div class="pase-contenido">
+    <div>Apreciable: <span class="pase-destacado" id="nombre-pase">Familia Invitada</span></div>
+    <div style="margin-top: 10px;">Pases reservados: <span class="pase-destacado" id="numero-pases">0</span></div>
+</div>
+<div class="info-row" style="font-size: 0.8rem; font-style: italic;">* Por favor presenta esta invitación digital en la recepción.</div>
+</div>
+<!-- FIN PASE DE ENTRADA -->
 
 <!-- TARJETAS CON SCROLL -->
 <div class="card">
@@ -434,7 +423,6 @@ opacity: 0.95;
 <a href="https://maps.app.goo.gl/FtNAS2uFb3nTH7ks7" target="_blank" class="btn">Ver mapa</a>
 </div>
 
-<!-- DRESS CODE -->
 <div class="card dress-code-card">
 <div class="card-title">Dress Code</div>
 <div class="separador-rizos">
@@ -445,7 +433,6 @@ opacity: 0.95;
 <p class="prohibido">Se reserva el color rosa en cualquiera de sus tonalidades para la quinceañera.</p>
 </div>
 
-<!-- MESAS DE REGALOS -->
 <div class="card">
 <div class="card-title">Mesas de Regalos</div>
 <div class="separador-rizos">
@@ -456,9 +443,7 @@ opacity: 0.95;
 <img src="liverpool.jpeg" alt="Liverpool" class="logo-tienda">
 Mesa Liverpool
 </a>
-
 <br>
-
 <a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&language=en-US" target="_blank" class="btn">
 <img src="amazon.jpg" alt="Amazon" class="logo-tienda">
 Mesa Amazon
@@ -471,21 +456,45 @@ Mesa Amazon
 <div class="separador-rizos">
 <div class="linea-centro"></div>
 </div>
-<div class="info-row">Nos encantaría contar con tu presencia. Por favor confirma tu asistencia antes del <strong>19 de noviembre de 2026</strong> indicando tu nombre completo.</div>
-<a href="https://wa.me/525611730224?text=Hola,%20mi%20nombre%20es%20[Tu%20Nombre]%20y%20me%20gustaría%20confirmar%20mi%20asistencia%20a%20los%20XV%20Años%20de%20Adriana." target="_blank" class="btn">
+<div class="info-row">Nos encantaría contar con tu presencia. Por favor confirma tu asistencia antes del <strong>19 de noviembre de 2026</strong>.</div>
+<!-- Añadimos ID al botón para modificarlo con JavaScript -->
+<a id="btn-whatsapp" href="https://wa.me/525611730224?text=Hola,%20mi%20nombre%20es%20[Escribe%20tu%20Nombre]%20y%20me%20gustaría%20confirmar%20mi%20asistencia%20a%20los%20XV%20Años%20de%20Adriana." target="_blank" class="btn">
 Confirma a Adriana tu asistencia
 </a>
 </div>
 
-<!-- FRASE Y MINI IMAGEN DENTRO DEL CONTENEDOR PRINCIPAL -->
+<!-- FRASE Y MINI IMAGEN -->
 <div class="frase-final-container">
 <p class="frase-final-texto">La mejor noche está por venir</p>
 <img src="imagenfinal.png" alt="Detalle final" class="img-final-pequena">
 </div>
 
-</div> <!-- Fin del contenedor principal -->
+</div> 
 
 <script>
+// --- SCRIPT PARA LEER EL LINK PERSONALIZADO (NUEVO) ---
+document.addEventListener("DOMContentLoaded", function() {
+    // Obtenemos los parámetros de la URL
+    const parametrosURL = new URLSearchParams(window.location.search);
+    const nombreInvitado = parametrosURL.get('n');
+    const pases = parametrosURL.get('p');
+
+    // Si existen ambos parámetros, mostramos el pase de entrada y actualizamos el WhatsApp
+    if (nombreInvitado && pases) {
+        // Llenar datos en el pase
+        document.getElementById('nombre-pase').textContent = nombreInvitado;
+        document.getElementById('numero-pases').textContent = pases;
+        
+        // Mostrar la tarjeta del pase de entrada
+        document.getElementById('pase-entrada').style.display = 'block';
+
+        // Actualizar el enlace del botón de WhatsApp con el mensaje personalizado
+        const mensajeWa = `Hola Adriana, somos ${nombreInvitado}. Confirmamos con mucho gusto nuestra asistencia a tus XV años para ${pases} persona(s).`;
+        const btnWa = document.getElementById('btn-whatsapp');
+        btnWa.href = `https://wa.me/525611730224?text=${encodeURIComponent(mensajeWa)}`;
+    }
+});
+
 // --- SCRIPT DE REPRODUCCIÓN DE AUDIO ---
 window.addEventListener('click', () => {
 const audio = document.getElementById('musicaFondo');
@@ -501,7 +510,7 @@ audio.play();
 }
 }, { once: true });
 
-// --- SCRIPT DE MOVIMIENTO PARA LA GALERÍA (CARRUSEL AUTOMÁTICO) ---
+// --- SCRIPT DE MOVIMIENTO PARA LA GALERÍA ---
 let indiceActual = 0;
 const imagenesGaleria = document.querySelectorAll('.galeria-inicio img');
 
@@ -510,8 +519,6 @@ imagenesGaleria[indiceActual].classList.remove('activa');
 indiceActual = (indiceActual + 1) % imagenesGaleria.length;
 imagenesGaleria[indiceActual].classList.add('activa');
 }
-
-// Cambia de foto cada 3.5 segundos
 setInterval(cambiarImagenGaleria, 3500);
 
 // --- SCRIPT DE CUENTA REGRESIVA ---
