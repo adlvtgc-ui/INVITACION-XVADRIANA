@@ -55,25 +55,11 @@ border-radius: 15px;
 box-sizing: border-box;
 }
 
-/* --- ENCABEZADO FIJO (STICKY) CON BLUR --- */
+/* --- ENCABEZADO NORMAL --- */
 header {
-position: sticky;
-top: 0;
-z-index: 100;
-/* Ajustamos márgenes y padding para que cubra todo el ancho del contenedor */
-margin: -20px -20px 20px -20px;
-padding: 20px 10px 0px 10px;
-border-radius: 15px 15px 0 0;
-/* Mismo fondo traslúcido que el contenedor principal */
-background: linear-gradient(rgba(249, 226, 245, 0.9), rgba(255, 250, 254, 0.30)), url('linea.jpg');
-background-size: cover;
-background-position: top center;
-/* Sombra inferior para dar la ilusión de que flota sobre las tarjetas */
-box-shadow: 0 8px 15px -5px rgba(0,0,0,0.15);
-
-/* Efecto Blur (Vidrio esmerilado) */
-backdrop-filter: blur(8px);
--webkit-backdrop-filter: blur(8px);
+position: relative;
+padding: 5px 10px 0px 10px;
+border-radius: 12px 12px 0 0;
 }
 
 /* --- GALERÍA CON MOVIMIENTO (CARRUSEL AUTOMÁTICO) --- */
@@ -360,12 +346,6 @@ opacity: 0.95;
         margin: 10px 8px; 
         padding: 15px 12px 20px 12px; 
     }
-    
-    /* Ajustes específicos del encabezado fijo para móvil */
-    header {
-        margin: -15px -12px 15px -12px;
-        padding: 15px 10px 0 10px;
-    }
 
     header h1 {
         font-size: 1.6rem;
@@ -409,7 +389,7 @@ opacity: 0.95;
 
 <div class="container">
 
-<!-- ENCABEZADO FIJO -->
+<!-- ENCABEZADO NORMAL -->
 <header>
 <!-- GALERÍA DINÁMICA (CARRUSEL AUTOMÁTICO DE 3 FOTOS) -->
 <div class="galeria-inicio">
@@ -451,9 +431,9 @@ opacity: 0.95;
 <img src="separador.png" alt="Separador floral">
 </div>
 </header>
-<!-- FIN DEL ENCABEZADO FIJO -->
+<!-- FIN DEL ENCABEZADO NORMAL -->
 
-<!-- TARJETAS CON SCROLL -->
+<!-- TARJETAS -->
 <div class="card">
 <div class="card-title">Ceremonia</div>
 <div class="separador-rizos">
