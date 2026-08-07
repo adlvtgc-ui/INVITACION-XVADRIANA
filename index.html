@@ -3,11 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Esta etiqueta le dice al navegador que solo use modo claro -->
 <meta name="color-scheme" content="light"> 
 <title>Mis XV Años - Adri</title>
+<!-- IMPORTACIÓN DE FUENTES -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Alex+Brush&display=swap" rel="stylesheet">
 <style>
+/* --- ESTILOS GENERALES Y COLORES --- */
 :root {
+/* Forzamos el modo claro en las variables CSS */
 color-scheme: light; 
 --color-principal: #85386e;
 --color-texto: #333333;
@@ -17,101 +21,572 @@ color-scheme: light;
 --fuente-nombre: 'Alex Brush', cursive;
 }
 
-html { -webkit-text-size-adjust: 100%; }
+/* Corrección de renderizado de texto para iOS */
+html {
+    -webkit-text-size-adjust: 100%;
+}
 
+/* Fondo atenuado y aclarado con una capa blanca semitransparente */
 body {
-margin: 0; padding: 0;
-background-image: linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url('thumb-1920-1275718.jpg');
-background-size: cover; background-position: center; background-attachment: fixed;
-font-family: var(--fuente-cuerpo); color: var(--color-texto); text-align: center;
+margin: 0;
+padding: 0;
+background-image: linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)),
+url('thumb-1920-1275718.jpg');
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+background-repeat: no-repeat;
+font-family: var(--fuente-cuerpo);
+color: var(--color-texto);
+text-align: center;
 }
 
 .container {
-max-width: 500px; margin: 20px auto; padding: 20px 20px 30px 20px;
-background: linear-gradient(rgba(249, 226, 245, 0.9), rgba(255, 250, 254, 0.30)), url('linea.jpg');
-background-size: cover; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+max-width: 500px;
+margin: 20px auto;
+padding: 20px 20px 30px 20px;
+background: linear-gradient(rgba(249, 226, 245, 0.9), rgba(255, 250, 254, 0.30)),
+url('linea.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+border-radius: 15px;
+box-sizing: border-box;
 }
 
-header { position: relative; padding: 5px 10px 0px 10px; }
+/* --- ENCABEZADO NORMAL --- */
+header {
+position: relative;
+padding: 5px 10px 0px 10px;
+border-radius: 12px 12px 0 0;
+}
 
+/* --- GALERÍA CON MOVIMIENTO (CARRUSEL AUTOMÁTICO) --- */
 .galeria-inicio {
-position: relative; width: 260px; height: 200px; margin: 10px auto;
-border-radius: 8px; border: 1px solid #B87333; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-overflow: hidden; background-color: #fff;
+position: relative;
+width: 260px; /* Más ancha para darle más presencia */
+height: 200px; /* Proporción más equilibrada */
+margin: 10px auto 10px auto;
+border-radius: 8px; /* Radio de 8px para integrar visualmente con las demás tarjetas */
+border: 1px solid #B87333; /* Borde de 1px igual que las tarjetas para mayor armonía */
+box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra suave acorde a la invitación */
+overflow: hidden;
+z-index: 10;
+background-color: #fff;
 }
 
 .galeria-inicio img {
-position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
-opacity: 0; transition: opacity 1s ease-in-out;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+opacity: 0;
+transition: opacity 1s ease-in-out;
 }
-.galeria-inicio img.activa { opacity: 1; }
 
-h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
-header h1 { font-size: 2.2rem; letter-spacing: 3px; color: var(--color-principal); margin: 0; }
-header h2 { font-family: var(--fuente-nombre); font-size: 5.2rem; color: var(--color-principal); margin: 0; font-weight: normal; text-shadow: 2px 2px 4px #7B8B75; }
+.galeria-inicio img.activa {
+opacity: 1;
+}
 
-.contador-container { display: flex; justify-content: center; gap: 10px; margin: 15px auto 10px auto; }
+h1, h2, h3, h4 {
+font-family: var(--fuente-titulos);
+margin-bottom: 0;
+}
+
+/* --- "MIS XV AÑOS" --- */
+header h1 {
+position: relative;
+z-index: 10;
+font-size: 2.2rem;
+letter-spacing: 3px;
+color: var(--color-principal);
+margin: 0;
+line-height: 1.2;
+}
+
+/* --- NOMBRE DE ADRIANA --- */
+header h2 {
+position: relative;
+z-index: 10;
+font-family: var(--fuente-nombre);
+font-size: 5.2rem;
+color: var(--color-principal);
+margin: 0px 0 0 0;
+font-weight: normal;
+line-height: 1;
+letter-spacing: 2px;
+text-shadow: 2px 2px 4px #7B8B75;
+}
+
+/* --- CUENTA REGRESIVA --- */
+.contador-container {
+display: flex;
+justify-content: center;
+gap: 10px;
+margin: 15px auto 10px auto;
+position: relative;
+z-index: 20; 
+}
 .contador-item {
-display: flex; flex-direction: column; align-items: center; background: rgba(242, 218, 236, 0.92);
-border: 1px solid #B87333; border-radius: 8px; padding: 6px 8px; min-width: 45px;
+display: flex;
+flex-direction: column;
+align-items: center;
+background: rgba(242, 218, 236, 0.92);
+border: 1px solid #B87333;
+border-radius: 8px;
+padding: 6px 8px;
+min-width: 45px;
+box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
-.contador-numero { font-family: var(--fuente-titulos); font-size: 1.2rem; color: var(--color-principal); font-weight: bold; }
-.contador-etiqueta { font-family: var(--fuente-cuerpo); font-size: 0.6rem; text-transform: uppercase; margin-top: 3px; font-weight: 600; }
+.contador-numero {
+font-family: var(--fuente-titulos);
+font-size: 1.2rem;
+color: var(--color-principal);
+font-weight: bold;
+line-height: 1;
+}
+.contador-etiqueta {
+font-family: var(--fuente-cuerpo);
+font-size: 0.6rem;
+text-transform: uppercase;
+color: var(--color-texto);
+margin-top: 3px;
+letter-spacing: 1px;
+font-weight: 600;
+}
 
-.separador-header { width: 100%; max-width: 240px; margin: 15px auto; }
-.separador-header img { width: 100%; height: auto; }
+/* --- SEPARADOR FLORAL --- */
+.separador-header {
+width: 100%;
+max-width: 240px; /* Tamaño unificado para ambos separadores */
+margin: 15px auto 15px auto; /* Espacios unificados y exactos arriba y abajo */
+position: relative;
+z-index: 15;
+display: block;
+}
 
+.separador-header img {
+width: 100%;
+height: auto;
+object-fit: contain;
+display: block;
+}
+
+/* --- TARJETAS --- */
 .card {
-background: rgba(242, 218, 236, 0.92); border: 1px solid #B87333; border-radius: 8px;
-margin: 10px 5px 25px 5px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+background: rgba(242, 218, 236, 0.92);
+border: 1px solid #B87333;
+border-radius: 8px;
+margin: 10px 5px 25px 5px; 
+padding: 20px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+position: relative;
+z-index: 5;
 }
 
-.card-title { color: var(--color-principal); font-size: 1.3rem; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; }
-.separador-rizos { display: flex; align-items: center; justify-content: center; margin: 8px auto 15px auto; width: 80%; }
-.linea-centro { width: 100%; height: 2px; background: linear-gradient(to right, transparent, #e2c0d9, var(--color-principal), #e2c0d9, transparent); }
-.card-lugar { font-size: 1.1rem; font-weight: bold; margin-bottom: 12px; }
-.info-row { margin: 8px 0; font-size: 0.9rem; font-family: var(--fuente-titulos); }
+.card-title {
+color: var(--color-principal);
+font-size: 1.3rem;
+letter-spacing: 2px;
+text-transform: uppercase;
+font-weight: bold;
+padding-bottom: 3px;
+margin-bottom: 3px;
+}
+
+.separador-rizos {
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 8px auto 15px auto;
+width: 80%;
+}
+
+.linea-centro {
+width: 100%;
+height: 2px;
+background: linear-gradient(to right, transparent, #e2c0d9, var(--color-principal), #e2c0d9, transparent);
+position: relative;
+}
+
+.card-lugar {
+font-size: 1.1rem;
+font-weight: bold;
+margin-bottom: 12px;
+}
+
+.info-row {
+margin: 8px 0;
+font-size: 0.9rem;
+font-family: var(--fuente-titulos);
+line-height: 1.4;
+}
 
 .btn {
-display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-background-color: var(--color-dorado); color: #fff; padding: 9px 18px; text-decoration: none;
-border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+background-color: var(--color-dorado);
+color: #fff;
+padding: 9px 18px;
+text-decoration: none;
+border-radius: 4px;
+font-weight: 600;
+margin-top: 12px;
+font-size: 0.85rem;
+transition: background 0.3s;
+}
+.btn:hover {
+background-color: #66225c;
 }
 
-/* --- PASE DE ENTRADA (ESTILO RECORTABLE) --- */
-#pase-entrada {
-display: none;
-background: linear-gradient(135deg, #4a1544, #2a0b27); /* Fondo más oscuro */
-border: 2px dashed #d4af37; /* Borde tipo recortable */
-border-radius: 0; /* Sin redondeo para aspecto de ticket */
-margin-top: 30px; padding: 25px; position: relative;
+.logo-tienda {
+height: 20px;
+width: auto;
+object-fit: contain;
+border-radius: 2px;
 }
 
-#pase-entrada .card-title { color: #d4af37; font-family: var(--fuente-titulos); }
-#pase-entrada .linea-centro { background: linear-gradient(to right, transparent, #d4af37, transparent); }
-
-.pase-contenido {
-margin: 15px 0; padding: 15px;
-background-color: rgba(255, 255, 255, 0.05);
-border: 1px solid #d4af37;
-color: #fcfcfc; /* Texto claro para fondo oscuro */
+.prohibido {
+color: var(--color-principal);
+font-style: italic;
+font-weight: bold;
+margin-top: 12px;
 font-family: var(--fuente-titulos);
 }
 
-.pase-destacado {
-font-family: var(--fuente-titulos); font-weight: bold; font-size: 1.2rem;
-display: block; margin-top: 5px; color: #d4af37;
+.img-dress-code {
+width: 55%;
+max-width: 160px;
+height: auto;
+margin: 12px auto;
+display: block;
+border: none;
+background: none;
 }
 
-.frase-final-container { margin: 15px auto 0 auto; text-align: center; }
-.frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); font-weight: bold; }
-.img-final-pequena { width: 15%; max-width: 35px; margin: 0 auto; display: block; opacity: 0.95; }
+/* --- TARJETA DEL PASE DE ENTRADA (MÁS OSCURO Y ESTILO RECORTABLE) --- */
+#pase-entrada {
+display: none; /* Oculto por defecto, se muestra solo si hay link personalizado */
+background: linear-gradient(135deg, #4a1544, #2a0b27); /* Fondo más oscuro y elegante */
+border: 2px dashed #d4af37; /* Borde punteado como ticket recortable */
+border-radius: 0; /* Sin bordes redondeados para simular un boleto real */
+margin-top: 30px;
+padding: 25px;
+box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+#pase-entrada .card-title {
+color: #d4af37; /* Color dorado para el título */
+font-family: var(--fuente-titulos);
+}
+
+#pase-entrada .linea-centro {
+background: linear-gradient(to right, transparent, #d4af37, transparent);
+}
+
+.pase-contenido {
+margin: 15px 0;
+padding: 15px;
+background-color: rgba(255, 255, 255, 0.05); /* Fondo sutil para destacar el texto */
+border: 1px solid #d4af37;
+color: #fcfcfc;
+font-family: var(--fuente-titulos); /* Misma tipografía unificada */
+}
+
+.pase-destacado {
+font-family: var(--fuente-titulos);
+font-weight: bold;
+font-size: 1.2rem;
+display: block;
+margin-top: 5px;
+color: #d4af37;
+}
+
+/* --- ESTILOS PARA LA FRASE Y MINI IMAGEN DENTRO DE LA INVITACIÓN --- */
+.frase-final-container {
+margin: 15px auto 0 auto;
+text-align: center;
+}
+
+.frase-final-texto {
+font-family: var(--fuente-titulos);
+font-size: 1.1rem;
+color: var(--color-principal);
+letter-spacing: 1.2px;
+font-weight: bold;
+margin-bottom: 6px;
+}
+
+.img-final-pequena {
+width: 15%;
+max-width: 35px;
+height: auto;
+margin: 0 auto;
+display: block;
+border: none;
+background: none;
+opacity: 0.95;
+}
+
+/* --- ADAPTACIÓN PARA CELULARES --- */
+@media (max-width: 600px) {
+    body {
+        background-attachment: scroll; 
+    }
+
+    .container {
+        margin: 10px 8px; 
+        padding: 15px 12px 20px 12px; 
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+    
+    header h2 {
+        font-size: 3.6rem; 
+    }
+
+    .galeria-inicio {
+        width: 240px; 
+        height: 180px;
+    }
+
+    .separador-header {
+        max-width: 240px; 
+        margin: 15px auto 15px auto; 
+    }
+
+    .card {
+        margin: 5px 2px 20px 2px; 
+        padding: 15px; 
+    }
+    
+    .contador-item {
+        min-width: 38px;
+        padding: 5px 6px;
+    }
+    
+    .contador-numero {
+        font-size: 1.1rem;
+    }
+}
 </style>
 </head>
 <body>
+
+<audio id="musicaFondo" loop autoplay>
+<source src="Can't Help Falling In Love - Viola Cover.mp3" type="audio/mpeg">
+</audio>
+
 <div class="container">
-<!-- CONTENIDO (header, tarjetas...) -->
-<!-- Incluye la lógica JS y la estructura previa -->
+
+<!-- ENCABEZADO NORMAL -->
+<header>
+<!-- GALERÍA DINÁMICA (CARRUSEL AUTOMÁTICO DE 3 FOTOS) -->
+<div class="galeria-inicio">
+<img src="foto1.jpeg" alt="Foto 1 Adriana" class="activa">
+<img src="foto2.jpeg" alt="Foto 2 Adriana">
+<img src="foto3.jpeg" alt="Foto 3 Adriana">
 </div>
+
+<!-- Primer separador con espaciado idéntico -->
+<div class="separador-header">
+<img src="separador.png" alt="Separador floral">
+</div>
+
+<h1>Mis XV Años</h1>
+<h2>Adriana</h2>
+
+<!-- SECCIÓN: Cuenta Regresiva -->
+<div id="contador" class="contador-container">
+<div class="contador-item">
+<span class="contador-numero" id="dias">00</span>
+<span class="contador-etiqueta">Días</span>
+</div>
+<div class="contador-item">
+<span class="contador-numero" id="horas">00</span>
+<span class="contador-etiqueta">Hrs</span>
+</div>
+<div class="contador-item">
+<span class="contador-numero" id="minutos">00</span>
+<span class="contador-etiqueta">Min</span>
+</div>
+<div class="contador-item">
+<span class="contador-numero" id="segundos">00</span>
+<span class="contador-etiqueta">Seg</span>
+</div>
+</div>
+
+<!-- Segundo separador con espaciado idéntico -->
+<div class="separador-header">
+<img src="separador.png" alt="Separador floral">
+</div>
+</header>
+<!-- FIN DEL ENCABEZADO NORMAL -->
+
+<!-- TARJETAS -->
+<div class="card">
+<div class="card-title">Ceremonia</div>
+<div class="separador-rizos">
+<div class="linea-centro"></div>
+</div>
+<div class="card-lugar">Salón de Eventos World Trade Center Mexiquense</div>
+<div class="info-row"><strong>Hora:</strong> 19 de diciembre de 2026 - 18:00 hrs.</div>
+<div class="info-row"><strong>Dirección:</strong> Cto. Circunvalación Ote. 10, Cd. Satélite, 53100 Naucalpan de Juárez, Méx. Tlalnepantla, Méx., México</div>
+<a href="https://maps.app.goo.gl/FtNAS2uFb3nTH7ks7" target="_blank" class="btn">Ver mapa</a>
+</div>
+
+<div class="card">
+<div class="card-title">Recepción</div>
+<div class="separador-rizos">
+<div class="linea-centro"></div>
+</div>
+<div class="card-lugar">Salón de Eventos World Trade Center Mexiquense </div>
+<div class="info-row"><strong>Hora:</strong> 19 de diciembre de 2026 - 19:00 hrs a 19:30 hrs.</div>
+<div class="info-row"><strong>Dirección:</strong> Cto. Circunvalación Ote. 10, Cd. Satélite, 53100 Naucalpan de Juárez, Méx. Tlalnepantla, Méx., México</div>
+<a href="https://maps.app.goo.gl/FtNAS2uFb3nTH7ks7" target="_blank" class="btn">Ver mapa</a>
+</div>
+
+<!-- DRESS CODE -->
+<div class="card dress-code-card">
+<div class="card-title">Dress Code</div>
+<div class="separador-rizos">
+<div class="linea-centro"></div>
+</div>
+<h3>- Rigurosa Etiqueta -</h3>
+<img src="dresscode-removebg-preview.png" alt="Rigurosa Etiqueta" class="img-dress-code">
+<p class="prohibido">Se reserva el color rosa en cualquiera de sus tonalidades para la quinceañera.</p>
+</div>
+
+<!-- MESAS DE REGALOS -->
+<div class="card">
+<div class="card-title">Mesas de Regalos</div>
+<div class="separador-rizos">
+<div class="linea-centro"></div>
+</div>
+<div class="info-row">El mejor regalo es tu presencia, pero si deseas hacerme un obsequio, puedes consultar mis mesas de regalos:</div>
+<a href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/60011674" target="_blank" class="btn">
+<img src="liverpool.jpeg" alt="Liverpool" class="logo-tienda">
+Mesa Liverpool
+</a>
+
+<br>
+
+<a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&language=en-US" target="_blank" class="btn">
+<img src="amazon.jpg" alt="Amazon" class="logo-tienda">
+Mesa Amazon
+</a>
+</div>
+
+<!-- SECCIÓN: Confirmación de Asistencia -->
+<div class="card">
+<div class="card-title">Confirmación</div>
+<div class="separador-rizos">
+<div class="linea-centro"></div>
+</div>
+<div class="info-row">Nos encantaría contar con tu presencia. Por favor confirma tu asistencia antes del <strong>19 de noviembre de 2026</strong>.</div>
+<a id="btn-whatsapp" href="https://wa.me/525611730224?text=Hola,%20mi%20nombre%20es%20[Escribe%20tu%20Nombre]%20y%20me%20gustaría%20confirmar%20mi%20asistencia%20a%20los%20XV%20Años%20de%20Adriana." target="_blank" class="btn">
+Confirma a Adriana tu asistencia
+</a>
+</div>
+
+<!-- SECCIÓN: PASE DE ENTRADA (TIPO TICKET RECORTABLE OSCURO) -->
+<div class="card" id="pase-entrada">
+<div class="card-title">Pase Especial</div>
+<div class="separador-rizos">
+<div class="linea-centro"></div>
+</div>
+<div class="pase-contenido">
+    <div>Apreciable: <span class="pase-destacado" id="nombre-pase">Familia Invitada</span></div>
+    <div style="margin-top: 10px;">Pases reservados: <span class="pase-destacado" id="numero-pases">0</span></div>
+</div>
+<div class="info-row" style="font-size: 0.8rem; font-style: italic; color: #d4af37;">
+    * Por favor presenta esta invitación digital en la recepción.
+</div>
+</div>
+<!-- FIN PASE DE ENTRADA -->
+
+<!-- FRASE Y MINI IMAGEN -->
+<div class="frase-final-container">
+<p class="frase-final-texto">La mejor noche está por venir</p>
+<img src="imagenfinal.png" alt="Detalle final" class="img-final-pequena">
+</div>
+
+</div> <!-- Fin del contenedor principal -->
+
+<script>
+// --- SCRIPT PARA LEER EL LINK PERSONALIZADO ---
+document.addEventListener("DOMContentLoaded", function() {
+    const parametrosURL = new URLSearchParams(window.location.search);
+    const nombreInvitado = parametrosURL.get('n');
+    const pases = parametrosURL.get('p');
+
+    if (nombreInvitado && pases) {
+        document.getElementById('nombre-pase').textContent = nombreInvitado;
+        document.getElementById('numero-pases').textContent = pases;
+        document.getElementById('pase-entrada').style.display = 'block';
+
+        const mensajeWa = `Hola Adriana, somos ${nombreInvitado}. Confirmamos con mucho gusto nuestra asistencia a tus XV años para ${pases} persona(s).`;
+        const btnWa = document.getElementById('btn-whatsapp');
+        btnWa.href = `https://wa.me/525611730224?text=${encodeURIComponent(mensajeWa)}`;
+    }
+});
+
+// --- SCRIPT DE REPRODUCCIÓN DE AUDIO ---
+window.addEventListener('click', () => {
+const audio = document.getElementById('musicaFondo');
+if (audio.paused) {
+audio.play();
+}
+}, { once: true });
+
+window.addEventListener('touchstart', () => {
+const audio = document.getElementById('musicaFondo');
+if (audio.paused) {
+audio.play();
+}
+}, { once: true });
+
+// --- SCRIPT DE MOVIMIENTO PARA LA GALERÍA ---
+let indiceActual = 0;
+const imagenesGaleria = document.querySelectorAll('.galeria-inicio img');
+
+function cambiarImagenGaleria() {
+imagenesGaleria[indiceActual].classList.remove('activa');
+indiceActual = (indiceActual + 1) % imagenesGaleria.length;
+imagenesGaleria[indiceActual].classList.add('activa');
+}
+setInterval(cambiarImagenGaleria, 3500);
+
+// --- SCRIPT DE CUENTA REGRESIVA ---
+const fechaFiesta = new Date(2026, 11, 19, 18, 0, 0).getTime(); 
+
+const intervalo = setInterval(function() {
+const ahora = new Date().getTime();
+const distancia = fechaFiesta - ahora;
+
+const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+document.getElementById("dias").innerHTML = dias;
+document.getElementById("horas").innerHTML = horas < 10 ? "0" + horas : horas;
+document.getElementById("minutos").innerHTML = minutos < 10 ? "0" + minutos : minutos;
+document.getElementById("segundos").innerHTML = segundos < 10 ? "0" + segundos : segundos;
+
+if (distancia < 0) {
+clearInterval(intervalo);
+document.getElementById("contador").innerHTML = "<div class='contador-numero'>¡El gran día ha llegado!</div>";
+}
+}, 1000);
+</script>
+
 </body>
 </html>
