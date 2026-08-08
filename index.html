@@ -269,33 +269,32 @@ border: none;
 background: none;
 }
 
-/* --- TARJETA DEL PASE DE ENTRADA (FONDO DORADO OSCURO / CONTORNO MORADO) --- */
+/* --- TARJETA DEL PASE DE ENTRADA (ESTILO CLARO, AMIGABLE Y ARMÓNICO) --- */
 #pase-entrada {
 display: none; /* Oculto por defecto, se muestra solo si hay link personalizado */
-background: linear-gradient(135deg, #7a5e1d, #4d3910); /* Fondo dorado/bronce más oscuro */
-border: 2px dashed #85386e; /* Contorno punteado morado */
-border-radius: 0; /* Sin bordes redondeados para simular un boleto recortable */
+background: linear-gradient(135deg, rgba(255, 253, 250, 0.95), rgba(249, 238, 244, 0.95)); /* Fondo marfil/rosa muy suave y claro */
+border: 2px dashed var(--color-principal); /* Contorno punteado morado recortable */
+border-radius: 8px; /* Bordes sutilmente redondeados para mantener la armonía */
 margin-top: 30px;
-padding: 25px;
-box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+padding: 20px;
+box-shadow: 0 4px 12px rgba(133, 56, 110, 0.15); /* Sombra suave en tono principal */
 }
 
 #pase-entrada .card-title {
-color: #fceea7; /* Título en tono dorado claro para resaltar sobre el fondo oscuro */
+color: var(--color-principal); /* Título en el color principal de la invitación */
 font-family: var(--fuente-titulos);
-text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 #pase-entrada .linea-centro {
-background: linear-gradient(to right, transparent, #fceea7, transparent);
+background: linear-gradient(to right, transparent, #e2c0d9, var(--color-principal), #e2c0d9, transparent);
 }
 
 .pase-contenido {
 margin: 15px 0;
 padding: 15px;
-background-color: rgba(0, 0, 0, 0.2); /* Fondo sutil oscuro para contraste */
-border: 1px solid #85386e; /* Borde interior morado */
-color: #fcfcfc;
+background-color: rgba(255, 255, 255, 0.7); /* Fondo interno claro y limpio */
+border: 1px dashed #d9b8cd; /* Borde interno delicado */
+color: var(--color-texto);
 font-family: var(--fuente-titulos);
 }
 
@@ -305,7 +304,7 @@ font-weight: bold;
 font-size: 1.2rem;
 display: block;
 margin-top: 5px;
-color: #fceea7; /* Texto destacado en tono oro claro */
+color: var(--color-principal); /* Destacados en color principal */
 }
 
 /* --- ESTILOS PARA LA FRASE Y MINI IMAGEN DENTRO DE LA INVITACIÓN --- */
@@ -497,7 +496,7 @@ Confirma a Adriana tu asistencia
 </a>
 </div>
 
-<!-- SECCIÓN: PASE DE ENTRADA (FONDO DORADO OSCURO, CONTORNO MORADO) -->
+<!-- SECCIÓN: PASE DE ENTRADA (ESTILO CLARO, AMIGABLE Y ARMÓNICO) -->
 <div class="card" id="pase-entrada">
 <div class="card-title">Pase Especial</div>
 <div class="separador-rizos">
@@ -507,7 +506,7 @@ Confirma a Adriana tu asistencia
     <div>Apreciable: <span class="pase-destacado" id="nombre-pase">Familia Invitada</span></div>
     <div style="margin-top: 10px;">Pases reservados: <span class="pase-destacado" id="numero-pases">0</span></div>
 </div>
-<div class="info-row" style="font-size: 0.8rem; font-style: italic; color: #fceea7;">
+<div class="info-row" style="font-size: 0.8rem; font-style: italic; color: var(--color-principal);">
     * Por favor presenta esta invitación digital en la recepción.
 </div>
 </div>
