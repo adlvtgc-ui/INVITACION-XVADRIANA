@@ -269,23 +269,23 @@ border: none;
 background: none;
 }
 
-/* --- TARJETA DEL PASE DE ENTRADA CON EFECTO BLUR --- */
+/* --- TARJETA DEL PASE DE ENTRADA (UN SOLO COLOR Y SIN RECUADRO INTERNO) --- */
 #pase-entrada {
 display: none; /* Oculto por defecto, se muestra solo si hay link personalizado */
-background: linear-gradient(135deg, rgba(255, 253, 250, 0.65), rgba(249, 238, 244, 0.65)); /* Mayor transparencia para que el blur funcione */
+background: rgba(242, 218, 236, 0.65); /* Un solo color translúcido igual a las tarjetas para que se note el blur */
 border: 2px dashed var(--color-principal); /* Contorno punteado morado recortable */
-border-radius: 8px; /* Bordes sutilmente redondeados para mantener la armonía */
+border-radius: 8px; /* Bordes redondeados manteniendo la armonía */
 margin-top: 30px;
-padding: 20px;
-box-shadow: 0 4px 12px rgba(133, 56, 110, 0.15); /* Sombra suave en tono principal */
+padding: 25px 20px;
+box-shadow: 0 4px 12px rgba(133, 56, 110, 0.15);
 
-/* Efecto Blur (Vidrio esmerilado) */
-backdrop-filter: blur(8px);
--webkit-backdrop-filter: blur(8px);
+/* Efecto Blur más fuerte */
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
 }
 
 #pase-entrada .card-title {
-color: var(--color-principal); /* Título en el color principal de la invitación */
+color: var(--color-principal); 
 font-family: var(--fuente-titulos);
 }
 
@@ -294,22 +294,21 @@ background: linear-gradient(to right, transparent, #e2c0d9, var(--color-principa
 }
 
 .pase-contenido {
-margin: 15px 0;
-padding: 15px;
-background-color: rgba(255, 255, 255, 0.5); /* Fondo interno un poco más transparente */
-border: 1px dashed #d9b8cd; /* Borde interno delicado */
+margin: 15px 0 5px 0;
+padding: 0; /* Sin recuadro interno */
+background-color: transparent; /* Fondo transparente */
+border: none; /* Sin bordes internos */
 color: var(--color-texto);
 font-family: var(--fuente-titulos);
-border-radius: 5px;
 }
 
 .pase-destacado {
 font-family: var(--fuente-titulos);
 font-weight: bold;
-font-size: 1.2rem;
+font-size: 1.3rem;
 display: block;
 margin-top: 5px;
-color: var(--color-principal); /* Destacados en color principal */
+color: var(--color-principal); 
 }
 
 /* --- ESTILOS PARA LA FRASE Y MINI IMAGEN DENTRO DE LA INVITACIÓN --- */
@@ -501,7 +500,7 @@ Confirma a Adriana tu asistencia
 </a>
 </div>
 
-<!-- SECCIÓN: PASE DE ENTRADA (ESTILO CLARO, AMIGABLE Y ARMÓNICO CON BLUR) -->
+<!-- SECCIÓN: PASE DE ENTRADA (UN SOLO COLOR, SIN RECUADRO INTERNO CON BLUR) -->
 <div class="card" id="pase-entrada">
 <div class="card-title">Pase Especial</div>
 <div class="separador-rizos">
@@ -519,7 +518,7 @@ Confirma a Adriana tu asistencia
 
 <!-- FRASE Y MINI IMAGEN -->
 <div class="frase-final-container">
-<p class="frase-final-texto">La mejor noche está por venir</p>
+<p class="frase-final-texto">Queremos compartir la magia de esta noche contigo.</p>
 <img src="imagenfinal.png" alt="Detalle final" class="img-final-pequena">
 </div>
 
