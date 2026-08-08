@@ -269,33 +269,34 @@ border: none;
 background: none;
 }
 
-/* --- TARJETA DEL PASE DE ENTRADA (MÁS OSCURO Y ESTILO RECORTABLE) --- */
+/* --- TARJETA DEL PASE DE ENTRADA (FONDO DORADO OSCURO / CONTORNO MORADO) --- */
 #pase-entrada {
 display: none; /* Oculto por defecto, se muestra solo si hay link personalizado */
-background: linear-gradient(135deg, #4a1544, #2a0b27); /* Fondo más oscuro y elegante */
-border: 2px dashed #d4af37; /* Borde punteado como ticket recortable */
-border-radius: 0; /* Sin bordes redondeados para simular un boleto real */
+background: linear-gradient(135deg, #7a5e1d, #4d3910); /* Fondo dorado/bronce más oscuro */
+border: 2px dashed #85386e; /* Contorno punteado morado */
+border-radius: 0; /* Sin bordes redondeados para simular un boleto recortable */
 margin-top: 30px;
 padding: 25px;
 box-shadow: 0 6px 15px rgba(0,0,0,0.3);
 }
 
 #pase-entrada .card-title {
-color: #d4af37; /* Color dorado para el título */
+color: #fceea7; /* Título en tono dorado claro para resaltar sobre el fondo oscuro */
 font-family: var(--fuente-titulos);
+text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 #pase-entrada .linea-centro {
-background: linear-gradient(to right, transparent, #d4af37, transparent);
+background: linear-gradient(to right, transparent, #fceea7, transparent);
 }
 
 .pase-contenido {
 margin: 15px 0;
 padding: 15px;
-background-color: rgba(255, 255, 255, 0.05); /* Fondo sutil para destacar el texto */
-border: 1px solid #d4af37;
+background-color: rgba(0, 0, 0, 0.2); /* Fondo sutil oscuro para contraste */
+border: 1px solid #85386e; /* Borde interior morado */
 color: #fcfcfc;
-font-family: var(--fuente-titulos); /* Misma tipografía unificada */
+font-family: var(--fuente-titulos);
 }
 
 .pase-destacado {
@@ -304,7 +305,7 @@ font-weight: bold;
 font-size: 1.2rem;
 display: block;
 margin-top: 5px;
-color: #d4af37;
+color: #fceea7; /* Texto destacado en tono oro claro */
 }
 
 /* --- ESTILOS PARA LA FRASE Y MINI IMAGEN DENTRO DE LA INVITACIÓN --- */
@@ -496,7 +497,7 @@ Confirma a Adriana tu asistencia
 </a>
 </div>
 
-<!-- SECCIÓN: PASE DE ENTRADA (TIPO TICKET RECORTABLE OSCURO) -->
+<!-- SECCIÓN: PASE DE ENTRADA (FONDO DORADO OSCURO, CONTORNO MORADO) -->
 <div class="card" id="pase-entrada">
 <div class="card-title">Pase Especial</div>
 <div class="separador-rizos">
@@ -506,7 +507,7 @@ Confirma a Adriana tu asistencia
     <div>Apreciable: <span class="pase-destacado" id="nombre-pase">Familia Invitada</span></div>
     <div style="margin-top: 10px;">Pases reservados: <span class="pase-destacado" id="numero-pases">0</span></div>
 </div>
-<div class="info-row" style="font-size: 0.8rem; font-style: italic; color: #d4af37;">
+<div class="info-row" style="font-size: 0.8rem; font-style: italic; color: #fceea7;">
     * Por favor presenta esta invitación digital en la recepción.
 </div>
 </div>
