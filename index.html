@@ -269,7 +269,23 @@ border: none;
 background: none;
 }
 
-/* --- TARJETA DEL PASE DE ENTRADA (UN SOLO COLOR Y SIN RECUADRO INTERNO) --- */
+/* --- ANIMACIÓN PARA EL PASE DE ENTRADA --- */
+@keyframes resplandor-pase {
+    0% {
+        box-shadow: 0 4px 12px rgba(133, 56, 110, 0.15);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 8px 22px rgba(133, 56, 110, 0.45); /* Sombra más fuerte */
+        transform: scale(1.02); /* Se acerca sutilmente */
+    }
+    100% {
+        box-shadow: 0 4px 12px rgba(133, 56, 110, 0.15);
+        transform: scale(1);
+    }
+}
+
+/* --- TARJETA DEL PASE DE ENTRADA (UN SOLO COLOR, SIN RECUADRO INTERNO CON BLUR Y ANIMACIÓN) --- */
 #pase-entrada {
 display: none; /* Oculto por defecto, se muestra solo si hay link personalizado */
 background: rgba(242, 218, 236, 0.65); /* Un solo color translúcido igual a las tarjetas para que se note el blur */
@@ -282,6 +298,9 @@ box-shadow: 0 4px 12px rgba(133, 56, 110, 0.15);
 /* Efecto Blur más fuerte */
 backdrop-filter: blur(12px);
 -webkit-backdrop-filter: blur(12px);
+
+/* Aplicamos la animación */
+animation: resplandor-pase 3.5s infinite ease-in-out;
 }
 
 #pase-entrada .card-title {
@@ -518,7 +537,7 @@ Confirma a Adriana tu asistencia
 
 <!-- FRASE Y MINI IMAGEN -->
 <div class="frase-final-container">
-<p class="frase-final-texto">Queremos compartir la magia de esta noche contigo.</p>
+<p class="frase-final-texto">La mejor noche está por venir</p>
 <img src="imagenfinal.png" alt="Detalle final" class="img-final-pequena">
 </div>
 
