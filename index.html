@@ -269,65 +269,45 @@ border: none;
 background: none;
 }
 
-/* --- ANIMACIÓN PARA EL PASE DE ENTRADA --- */
-@keyframes resplandor-pase {
-    0% {
-        box-shadow: 0 4px 12px rgba(133, 56, 110, 0.15);
-        transform: scale(1);
-    }
-    50% {
-        box-shadow: 0 8px 22px rgba(133, 56, 110, 0.45); /* Sombra más fuerte */
-        transform: scale(1.02); /* Se acerca sutilmente */
-    }
-    100% {
-        box-shadow: 0 4px 12px rgba(133, 56, 110, 0.15);
-        transform: scale(1);
-    }
-}
-
-/* --- TARJETA DEL PASE DE ENTRADA (UN SOLO COLOR, SIN RECUADRO INTERNO CON BLUR Y ANIMACIÓN) --- */
+/* --- TARJETA DEL PASE DE ENTRADA (PASE DORADO) --- */
 #pase-entrada {
 display: none; /* Oculto por defecto, se muestra solo si hay link personalizado */
-background: rgba(242, 218, 236, 0.65); /* Un solo color translúcido igual a las tarjetas para que se note el blur */
-border: 2px dashed var(--color-principal); /* Contorno punteado morado recortable */
-border-radius: 8px; /* Bordes redondeados manteniendo la armonía */
+background: linear-gradient(135deg, rgba(255, 245, 215, 0.95), rgba(255, 241, 196, 0.7)); /* Degradado Dorado */
+border: 2px solid #B87333;
+border-radius: 12px;
+box-shadow: 0 6px 15px rgba(184, 115, 51, 0.25); /* Sombra cálida */
 margin-top: 30px;
-padding: 25px 20px;
-box-shadow: 0 4px 12px rgba(133, 56, 110, 0.15);
-
-/* Efecto Blur más fuerte */
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-
-/* Aplicamos la animación */
-animation: resplandor-pase 3.5s infinite ease-in-out;
 }
 
 #pase-entrada .card-title {
-color: var(--color-principal); 
-font-family: var(--fuente-titulos);
+color: var(--color-dorado); /* Texto principal más oscuro para contrastar con el oro */
+text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+font-size: 1.5rem;
 }
 
 #pase-entrada .linea-centro {
-background: linear-gradient(to right, transparent, #e2c0d9, var(--color-principal), #e2c0d9, transparent);
+/* Modificamos la línea central del pase para que combine con el diseño dorado */
+background: linear-gradient(to right, transparent, #B87333, var(--color-dorado), #B87333, transparent);
 }
 
 .pase-contenido {
-margin: 15px 0 5px 0;
-padding: 0; /* Sin recuadro interno */
-background-color: transparent; /* Fondo transparente */
-border: none; /* Sin bordes internos */
+margin: 15px 0;
+padding: 15px 10px;
+background-color: rgba(255, 255, 255, 0.7); /* Fondo blanco traslúcido para legibilidad */
+border: 1px dashed #B87333;
+border-radius: 8px;
+font-size: 1.1rem;
 color: var(--color-texto);
-font-family: var(--fuente-titulos);
 }
 
 .pase-destacado {
 font-family: var(--fuente-titulos);
 font-weight: bold;
-font-size: 1.3rem;
+font-size: 1.4rem;
 display: block;
 margin-top: 5px;
-color: var(--color-principal); 
+color: var(--color-principal);
+text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6);
 }
 
 /* --- ESTILOS PARA LA FRASE Y MINI IMAGEN DENTRO DE LA INVITACIÓN --- */
@@ -376,13 +356,13 @@ opacity: 0.95;
     }
 
     .galeria-inicio {
-        width: 240px; 
+        width: 240px; /* Ajuste proporcional para celulares */
         height: 180px;
     }
 
     .separador-header {
         max-width: 240px; 
-        margin: 15px auto 15px auto; 
+        margin: 15px auto 15px auto; /* Manteniendo el espaciado exacto en móvil */
     }
 
     .card {
@@ -413,8 +393,8 @@ opacity: 0.95;
 <header>
 <!-- GALERÍA DINÁMICA (CARRUSEL AUTOMÁTICO DE 3 FOTOS) -->
 <div class="galeria-inicio">
-<img src="foto1.jpeg" alt="Foto 1 Adriana" class="activa">
-<img src="foto2.jpeg" alt="Foto 2 Adriana">
+<img src="foto1.jpg" alt="Foto 1 Adriana" class="activa">
+<img src="foto2.jpg" alt="Foto 2 Adriana">
 <img src="foto3.jpeg" alt="Foto 3 Adriana">
 </div>
 
@@ -514,12 +494,13 @@ Mesa Amazon
 <div class="linea-centro"></div>
 </div>
 <div class="info-row">Nos encantaría contar con tu presencia. Por favor confirma tu asistencia antes del <strong>19 de noviembre de 2026</strong>.</div>
+<!-- Añadimos ID al botón para modificarlo con JavaScript -->
 <a id="btn-whatsapp" href="https://wa.me/525611730224?text=Hola,%20mi%20nombre%20es%20[Escribe%20tu%20Nombre]%20y%20me%20gustaría%20confirmar%20mi%20asistencia%20a%20los%20XV%20Años%20de%20Adriana." target="_blank" class="btn">
 Confirma a Adriana tu asistencia
 </a>
 </div>
 
-<!-- SECCIÓN: PASE DE ENTRADA (UN SOLO COLOR, SIN RECUADRO INTERNO CON BLUR) -->
+<!-- NUEVA SECCIÓN: PASE DE ENTRADA DORADO (HASTA ABAJO) -->
 <div class="card" id="pase-entrada">
 <div class="card-title">Pase Especial</div>
 <div class="separador-rizos">
@@ -529,7 +510,7 @@ Confirma a Adriana tu asistencia
     <div>Apreciable: <span class="pase-destacado" id="nombre-pase">Familia Invitada</span></div>
     <div style="margin-top: 10px;">Pases reservados: <span class="pase-destacado" id="numero-pases">0</span></div>
 </div>
-<div class="info-row" style="font-size: 0.8rem; font-style: italic; color: var(--color-principal);">
+<div class="info-row" style="font-size: 0.8rem; font-style: italic; color: #3b1138;">
     * Por favor presenta esta invitación digital en la recepción.
 </div>
 </div>
@@ -537,7 +518,7 @@ Confirma a Adriana tu asistencia
 
 <!-- FRASE Y MINI IMAGEN -->
 <div class="frase-final-container">
-<p class="frase-final-texto">La mejor noche está por venir</p>
+<p class="frase-final-texto">Queremos compartir la magia de esta noche contigo.</p>
 <img src="imagenfinal.png" alt="Detalle final" class="img-final-pequena">
 </div>
 
@@ -546,15 +527,21 @@ Confirma a Adriana tu asistencia
 <script>
 // --- SCRIPT PARA LEER EL LINK PERSONALIZADO ---
 document.addEventListener("DOMContentLoaded", function() {
+    // Obtenemos los parámetros de la URL
     const parametrosURL = new URLSearchParams(window.location.search);
     const nombreInvitado = parametrosURL.get('n');
     const pases = parametrosURL.get('p');
 
+    // Si existen ambos parámetros, mostramos el pase de entrada y actualizamos el WhatsApp
     if (nombreInvitado && pases) {
+        // Llenar datos en el pase
         document.getElementById('nombre-pase').textContent = nombreInvitado;
         document.getElementById('numero-pases').textContent = pases;
+        
+        // Mostrar la tarjeta del pase de entrada dorado
         document.getElementById('pase-entrada').style.display = 'block';
 
+        // Actualizar el enlace del botón de WhatsApp con el mensaje personalizado
         const mensajeWa = `Hola Adriana, somos ${nombreInvitado}. Confirmamos con mucho gusto nuestra asistencia a tus XV años para ${pases} persona(s).`;
         const btnWa = document.getElementById('btn-whatsapp');
         btnWa.href = `https://wa.me/525611730224?text=${encodeURIComponent(mensajeWa)}`;
