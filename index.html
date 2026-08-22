@@ -95,15 +95,26 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
     100% { box-shadow: 0 2px 8px rgba(184, 115, 51, 0.1); transform: scale(1); }
 }
 
-/* El pase ahora usa la misma clase .card para heredar todo, solo sumamos la animación */
+/* El pase y el buscador de confirmación */
+#seccion-busqueda { margin-top: 30px; animation: resplandor-pase-nuevo 3.5s infinite ease-in-out; }
 #pase-entrada { display: none; animation: resplandor-pase-nuevo 3.5s infinite ease-in-out; margin-top: 30px; }
+
 .pase-destacado { font-family: var(--fuente-titulos); font-weight: bold; font-size: 1.3rem; color: var(--color-principal); }
 
-/* --- ESTILOS DE LA LISTA DE INVITADOS (NUEVO) --- */
-.asistente-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; text-align: left; background: rgba(255,255,255,0.4); padding: 8px 12px; border-radius: 6px; border: 1px dashed #d9b8cd; }
-.asistente-row input[type="checkbox"] { accent-color: var(--color-principal); transform: scale(1.3); cursor: pointer; }
-.asistente-row input[type="text"] { flex: 1; padding: 8px; border: 1px solid #B87333; border-radius: 4px; font-family: var(--fuente-cuerpo); font-size: 0.9rem; background: rgba(255,255,255,0.8); }
-.asistente-row input[type="text"]:focus { outline: none; border-color: var(--color-principal); }
+/* Input del buscador */
+.input-busqueda {
+    width: 90%; padding: 12px; margin-top: 10px;
+    border: 1px solid #B87333; border-radius: 5px;
+    font-family: var(--fuente-cuerpo); font-size: 1rem;
+    text-align: center; color: var(--color-texto);
+    background: rgba(255, 255, 255, 0.8);
+}
+.input-busqueda:focus { outline: none; border-color: var(--color-principal); }
+
+/* --- ESTILOS DE LA LISTA DE INVITADOS DINÁMICA --- */
+.asistente-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; text-align: left; background: rgba(255,255,255,0.5); padding: 10px 12px; border-radius: 6px; border: 1px dashed #d9b8cd; }
+.asistente-row input[type="checkbox"] { accent-color: var(--color-principal); transform: scale(1.4); cursor: pointer; }
+.asistente-row label { font-family: var(--fuente-cuerpo); font-size: 1rem; color: var(--color-texto); flex: 1; font-weight: 600; cursor: pointer;}
 
 /* --- FRASE Y MINI IMAGEN --- */
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
@@ -158,7 +169,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </div>
 </header>
 
-<!-- TARJETAS -->
+<!-- TARJETAS DE INFORMACIÓN -->
 <div class="card">
 <div class="card-title">Ceremonia</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -200,33 +211,38 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </a>
 </div>
 
-<!-- CONFIRMACIÓN GENÉRICA (Se oculta si el link tiene nombres y pases) -->
-<div class="card" id="confirmacion-generica">
+<!-- NUEVA SECCIÓN DE BÚSQUEDA DE INVITADOS -->
+<div class="card" id="seccion-busqueda">
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
-<div class="info-row">Nos encantaría contar con tu presencia. Por favor confirma tu asistencia antes del <strong>19 de noviembre de 2026</strong>.</div>
-<a href="https://wa.me/525611730224?text=Hola,%20me%20gustaría%20confirmar%20mi%20asistencia%20a%20los%20XV%20Años%20de%20Adriana." target="_blank" class="btn">
-Confirmar Asistencia
-</a>
+<div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
+<div class="info-row">Escribe tu nombre o el de tu familia (Ej. Familia Pérez) para buscar tu pase de entrada y confirmar.</div>
+
+<input type="text" id="input-busqueda" class="input-busqueda" placeholder="Buscar invitación...">
+<button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pase</button>
+
+<div id="mensaje-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: bold; margin-top: 12px; display: none;">
+    Lo sentimos, no encontramos una invitación con ese nombre. Por favor intenta escribiéndolo diferente.
+</div>
 </div>
 
-<!-- PASE DE ENTRADA CON LISTA INTERACTIVA (Se muestra solo al usar el link personalizado) -->
+<!-- PASE DE ENTRADA DESPLEGADO CON LISTA (Se muestra solo si se encuentra el nombre) -->
 <div class="card" id="pase-entrada">
-<div class="card-title">Pase Especial & Confirmación</div>
+<div class="card-title">Tu Pase Especial</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 
-<div style="font-size: 1.1rem; margin-top: 10px;">Apreciable: <span class="pase-destacado" id="nombre-pase">Familia</span></div>
-<div style="margin-top: 5px;">Pases reservados: <span class="pase-destacado" id="numero-pases">0</span></div>
+<div style="font-size: 1.1rem; margin-top: 10px;">Invitación para: <span class="pase-destacado" id="nombre-encontrado">Familia</span></div>
+<div style="margin-top: 5px;">Pases asignados: <span class="pase-destacado" id="numero-pases">0</span></div>
 
 <div class="info-row" style="margin-top: 20px; font-weight: bold;">
-    Por favor, escribe el nombre y selecciona a cada invitado para confirmar su asistencia:
+    Por favor, marca la casilla de las personas que asistirán al evento:
 </div>
 
-<!-- Contenedor donde aparecerá la lista generada -->
+<!-- Contenedor donde aparecerá la lista de personas de la base de datos -->
 <div id="lista-invitados-container" style="margin-top: 15px;"></div>
 
-<button id="btn-confirmar-pase" class="btn" style="width: 100%; margin-top: 15px;">
-    Enviar Confirmación por WhatsApp
+<button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem;">
+    Confirmar Asistencia
 </button>
 
 <div class="info-row" style="font-size: 0.8rem; font-style: italic; color: var(--color-principal); margin-top: 15px;">
@@ -244,60 +260,114 @@ Confirmar Asistencia
 </div> 
 
 <script>
-// --- SCRIPT PARA EL SISTEMA DINÁMICO DE INVITADOS ---
+// =========================================================================
+// 1. BASE DE DATOS DE INVITADOS (AQUÍ DEBES LLENAR TU LISTA)
+// =========================================================================
+// Escribe el "nombre de búsqueda" a la izquierda (todo en minúsculas y sin acentos de preferencia).
+// A la derecha, pones entre corchetes ["Nombre 1", "Nombre 2", ...] la lista real de invitados.
+
+const baseDeDatosInvitados = {
+    "familia perez": ["Juan Pérez", "María López", "Carlitos Pérez"],
+    "familia garcia": ["José García", "Elena Gómez", "Sofía García", "Luis García"],
+    "sofia": ["Sofía Hernández", "Acompañante de Sofía"],
+    "tios juan y ana": ["Tío Juan", "Tía Ana"],
+    "padrinos": ["Padrino Roberto", "Madrina Susana"],
+    // Agrega más invitados siguiendo el mismo formato de arriba:
+    // "palabra clave": ["Persona 1", "Persona 2"],
+};
+// =========================================================================
+
 document.addEventListener("DOMContentLoaded", function() {
-    const parametrosURL = new URLSearchParams(window.location.search);
-    const nombreInvitado = parametrosURL.get('n');
-    const pases = parseInt(parametrosURL.get('p'), 10);
+    const btnBuscar = document.getElementById('btn-buscar');
+    const inputBusqueda = document.getElementById('input-busqueda');
+    const seccionBusqueda = document.getElementById('seccion-busqueda');
+    const seccionPase = document.getElementById('pase-entrada');
+    const msjError = document.getElementById('mensaje-error');
+    const listaContainer = document.getElementById('lista-invitados-container');
+    const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    if (nombreInvitado && pases && pases > 0) {
-        // Ocultar confirmación genérica y mostrar el pase dinámico
-        document.getElementById('confirmacion-generica').style.display = 'none';
-        document.getElementById('pase-entrada').style.display = 'block';
-        
-        document.getElementById('nombre-pase').textContent = nombreInvitado;
-        document.getElementById('numero-pases').textContent = pases;
+    // Función para quitar acentos y facilitar la búsqueda
+    function quitarAcentos(texto) {
+        return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+    }
 
-        const contenedorLista = document.getElementById('lista-invitados-container');
-        contenedorLista.innerHTML = ''; // Limpiar el contenedor
+    // Acción de buscar
+    btnBuscar.addEventListener('click', function() {
+        const busquedaUsuario = quitarAcentos(inputBusqueda.value);
+        let coincidencia = null;
 
-        // Generar los campos según el número de pases
-        for (let i = 1; i <= pases; i++) {
-            contenedorLista.innerHTML += `
-                <div class="asistente-row">
-                    <input type="checkbox" id="check-asistente-${i}" checked title="Marcar si asiste">
-                    <input type="text" id="nombre-asistente-${i}" placeholder="Nombre del Invitado ${i}">
-                </div>
-            `;
+        if (busquedaUsuario === "") return;
+
+        // Revisar la base de datos para ver si coincide
+        for (let clave in baseDeDatosInvitados) {
+            let claveLimpia = quitarAcentos(clave);
+            // Compara si la búsqueda contiene la clave o la clave contiene la búsqueda
+            if (claveLimpia.includes(busquedaUsuario) || busquedaUsuario.includes(claveLimpia)) {
+                coincidencia = clave;
+                break; // Se detiene al encontrar el primero
+            }
         }
 
-        // Lógica al hacer clic en el botón de confirmar
-        document.getElementById('btn-confirmar-pase').addEventListener('click', function(e) {
-            e.preventDefault();
-            let confirmados = [];
+        if (coincidencia) {
+            // Se encontró la invitación
+            msjError.style.display = 'none';
+            seccionBusqueda.style.display = 'none'; // Oculta el buscador
+            seccionPase.style.display = 'block'; // Muestra el pase interactivo
+
+            // Llenar datos de la tarjeta
+            document.getElementById('nombre-encontrado').textContent = coincidencia.toUpperCase();
             
-            for (let i = 1; i <= pases; i++) {
-                const asiste = document.getElementById(`check-asistente-${i}`).checked;
-                const nombreLleno = document.getElementById(`nombre-asistente-${i}`).value.trim();
-                
-                if (asiste) {
-                    // Si está palomeado pero no escribieron nombre, ponemos un texto por defecto
-                    confirmados.push(nombreLleno !== "" ? nombreLleno : `Invitado ${i} (Sin nombre especificado)`);
+            const arregloInvitados = baseDeDatosInvitados[coincidencia];
+            document.getElementById('numero-pases').textContent = arregloInvitados.length;
+            
+            // Generar los checkboxes para cada integrante de esa familia
+            listaContainer.innerHTML = '';
+            arregloInvitados.forEach((nombre, index) => {
+                listaContainer.innerHTML += `
+                    <div class="asistente-row">
+                        <input type="checkbox" id="invitado-${index}" value="${nombre}" checked>
+                        <label for="invitado-${index}">${nombre}</label>
+                    </div>
+                `;
+            });
+
+            // Configurar el botón de enviar WhatsApp con los datos seleccionados
+            btnWhatsapp.onclick = function() {
+                let confirmados = [];
+                arregloInvitados.forEach((nombre, index) => {
+                    const checkbox = document.getElementById(`invitado-${index}`);
+                    if (checkbox.checked) {
+                        confirmados.push(nombre);
+                    }
+                });
+
+                if (confirmados.length === 0) {
+                    alert("Debes seleccionar al menos a una persona para confirmar la asistencia.");
+                    return;
                 }
-            }
 
-            if (confirmados.length === 0) {
-                alert("Por favor, selecciona al menos a un invitado y escribe su nombre para poder confirmar.");
-                return;
-            }
+                // Generar lista de texto
+                const listaTexto = confirmados.map((nombre, i) => `${i + 1}. ${nombre}`).join('%0A');
+                
+                // Mensaje final
+                const mensajeWa = `Hola Adriana, somos de la *${coincidencia.toUpperCase()}*. Confirmamos con mucho gusto nuestra asistencia a tus XV años. Asistiremos *${confirmados.length}* persona(s):%0A%0A${listaTexto}`;
+                
+                window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
+            };
 
-            // Armar el mensaje para WhatsApp
-            const textoLista = confirmados.map((nombre, index) => `${index + 1}. ${nombre}`).join('%0A');
-            const mensajeWa = `Hola Adriana, somos *${nombreInvitado}*. Confirmamos con mucho gusto nuestra asistencia a tus XV años. Asistiremos *${confirmados.length}* persona(s):%0A%0A${textoLista}`;
-            
-            window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
-        });
-    }
+        } else {
+            // No se encontró
+            msjError.style.display = 'block';
+        }
+    });
+
+    // Permitir buscar dando Enter en el teclado
+    inputBusqueda.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            btnBuscar.click();
+        }
+    });
 });
 
 // --- SCRIPT DE REPRODUCCIÓN DE AUDIO ---
