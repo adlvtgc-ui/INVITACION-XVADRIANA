@@ -448,8 +448,8 @@ opacity: 0.95;
 <header>
 <!-- GALERÍA DINÁMICA (CARRUSEL AUTOMÁTICO DE 3 FOTOS) -->
 <div class="galeria-inicio">
-<img src="foto1.jpeg" alt="Foto 1 Adriana" class="activa">
-<img src="foto2.jpeg" alt="Foto 2 Adriana">
+<img src="foto1.jpg" alt="Foto 1 Adriana" class="activa">
+<img src="foto2.jpg" alt="Foto 2 Adriana">
 <img src="foto3.jpeg" alt="Foto 3 Adriana">
 </div>
 
@@ -597,40 +597,21 @@ Mesa Amazon
 
 <script>
 // =========================================================================
-// 1. BASE DE DATOS DE INVITADOS (PLANTILLA INTEGRADA)
+// 1. BASE DE DATOS DE INVITADOS (AQUÍ DEBES LLENAR TU LISTA)
 // =========================================================================
 // Escribe el "nombre de búsqueda" a la izquierda (todo en minúsculas y sin acentos).
 // A la derecha, pones entre corchetes ["Nombre 1", "Nombre 2", ...] la lista real de invitados.
 
 const baseDeDatosInvitados = {
-    
-    // 👨‍👩‍👧‍👦 EJEMPLO 1: Familias (3 o más personas)
-    "familia perez": ["Juan Pérez", "María de Pérez", "Carlitos Pérez"],
+    "familia Lara": ["Dalia Lara", "Mario Lara", "Diana Valladares"],
     "familia garcia": ["José García", "Elena Gómez", "Sofía García", "Luis García"],
-
-    // 👫 EJEMPLO 2: Parejas 
+    "sofia": ["Sofía Hernández", "Acompañante de Sofía"],
     "tios juan y ana": ["Tío Juan", "Tía Ana"],
-    "abuelos": ["Abuelo Carlos", "Abuela Marta"],
-
-    // 🕺 EJEMPLO 3: Una sola persona
-    "sofia": ["Sofía Hernández"],
-    "madrina": ["Madrina Susana"],
-
-    // 👯‍♀️ EJEMPLO 4: Alguien con un acompañante (si no sabes el nombre del acompañante)
-    "primo luis": ["Luis Alberto", "Acompañante de Luis"],
-
-    // 👇 AGREGA A TUS INVITADOS REALES AQUÍ ABAJO 👇
-    // Sigue exactamente el mismo formato: "clave de busqueda": ["Nombre 1", "Nombre 2"],
-
-    "escribe aqui": ["Nombre 1", "Nombre 2"],
-    "escribe aqui 2": ["Nombre 1"],
-    "escribe aqui 3": ["Nombre 1", "Nombre 2", "Nombre 3"]
-
-    // ⚠️ NOTA: Asegúrate de que todas las líneas terminen con una coma (,), 
-    // excepto la última línea de tu lista.
+    "padrinos": ["Padrino Roberto", "Madrina Susana"],
+    // Agrega más invitados siguiendo el mismo formato de arriba:
+    // "palabra clave": ["Persona 1", "Persona 2"],
 };
 // =========================================================================
-
 
 document.addEventListener("DOMContentLoaded", function() {
     const btnBuscar = document.getElementById('btn-buscar');
@@ -646,7 +627,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
     }
 
-    // --- LÓGICA DE BÚSQUEDA ---
+    // Acción de buscar
     btnBuscar.addEventListener('click', function() {
         const busquedaUsuario = quitarAcentos(inputBusqueda.value);
         let coincidencia = null;
@@ -656,7 +637,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Revisar la base de datos para ver si coincide
         for (let clave in baseDeDatosInvitados) {
             let claveLimpia = quitarAcentos(clave);
-            // Compara si la búsqueda contiene la clave o viceversa
+            // Compara si la búsqueda contiene la clave o la clave contiene la búsqueda
             if (claveLimpia.includes(busquedaUsuario) || busquedaUsuario.includes(claveLimpia)) {
                 coincidencia = clave;
                 break; // Se detiene al encontrar el primero
@@ -669,13 +650,13 @@ document.addEventListener("DOMContentLoaded", function() {
             seccionBusqueda.style.display = 'none'; // Oculta el buscador
             seccionPase.style.display = 'block'; // Muestra el pase interactivo
 
-            // Llenar datos fijos de la tarjeta
+            // Llenar datos de la tarjeta
             document.getElementById('nombre-encontrado').textContent = coincidencia.toUpperCase();
             
             const arregloInvitados = baseDeDatosInvitados[coincidencia];
             document.getElementById('numero-pases').textContent = arregloInvitados.length;
             
-            // Generar la lista dinámica de personas (Frame)
+            // Generar los checkboxes para cada integrante de esa familia
             listaContainer.innerHTML = '';
             arregloInvitados.forEach((nombre, index) => {
                 listaContainer.innerHTML += `
@@ -686,58 +667,37 @@ document.addEventListener("DOMContentLoaded", function() {
                 `;
             });
 
-            // --- LÓGICA DE CONFIRMACIÓN POR WHATSAPP ---
+            // Configurar el botón de enviar WhatsApp con los datos seleccionados
             btnWhatsapp.onclick = function() {
                 let confirmados = [];
-                let noAsistiran = [];
-
-                // Revisar cada checkbox para ver quién sí va
                 arregloInvitados.forEach((nombre, index) => {
                     const checkbox = document.getElementById(`invitado-${index}`);
                     if (checkbox.checked) {
                         confirmados.push(nombre);
-                    } else {
-                        noAsistiran.push(nombre);
                     }
                 });
 
-                if (confirmados.length === 0 && noAsistiran.length === 0) {
-                     // Caso extraño pero por seguridad
-                     alert("Por favor, interactúa con la lista para confirmar.");
-                     return;
+                if (confirmados.length === 0) {
+                    alert("Debes seleccionar al menos a una persona para confirmar la asistencia.");
+                    return;
                 }
 
-                // Armar el mensaje para WhatsApp
-                let mensajeWa = `Hola Adriana, somos de la *${coincidencia.toUpperCase()}*.%0A%0AQueremos confirmar nuestra asistencia a tus XV años:%0A`;
+                // Generar lista de texto
+                const listaTexto = confirmados.map((nombre, index) => `${index + 1}. ${nombre}`).join('%0A');
                 
-                if (confirmados.length > 0) {
-                    mensajeWa += `%0A✅ *Sí asistiremos (${confirmados.length}):*%0A`;
-                    confirmados.forEach((nombre, i) => {
-                        mensajeWa += `${i + 1}. ${nombre}%0A`;
-                    });
-                }
-
-                if (noAsistiran.length > 0) {
-                    mensajeWa += `%0A❌ *No podremos asistir:*%0A`;
-                    noAsistiran.forEach((nombre, i) => {
-                        mensajeWa += `${i + 1}. ${nombre}%0A`;
-                    });
-                }
+                // Mensaje final
+                const mensajeWa = `Hola Adriana, somos *${coincidencia.toUpperCase()}*. Confirmamos con mucho gusto nuestra asistencia a tus XV años. Asistiremos *${confirmados.length}* persona(s):%0A%0A${listaTexto}`;
                 
-                mensajeWa += `%0A¡Muchas gracias por invitarnos!`;
-                
-                // Abrir WhatsApp con el mensaje formateado
                 window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
             };
 
         } else {
-            // No se encontró coincidencia
+            // No se encontró
             msjError.style.display = 'block';
-            seccionPase.style.display = 'none';
         }
     });
 
-    // Permitir buscar dando Enter en el teclado o celular
+    // Permitir buscar dando Enter en el teclado
     inputBusqueda.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
