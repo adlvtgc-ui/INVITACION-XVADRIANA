@@ -11,7 +11,6 @@
 <style>
 /* --- ESTILOS GENERALES Y COLORES --- */
 :root {
-/* Forzamos el modo claro en las variables CSS */
 color-scheme: light; 
 --color-principal: #85386e;
 --color-texto: #333333;
@@ -22,417 +21,121 @@ color-scheme: light;
 }
 
 /* Corrección de renderizado de texto para iOS */
-html {
-    -webkit-text-size-adjust: 100%;
-}
+html { -webkit-text-size-adjust: 100%; }
 
 /* Fondo atenuado y aclarado con una capa blanca semitransparente */
 body {
-margin: 0;
-padding: 0;
-background-image: linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)),
-url('thumb-1920-1275718.jpg');
-background-size: cover;
-background-position: center;
-background-attachment: fixed;
-background-repeat: no-repeat;
-font-family: var(--fuente-cuerpo);
-color: var(--color-texto);
-text-align: center;
+margin: 0; padding: 0;
+background-image: linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url('thumb-1920-1275718.jpg');
+background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat;
+font-family: var(--fuente-cuerpo); color: var(--color-texto); text-align: center;
 }
 
 .container {
-max-width: 500px;
-margin: 20px auto;
-padding: 20px 20px 30px 20px;
-background: linear-gradient(rgba(249, 226, 245, 0.9), rgba(255, 250, 254, 0.30)),
-url('linea.jpg');
-background-size: cover;
-background-position: center;
-background-repeat: no-repeat;
-box-shadow: 0 4px 15px rgba(0,0,0,0.12);
-border-radius: 15px;
-box-sizing: border-box;
+max-width: 500px; margin: 20px auto; padding: 20px 20px 30px 20px;
+background: linear-gradient(rgba(249, 226, 245, 0.9), rgba(255, 250, 254, 0.30)), url('linea.jpg');
+background-size: cover; background-position: center; background-repeat: no-repeat;
+box-shadow: 0 4px 15px rgba(0,0,0,0.12); border-radius: 15px; box-sizing: border-box;
 }
 
 /* --- ENCABEZADO NORMAL --- */
-header {
-position: relative;
-padding: 5px 10px 0px 10px;
-border-radius: 12px 12px 0 0;
-}
+header { position: relative; padding: 5px 10px 0px 10px; border-radius: 12px 12px 0 0; }
 
-/* --- GALERÍA CON MOVIMIENTO (CARRUSEL AUTOMÁTICO) --- */
+/* --- GALERÍA CON MOVIMIENTO --- */
 .galeria-inicio {
-position: relative;
-width: 260px; /* Más ancha para darle más presencia */
-height: 200px; /* Proporción más equilibrada */
-margin: 10px auto 10px auto;
-border-radius: 8px; /* Radio de 8px para integrar visualmente con las demás tarjetas */
-border: 1px solid #B87333; /* Borde de 1px igual que las tarjetas para mayor armonía */
-box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra suave acorde a la invitación */
-overflow: hidden;
-z-index: 10;
-background-color: #fff;
+position: relative; width: 260px; height: 200px; margin: 10px auto 10px auto;
+border-radius: 8px; border: 1px solid #B87333; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+overflow: hidden; z-index: 10; background-color: #fff;
 }
-
 .galeria-inicio img {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-object-fit: cover;
-opacity: 0;
-transition: opacity 1s ease-in-out;
+position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+opacity: 0; transition: opacity 1s ease-in-out;
 }
+.galeria-inicio img.activa { opacity: 1; }
 
-.galeria-inicio img.activa {
-opacity: 1;
-}
-
-h1, h2, h3, h4 {
-font-family: var(--fuente-titulos);
-margin-bottom: 0;
-}
-
-/* --- "MIS XV AÑOS" --- */
-header h1 {
-position: relative;
-z-index: 10;
-font-size: 2.2rem;
-letter-spacing: 3px;
-color: var(--color-principal);
-margin: 0;
-line-height: 1.2;
-}
-
-/* --- NOMBRE DE ADRIANA --- */
-header h2 {
-position: relative;
-z-index: 10;
-font-family: var(--fuente-nombre);
-font-size: 5.2rem;
-color: var(--color-principal);
-margin: 0px 0 0 0;
-font-weight: normal;
-line-height: 1;
-letter-spacing: 2px;
-text-shadow: 2px 2px 4px #7B8B75;
-}
+h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
+header h1 { position: relative; z-index: 10; font-size: 2.2rem; letter-spacing: 3px; color: var(--color-principal); margin: 0; line-height: 1.2; }
+header h2 { position: relative; z-index: 10; font-family: var(--fuente-nombre); font-size: 5.2rem; color: var(--color-principal); margin: 0px 0 0 0; font-weight: normal; line-height: 1; letter-spacing: 2px; text-shadow: 2px 2px 4px #7B8B75; }
 
 /* --- CUENTA REGRESIVA --- */
-.contador-container {
-display: flex;
-justify-content: center;
-gap: 10px;
-margin: 15px auto 10px auto;
-position: relative;
-z-index: 20; 
-}
-.contador-item {
-display: flex;
-flex-direction: column;
-align-items: center;
-background: rgba(242, 218, 236, 0.92);
-border: 1px solid #B87333;
-border-radius: 8px;
-padding: 6px 8px;
-min-width: 45px;
-box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-.contador-numero {
-font-family: var(--fuente-titulos);
-font-size: 1.2rem;
-color: var(--color-principal);
-font-weight: bold;
-line-height: 1;
-}
-.contador-etiqueta {
-font-family: var(--fuente-cuerpo);
-font-size: 0.6rem;
-text-transform: uppercase;
-color: var(--color-texto);
-margin-top: 3px;
-letter-spacing: 1px;
-font-weight: 600;
-}
+.contador-container { display: flex; justify-content: center; gap: 10px; margin: 15px auto 10px auto; position: relative; z-index: 20; }
+.contador-item { display: flex; flex-direction: column; align-items: center; background: rgba(242, 218, 236, 0.92); border: 1px solid #B87333; border-radius: 8px; padding: 6px 8px; min-width: 45px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.contador-numero { font-family: var(--fuente-titulos); font-size: 1.2rem; color: var(--color-principal); font-weight: bold; line-height: 1; }
+.contador-etiqueta { font-family: var(--fuente-cuerpo); font-size: 0.6rem; text-transform: uppercase; color: var(--color-texto); margin-top: 3px; letter-spacing: 1px; font-weight: 600; }
 
-/* --- SEPARADOR FLORAL --- */
-.separador-header {
-width: 100%;
-max-width: 240px; /* Tamaño unificado para ambos separadores */
-margin: 15px auto 15px auto; /* Espacios unificados y exactos arriba y abajo */
-position: relative;
-z-index: 15;
-display: block;
-}
-
-.separador-header img {
-width: 100%;
-height: auto;
-object-fit: contain;
-display: block;
-}
+.separador-header { width: 100%; max-width: 240px; margin: 15px auto 15px auto; position: relative; z-index: 15; display: block; }
+.separador-header img { width: 100%; height: auto; object-fit: contain; display: block; }
 
 /* --- TARJETAS --- */
 .card {
-background: rgba(242, 218, 236, 0.92);
-border: 1px solid #B87333;
-border-radius: 8px;
-margin: 10px 5px 25px 5px; 
-padding: 20px;
-box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-position: relative;
-z-index: 5;
+background: rgba(242, 218, 236, 0.92); border: 1px solid #B87333; border-radius: 8px;
+margin: 10px 5px 25px 5px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); position: relative; z-index: 5;
 }
 
-.card-title {
-color: var(--color-principal);
-font-size: 1.3rem;
-letter-spacing: 2px;
-text-transform: uppercase;
-font-weight: bold;
-padding-bottom: 3px;
-margin-bottom: 3px;
-}
-
-.separador-rizos {
-display: flex;
-align-items: center;
-justify-content: center;
-margin: 8px auto 15px auto;
-width: 80%;
-}
-
-.linea-centro {
-width: 100%;
-height: 2px;
-background: linear-gradient(to right, transparent, #e2c0d9, var(--color-principal), #e2c0d9, transparent);
-position: relative;
-}
-
-.card-lugar {
-font-size: 1.1rem;
-font-weight: bold;
-margin-bottom: 12px;
-}
-
-.info-row {
-margin: 8px 0;
-font-size: 0.9rem;
-font-family: var(--fuente-titulos);
-line-height: 1.4;
-}
+.card-title { color: var(--color-principal); font-size: 1.3rem; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; padding-bottom: 3px; margin-bottom: 3px; }
+.separador-rizos { display: flex; align-items: center; justify-content: center; margin: 8px auto 15px auto; width: 80%; }
+.linea-centro { width: 100%; height: 2px; background: linear-gradient(to right, transparent, #e2c0d9, var(--color-principal), #e2c0d9, transparent); position: relative; }
+.card-lugar { font-size: 1.1rem; font-weight: bold; margin-bottom: 12px; }
+.info-row { margin: 8px 0; font-size: 0.9rem; font-family: var(--fuente-titulos); line-height: 1.4; }
 
 .btn {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 10px;
-background-color: var(--color-dorado);
-color: #fff;
-padding: 9px 18px;
-text-decoration: none;
-border-radius: 4px;
-font-weight: 600;
-margin-top: 12px;
-font-size: 0.85rem;
-transition: background 0.3s;
-border: none;
-cursor: pointer;
+display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+background-color: var(--color-dorado); color: #fff; padding: 9px 18px; text-decoration: none;
+border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; transition: background 0.3s; border: none; cursor: pointer;
 }
-.btn:hover {
-background-color: #66225c;
-}
+.btn:hover { background-color: #66225c; }
+/* Estilo para botón deshabilitado */
+.btn:disabled { background-color: #a0a0a0; color: #d0d0d0; cursor: not-allowed; }
+.btn:disabled:hover { background-color: #a0a0a0; }
 
-.logo-tienda {
-height: 20px;
-width: auto;
-object-fit: contain;
-border-radius: 2px;
-}
-
-.prohibido {
-color: var(--color-principal);
-font-style: italic;
-font-weight: bold;
-margin-top: 12px;
-font-family: var(--fuente-titulos);
-}
-
-.img-dress-code {
-width: 55%;
-max-width: 160px;
-height: auto;
-margin: 12px auto;
-display: block;
-border: none;
-background: none;
-}
+.logo-tienda { height: 20px; width: auto; object-fit: contain; border-radius: 2px; }
+.prohibido { color: var(--color-principal); font-style: italic; font-weight: bold; margin-top: 12px; font-family: var(--fuente-titulos); }
+.img-dress-code { width: 55%; max-width: 160px; height: auto; margin: 12px auto; display: block; border: none; background: none; }
 
 /* --- EFECTO ANIMADO PARA EL PASE --- */
 @keyframes resplandor-pase-nuevo {
-    0% {
-        box-shadow: 0 2px 8px rgba(184, 115, 51, 0.1);
-        transform: scale(1);
-    }
-    50% {
-        box-shadow: 0 6px 15px rgba(184, 115, 51, 0.4); /* Resplandor dorado más fuerte */
-        transform: scale(1.02); /* Se acerca sutilmente */
-    }
-    100% {
-        box-shadow: 0 2px 8px rgba(184, 115, 51, 0.1);
-        transform: scale(1);
-    }
+    0% { box-shadow: 0 2px 8px rgba(184, 115, 51, 0.1); transform: scale(1); }
+    50% { box-shadow: 0 6px 15px rgba(184, 115, 51, 0.4); transform: scale(1.02); }
+    100% { box-shadow: 0 2px 8px rgba(184, 115, 51, 0.1); transform: scale(1); }
 }
 
-/* --- ESTILOS DEL BUSCADOR DE CONFIRMACIÓN (NUEVO) --- */
-#seccion-busqueda {
-    margin-top: 30px;
-    animation: resplandor-pase-nuevo 3.5s infinite ease-in-out; /* Efecto latido igual al pase anterior */
-}
+/* El pase y el buscador de confirmación */
+#seccion-busqueda { margin-top: 30px; animation: resplandor-pase-nuevo 3.5s infinite ease-in-out; }
+#pase-entrada { display: none; animation: resplandor-pase-nuevo 3.5s infinite ease-in-out; margin-top: 30px; }
 
+.pase-destacado { font-family: var(--fuente-titulos); font-weight: bold; font-size: 1.3rem; color: var(--color-principal); }
+
+/* Input del buscador */
 .input-busqueda {
-    width: 90%;
-    padding: 12px;
-    margin-top: 10px;
-    border: 1px solid #B87333;
-    border-radius: 5px;
-    font-family: var(--fuente-cuerpo);
-    font-size: 1rem;
-    text-align: center;
-    color: var(--color-texto);
+    width: 90%; padding: 12px; margin-top: 10px;
+    border: 1px solid #B87333; border-radius: 5px;
+    font-family: var(--fuente-cuerpo); font-size: 1rem;
+    text-align: center; color: var(--color-texto);
     background: rgba(255, 255, 255, 0.8);
 }
-.input-busqueda:focus {
-    outline: none;
-    border-color: var(--color-principal);
-}
+.input-busqueda:focus { outline: none; border-color: var(--color-principal); }
 
-/* --- PASE DE ENTRADA DESPLEGADO (UNIFICADO CON ESTILO CARD) --- */
-#pase-entrada {
-display: none; /* Oculto por defecto, se muestra solo si se encuentra el nombre */
-margin-top: 30px;
-animation: resplandor-pase-nuevo 3.5s infinite ease-in-out;
-}
+/* --- ESTILOS DE LA LISTA DE INVITADOS DINÁMICA --- */
+.asistente-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; text-align: left; background: rgba(255,255,255,0.5); padding: 10px 12px; border-radius: 6px; border: 1px dashed #d9b8cd; }
+.asistente-row input[type="checkbox"] { accent-color: var(--color-principal); transform: scale(1.4); cursor: pointer; }
+.asistente-row label { font-family: var(--fuente-cuerpo); font-size: 1rem; color: var(--color-texto); flex: 1; font-weight: 600; cursor: pointer;}
 
-.pase-destacado {
-font-family: var(--fuente-titulos);
-font-weight: bold;
-font-size: 1.3rem;
-color: var(--color-principal);
-}
-
-/* --- ESTILOS DE LA LISTA DE INVITADOS DINÁMICA (NUEVO) --- */
-#lista-invitados-container {
-    max-height: 250px; /* Frame con scroll interno si la lista es larga */
-    overflow-y: auto;
-    margin-top: 15px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
-    border: 1px solid #d9b8cd;
-}
-
-.asistente-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
-    text-align: left;
-    background: rgba(255, 255, 255, 0.6);
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px dashed #d9b8cd;
-}
-.asistente-row:last-child {
-    margin-bottom: 0;
-}
-
-.asistente-row input[type="checkbox"] {
-    accent-color: var(--color-principal); /* Casilla color morado */
-    transform: scale(1.4); /* Un poco más grande */
-    cursor: pointer;
-}
-
-.asistente-row label {
-    font-family: var(--fuente-cuerpo);
-    font-size: 1rem;
-    color: var(--color-texto);
-    flex: 1; /* Ocupa el espacio restante */
-    cursor: pointer;
-    font-weight: 600;
-}
-
-/* --- ESTILOS PARA LA FRASE Y MINI IMAGEN DENTRO DE LA INVITACIÓN --- */
-.frase-final-container {
-margin: 15px auto 0 auto;
-text-align: center;
-}
-
-.frase-final-texto {
-font-family: var(--fuente-titulos);
-font-size: 1.1rem;
-color: var(--color-principal);
-letter-spacing: 1.2px;
-font-weight: bold;
-margin-bottom: 6px;
-}
-
-.img-final-pequena {
-width: 15%;
-max-width: 35px;
-height: auto;
-margin: 0 auto;
-display: block;
-border: none;
-background: none;
-opacity: 0.95;
-}
+/* --- FRASE Y MINI IMAGEN --- */
+.frase-final-container { margin: 15px auto 0 auto; text-align: center; }
+.frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
+.img-final-pequena { width: 15%; max-width: 35px; height: auto; margin: 0 auto; display: block; opacity: 0.95; }
 
 /* --- ADAPTACIÓN PARA CELULARES --- */
 @media (max-width: 600px) {
-    body {
-        background-attachment: scroll; 
-    }
-
-    .container {
-        margin: 10px 8px; 
-        padding: 15px 12px 20px 12px; 
-    }
-
-    header h1 {
-        font-size: 1.6rem;
-    }
-    
-    header h2 {
-        font-size: 3.6rem; 
-    }
-
-    .galeria-inicio {
-        width: 240px; 
-        height: 180px;
-    }
-
-    .separador-header {
-        max-width: 240px; 
-        margin: 15px auto 15px auto; 
-    }
-
-    .card {
-        margin: 5px 2px 20px 2px; 
-        padding: 15px; 
-    }
-    
-    .contador-item {
-        min-width: 38px;
-        padding: 5px 6px;
-    }
-    
-    .contador-numero {
-        font-size: 1.1rem;
-    }
+    body { background-attachment: scroll; }
+    .container { margin: 10px 8px; padding: 15px 12px 20px 12px; }
+    header h1 { font-size: 1.6rem; }
+    header h2 { font-size: 3.6rem; }
+    .galeria-inicio { width: 240px; height: 180px; }
+    .separador-header { max-width: 240px; margin: 15px auto 15px auto; }
+    .card { margin: 5px 2px 20px 2px; padding: 15px; }
+    .contador-item { min-width: 38px; padding: 5px 6px; }
+    .contador-numero { font-size: 1.1rem; }
 }
 </style>
 </head>
@@ -444,16 +147,13 @@ opacity: 0.95;
 
 <div class="container">
 
-<!-- ENCABEZADO NORMAL -->
 <header>
-<!-- GALERÍA DINÁMICA (CARRUSEL AUTOMÁTICO DE 3 FOTOS) -->
 <div class="galeria-inicio">
-<img src="foto1.jpg" alt="Foto 1 Adriana" class="activa">
-<img src="foto2.jpg" alt="Foto 2 Adriana">
+<img src="foto1.jpeg" alt="Foto 1 Adriana" class="activa">
+<img src="foto2.jpeg" alt="Foto 2 Adriana">
 <img src="foto3.jpeg" alt="Foto 3 Adriana">
 </div>
 
-<!-- Primer separador con espaciado idéntico -->
 <div class="separador-header">
 <img src="separador.png" alt="Separador floral">
 </div>
@@ -461,39 +161,22 @@ opacity: 0.95;
 <h1>Mis XV Años</h1>
 <h2>Adriana</h2>
 
-<!-- SECCIÓN: Cuenta Regresiva -->
 <div id="contador" class="contador-container">
-<div class="contador-item">
-<span class="contador-numero" id="dias">00</span>
-<span class="contador-etiqueta">Días</span>
-</div>
-<div class="contador-item">
-<span class="contador-numero" id="horas">00</span>
-<span class="contador-etiqueta">Hrs</span>
-</div>
-<div class="contador-item">
-<span class="contador-numero" id="minutos">00</span>
-<span class="contador-etiqueta">Min</span>
-</div>
-<div class="contador-item">
-<span class="contador-numero" id="segundos">00</span>
-<span class="contador-etiqueta">Seg</span>
-</div>
+<div class="contador-item"><span class="contador-numero" id="dias">00</span><span class="contador-etiqueta">Días</span></div>
+<div class="contador-item"><span class="contador-numero" id="horas">00</span><span class="contador-etiqueta">Hrs</span></div>
+<div class="contador-item"><span class="contador-numero" id="minutos">00</span><span class="contador-etiqueta">Min</span></div>
+<div class="contador-item"><span class="contador-numero" id="segundos">00</span><span class="contador-etiqueta">Seg</span></div>
 </div>
 
-<!-- Segundo separador con espaciado idéntico -->
 <div class="separador-header">
 <img src="separador.png" alt="Separador floral">
 </div>
 </header>
-<!-- FIN DEL ENCABEZADO NORMAL -->
 
-<!-- TARJETAS CON SCROLL -->
+<!-- TARJETAS DE INFORMACIÓN -->
 <div class="card">
 <div class="card-title">Ceremonia</div>
-<div class="separador-rizos">
-<div class="linea-centro"></div>
-</div>
+<div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="card-lugar">Salón de Eventos World Trade Center Mexiquense</div>
 <div class="info-row"><strong>Hora:</strong> 19 de diciembre de 2026 - 18:00 hrs.</div>
 <div class="info-row"><strong>Dirección:</strong> Cto. Circunvalación Ote. 10, Cd. Satélite, 53100 Naucalpan de Juárez, Méx. Tlalnepantla, Méx., México</div>
@@ -502,9 +185,7 @@ opacity: 0.95;
 
 <div class="card">
 <div class="card-title">Recepción</div>
-<div class="separador-rizos">
-<div class="linea-centro"></div>
-</div>
+<div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="card-lugar">Salón de Eventos World Trade Center Mexiquense </div>
 <div class="info-row"><strong>Hora:</strong> 19 de diciembre de 2026 - 19:00 hrs a 19:30 hrs.</div>
 <div class="info-row"><strong>Dirección:</strong> Cto. Circunvalación Ote. 10, Cd. Satélite, 53100 Naucalpan de Juárez, Méx. Tlalnepantla, Méx., México</div>
@@ -514,9 +195,7 @@ opacity: 0.95;
 <!-- DRESS CODE -->
 <div class="card dress-code-card">
 <div class="card-title">Dress Code</div>
-<div class="separador-rizos">
-<div class="linea-centro"></div>
-</div>
+<div class="separador-rizos"><div class="linea-centro"></div></div>
 <h3>- Rigurosa Etiqueta -</h3>
 <img src="dresscode-removebg-preview.png" alt="Rigurosa Etiqueta" class="img-dress-code">
 <p class="prohibido">Se reserva el color rosa en cualquiera de sus tonalidades para la quinceañera.</p>
@@ -525,61 +204,65 @@ opacity: 0.95;
 <!-- MESAS DE REGALOS -->
 <div class="card">
 <div class="card-title">Mesas de Regalos</div>
-<div class="separador-rizos">
-<div class="linea-centro"></div>
-</div>
+<div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row">El mejor regalo es tu presencia, pero si deseas hacerme un obsequio, puedes consultar mis mesas de regalos:</div>
 <a href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/60011674" target="_blank" class="btn">
-<img src="liverpool.jpeg" alt="Liverpool" class="logo-tienda">
-Mesa Liverpool
+<img src="liverpool.jpeg" alt="Liverpool" class="logo-tienda"> Mesa Liverpool
 </a>
-
 <br>
-
 <a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&language=en-US" target="_blank" class="btn">
-<img src="amazon.jpg" alt="Amazon" class="logo-tienda">
-Mesa Amazon
+<img src="amazon.jpg" alt="Amazon" class="logo-tienda"> Mesa Amazon
 </a>
 </div>
 
-<!-- SECCIÓN 1: BUSCADOR DE CONFIRMACIÓN (NUEVO) -->
+<!-- NUEVA SECCIÓN DE BÚSQUEDA DE INVITADOS -->
 <div class="card" id="seccion-busqueda">
 <div class="card-title">Confirmación</div>
-<div class="separador-rizos">
-<div class="linea-centro"></div>
-</div>
+<div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row">Por favor, escribe tu apellido o el nombre de tu familia para buscar tu pase de entrada (Ej. Familia Pérez):</div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe tu apellido o el nombre de tu familia (Ej. Familia Pérez) para buscar tu pase de entrada y confirmar.</div>
 
-<input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej: Familia Pérez">
-<button id="btn-buscar" class="btn" style="width: 90%; margin-top: 15px;">Buscar Mi Pase</button>
+<div id="wrapper-busqueda">
+    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Buscar invitación...">
+    <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pase</button>
+</div>
 
-<!-- Mensaje que aparece si no se encuentra -->
+<!-- Mensajes que aparecen según el estado -->
 <div id="mensaje-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: bold; margin-top: 12px; display: none;">
     Lo sentimos, no encontramos una invitación con ese nombre. Por favor intenta escribiéndolo diferente o contacta a los organizadores.
 </div>
+<div id="mensaje-deadline-busqueda" style="color: #85386e; font-size: 1rem; font-weight: bold; margin-top: 12px; display: none;">
+    ⚠️ Las confirmaciones y búsquedas de pases digitales están cerradas desde el 19 de Noviembre de 2026.
+</div>
 </div>
 
-<!-- SECCIÓN 2: PASE DE ENTRADA DESPLEGADO CON LISTA (Mismo formato card con animación) -->
+<!-- PASE DE ENTRADA DESPLEGADO CON LISTA (Se muestra solo si se encuentra el nombre) -->
 <div class="card" id="pase-entrada">
 <div class="card-title">Tu Pase Especial</div>
-<div class="separador-rizos">
-<div class="linea-centro"></div>
-</div>
+<div class="separador-rizos"><div class="linea-centro"></div></div>
 
 <div style="font-size: 1.1rem; margin-top: 10px;">Invitación para: <span class="pase-destacado" id="nombre-encontrado">Familia</span></div>
 <div style="margin-top: 5px;">Pases asignados: <span class="pase-destacado" id="numero-pases">0</span></div>
 
-<div class="info-row" style="margin-top: 20px; font-weight: bold;">
+<div class="info-row" style="margin-top: 20px; font-weight: bold;" id="instruccion-confirmacion">
     Por favor, marca la casilla ✔ de las personas que asistirán al evento:
 </div>
 
-<!-- Contenedor (Frame) donde aparecerá la lista de personas de la base de datos -->
-<div id="lista-invitados-container"></div>
+<!-- Contenedor donde aparecerá la lista de personas de la base de datos -->
+<div id="lista-invitados-container" style="margin-top: 15px;"></div>
 
 <button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem;">
     Confirmar Asistencia por WhatsApp
 </button>
+
+<!-- Mensaje de límite de modificaciones -->
+<div id="mensaje-limite-modificaciones" style="color: #85386e; font-size: 0.85rem; font-weight: bold; margin-top: 15px; display: none;">
+    ⚠️ Has alcanzado el límite de 1 modificación permitida. Si necesitas un cambio urgente, contacta directamente a Adriana.
+</div>
+<!-- Mensaje de confirmaciones cerradas -->
+<div id="mensaje-deadline-confirmacion" style="color: #d32f2f; font-size: 1rem; font-weight: bold; margin-top: 15px; display: none;">
+    ⚠️ Las confirmaciones están cerradas desde el 19 de Noviembre de 2026.
+</div>
 
 <div class="info-row" style="font-size: 0.8rem; font-style: italic; color: var(--color-principal); margin-top: 15px;">
     * Presenta esta invitación digital en la recepción el día del evento.
@@ -593,7 +276,7 @@ Mesa Amazon
 <img src="imagenfinal.png" alt="Detalle final" class="img-final-pequena">
 </div>
 
-</div> <!-- Fin del contenedor principal -->
+</div> 
 
 <script>
 // =========================================================================
@@ -603,108 +286,285 @@ Mesa Amazon
 // A la derecha, pones entre corchetes ["Nombre 1", "Nombre 2", ...] la lista real de invitados.
 
 const baseDeDatosInvitados = {
-    "familia Lara": ["Dalia Lara", "Mario Lara", "Diana Valladares"],
+    "familia perez": ["Juan Pérez", "María López", "Carlitos Pérez"],
     "familia garcia": ["José García", "Elena Gómez", "Sofía García", "Luis García"],
     "sofia": ["Sofía Hernández", "Acompañante de Sofía"],
     "tios juan y ana": ["Tío Juan", "Tía Ana"],
     "padrinos": ["Padrino Roberto", "Madrina Susana"],
-    // Agrega más invitados siguiendo el mismo formato de arriba:
-    // "palabra clave": ["Persona 1", "Persona 2"],
 };
+
+// =========================================================================
+// 2. CONFIGURACIÓN DE RESTRICCIONES (FECHA Y MODIFICACIONES)
+// =========================================================================
+// Fecha límite: 19 de Noviembre de 2026 a las 23:59:00
+// Formato Date: Año, Mes (0-11), Día, Hora, Minuto, Segundo
+const FECHA_LIMITE = new Date(2026, 10, 19, 23, 59, 0).getTime(); 
+// Límite de modificaciones permitidas (1 inicial + 1 modificación = Total 2 guardados)
+const LIMITE_MODIFICACIONES = 2; 
+
 // =========================================================================
 
 document.addEventListener("DOMContentLoaded", function() {
+    // --- Referencias DOM ---
     const btnBuscar = document.getElementById('btn-buscar');
     const inputBusqueda = document.getElementById('input-busqueda');
+    const wrapperBusqueda = document.getElementById('wrapper-busqueda');
+    const textInstruccionBusqueda = document.getElementById('text-busqueda-instruccion');
+    const msjDeadlineBusqueda = document.getElementById('mensaje-deadline-busqueda');
     const seccionBusqueda = document.getElementById('seccion-busqueda');
+    
     const seccionPase = document.getElementById('pase-entrada');
     const msjError = document.getElementById('mensaje-error');
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
+    const msjLimiteModificaciones = document.getElementById('mensaje-limite-modificaciones');
+    const textInstruccionConfirmacion = document.getElementById('instruccion-confirmacion');
+    const msjDeadlineConfirmacion = document.getElementById('mensaje-deadline-confirmacion');
 
-    // Función auxiliar para quitar acentos y facilitar la búsqueda
+    // --- Variables de Estado (Persistencia Local) ---
+    // Usamos localStorage para guardar si ya buscó y confirmó una vez.
+    const storedFamilyKey = localStorage.getItem('adrianaXv_key');
+    let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXv_confirmedList') || '[]');
+    let storedEditCount = parseInt(localStorage.getItem('adrianaXv_edits') || '0', 10);
+
+    // --- Funciones Auxiliares ---
+
+    // Quita acentos y limpia texto para búsqueda
     function quitarAcentos(texto) {
         return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
     }
 
-    // Acción de buscar
-    btnBuscar.addEventListener('click', function() {
-        const busquedaUsuario = quitarAcentos(inputBusqueda.value);
-        let coincidencia = null;
+    // Comprueba si ya pasó la fecha límite
+    function yaPasoLaFecha() {
+        return new Date().getTime() > FECHA_LIMITE;
+    }
 
-        if (busquedaUsuario === "") return;
+    // Deshabilita toda la interfaz de confirmación por fecha
+    function aplicarBloqueoPorFecha() {
+        // En buscador
+        if(wrapperBusqueda) wrapperBusqueda.style.display = 'none';
+        if(textInstruccionBusqueda) textInstruccionBusqueda.style.display = 'none';
+        if(msjDeadlineBusqueda) msjDeadlineBusqueda.style.display = 'block';
 
-        // Revisar la base de datos para ver si coincide
-        for (let clave in baseDeDatosInvitados) {
-            let claveLimpia = quitarAcentos(clave);
-            // Compara si la búsqueda contiene la clave o la clave contiene la búsqueda
-            if (claveLimpia.includes(busquedaUsuario) || busquedaUsuario.includes(claveLimpia)) {
-                coincidencia = clave;
-                break; // Se detiene al encontrar el primero
-            }
+        // En pase
+        if(textInstruccionConfirmacion) textInstruccionConfirmacion.style.display = 'none';
+        if(btnWhatsapp) btnWhatsapp.disabled = true;
+        if(msjDeadlineConfirmacion) msjDeadlineConfirmacion.style.display = 'block';
+        
+        // Deshabilitar checkboxes generados
+        const checkboxes = listaContainer.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => cb.disabled = true);
+    }
+
+    // Comprueba el límite de modificaciones y deshabilita si es necesario
+    function comprobarYAplicarLimiteModificaciones() {
+        if (storedEditCount >= LIMITE_MODIFICACIONES) {
+            btnWhatsapp.disabled = true;
+            msjLimiteModificaciones.style.display = 'block';
+            
+            // Opcional: deshabilitar checkboxes
+            const checkboxes = listaContainer.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.disabled = true);
+            return true; // Límite alcanzado
         }
+        return false; // Límite no alcanzado
+    }
 
-        if (coincidencia) {
-            // Se encontró la invitación
-            msjError.style.display = 'none';
-            seccionBusqueda.style.display = 'none'; // Oculta el buscador
-            seccionPase.style.display = 'block'; // Muestra el pase interactivo
-
-            // Llenar datos de la tarjeta
-            document.getElementById('nombre-encontrado').textContent = coincidencia.toUpperCase();
+    // Carga la lista de invitados específica en el pase
+    function cargarListaDeInvitados(claveBaseDatos, listaAComparar = []) {
+        const arregloInvitados = baseDeDatosInvitados[claveBaseDatos];
+        if (!arregloInvitados) return; // Seguridad si no existe en BD
+        document.getElementById('numero-pases').textContent = arregloInvitados.length;
+        
+        // Generar los checkboxes para cada integrante
+        listaContainer.innerHTML = '';
+        arregloInvitados.forEach((nombre, index) => {
+            // Si hay una lista guardada previamente, comprobamos si este nombre estaba en ella
+            const estabaConfirmado = listaAComparar.length > 0 ? listaAComparar.includes(nombre) : true;
             
-            const arregloInvitados = baseDeDatosInvitados[coincidencia];
-            document.getElementById('numero-pases').textContent = arregloInvitados.length;
+            listaContainer.innerHTML += `
+                <div class="asistente-row">
+                    <input type="checkbox" id="invitado-${index}" value="${nombre}" ${estabaConfirmado ? 'checked' : ''}>
+                    <label for="invitado-${index}">${nombre}</label>
+                </div>
+            `;
+        });
+    }
+
+    // --- LÓGICA DE INICIO (PERSISTENCIA Y RESTRICCIONES AL CARGAR) ---
+
+    // 1. Comprobar Fecha Límite
+    if (yaPasoLaFecha()) {
+        if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
+             // Si ya había confirmado antes, le mostramos su pase pero bloqueado
+            seccionBusqueda.style.display = 'none';
+            seccionPase.style.display = 'block';
+            document.getElementById('nombre-encontrado').textContent = storedFamilyKey.toUpperCase();
+            cargarListaDeInvitados(storedFamilyKey, storedConfirmedList);
+        }
+        aplicarBloqueoPorFecha();
+        // Bloquear buscador aunque no haya confirmado
+        inputBusqueda.disabled = true;
+        btnBuscar.disabled = true;
+        btnBuscar.style.display = 'none';
+        wrapperBusqueda.style.display = 'none';
+        msjDeadlineBusqueda.style.display = 'block';
+        textInstruccionBusqueda.style.display = 'none';
+        
+    } else {
+        // 2. Comprobar Persistencia (Si ya abrió y confirmó antes)
+        if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
+            // Ocultar buscador y mostrar pase directamente
+            seccionBusqueda.style.display = 'none';
+            seccionPase.style.display = 'block';
             
-            // Generar los checkboxes para cada integrante de esa familia
-            listaContainer.innerHTML = '';
-            arregloInvitados.forEach((nombre, index) => {
-                listaContainer.innerHTML += `
-                    <div class="asistente-row">
-                        <input type="checkbox" id="invitado-${index}" value="${nombre}" checked>
-                        <label for="invitado-${index}">${nombre}</label>
-                    </div>
-                `;
-            });
+            // Llenar datos guardados
+            document.getElementById('nombre-encontrado').textContent = storedFamilyKey.toUpperCase();
+            cargarListaDeInvitados(storedFamilyKey, storedConfirmedList);
+            
+            // Comprobar límite de modificaciones
+            comprobarYAplicarLimiteModificaciones();
+        }
+    }
 
-            // Configurar el botón de enviar WhatsApp con los datos seleccionados
-            btnWhatsapp.onclick = function() {
-                let confirmados = [];
-                arregloInvitados.forEach((nombre, index) => {
-                    const checkbox = document.getElementById(`invitado-${index}`);
-                    if (checkbox.checked) {
-                        confirmados.push(nombre);
-                    }
-                });
 
-                if (confirmados.length === 0) {
-                    alert("Debes seleccionar al menos a una persona para confirmar la asistencia.");
-                    return;
+    // --- LÓGICA DE BÚSQUEDA ---
+    if(btnBuscar) {
+        btnBuscar.addEventListener('click', function() {
+            if (yaPasoLaFecha()) return; // Protección extra
+
+            const busquedaUsuario = quitarAcentos(inputBusqueda.value);
+            let coincidencia = null;
+
+            if (busquedaUsuario === "") return;
+
+            // Revisar la base de datos para ver si coincide
+            for (let clave in baseDeDatosInvitados) {
+                let claveLimpia = quitarAcentos(clave);
+                if (claveLimpia.includes(busquedaUsuario) || busquedaUsuario.includes(claveLimpia)) {
+                    coincidencia = clave;
+                    break;
                 }
+            }
 
-                // Generar lista de texto
-                const listaTexto = confirmados.map((nombre, index) => `${index + 1}. ${nombre}`).join('%0A');
+            if (coincidencia) {
+                msjError.style.display = 'none';
+                seccionBusqueda.style.display = 'none';
+                seccionPase.style.display = 'block';
+
+                document.getElementById('nombre-encontrado').textContent = coincidencia.toUpperCase();
                 
-                // Mensaje final
-                const mensajeWa = `Hola Adriana, somos *${coincidencia.toUpperCase()}*. Confirmamos con mucho gusto nuestra asistencia a tus XV años. Asistiremos *${confirmados.length}* persona(s):%0A%0A${listaTexto}`;
-                
-                window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
-            };
+                // Cargar lista por primera vez (sin comparar con guardados previos)
+                cargarListaDeInvitados(coincidencia);
 
-        } else {
-            // No se encontró
-            msjError.style.display = 'block';
-        }
-    });
+                // Configurar el botón de WhatsApp (Lógica unificada)
+                btnWhatsapp.onclick = function() {
+                    handleConfirmacion(coincidencia);
+                };
 
-    // Permitir buscar dando Enter en el teclado
-    inputBusqueda.addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            btnBuscar.click();
+            } else {
+                msjError.style.display = 'block';
+            }
+        });
+    }
+
+    // Permitir buscar dando Enter
+    if(inputBusqueda) {
+        inputBusqueda.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                btnBuscar.click();
+            }
+        });
+    }
+
+
+    // --- LÓGICA DE CONFIRMACIÓN Y PERSISTENCIA ( handleConfirmacion ) ---
+    // Esta función se asigna al hacer la búsqueda o si ya estaba guardado
+    if(storedFamilyKey && baseDeDatosInvitados[storedFamilyKey] && !yaPasoLaFecha() && storedEditCount < LIMITE_MODIFICACIONES) {
+        btnWhatsapp.onclick = function() {
+            handleConfirmacion(storedFamilyKey);
+        };
+    }
+
+    function handleConfirmacion(claveFamilia) {
+        // Protección 1: Fecha
+        if (yaPasoLaFecha()) {
+            aplicarBloqueoPorFecha();
+            return;
         }
-    });
+
+        // Protección 2: Límite de modificaciones (antes de ejecutar)
+        if (storedEditCount >= LIMITE_MODIFICACIONES) {
+            comprobarYAplicarLimiteModificaciones();
+            return;
+        }
+
+        const arregloInvitados = baseDeDatosInvitados[claveFamilia];
+        if(!arregloInvitados) return; // Seguridad
+
+        // Recopilar confirmados actuales y no asistentes
+        let confirmadosActuales = [];
+        let noAsistiranList = [];
+        const checkboxes = listaContainer.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            if (cb.checked) {
+                confirmadosActuales.push(cb.value);
+            } else {
+                noAsistiranList.push(cb.value);
+            }
+        });
+
+        // Seguridad: Al menos uno debe asistir para enviar mensaje formal
+        if (confirmadosActuales.length === 0 && noAsistiranList.length > 0) {
+            if(!confirm("⚠️ Parece que nadie de la familia asistirá. ¿Deseas enviar este mensaje de declinación?")) {
+                return; // Cancelar si el usuario no quería declinar todo
+            }
+        } else if (confirmadosActuales.length === 0 && noAsistiranList.length === 0) {
+             // Caso extraño pero por seguridad si la lista BD estaba vacía
+             alert("Error: No hay invitados registrados en esta familia.");
+             return;
+        }
+
+        // --- Persistencia y Restricción ---
+        storedEditCount++; // Incrementar contador de modificaciones
+        
+        // Guardar en LocalStorage
+        localStorage.setItem('adrianaXv_key', claveFamilia);
+        localStorage.setItem('adrianaXv_confirmedList', JSON.stringify(confirmadosActuales));
+        localStorage.setItem('adrianaXv_edits', storedEditCount.toString());
+        
+        // Actualizar variables de estado locales
+        storedConfirmedList = confirmadosActuales;
+
+        // Comprobar si tras este guardado se alcanzó el límite para deshabilitar inmediatamente
+        comprobarYAplicarLimiteModificaciones();
+
+        // --- Armar y Enviar WhatsApp con Categorización ---
+        let mensajeWa = `Hola Adriana, somos *${claveFamilia.toUpperCase()}*.%0A%0AQueremos confirmar nuestra asistencia a tus XV años:%0A`;
+        
+        if (confirmadosActuales.length > 0) {
+            mensajeWa += `%0A✅ *Sí asistiremos (${confirmadosActuales.length}):*%0A`;
+            confirmadosActuales.forEach((nombre, i) => {
+                mensajeWa += `${i + 1}. ${nombre}%0A`;
+            });
+        }
+
+        if (noAsistiranList.length > 0) {
+            mensajeWa += `%0A❌ *No podremos asistir:*%0A`;
+            noAsistiranList.forEach((nombre, i) => {
+                mensajeWa += `${i + 1}. ${nombre}%0A`;
+            });
+        }
+        
+        mensajeWa += `%0A¡Muchas gracias por invitarnos!`;
+        
+        // Abrir WhatsApp con el mensaje formateado
+        window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
+    }
 });
+
+// --- SCRIPTS EXISTENTES (AUDIO, GALERÍA, CUENTA REGRESIVA) ---
 
 // --- SCRIPT DE REPRODUCCIÓN DE AUDIO (Se activa con el primer clic/toque) ---
 window.addEventListener('click', () => {
@@ -726,6 +586,7 @@ let indiceActual = 0;
 const imagenesGaleria = document.querySelectorAll('.galeria-inicio img');
 
 function cambiarImagenGaleria() {
+if(imagenesGaleria.length === 0) return;
 imagenesGaleria[indiceActual].classList.remove('activa');
 indiceActual = (indiceActual + 1) % imagenesGaleria.length;
 imagenesGaleria[indiceActual].classList.add('activa');
@@ -734,13 +595,13 @@ imagenesGaleria[indiceActual].classList.add('activa');
 // Cambia de foto cada 3.5 segundos
 setInterval(cambiarImagenGaleria, 3500);
 
-// --- SCRIPT DE CUENTA REGRESIVA ---
-// Fecha objetivo: 19 de Diciembre de 2026, 18:00:00 (Mes es 11 porque empieza en 0)
-const fechaFiesta = new Date(2026, 11, 19, 18, 0, 0).getTime(); 
+// --- SCRIPT DE CUENTA REGRESIVA real para la fiesta ---
+// Fecha objetivo real de la fiesta: 19 de Diciembre de 2026, 18:00:00 (Mes es 11 porque empieza en 0)
+const fechaFiestaReal = new Date(2026, 11, 19, 18, 0, 0).getTime(); 
 
 const intervalo = setInterval(function() {
 const ahora = new Date().getTime();
-const distancia = fechaFiesta - ahora;
+const distancia = fechaFiestaReal - ahora;
 
 const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
 const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
