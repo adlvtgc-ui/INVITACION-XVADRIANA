@@ -235,4 +235,416 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </a>
 <br>
 <a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&language=en-US" target="_blank" class="btn">
-<img src="amazon.jpg"
+<img src="amazon.jpg" alt="Amazon" class="logo-tienda"> Mesa Amazon
+</a>
+</div>
+
+<div class="card" id="seccion-busqueda">
+<div class="card-title">Confirmación</div>
+<div class="separador-rizos"><div class="linea-centro"></div></div>
+<div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe tu nombre o el nombre de tu familia para buscar tu pase (Ej. Dalia o Familia Lara).</div>
+
+<div id="wrapper-busqueda">
+    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Buscar invitación..." autocomplete="off">
+    <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pase</button>
+</div>
+
+<div id="mensaje-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: bold; margin-top: 12px; display: none;">
+    Lo sentimos, no encontramos una invitación con ese nombre. Por favor intenta escribiéndolo diferente o contacta a los organizadores.
+</div>
+<div id="mensaje-deadline-busqueda" style="color: #85386e; font-size: 1rem; font-weight: bold; margin-top: 12px; display: none;">
+    ⚠️ Las confirmaciones y búsquedas de pases digitales están cerradas desde el 19 de Noviembre de 2026.
+</div>
+</div>
+
+<div class="card" id="pase-entrada">
+<div class="card-title">Tu Pase Especial</div>
+<div class="separador-rizos"><div class="linea-centro"></div></div>
+
+<div style="font-size: 1.1rem; margin-top: 10px;">Invitación para: <span class="pase-destacado" id="nombre-encontrado">Familia</span></div>
+<div style="margin-top: 5px;">Pases asignados: <span class="pase-destacado" id="numero-pases">0</span></div>
+
+<div class="info-row" style="margin-top: 20px; font-weight: bold;" id="instruccion-confirmacion">
+    Por favor, marca la casilla ✔ de las personas que asistirán al evento:
+</div>
+
+<div id="lista-invitados-container" style="margin-top: 15px;"></div>
+
+<button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem;">
+    Confirmar Asistencia por WhatsApp
+</button>
+
+<div id="mensaje-limite-modificaciones" style="color: #85386e; font-size: 0.85rem; font-weight: bold; margin-top: 15px; display: none;">
+    ⚠️ Has alcanzado el límite de modificaciones permitidas.
+</div>
+<div id="mensaje-deadline-confirmacion" style="color: #d32f2f; font-size: 1rem; font-weight: bold; margin-top: 15px; display: none;">
+    ⚠️ Las confirmaciones están cerradas desde el 19 de Noviembre de 2026.
+</div>
+
+<div class="info-row" style="font-size: 0.8rem; font-style: italic; color: var(--color-principal); margin-top: 15px;">
+    * Presenta esta invitación digital en la recepción el día del evento.
+</div>
+</div>
+<div class="frase-final-container">
+<p class="frase-final-texto">Queremos compartir la magia de esta noche contigo</p>
+<img src="imagenfinal.png" alt="Detalle final" class="img-final-pequena">
+</div>
+
+</div> 
+
+<script>
+// =========================================================================
+// SCRIPT DE SEGURIDAD EXTREMA CONTRA DESCARGAS Y COPIAS
+// =========================================================================
+
+// 1. Bloqueo total de clics derechos, copiar y arrastrar en la página
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('dragstart', e => e.preventDefault());
+document.addEventListener('copy', e => e.preventDefault());
+
+// 2. Anular interacción táctil sostenida en TODAS las imágenes
+document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('touchstart', function(e) {
+        img.style.pointerEvents = 'none'; 
+    });
+    img.addEventListener('mousedown', e => e.preventDefault());
+});
+
+// 3. Deshabilitar Atajos de Teclado
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode === 123 || 
+       (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || 
+       (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 67))) { 
+        e.preventDefault();
+        return false;
+    }
+});
+
+// =========================================================================
+// 1. BASE DE DATOS DE INVITADOS
+// =========================================================================
+const baseDeDatosInvitados = {
+    "familia Lara": ["Dalia Lara", "Mario Lara", "Diana Valladares", "Rodrigo Lara"],
+    "familia garcia": ["José García", "Elena Gómez", "Sofía García", "Luis García"],
+    "sofia": ["Sofía Hernández", "Acompañante de Sofía"],
+    "tios juan y ana": ["Tío Juan", "Tía Ana"],
+    "padrinos": ["Padrino Roberto", "Madrina Susana"],
+};
+
+// =========================================================================
+// 2. CONFIGURACIÓN DE RESTRICCIONES (MODO PRUEBA ACTIVADO)
+// =========================================================================
+const FECHA_LIMITE = new Date(2026, 10, 19, 23, 59, 0).getTime(); 
+
+// --- MODO PRUEBA: Límite subido a 9999 para que no bloquee ---
+const LIMITE_MODIFICACIONES = 9999; 
+
+document.addEventListener("DOMContentLoaded", function() {
+    const btnBuscar = document.getElementById('btn-buscar');
+    const inputBusqueda = document.getElementById('input-busqueda');
+    const wrapperBusqueda = document.getElementById('wrapper-busqueda');
+    const textInstruccionBusqueda = document.getElementById('text-busqueda-instruccion');
+    const msjDeadlineBusqueda = document.getElementById('mensaje-deadline-busqueda');
+    const seccionBusqueda = document.getElementById('seccion-busqueda');
+    
+    const seccionPase = document.getElementById('pase-entrada');
+    const msjError = document.getElementById('mensaje-error');
+    const listaContainer = document.getElementById('lista-invitados-container');
+    const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
+    const msjLimiteModificaciones = document.getElementById('mensaje-limite-modificaciones');
+    const textInstruccionConfirmacion = document.getElementById('instruccion-confirmacion');
+    const msjDeadlineConfirmacion = document.getElementById('mensaje-deadline-confirmacion');
+
+    // Llaves nuevas para forzar limpieza
+    const storedFamilyKey = localStorage.getItem('adrianaXV_v5_key');
+    let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXV_v5_list') || '[]');
+    let storedEditCount = parseInt(localStorage.getItem('adrianaXV_v5_edits') || '0', 10);
+
+    // FUNCIÓN: Quita acentos, convierte a minúsculas y elimina espacios
+    function quitarAcentos(texto) {
+        return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+    }
+
+    function yaPasoLaFecha() {
+        return new Date().getTime() > FECHA_LIMITE;
+    }
+
+    function aplicarBloqueoPorFecha() {
+        if(wrapperBusqueda) wrapperBusqueda.style.display = 'none';
+        if(textInstruccionBusqueda) textInstruccionBusqueda.style.display = 'none';
+        if(msjDeadlineBusqueda) msjDeadlineBusqueda.style.display = 'block';
+
+        if(textInstruccionConfirmacion) textInstruccionConfirmacion.style.display = 'none';
+        if(btnWhatsapp) btnWhatsapp.disabled = true;
+        if(msjDeadlineConfirmacion) msjDeadlineConfirmacion.style.display = 'block';
+        
+        const checkboxes = listaContainer.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => cb.disabled = true);
+    }
+
+    function comprobarYAplicarLimiteModificaciones() {
+        if (storedEditCount >= LIMITE_MODIFICACIONES) {
+            btnWhatsapp.disabled = true;
+            msjLimiteModificaciones.style.display = 'block';
+            
+            const checkboxes = listaContainer.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.disabled = true);
+            return true; 
+        }
+        return false; 
+    }
+
+    function cargarListaDeInvitados(claveBaseDatos, listaAComparar = []) {
+        const arregloInvitados = baseDeDatosInvitados[claveBaseDatos];
+        if (!arregloInvitados) return; 
+        document.getElementById('numero-pases').textContent = arregloInvitados.length;
+        
+        listaContainer.innerHTML = '';
+        arregloInvitados.forEach((nombre, index) => {
+            const estabaConfirmado = listaAComparar.length > 0 ? listaAComparar.includes(nombre) : true;
+            
+            listaContainer.innerHTML += `
+                <div class="asistente-row">
+                    <input type="checkbox" id="invitado-${index}" value="${nombre}" ${estabaConfirmado ? 'checked' : ''}>
+                    <label for="invitado-${index}">${nombre}</label>
+                </div>
+            `;
+        });
+    }
+
+    if (yaPasoLaFecha()) {
+        if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
+            seccionBusqueda.style.display = 'none';
+            seccionPase.style.display = 'block';
+            document.getElementById('nombre-encontrado').textContent = storedFamilyKey.toUpperCase();
+            cargarListaDeInvitados(storedFamilyKey, storedConfirmedList);
+        }
+        aplicarBloqueoPorFecha();
+        inputBusqueda.disabled = true;
+        btnBuscar.disabled = true;
+        btnBuscar.style.display = 'none';
+        wrapperBusqueda.style.display = 'none';
+        msjDeadlineBusqueda.style.display = 'block';
+        textInstruccionBusqueda.style.display = 'none';
+        
+    } else {
+        if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
+            seccionBusqueda.style.display = 'none';
+            seccionPase.style.display = 'block';
+            
+            document.getElementById('nombre-encontrado').textContent = storedFamilyKey.toUpperCase();
+            cargarListaDeInvitados(storedFamilyKey, storedConfirmedList);
+            
+            comprobarYAplicarLimiteModificaciones();
+        }
+    }
+
+    // =========================================================================
+    // NUEVA LÓGICA DE BÚSQUEDA SÚPER INTELIGENTE
+    // =========================================================================
+    if(btnBuscar) {
+        btnBuscar.addEventListener('click', function() {
+            if (yaPasoLaFecha()) return;
+
+            // Extraemos lo que escribió el usuario y lo limpiamos (sin acentos/mayúsculas)
+            let busquedaOriginal = inputBusqueda.value;
+            let busquedaUsuario = quitarAcentos(busquedaOriginal);
+
+            if (busquedaUsuario.length < 3) {
+                alert("Por favor, escribe al menos 3 letras para buscar.");
+                return;
+            }
+
+            // Si solo escribe "familia", le pedimos el apellido
+            if (busquedaUsuario === "familia") {
+                alert("Por favor, escribe el apellido de la familia o tu nombre (Ej. Familia Lara o Dalia).");
+                return;
+            }
+
+            // Ignoramos palabras genéricas para que la búsqueda sea exacta a los nombres
+            const palabrasIgnoradas = ["familia", "los", "las", "el", "la", "y", "de"];
+            let terminos = busquedaUsuario.split(" ").filter(palabra => !palabrasIgnoradas.includes(palabra) && palabra.length > 2);
+
+            if (terminos.length === 0) {
+                terminos = [busquedaUsuario]; // Respaldo
+            }
+
+            let coincidencia = null;
+
+            // Escaneamos toda la base de datos
+            for (let clave in baseDeDatosInvitados) {
+                let claveLimpia = quitarAcentos(clave);
+                let integrantes = baseDeDatosInvitados[clave];
+
+                // Revisamos si la palabra de búsqueda coincide con la llave O con alguna persona dentro
+                let coincideTodo = terminos.every(termino => {
+                    let encontradoEnClave = claveLimpia.includes(termino);
+                    let encontradoEnIntegrante = false;
+
+                    for (let i = 0; i < integrantes.length; i++) {
+                        if (quitarAcentos(integrantes[i]).includes(termino)) {
+                            encontradoEnIntegrante = true;
+                            break;
+                        }
+                    }
+                    return encontradoEnClave || encontradoEnIntegrante;
+                });
+
+                if (coincideTodo) {
+                    coincidencia = clave;
+                    break;
+                }
+            }
+
+            // --- RESULTADO ---
+            if (coincidencia) {
+                msjError.style.display = 'none';
+                seccionBusqueda.style.display = 'none';
+                seccionPase.style.display = 'block';
+
+                document.getElementById('nombre-encontrado').textContent = coincidencia.toUpperCase();
+                
+                cargarListaDeInvitados(coincidencia);
+
+                btnWhatsapp.onclick = function() {
+                    handleConfirmacion(coincidencia);
+                };
+
+            } else {
+                msjError.style.display = 'block';
+            }
+        });
+    }
+
+    if(inputBusqueda) {
+        inputBusqueda.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                btnBuscar.click();
+            }
+        });
+    }
+
+    if(storedFamilyKey && baseDeDatosInvitados[storedFamilyKey] && !yaPasoLaFecha() && storedEditCount < LIMITE_MODIFICACIONES) {
+        btnWhatsapp.onclick = function() {
+            handleConfirmacion(storedFamilyKey);
+        };
+    }
+
+    function handleConfirmacion(claveFamilia) {
+        if (yaPasoLaFecha()) {
+            aplicarBloqueoPorFecha();
+            return;
+        }
+
+        if (storedEditCount >= LIMITE_MODIFICACIONES) {
+            comprobarYAplicarLimiteModificaciones();
+            return;
+        }
+
+        const arregloInvitados = baseDeDatosInvitados[claveFamilia];
+        if(!arregloInvitados) return;
+
+        let confirmadosActuales = [];
+        let noAsistiranList = [];
+        const checkboxes = listaContainer.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            if (cb.checked) {
+                confirmadosActuales.push(cb.value);
+            } else {
+                noAsistiranList.push(cb.value);
+            }
+        });
+
+        if (confirmadosActuales.length === 0 && noAsistiranList.length > 0) {
+            if(!confirm("⚠️ Parece que nadie de la familia asistirá. ¿Deseas enviar este mensaje de declinación?")) {
+                return; 
+            }
+        } else if (confirmadosActuales.length === 0 && noAsistiranList.length === 0) {
+             alert("Error: No hay invitados registrados en esta familia.");
+             return;
+        }
+
+        storedEditCount++; 
+        
+        // --- CAMBIO PARA PRUEBAS: Líneas de guardado en memoria desactivadas (Comentadas) ---
+        // localStorage.setItem('adrianaXV_v5_key', claveFamilia);
+        // localStorage.setItem('adrianaXV_v5_list', JSON.stringify(confirmadosActuales));
+        // localStorage.setItem('adrianaXV_v5_edits', storedEditCount.toString());
+        // -----------------------------------------------------------------------------------
+        
+        storedConfirmedList = confirmadosActuales;
+        comprobarYAplicarLimiteModificaciones();
+
+        let mensajeWa = `Hola Adriana, somos *${claveFamilia.toUpperCase()}*.%0A%0AQueremos confirmar nuestra asistencia a tus XV años:%0A`;
+        
+        if (confirmadosActuales.length > 0) {
+            mensajeWa += `%0A✅ *Sí asistiremos (${confirmadosActuales.length}):*%0A`;
+            confirmadosActuales.forEach((nombre, i) => {
+                mensajeWa += `${i + 1}. ${nombre}%0A`;
+            });
+        }
+
+        if (noAsistiranList.length > 0) {
+            mensajeWa += `%0A❌ *No podremos asistir:*%0A`;
+            noAsistiranList.forEach((nombre, i) => {
+                mensajeWa += `${i + 1}. ${nombre}%0A`;
+            });
+        }
+        
+        mensajeWa += `%0A¡Muchas gracias por invitarnos!`;
+        
+        window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
+    }
+});
+
+// --- AUDIO ---
+window.addEventListener('click', () => {
+const audio = document.getElementById('musicaFondo');
+if (audio.paused) { audio.play(); }
+}, { once: true });
+
+window.addEventListener('touchstart', () => {
+const audio = document.getElementById('musicaFondo');
+if (audio.paused) { audio.play(); }
+}, { once: true });
+
+// --- GALERÍA ---
+let indiceActual = 0;
+const imagenesGaleria = document.querySelectorAll('.galeria-inicio img');
+
+function cambiarImagenGaleria() {
+if(imagenesGaleria.length === 0) return;
+imagenesGaleria[indiceActual].classList.remove('activa');
+indiceActual = (indiceActual + 1) % imagenesGaleria.length;
+imagenesGaleria[indiceActual].classList.add('activa');
+}
+setInterval(cambiarImagenGaleria, 3500);
+
+// --- CUENTA REGRESIVA ---
+const fechaFiestaReal = new Date(2026, 11, 19, 18, 0, 0).getTime(); 
+
+const intervalo = setInterval(function() {
+const ahora = new Date().getTime();
+const distancia = fechaFiestaReal - ahora;
+
+const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+document.getElementById("dias").innerHTML = dias;
+document.getElementById("horas").innerHTML = horas < 10 ? "0" + horas : horas;
+document.getElementById("minutos").innerHTML = minutos < 10 ? "0" + minutos : minutos;
+document.getElementById("segundos").innerHTML = segundos < 10 ? "0" + segundos : segundos;
+
+if (distancia < 0) {
+clearInterval(intervalo);
+document.getElementById("contador").innerHTML = "<div class='contador-numero'>¡El gran día ha llegado!</div>";
+}
+}, 1000);
+</script>
+
+</body>
+</html>
