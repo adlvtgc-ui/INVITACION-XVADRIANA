@@ -3,10 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Esta etiqueta le dice al navegador que solo use modo claro -->
 <meta name="color-scheme" content="light"> 
 <title>Mis XV Años - Adri</title>
-<!-- IMPORTACIÓN DE FUENTES -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Alex+Brush&display=swap" rel="stylesheet">
 <style>
 /* --- ESTILOS GENERALES Y COLORES --- */
@@ -20,34 +18,31 @@ color-scheme: light;
 --fuente-nombre: 'Alex Brush', cursive;
 }
 
-/* Corrección de renderizado de texto para iOS */
 html { -webkit-text-size-adjust: 100%; }
 
 /* --- MEDIDAS DE SEGURIDAD EXTREMA --- */
 body {
-    -webkit-user-select: none; /* Bloquea selección de texto en Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE/Edge */
-    user-select: none; /* Standard */
-    -webkit-touch-callout: none; /* BLOQUEA MENÚ DE IOS/ANDROID AL MANTENER PRESIONADO */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
     margin: 0; padding: 0;
     background-image: linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url('thumb-1920-1275718.jpg');
     background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat;
     font-family: var(--fuente-cuerpo); color: var(--color-texto); text-align: center;
 }
 
-/* Impide interactuar (copiar/guardar/arrastrar) con TODAS las imágenes */
 img {
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
     user-drag: none;
-    -webkit-touch-callout: none !important; /* Fuerza apagado del menú móvil */
-    pointer-events: none; /* Hace que la imagen sea "fantasma" a los clics */
+    -webkit-touch-callout: none !important;
+    pointer-events: none;
 }
 
-/* Excepción obligatoria para botones con imágenes (Liverpool/Amazon) */
 .btn img {
     pointer-events: auto;
 }
@@ -59,18 +54,14 @@ background-size: cover; background-position: center; background-repeat: no-repea
 box-shadow: 0 4px 15px rgba(0,0,0,0.12); border-radius: 15px; box-sizing: border-box;
 }
 
-/* --- ENCABEZADO NORMAL --- */
 header { position: relative; padding: 5px 10px 0px 10px; border-radius: 12px 12px 0 0; }
 
-/* --- GALERÍA BLINDADA --- */
 .galeria-inicio {
 position: relative; width: 260px; height: 200px; margin: 10px auto 10px auto;
 border-radius: 8px; border: 1px solid #B87333; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 overflow: hidden; z-index: 10; background-color: #fff;
 }
 
-/* "CAPA DE CRISTAL": Escudo transparente por encima de las fotos. 
-   Es imposible tocar las fotos porque el clic pega en esta capa. */
 .galeria-inicio::after {
     content: '';
     position: absolute;
@@ -89,7 +80,6 @@ h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
 header h1 { position: relative; z-index: 10; font-size: 2.2rem; letter-spacing: 3px; color: var(--color-principal); margin: 0; line-height: 1.2; }
 header h2 { position: relative; z-index: 10; font-family: var(--fuente-nombre); font-size: 5.2rem; color: var(--color-principal); margin: 0px 0 0 0; font-weight: normal; line-height: 1; letter-spacing: 2px; text-shadow: 2px 2px 4px #7B8B75; }
 
-/* --- CUENTA REGRESIVA --- */
 .contador-container { display: flex; justify-content: center; gap: 10px; margin: 15px auto 10px auto; position: relative; z-index: 20; }
 .contador-item { display: flex; flex-direction: column; align-items: center; background: rgba(242, 218, 236, 0.92); border: 1px solid #B87333; border-radius: 8px; padding: 6px 8px; min-width: 45px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 .contador-numero { font-family: var(--fuente-titulos); font-size: 1.2rem; color: var(--color-principal); font-weight: bold; line-height: 1; }
@@ -98,7 +88,6 @@ header h2 { position: relative; z-index: 10; font-family: var(--fuente-nombre); 
 .separador-header { width: 100%; max-width: 240px; margin: 15px auto 15px auto; position: relative; z-index: 15; display: block; }
 .separador-header img { width: 100%; height: auto; object-fit: contain; display: block; }
 
-/* --- TARJETAS --- */
 .card {
 background: rgba(242, 218, 236, 0.92); border: 1px solid #B87333; border-radius: 8px;
 margin: 10px 5px 25px 5px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); position: relative; z-index: 5;
@@ -123,7 +112,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 .prohibido { color: var(--color-principal); font-style: italic; font-weight: bold; margin-top: 12px; font-family: var(--fuente-titulos); }
 .img-dress-code { width: 55%; max-width: 160px; height: auto; margin: 12px auto; display: block; border: none; background: none; }
 
-/* --- EFECTO ANIMADO PARA EL PASE --- */
 @keyframes resplandor-pase-nuevo {
     0% { box-shadow: 0 2px 8px rgba(184, 115, 51, 0.1); transform: scale(1); }
     50% { box-shadow: 0 6px 15px rgba(184, 115, 51, 0.4); transform: scale(1.02); }
@@ -134,7 +122,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 #pase-entrada { display: none; animation: resplandor-pase-nuevo 3.5s infinite ease-in-out; margin-top: 30px; }
 .pase-destacado { font-family: var(--fuente-titulos); font-weight: bold; font-size: 1.3rem; color: var(--color-principal); }
 
-/* Input del buscador (Excepción de texto para poder escribir) */
 .input-busqueda {
     -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text;
     width: 90%; padding: 12px; margin-top: 10px;
@@ -145,17 +132,14 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 }
 .input-busqueda:focus { outline: none; border-color: var(--color-principal); }
 
-/* --- ESTILOS DE LA LISTA DE INVITADOS --- */
 .asistente-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; text-align: left; background: rgba(255,255,255,0.5); padding: 10px 12px; border-radius: 6px; border: 1px dashed #d9b8cd; }
 .asistente-row input[type="checkbox"] { accent-color: var(--color-principal); transform: scale(1.4); cursor: pointer; }
 .asistente-row label { font-family: var(--fuente-cuerpo); font-size: 1rem; color: var(--color-texto); flex: 1; font-weight: 600; cursor: pointer;}
 
-/* --- FRASE Y MINI IMAGEN --- */
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
 .img-final-pequena { width: 15%; max-width: 35px; height: auto; margin: 0 auto; display: block; opacity: 0.95; }
 
-/* --- ADAPTACIÓN PARA CELULARES --- */
 @media (max-width: 600px) {
     body { background-attachment: scroll; }
     .container { margin: 10px 8px; padding: 15px 12px 20px 12px; }
@@ -169,7 +153,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 }
 </style>
 </head>
-<!-- Agregamos candados directos en la etiqueta body -->
 <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
 
 <audio id="musicaFondo" loop autoplay>
@@ -180,7 +163,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 
 <header>
 <div class="galeria-inicio">
-<!-- Imágenes blindadas -->
 <img src="foto1.jpg" alt="Foto 1 Adriana" class="activa" oncontextmenu="return false;">
 <img src="foto2.jpg" alt="Foto 2 Adriana" oncontextmenu="return false;">
 <img src="foto3.jpg" alt="Foto 3 Adriana" oncontextmenu="return false;">
@@ -205,7 +187,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </div>
 </header>
 
-<!-- TARJETAS DE INFORMACIÓN -->
 <div class="card">
 <div class="card-title">Ceremonia</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -224,7 +205,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <a href="https://maps.app.goo.gl/FtNAS2uFb3nTH7ks7" target="_blank" class="btn">Ver mapa</a>
 </div>
 
-<!-- DRESS CODE -->
 <div class="card dress-code-card">
 <div class="card-title">Dress Code</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -233,7 +213,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <p class="prohibido">Se reserva el color rosa en cualquiera de sus tonalidades para la quinceañera.</p>
 </div>
 
-<!-- MESAS DE REGALOS -->
 <div class="card">
 <div class="card-title">Mesas de Regalos</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -247,19 +226,17 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </a>
 </div>
 
-<!-- NUEVA SECCIÓN DE BÚSQUEDA DE INVITADOS -->
 <div class="card" id="seccion-busqueda">
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu nombre o el nombre de tu familia para buscar tu pase de entrada (Ej. Dalia Lara o Familia Lara).</div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe tu nombre o el de tu familia para buscar tu pase de entrada (Ej. Dalia Lara o Familia Lara).</div>
 
 <div id="wrapper-busqueda">
     <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Buscar invitación..." autocomplete="off">
     <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pase</button>
 </div>
 
-<!-- Mensajes que aparecen según el estado -->
 <div id="mensaje-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: bold; margin-top: 12px; display: none;">
     Lo sentimos, no encontramos una invitación con ese nombre. Por favor intenta escribiéndolo diferente o contacta a los organizadores.
 </div>
@@ -268,7 +245,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </div>
 </div>
 
-<!-- PASE DE ENTRADA DESPLEGADO CON LISTA -->
 <div class="card" id="pase-entrada">
 <div class="card-title">Tu Pase Especial</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -280,18 +256,15 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
     Por favor, marca la casilla ✔ de las personas que asistirán al evento:
 </div>
 
-<!-- Contenedor donde aparecerá la lista de personas de la base de datos -->
 <div id="lista-invitados-container" style="margin-top: 15px;"></div>
 
 <button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem;">
     Confirmar Asistencia por WhatsApp
 </button>
 
-<!-- Mensaje de límite de modificaciones -->
 <div id="mensaje-limite-modificaciones" style="color: #85386e; font-size: 0.85rem; font-weight: bold; margin-top: 15px; display: none;">
     ⚠️ Has alcanzado el límite de modificaciones.
 </div>
-<!-- Mensaje de confirmaciones cerradas -->
 <div id="mensaje-deadline-confirmacion" style="color: #d32f2f; font-size: 1rem; font-weight: bold; margin-top: 15px; display: none;">
     ⚠️ Las confirmaciones están cerradas desde el 19 de Noviembre de 2026.
 </div>
@@ -300,9 +273,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
     * Presenta esta invitación digital en la recepción el día del evento.
 </div>
 </div>
-<!-- FIN PASE DE ENTRADA -->
 
-<!-- FRASE Y MINI IMAGEN DENTRO DEL CONTENEDOR PRINCIPAL -->
 <div class="frase-final-container">
 <p class="frase-final-texto">Queremos compartir la magia de esta noche contigo</p>
 <img src="imagenfinal.png" alt="Detalle final" class="img-final-pequena">
@@ -312,337 +283,3 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 
 <script>
 // =========================================================================
-// SCRIPT DE SEGURIDAD EXTREMA CONTRA DESCARGAS Y COPIAS
-// =========================================================================
-
-// 1. Bloqueo total de clics derechos, copiar y arrastrar en la página
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.addEventListener('dragstart', e => e.preventDefault());
-document.addEventListener('copy', e => e.preventDefault());
-
-// 2. Anular interacción táctil sostenida en TODAS las imágenes
-document.querySelectorAll('img').forEach(img => {
-    img.addEventListener('touchstart', function(e) {
-        img.style.pointerEvents = 'none'; 
-    });
-    img.addEventListener('mousedown', e => e.preventDefault());
-});
-
-// 3. Deshabilitar Atajos de Teclado
-document.addEventListener('keydown', function(e) {
-    if (e.keyCode === 123 || 
-       (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || 
-       (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 67))) { 
-        e.preventDefault();
-        return false;
-    }
-});
-
-// =========================================================================
-// 1. BASE DE DATOS DE INVITADOS
-// =========================================================================
-const baseDeDatosInvitados = {
-    "familia Lara": ["Dalia Lara", "Mario Lara", "Diana Valladares", "Rodrigo Lara"],
-    "familia garcia": ["José García", "Elena Gómez", "Sofía García", "Luis García"],
-    "sofia": ["Sofía Hernández", "Acompañante de Sofía"],
-    "tios juan y ana": ["Tío Juan", "Tía Ana"],
-    "padrinos": ["Padrino Roberto", "Madrina Susana"],
-};
-
-// =========================================================================
-// 2. CONFIGURACIÓN DE RESTRICCIONES (MODO PRUEBA ACTIVADO)
-// =========================================================================
-const FECHA_LIMITE = new Date(2026, 10, 19, 23, 59, 0).getTime(); 
-
-// --- CAMBIO PARA PRUEBAS: Límite subido a 9999 para que no bloquee ---
-const LIMITE_MODIFICACIONES = 9999; 
-
-document.addEventListener("DOMContentLoaded", function() {
-    const btnBuscar = document.getElementById('btn-buscar');
-    const inputBusqueda = document.getElementById('input-busqueda');
-    const wrapperBusqueda = document.getElementById('wrapper-busqueda');
-    const textInstruccionBusqueda = document.getElementById('text-busqueda-instruccion');
-    const msjDeadlineBusqueda = document.getElementById('mensaje-deadline-busqueda');
-    const seccionBusqueda = document.getElementById('seccion-busqueda');
-    
-    const seccionPase = document.getElementById('pase-entrada');
-    const msjError = document.getElementById('mensaje-error');
-    const listaContainer = document.getElementById('lista-invitados-container');
-    const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
-    const msjLimiteModificaciones = document.getElementById('mensaje-limite-modificaciones');
-    const textInstruccionConfirmacion = document.getElementById('instruccion-confirmacion');
-    const msjDeadlineConfirmacion = document.getElementById('mensaje-deadline-confirmacion');
-
-    const storedFamilyKey = localStorage.getItem('adrianaXV_v3_key');
-    let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXV_v3_list') || '[]');
-    let storedEditCount = parseInt(localStorage.getItem('adrianaXV_v3_edits') || '0', 10);
-
-    // FUNCIÓN: Quita acentos, convierte a minúsculas y elimina espacios extras.
-    function quitarAcentos(texto) {
-        return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
-    }
-
-    function yaPasoLaFecha() {
-        return new Date().getTime() > FECHA_LIMITE;
-    }
-
-    function aplicarBloqueoPorFecha() {
-        if(wrapperBusqueda) wrapperBusqueda.style.display = 'none';
-        if(textInstruccionBusqueda) textInstruccionBusqueda.style.display = 'none';
-        if(msjDeadlineBusqueda) msjDeadlineBusqueda.style.display = 'block';
-
-        if(textInstruccionConfirmacion) textInstruccionConfirmacion.style.display = 'none';
-        if(btnWhatsapp) btnWhatsapp.disabled = true;
-        if(msjDeadlineConfirmacion) msjDeadlineConfirmacion.style.display = 'block';
-        
-        const checkboxes = listaContainer.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(cb => cb.disabled = true);
-    }
-
-    function comprobarYAplicarLimiteModificaciones() {
-        if (storedEditCount >= LIMITE_MODIFICACIONES) {
-            btnWhatsapp.disabled = true;
-            msjLimiteModificaciones.style.display = 'block';
-            
-            const checkboxes = listaContainer.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(cb => cb.disabled = true);
-            return true; 
-        }
-        return false; 
-    }
-
-    function cargarListaDeInvitados(claveBaseDatos, listaAComparar = []) {
-        const arregloInvitados = baseDeDatosInvitados[claveBaseDatos];
-        if (!arregloInvitados) return; 
-        document.getElementById('numero-pases').textContent = arregloInvitados.length;
-        
-        listaContainer.innerHTML = '';
-        arregloInvitados.forEach((nombre, index) => {
-            const estabaConfirmado = listaAComparar.length > 0 ? listaAComparar.includes(nombre) : true;
-            
-            listaContainer.innerHTML += `
-                <div class="asistente-row">
-                    <input type="checkbox" id="invitado-${index}" value="${nombre}" ${estabaConfirmado ? 'checked' : ''}>
-                    <label for="invitado-${index}">${nombre}</label>
-                </div>
-            `;
-        });
-    }
-
-    if (yaPasoLaFecha()) {
-        if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
-            seccionBusqueda.style.display = 'none';
-            seccionPase.style.display = 'block';
-            document.getElementById('nombre-encontrado').textContent = storedFamilyKey.toUpperCase();
-            cargarListaDeInvitados(storedFamilyKey, storedConfirmedList);
-        }
-        aplicarBloqueoPorFecha();
-        inputBusqueda.disabled = true;
-        btnBuscar.disabled = true;
-        btnBuscar.style.display = 'none';
-        wrapperBusqueda.style.display = 'none';
-        msjDeadlineBusqueda.style.display = 'block';
-        textInstruccionBusqueda.style.display = 'none';
-        
-    } else {
-        if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
-            seccionBusqueda.style.display = 'none';
-            seccionPase.style.display = 'block';
-            
-            document.getElementById('nombre-encontrado').textContent = storedFamilyKey.toUpperCase();
-            cargarListaDeInvitados(storedFamilyKey, storedConfirmedList);
-            
-            comprobarYAplicarLimiteModificaciones();
-        }
-    }
-
-    // --- LÓGICA DE BÚSQUEDA ULTRA FLEXIBLE ---
-    if(btnBuscar) {
-        btnBuscar.addEventListener('click', function() {
-            if (yaPasoLaFecha()) return;
-
-            const busquedaUsuario = quitarAcentos(inputBusqueda.value);
-            let coincidencia = null;
-
-            if (busquedaUsuario === "") return;
-
-            // Recorremos cada familia en la base de datos
-            for (let clave in baseDeDatosInvitados) {
-                let claveLimpia = quitarAcentos(clave);
-                
-                // 1. ¿El usuario escribió el nombre de la familia entera o una parte de ella?
-                if (claveLimpia.includes(busquedaUsuario) || busquedaUsuario.includes(claveLimpia)) {
-                    coincidencia = clave;
-                    break;
-                }
-
-                // 2. Si no encontró la familia, revisamos persona por persona dentro de esa familia
-                let integrantes = baseDeDatosInvitados[clave];
-                let coincidenciaEnIntegrantes = false;
-
-                for (let i = 0; i < integrantes.length; i++) {
-                    let nombreIntegranteLimpio = quitarAcentos(integrantes[i]);
-                    // Comprobamos si escribió "Dalia", "Mario", etc.
-                    if (nombreIntegranteLimpio.includes(busquedaUsuario) || busquedaUsuario.includes(nombreIntegranteLimpio)) {
-                        coincidenciaEnIntegrantes = true;
-                        break; // Deja de buscar integrantes, ya encontramos a qué familia pertenece
-                    }
-                }
-
-                if (coincidenciaEnIntegrantes) {
-                    coincidencia = clave; // Le damos el pase de toda su familia
-                    break;
-                }
-            }
-
-            // Si hubo coincidencia mostramos el pase
-            if (coincidencia) {
-                msjError.style.display = 'none';
-                seccionBusqueda.style.display = 'none';
-                seccionPase.style.display = 'block';
-
-                document.getElementById('nombre-encontrado').textContent = coincidencia.toUpperCase();
-                
-                cargarListaDeInvitados(coincidencia);
-
-                btnWhatsapp.onclick = function() {
-                    handleConfirmacion(coincidencia);
-                };
-
-            } else {
-                msjError.style.display = 'block';
-            }
-        });
-    }
-
-    if(inputBusqueda) {
-        inputBusqueda.addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                btnBuscar.click();
-            }
-        });
-    }
-
-    if(storedFamilyKey && baseDeDatosInvitados[storedFamilyKey] && !yaPasoLaFecha() && storedEditCount < LIMITE_MODIFICACIONES) {
-        btnWhatsapp.onclick = function() {
-            handleConfirmacion(storedFamilyKey);
-        };
-    }
-
-    function handleConfirmacion(claveFamilia) {
-        if (yaPasoLaFecha()) {
-            aplicarBloqueoPorFecha();
-            return;
-        }
-
-        if (storedEditCount >= LIMITE_MODIFICACIONES) {
-            comprobarYAplicarLimiteModificaciones();
-            return;
-        }
-
-        const arregloInvitados = baseDeDatosInvitados[claveFamilia];
-        if(!arregloInvitados) return;
-
-        let confirmadosActuales = [];
-        let noAsistiranList = [];
-        const checkboxes = listaContainer.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(cb => {
-            if (cb.checked) {
-                confirmadosActuales.push(cb.value);
-            } else {
-                noAsistiranList.push(cb.value);
-            }
-        });
-
-        if (confirmadosActuales.length === 0 && noAsistiranList.length > 0) {
-            if(!confirm("⚠️ Parece que nadie de la familia asistirá. ¿Deseas enviar este mensaje de declinación?")) {
-                return; 
-            }
-        } else if (confirmadosActuales.length === 0 && noAsistiranList.length === 0) {
-             alert("Error: No hay invitados registrados en esta familia.");
-             return;
-        }
-
-        storedEditCount++; 
-        
-        // --- CAMBIO PARA PRUEBAS: Líneas de guardado desactivadas (Comentadas) ---
-        // localStorage.setItem('adrianaXV_v3_key', claveFamilia);
-        // localStorage.setItem('adrianaXV_v3_list', JSON.stringify(confirmadosActuales));
-        // localStorage.setItem('adrianaXV_v3_edits', storedEditCount.toString());
-        // -------------------------------------------------------------------------
-        
-        storedConfirmedList = confirmadosActuales;
-        comprobarYAplicarLimiteModificaciones();
-
-        let mensajeWa = `Hola Adriana, somos *${claveFamilia.toUpperCase()}*.%0A%0AQueremos confirmar nuestra asistencia a tus XV años:%0A`;
-        
-        if (confirmadosActuales.length > 0) {
-            mensajeWa += `%0A✅ *Sí asistiremos (${confirmadosActuales.length}):*%0A`;
-            confirmadosActuales.forEach((nombre, i) => {
-                mensajeWa += `${i + 1}. ${nombre}%0A`;
-            });
-        }
-
-        if (noAsistiranList.length > 0) {
-            mensajeWa += `%0A❌ *No podremos asistir:*%0A`;
-            noAsistiranList.forEach((nombre, i) => {
-                mensajeWa += `${i + 1}. ${nombre}%0A`;
-            });
-        }
-        
-        mensajeWa += `%0A¡Muchas gracias por invitarnos!`;
-        
-        window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
-    }
-});
-
-// --- AUDIO ---
-window.addEventListener('click', () => {
-const audio = document.getElementById('musicaFondo');
-if (audio.paused) { audio.play(); }
-}, { once: true });
-
-window.addEventListener('touchstart', () => {
-const audio = document.getElementById('musicaFondo');
-if (audio.paused) { audio.play(); }
-}, { once: true });
-
-// --- GALERÍA ---
-let indiceActual = 0;
-const imagenesGaleria = document.querySelectorAll('.galeria-inicio img');
-
-function cambiarImagenGaleria() {
-if(imagenesGaleria.length === 0) return;
-imagenesGaleria[indiceActual].classList.remove('activa');
-indiceActual = (indiceActual + 1) % imagenesGaleria.length;
-imagenesGaleria[indiceActual].classList.add('activa');
-}
-setInterval(cambiarImagenGaleria, 3500);
-
-// --- CUENTA REGRESIVA ---
-const fechaFiestaReal = new Date(2026, 11, 19, 18, 0, 0).getTime(); 
-
-const intervalo = setInterval(function() {
-const ahora = new Date().getTime();
-const distancia = fechaFiestaReal - ahora;
-
-const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
-const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
-const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
-
-document.getElementById("dias").innerHTML = dias;
-document.getElementById("horas").innerHTML = horas < 10 ? "0" + horas : horas;
-document.getElementById("minutos").innerHTML = minutos < 10 ? "0" + minutos : minutos;
-document.getElementById("segundos").innerHTML = segundos < 10 ? "0" + segundos : segundos;
-
-if (distancia < 0) {
-clearInterval(intervalo);
-document.getElementById("contador").innerHTML = "<div class='contador-numero'>¡El gran día ha llegado!</div>";
-}
-}, 1000);
-</script>
-
-</body>
-</html>
