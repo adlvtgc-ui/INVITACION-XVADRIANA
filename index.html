@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light"> 
 <title>Mis XV Años - Adri</title>
+<!-- IMPORTACIÓN DE FUENTES -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Alex+Brush&display=swap" rel="stylesheet">
 <style>
 /* --- ESTILOS GENERALES Y COLORES --- */
@@ -219,11 +220,12 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </a>
 </div>
 
+<!-- SECCIÓN DE BÚSQUEDA -->
 <div class="card" id="seccion-busqueda">
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu nombre o el nombre de tu familia para buscar tu pase (Ej. Dalia o Familia Lara).</div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe tu nombre o el de tu familia para buscar tu pase (Ej. Dalia Lara o Familia Lara).</div>
 
 <div id="wrapper-busqueda">
     <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Buscar invitación..." autocomplete="off">
@@ -238,6 +240,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </div>
 </div>
 
+<!-- PASE DE ENTRADA -->
 <div class="card" id="pase-entrada">
 <div class="card-title">Tu Pase Especial</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -296,7 +299,7 @@ document.addEventListener('keydown', function(e) {
 });
 
 // =========================================================================
-// 1. BASE DE DATOS DE INVITADOS
+// 1. BASE DE DATOS DE INVITADOS (OFICIAL DEL EXCEL)
 // =========================================================================
 const baseDeDatosInvitados = {
     "familia Lara Valladares": ["MARIO LARA P", "MARIO LARA V", "DIANA VALLADARES", "DALIA DE LA O", "RODRIGO LARA", "ADRIANA"],
@@ -346,9 +349,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const textInstruccionConfirmacion = document.getElementById('instruccion-confirmacion');
     const msjDeadlineConfirmacion = document.getElementById('mensaje-deadline-confirmacion');
 
-    const storedFamilyKey = localStorage.getItem('adrianaXV_v6_key');
-    let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXV_v6_list') || '[]');
-    let storedEditCount = parseInt(localStorage.getItem('adrianaXV_v6_edits') || '0', 10);
+    const storedFamilyKey = localStorage.getItem('adrianaXV_v7_key');
+    let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXV_v7_list') || '[]');
+    let storedEditCount = parseInt(localStorage.getItem('adrianaXV_v7_edits') || '0', 10);
 
     function quitarAcentos(texto) {
         return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
@@ -442,7 +445,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             if (busquedaUsuario === "familia") {
-                alert("Por favor, escribe el apellido de la familia o tu nombre (Ej. Familia Lara o Dalia).");
+                alert("Por favor, escribe el apellido de la familia o tu nombre (Ej. Lara o Dalia).");
                 return;
             }
 
