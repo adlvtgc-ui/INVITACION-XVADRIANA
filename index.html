@@ -289,7 +289,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 
 <!-- Mensaje de límite de modificaciones -->
 <div id="mensaje-limite-modificaciones" style="color: #85386e; font-size: 0.85rem; font-weight: bold; margin-top: 15px; display: none;">
-    ⚠️ Has alcanzado el límite de 1 modificación permitida. Si necesitas un cambio urgente, contacta directamente a Adriana.
+    ⚠️ Has alcanzado el límite de modificaciones.
 </div>
 <!-- Mensaje de confirmaciones cerradas -->
 <div id="mensaje-deadline-confirmacion" style="color: #d32f2f; font-size: 1rem; font-weight: bold; margin-top: 15px; display: none;">
@@ -320,22 +320,19 @@ document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('dragstart', e => e.preventDefault());
 document.addEventListener('copy', e => e.preventDefault());
 
-// 2. Anular interacción táctil sostenida en TODAS las imágenes (Seguridad adicional para móviles)
+// 2. Anular interacción táctil sostenida en TODAS las imágenes
 document.querySelectorAll('img').forEach(img => {
-    // Al intentar tocar la imagen, forzamos que el navegador no abra opciones
     img.addEventListener('touchstart', function(e) {
-        // Evitamos el menú contextual, pero permitimos el 'scroll' para no romper la navegación
         img.style.pointerEvents = 'none'; 
     });
-    // Evitar que el mouse haga clic sostenido (arrastre en PC)
     img.addEventListener('mousedown', e => e.preventDefault());
 });
 
-// 3. Deshabilitar Atajos de Teclado (F12, Ctrl+U, Ctrl+Shift+I, etc.)
+// 3. Deshabilitar Atajos de Teclado
 document.addEventListener('keydown', function(e) {
-    if (e.keyCode === 123 || // F12
-       (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || // Inspeccionar / Consola
-       (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 67))) { // Ver Código / Copiar
+    if (e.keyCode === 123 || 
+       (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || 
+       (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 67))) { 
         e.preventDefault();
         return false;
     }
@@ -353,10 +350,12 @@ const baseDeDatosInvitados = {
 };
 
 // =========================================================================
-// 2. CONFIGURACIÓN DE RESTRICCIONES (FECHA Y MODIFICACIONES)
+// 2. CONFIGURACIÓN DE RESTRICCIONES (MODO PRUEBA ACTIVADO)
 // =========================================================================
 const FECHA_LIMITE = new Date(2026, 10, 19, 23, 59, 0).getTime(); 
-const LIMITE_MODIFICACIONES = 2; 
+
+// --- CAMBIO PARA PRUEBAS: Límite subido a 9999 para que no bloquee ---
+const LIMITE_MODIFICACIONES = 9999; 
 
 document.addEventListener("DOMContentLoaded", function() {
     const btnBuscar = document.getElementById('btn-buscar');
@@ -374,10 +373,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const textInstruccionConfirmacion = document.getElementById('instruccion-confirmacion');
     const msjDeadlineConfirmacion = document.getElementById('mensaje-deadline-confirmacion');
 
-    // Llaves "Limpías" para que nadie tenga guardado historial previo
-   const storedFamilyKey = localStorage.getItem('adrianaXV_oficial_key');
-    let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXV_oficial_list') || '[]');
-    let storedEditCount = parseInt(localStorage.getItem('adrianaXV_oficial_edits') || '0', 10);
+    const storedFamilyKey = localStorage.getItem('adrianaXV_v3_key');
+    let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXV_v3_list') || '[]');
+    let storedEditCount = parseInt(localStorage.getItem('adrianaXV_v3_edits') || '0', 10);
 
     function quitarAcentos(texto) {
         return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
@@ -544,9 +542,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
         storedEditCount++; 
         
-        localStorage.setItem('adrianaXV_oficial_key', claveFamilia);
-        localStorage.setItem('adrianaXV_oficial_list', JSON.stringify(confirmadosActuales));
-        localStorage.setItem('adrianaXV_oficial_edits', storedEditCount.toString());
+        // --- CAMBIO PARA PRUEBAS: Líneas de guardado desactivadas (Comentadas) ---
+        // localStorage.setItem('adrianaXV_v3_key', claveFamilia);
+        // localStorage.setItem('adrianaXV_v3_list', JSON.stringify(confirmadosActuales));
+        // localStorage.setItem('adrianaXV_v3_edits', storedEditCount.toString());
+        // -------------------------------------------------------------------------
+        
         storedConfirmedList = confirmadosActuales;
         comprobarYAplicarLimiteModificaciones();
 
