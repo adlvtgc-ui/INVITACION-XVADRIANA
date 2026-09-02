@@ -375,9 +375,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const msjDeadlineConfirmacion = document.getElementById('mensaje-deadline-confirmacion');
 
     // Llaves "Limpías" para que nadie tenga guardado historial previo
-    const storedFamilyKey = localStorage.getItem('adrianaXV_limpia_key');
-    let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXV_limpia_list') || '[]');
-    let storedEditCount = parseInt(localStorage.getItem('adrianaXV_limpia_edits') || '0', 10);
+   const storedFamilyKey = localStorage.getItem('adrianaXV_oficial_key');
+    let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXV_oficial_list') || '[]');
+    let storedEditCount = parseInt(localStorage.getItem('adrianaXV_oficial_edits') || '0', 10);
 
     function quitarAcentos(texto) {
         return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
@@ -544,10 +544,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         storedEditCount++; 
         
-        localStorage.setItem('adrianaXV_limpia_key', claveFamilia);
-        localStorage.setItem('adrianaXV_limpia_list', JSON.stringify(confirmadosActuales));
-        localStorage.setItem('adrianaXV_limpia_edits', storedEditCount.toString());
-        
+        localStorage.setItem('adrianaXV_oficial_key', claveFamilia);
+        localStorage.setItem('adrianaXV_oficial_list', JSON.stringify(confirmadosActuales));
+        localStorage.setItem('adrianaXV_oficial_edits', storedEditCount.toString());
         storedConfirmedList = confirmadosActuales;
         comprobarYAplicarLimiteModificaciones();
 
