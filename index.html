@@ -18,31 +18,34 @@ color-scheme: light;
 --fuente-nombre: 'Alex Brush', cursive;
 }
 
+/* Corrección de renderizado de texto para iOS */
 html { -webkit-text-size-adjust: 100%; }
 
 /* --- MEDIDAS DE SEGURIDAD EXTREMA --- */
 body {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-touch-callout: none;
+    -webkit-user-select: none; /* Bloquea selección de texto en Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none; /* Standard */
+    -webkit-touch-callout: none; /* BLOQUEA MENÚ DE IOS/ANDROID AL MANTENER PRESIONADO */
     margin: 0; padding: 0;
     background-image: linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url('thumb-1920-1275718.jpg');
     background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat;
     font-family: var(--fuente-cuerpo); color: var(--color-texto); text-align: center;
 }
 
+/* Impide interactuar (copiar/guardar/arrastrar) con TODAS las imágenes */
 img {
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
     user-drag: none;
-    -webkit-touch-callout: none !important;
-    pointer-events: none;
+    -webkit-touch-callout: none !important; /* Fuerza apagado del menú móvil */
+    pointer-events: none; /* Hace que la imagen sea "fantasma" a los clics */
 }
 
+/* Excepción obligatoria para botones con imágenes (Liverpool/Amazon) */
 .btn img {
     pointer-events: auto;
 }
@@ -54,14 +57,17 @@ background-size: cover; background-position: center; background-repeat: no-repea
 box-shadow: 0 4px 15px rgba(0,0,0,0.12); border-radius: 15px; box-sizing: border-box;
 }
 
+/* --- ENCABEZADO NORMAL --- */
 header { position: relative; padding: 5px 10px 0px 10px; border-radius: 12px 12px 0 0; }
 
+/* --- GALERÍA BLINDADA --- */
 .galeria-inicio {
 position: relative; width: 260px; height: 200px; margin: 10px auto 10px auto;
 border-radius: 8px; border: 1px solid #B87333; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 overflow: hidden; z-index: 10; background-color: #fff;
 }
 
+/* "CAPA DE CRISTAL": Escudo transparente por encima de las fotos. */
 .galeria-inicio::after {
     content: '';
     position: absolute;
@@ -80,6 +86,7 @@ h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
 header h1 { position: relative; z-index: 10; font-size: 2.2rem; letter-spacing: 3px; color: var(--color-principal); margin: 0; line-height: 1.2; }
 header h2 { position: relative; z-index: 10; font-family: var(--fuente-nombre); font-size: 5.2rem; color: var(--color-principal); margin: 0px 0 0 0; font-weight: normal; line-height: 1; letter-spacing: 2px; text-shadow: 2px 2px 4px #7B8B75; }
 
+/* --- CUENTA REGRESIVA --- */
 .contador-container { display: flex; justify-content: center; gap: 10px; margin: 15px auto 10px auto; position: relative; z-index: 20; }
 .contador-item { display: flex; flex-direction: column; align-items: center; background: rgba(242, 218, 236, 0.92); border: 1px solid #B87333; border-radius: 8px; padding: 6px 8px; min-width: 45px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 .contador-numero { font-family: var(--fuente-titulos); font-size: 1.2rem; color: var(--color-principal); font-weight: bold; line-height: 1; }
@@ -88,6 +95,7 @@ header h2 { position: relative; z-index: 10; font-family: var(--fuente-nombre); 
 .separador-header { width: 100%; max-width: 240px; margin: 15px auto 15px auto; position: relative; z-index: 15; display: block; }
 .separador-header img { width: 100%; height: auto; object-fit: contain; display: block; }
 
+/* --- TARJETAS --- */
 .card {
 background: rgba(242, 218, 236, 0.92); border: 1px solid #B87333; border-radius: 8px;
 margin: 10px 5px 25px 5px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); position: relative; z-index: 5;
@@ -112,6 +120,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 .prohibido { color: var(--color-principal); font-style: italic; font-weight: bold; margin-top: 12px; font-family: var(--fuente-titulos); }
 .img-dress-code { width: 55%; max-width: 160px; height: auto; margin: 12px auto; display: block; border: none; background: none; }
 
+/* --- EFECTO ANIMADO PARA EL PASE --- */
 @keyframes resplandor-pase-nuevo {
     0% { box-shadow: 0 2px 8px rgba(184, 115, 51, 0.1); transform: scale(1); }
     50% { box-shadow: 0 6px 15px rgba(184, 115, 51, 0.4); transform: scale(1.02); }
@@ -122,6 +131,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 #pase-entrada { display: none; animation: resplandor-pase-nuevo 3.5s infinite ease-in-out; margin-top: 30px; }
 .pase-destacado { font-family: var(--fuente-titulos); font-weight: bold; font-size: 1.3rem; color: var(--color-principal); }
 
+/* Input del buscador (Excepción de texto para poder escribir) */
 .input-busqueda {
     -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text;
     width: 90%; padding: 12px; margin-top: 10px;
@@ -132,14 +142,17 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 }
 .input-busqueda:focus { outline: none; border-color: var(--color-principal); }
 
+/* --- ESTILOS DE LA LISTA DE INVITADOS --- */
 .asistente-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; text-align: left; background: rgba(255,255,255,0.5); padding: 10px 12px; border-radius: 6px; border: 1px dashed #d9b8cd; }
 .asistente-row input[type="checkbox"] { accent-color: var(--color-principal); transform: scale(1.4); cursor: pointer; }
 .asistente-row label { font-family: var(--fuente-cuerpo); font-size: 1rem; color: var(--color-texto); flex: 1; font-weight: 600; cursor: pointer;}
 
+/* --- FRASE Y MINI IMAGEN --- */
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
 .img-final-pequena { width: 15%; max-width: 35px; height: auto; margin: 0 auto; display: block; opacity: 0.95; }
 
+/* --- ADAPTACIÓN PARA CELULARES --- */
 @media (max-width: 600px) {
     body { background-attachment: scroll; }
     .container { margin: 10px 8px; padding: 15px 12px 20px 12px; }
@@ -222,64 +235,4 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </a>
 <br>
 <a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&language=en-US" target="_blank" class="btn">
-<img src="amazon.jpg" alt="Amazon" class="logo-tienda"> Mesa Amazon
-</a>
-</div>
-
-<div class="card" id="seccion-busqueda">
-<div class="card-title">Confirmación</div>
-<div class="separador-rizos"><div class="linea-centro"></div></div>
-<div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu nombre o el de tu familia para buscar tu pase de entrada (Ej. Dalia Lara o Familia Lara).</div>
-
-<div id="wrapper-busqueda">
-    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Buscar invitación..." autocomplete="off">
-    <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pase</button>
-</div>
-
-<div id="mensaje-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: bold; margin-top: 12px; display: none;">
-    Lo sentimos, no encontramos una invitación con ese nombre. Por favor intenta escribiéndolo diferente o contacta a los organizadores.
-</div>
-<div id="mensaje-deadline-busqueda" style="color: #85386e; font-size: 1rem; font-weight: bold; margin-top: 12px; display: none;">
-    ⚠️ Las confirmaciones y búsquedas de pases digitales están cerradas desde el 19 de Noviembre de 2026.
-</div>
-</div>
-
-<div class="card" id="pase-entrada">
-<div class="card-title">Tu Pase Especial</div>
-<div class="separador-rizos"><div class="linea-centro"></div></div>
-
-<div style="font-size: 1.1rem; margin-top: 10px;">Invitación para: <span class="pase-destacado" id="nombre-encontrado">Familia</span></div>
-<div style="margin-top: 5px;">Pases asignados: <span class="pase-destacado" id="numero-pases">0</span></div>
-
-<div class="info-row" style="margin-top: 20px; font-weight: bold;" id="instruccion-confirmacion">
-    Por favor, marca la casilla ✔ de las personas que asistirán al evento:
-</div>
-
-<div id="lista-invitados-container" style="margin-top: 15px;"></div>
-
-<button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem;">
-    Confirmar Asistencia por WhatsApp
-</button>
-
-<div id="mensaje-limite-modificaciones" style="color: #85386e; font-size: 0.85rem; font-weight: bold; margin-top: 15px; display: none;">
-    ⚠️ Has alcanzado el límite de modificaciones.
-</div>
-<div id="mensaje-deadline-confirmacion" style="color: #d32f2f; font-size: 1rem; font-weight: bold; margin-top: 15px; display: none;">
-    ⚠️ Las confirmaciones están cerradas desde el 19 de Noviembre de 2026.
-</div>
-
-<div class="info-row" style="font-size: 0.8rem; font-style: italic; color: var(--color-principal); margin-top: 15px;">
-    * Presenta esta invitación digital en la recepción el día del evento.
-</div>
-</div>
-
-<div class="frase-final-container">
-<p class="frase-final-texto">Queremos compartir la magia de esta noche contigo</p>
-<img src="imagenfinal.png" alt="Detalle final" class="img-final-pequena">
-</div>
-
-</div> 
-
-<script>
-// =========================================================================
+<img src="amazon.jpg"
