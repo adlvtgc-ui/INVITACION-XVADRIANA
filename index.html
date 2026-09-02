@@ -252,7 +252,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu nombre o el nombre de tu familia (Ej. Familia Pérez) para buscar tu pase de entrada y confirmar.</div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe tu nombre o el nombre de tu familia para buscar tu pase de entrada (Ej. Dalia Lara o Familia Lara).</div>
 
 <div id="wrapper-busqueda">
     <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Buscar invitación..." autocomplete="off">
@@ -377,6 +377,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXV_v3_list') || '[]');
     let storedEditCount = parseInt(localStorage.getItem('adrianaXV_v3_edits') || '0', 10);
 
+    // FUNCIÓN: Quita acentos, convierte a minúsculas y elimina espacios extras.
     function quitarAcentos(texto) {
         return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
     }
@@ -455,6 +456,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // --- LÓGICA DE BÚSQUEDA ULTRA FLEXIBLE ---
     if(btnBuscar) {
         btnBuscar.addEventListener('click', function() {
             if (yaPasoLaFecha()) return;
@@ -464,14 +466,36 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (busquedaUsuario === "") return;
 
+            // Recorremos cada familia en la base de datos
             for (let clave in baseDeDatosInvitados) {
                 let claveLimpia = quitarAcentos(clave);
+                
+                // 1. ¿El usuario escribió el nombre de la familia entera o una parte de ella?
                 if (claveLimpia.includes(busquedaUsuario) || busquedaUsuario.includes(claveLimpia)) {
                     coincidencia = clave;
                     break;
                 }
+
+                // 2. Si no encontró la familia, revisamos persona por persona dentro de esa familia
+                let integrantes = baseDeDatosInvitados[clave];
+                let coincidenciaEnIntegrantes = false;
+
+                for (let i = 0; i < integrantes.length; i++) {
+                    let nombreIntegranteLimpio = quitarAcentos(integrantes[i]);
+                    // Comprobamos si escribió "Dalia", "Mario", etc.
+                    if (nombreIntegranteLimpio.includes(busquedaUsuario) || busquedaUsuario.includes(nombreIntegranteLimpio)) {
+                        coincidenciaEnIntegrantes = true;
+                        break; // Deja de buscar integrantes, ya encontramos a qué familia pertenece
+                    }
+                }
+
+                if (coincidenciaEnIntegrantes) {
+                    coincidencia = clave; // Le damos el pase de toda su familia
+                    break;
+                }
             }
 
+            // Si hubo coincidencia mostramos el pase
             if (coincidencia) {
                 msjError.style.display = 'none';
                 seccionBusqueda.style.display = 'none';
