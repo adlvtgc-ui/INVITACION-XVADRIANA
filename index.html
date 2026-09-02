@@ -3,10 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Esta etiqueta le dice al navegador que solo use modo claro -->
 <meta name="color-scheme" content="light"> 
 <title>Mis XV Años - Adri</title>
-<!-- IMPORTACIÓN DE FUENTES -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Alex+Brush&display=swap" rel="stylesheet">
 <style>
 /* --- ESTILOS GENERALES Y COLORES --- */
@@ -20,7 +18,6 @@ color-scheme: light;
 --fuente-nombre: 'Alex Brush', cursive;
 }
 
-/* Corrección de renderizado de texto para iOS */
 html { -webkit-text-size-adjust: 100%; }
 
 /* --- MEDIDAS DE SEGURIDAD EXTREMA --- */
@@ -36,7 +33,6 @@ body {
     font-family: var(--fuente-cuerpo); color: var(--color-texto); text-align: center;
 }
 
-/* Impide interactuar con TODAS las imágenes */
 img {
     -webkit-user-drag: none;
     -khtml-user-drag: none;
@@ -47,7 +43,6 @@ img {
     pointer-events: none;
 }
 
-/* Excepción obligatoria para botones con imágenes */
 .btn img { pointer-events: auto; }
 
 .container {
@@ -219,12 +214,11 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <img src="liverpool.jpeg" alt="Liverpool" class="logo-tienda"> Mesa Liverpool
 </a>
 <br>
-<a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&language=en-US" target="_blank" class="btn">
+<a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&amp;language=en-US" target="_blank" class="btn">
 <img src="amazon.jpg" alt="Amazon" class="logo-tienda"> Mesa Amazon
 </a>
 </div>
 
-<!-- SECCIÓN DE BÚSQUEDA -->
 <div class="card" id="seccion-busqueda">
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -244,7 +238,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </div>
 </div>
 
-<!-- PASE DE ENTRADA -->
 <div class="card" id="pase-entrada">
 <div class="card-title">Tu Pase Especial</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -452,13 +445,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 for (let t = 0; t < terminos.length; t++) {
                     let termino = terminos[t];
                     
-                    // 1. Buscar en el nombre de la familia
                     if (claveLimpia.includes(termino)) {
                         coincide = true;
                         break;
                     }
                     
-                    // 2. Buscar en los integrantes de la familia
                     for (let i = 0; i < integrantes.length; i++) {
                         let integranteLimpio = quitarAcentos(integrantes[i]);
                         if (integranteLimpio.includes(termino)) {
@@ -531,12 +522,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         storedEditCount++; 
-        
-        // --- GUARDADO EN MEMORIA DESACTIVADO PARA PRUEBAS (Comentado) ---
-        // localStorage.setItem('adrianaXV_v6_key', claveFamilia);
-        // localStorage.setItem('adrianaXV_v6_list', JSON.stringify(confirmadosActuales));
-        // localStorage.setItem('adrianaXV_v6_edits', storedEditCount.toString());
-        // -----------------------------------------------------------------
         
         storedConfirmedList = confirmadosActuales;
         comprobarYAplicarLimiteModificaciones();
