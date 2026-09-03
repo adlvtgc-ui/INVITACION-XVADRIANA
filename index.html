@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light"> 
 <title>Mis XV Años - Adri</title>
-<!-- IMPORTACIÓN DE FUENTES -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Alex+Brush&display=swap" rel="stylesheet">
 <style>
 /* --- ESTILOS GENERALES Y COLORES --- */
@@ -46,11 +45,13 @@ img {
 
 .btn img { pointer-events: auto; }
 
+/* Contenedor principal con Z-index alto para quedar sobre los brillos */
 .container {
-max-width: 500px; margin: 20px auto; padding: 20px 20px 30px 20px;
-background: linear-gradient(rgba(249, 226, 245, 0.9), rgba(255, 250, 254, 0.30)), url('linea.jpg');
-background-size: cover; background-position: center; background-repeat: no-repeat;
-box-shadow: 0 4px 15px rgba(0,0,0,0.12); border-radius: 15px; box-sizing: border-box;
+    position: relative; z-index: 5;
+    max-width: 500px; margin: 20px auto; padding: 20px 20px 30px 20px;
+    background: linear-gradient(rgba(249, 226, 245, 0.9), rgba(255, 250, 254, 0.30)), url('linea.jpg');
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12); border-radius: 15px; box-sizing: border-box;
 }
 
 header { position: relative; padding: 5px 10px 0px 10px; border-radius: 12px 12px 0 0; }
@@ -110,6 +111,12 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
     0% { box-shadow: 0 2px 8px rgba(184, 115, 51, 0.1); transform: scale(1); }
     50% { box-shadow: 0 6px 15px rgba(184, 115, 51, 0.4); transform: scale(1.02); }
     100% { box-shadow: 0 2px 8px rgba(184, 115, 51, 0.1); transform: scale(1); }
+}
+
+/* Animación sutil de los brillos de fondo */
+@keyframes brillar {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 0.8; transform: scale(1.3); }
 }
 
 #seccion-busqueda { margin-top: 30px; animation: resplandor-pase-nuevo 3.5s infinite ease-in-out; }
@@ -186,7 +193,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="card-lugar">Parroquia de San Judas Tadeo</div>
 <div class="info-row"><strong>Hora:</strong> 19 de diciembre de 2026 - 17:30 hrs.</div>
-<div class="info-row"><strong>Dirección:Calle Convento de Sta. Brígida 27, Hab Jardines de Santa Monica, 54050 Tlalnepantla, Méx.</strong></div>
+<div class="info-row"><strong>Dirección: Calle Convento de Sta. Brígida 27, Hab Jardines de Santa Monica, 54050 Tlalnepantla, Méx.</strong></div>
 <a href="https://maps.app.goo.gl/L5pvQmH7pZsTyAdb7" target="_blank" class="btn">Ver mapa</a>
 </div>
 
@@ -215,12 +222,11 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <img src="liverpool.jpeg" alt="Liverpool" class="logo-tienda"> Mesa Liverpool
 </a>
 <br>
-<a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&amp;language=en-US" target="_blank" class="btn">
+<a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&language=en-US" target="_blank" class="btn">
 <img src="amazon.jpg" alt="Amazon" class="logo-tienda"> Mesa Amazon
 </a>
 </div>
 
-<!-- SECCIÓN DE BÚSQUEDA -->
 <div class="card" id="seccion-busqueda">
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -240,7 +246,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </div>
 </div>
 
-<!-- PASE DE ENTRADA -->
 <div class="card" id="pase-entrada">
 <div class="card-title">Tu Pase Especial</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -278,6 +283,44 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </div> 
 
 <script>
+// =========================================================================
+// EFECTO DE BRILLOS (POLVO DE HADAS) EN EL FONDO
+// =========================================================================
+function crearBrillos() {
+    const contenedorFondo = document.createElement('div');
+    contenedorFondo.style.position = 'fixed';
+    contenedorFondo.style.top = '0';
+    contenedorFondo.style.left = '0';
+    contenedorFondo.style.width = '100%';
+    contenedorFondo.style.height = '100%';
+    contenedorFondo.style.pointerEvents = 'none'; // Para que no bloquee los clics
+    contenedorFondo.style.zIndex = '1'; // Se queda detrás del contenedor principal
+    document.body.appendChild(contenedorFondo);
+
+    // Generamos 35 estrellas de diferentes tamaños y tiempos
+    for (let i = 0; i < 35; i++) {
+        const destello = document.createElement('div');
+        destello.style.position = 'absolute';
+        destello.style.top = Math.random() * 100 + '%';
+        destello.style.left = Math.random() * 100 + '%';
+        const tamaño = (Math.random() * 3 + 1) + 'px'; // Tamaños sutiles entre 1px y 4px
+        destello.style.width = tamaño;
+        destello.style.height = tamaño;
+        destello.style.background = '#ffffff';
+        destello.style.borderRadius = '50%';
+        destello.style.boxShadow = '0 0 8px 2px rgba(255, 230, 245, 0.6)'; // Luz suave rosada/cálida
+        destello.style.opacity = '0';
+        
+        // Cada estrella brilla a su propio ritmo (entre 2 y 5 segundos) y empieza en diferente tiempo
+        const duracion = Math.random() * 3 + 2; 
+        const retraso = Math.random() * 5;
+        destello.style.animation = `brillar ${duracion}s infinite ease-in-out ${retraso}s`;
+        
+        contenedorFondo.appendChild(destello);
+    }
+}
+crearBrillos();
+
 // =========================================================================
 // SCRIPT DE SEGURIDAD EXTREMA CONTRA DESCARGAS Y COPIAS
 // =========================================================================
