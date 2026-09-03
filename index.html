@@ -46,7 +46,7 @@ img {
 
 .btn img { pointer-events: auto; }
 
-/* Contenedor principal: Se añadió overflow: hidden para que los brillos no se salgan de las esquinas */
+/* Contenedor principal: overflow oculto para que no se salgan los brillos */
 .container {
     position: relative; z-index: 5;
     overflow: hidden; 
@@ -115,11 +115,12 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
     100% { box-shadow: 0 2px 8px rgba(184, 115, 51, 0.1); transform: scale(1); }
 }
 
-/* --- ANIMACIÓN DE BRILLOS DENTRO DEL CONTENEDOR --- */
-@keyframes brillar {
-    0% { opacity: 0; transform: scale(0.5) translateY(0px); }
-    50% { opacity: 1; transform: scale(1.4) translateY(-25px); }
-    100% { opacity: 0; transform: scale(0.5) translateY(-50px); }
+/* --- ANIMACIÓN DE LLUVIA DE ESTRELLAS --- */
+@keyframes lluvia {
+    0% { opacity: 0; transform: translateY(-40px) translateX(20px) scale(0.5) rotate(0deg); }
+    15% { opacity: 1; transform: translateY(0px) translateX(10px) scale(1.2) rotate(45deg); }
+    85% { opacity: 1; transform: translateY(100px) translateX(-10px) scale(1) rotate(135deg); }
+    100% { opacity: 0; transform: translateY(140px) translateX(-20px) scale(0.5) rotate(180deg); }
 }
 
 #seccion-busqueda { margin-top: 30px; animation: resplandor-pase-nuevo 3.5s infinite ease-in-out; }
@@ -289,49 +290,54 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 
 <script>
 // =========================================================================
-// EFECTO DE BRILLOS DENTRO DEL CONTENEDOR PRINCIPAL
+// EFECTO DE LLUVIA DE ESTRELLAS MÁGICAS (MÁXIMA DENSIDAD)
 // =========================================================================
-function crearBrillos() {
+function crearLluviaDeEstrellas() {
     const contenedorPrincipal = document.getElementById('contenedor-principal');
     const capaBrillos = document.createElement('div');
     
-    // Configuramos la capa para que viva adentro del contenedor principal
     capaBrillos.style.position = 'absolute';
     capaBrillos.style.top = '0';
     capaBrillos.style.left = '0';
     capaBrillos.style.width = '100%';
     capaBrillos.style.height = '100%';
     capaBrillos.style.pointerEvents = 'none'; 
-    capaBrillos.style.zIndex = '1'; // Se queda por debajo de las tarjetas (que tienen z-index 5)
+    capaBrillos.style.zIndex = '1'; 
     
     contenedorPrincipal.appendChild(capaBrillos);
 
-    // Más cantidad de destellos
-    for (let i = 0; i < 60; i++) {
+    // ¡Aumentamos a 250 estrellas para un efecto de lluvia espectacular!
+    for (let i = 0; i < 950; i++) {
         const destello = document.createElement('div');
         destello.style.position = 'absolute';
-        destello.style.top = Math.random() * 100 + '%';
-        destello.style.left = Math.random() * 100 + '%';
         
-        // Tamaños variados y un poquito más grandes
-        const tamaño = (Math.random() * 4 + 3) + 'px'; 
+        // Nacen desde más arriba y se extienden más a los lados para cubrir todo al caer en diagonal
+        destello.style.top = (Math.random() * 140 - 40) + '%'; 
+        destello.style.left = (Math.random() * 140 - 20) + '%';
+        
+        // Tamaños variados: muchas pequeñas de fondo (3px) y algunas más grandes (hasta 11px)
+        const tamaño = (Math.random() * 8 + 3) + 'px'; 
         destello.style.width = tamaño;
         destello.style.height = tamaño;
-        
-        // Centro blanco brillante con sombra cálida/rosada fuerte
         destello.style.background = '#ffffff'; 
-        destello.style.borderRadius = '50%';
-        destello.style.boxShadow = '0 0 12px 4px rgba(212, 137, 185, 0.9)'; 
+        
+        destello.style.clipPath = 'polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%)';
+        destello.style.webkitClipPath = 'polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%)';
+        
+        // Un resplandor ligeramente más suave para que al ser muchas no saturen la pantalla
+        destello.style.filter = 'drop-shadow(0 0 3px rgba(212, 137, 185, 0.7))';
         destello.style.opacity = '0';
         
-        const duracion = Math.random() * 3 + 2.5; 
-        const retraso = Math.random() * 5;
-        destello.style.animation = `brillar ${duracion}s infinite ease-in-out ${retraso}s`;
+        // Tiempos ajustados para dar un flujo constante y fluido
+        const duracion = Math.random() * 5 + 3; 
+        const retraso = Math.random() * 10;
+        
+        destello.style.animation = `lluvia ${duracion}s infinite linear ${retraso}s`;
         
         capaBrillos.appendChild(destello);
     }
 }
-crearBrillos();
+crearLluviaDeEstrellas();
 
 // =========================================================================
 // SCRIPT DE SEGURIDAD EXTREMA CONTRA DESCARGAS Y COPIAS
