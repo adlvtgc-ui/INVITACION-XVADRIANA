@@ -137,9 +137,16 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 }
 .input-busqueda:focus { outline: none; border-color: var(--color-principal); }
 
-.asistente-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; text-align: left; background: rgba(255,255,255,0.5); padding: 10px 12px; border-radius: 6px; border: 1px dashed #d9b8cd; }
-.asistente-row input[type="checkbox"] { accent-color: var(--color-principal); transform: scale(1.4); cursor: pointer; }
-.asistente-row label { font-family: var(--fuente-cuerpo); font-size: 1rem; color: var(--color-texto); flex: 1; font-weight: 600; cursor: pointer;}
+/* --- NUEVOS ESTILOS PARA LOS SLOTS DE INVITADOS --- */
+.slot-container { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.slot-numero { font-family: var(--fuente-cuerpo); font-weight: 600; color: var(--color-principal); font-size: 1.1rem; width: 25px; text-align: right; }
+.input-invitado { 
+    -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text;
+    flex: 1; padding: 10px 12px; border: 1px solid #d9b8cd; border-radius: 6px; 
+    font-family: var(--fuente-cuerpo); font-size: 0.95rem; color: var(--color-texto); 
+    background: rgba(255, 255, 255, 0.85); box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+.input-invitado:focus { outline: none; border-color: var(--color-principal); background: #fff; }
 
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
@@ -236,11 +243,11 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu nombre o el de tu familia para buscar tu pase (Ej. Adriana Lara o Familia Lara).</div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe el nombre de tu familia o grupo para buscar tus pases (Ej. Familia Lara, Familia Vasquez, Amigos).</div>
 
 <div id="wrapper-busqueda">
-    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Buscar invitación..." autocomplete="off">
-    <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pase</button>
+    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Buscar familia o grupo..." autocomplete="off">
+    <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pases</button>
 </div>
 
 <div id="mensaje-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: bold; margin-top: 12px; display: none;">
@@ -251,7 +258,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </div>
 </div>
 
-<!-- PASE DE ENTRADA -->
+<!-- PASE DE ENTRADA CON SLOTS -->
 <div class="card" id="pase-entrada">
 <div class="card-title">Tu Pase Especial</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -259,11 +266,11 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div style="font-size: 1.1rem; margin-top: 10px;">Invitación para: <span class="pase-destacado" id="nombre-encontrado">Familia</span></div>
 <div style="margin-top: 5px;">Pases asignados: <span class="pase-destacado" id="numero-pases">0</span></div>
 
-<div class="info-row" style="margin-top: 20px; font-weight: bold;" id="instruccion-confirmacion">
-    Por favor, marca la casilla ✔ de las personas que asistirán al evento:
+<div class="info-row" style="margin-top: 20px; font-weight: bold; font-size: 0.85rem;" id="instruccion-confirmacion">
+    Por favor, escribe el nombre y apellido de los asistentes. Deja en blanco los pases que no utilizarán:
 </div>
 
-<div id="lista-invitados-container" style="margin-top: 15px;"></div>
+<div id="lista-invitados-container" style="margin-top: 15px; display: flex; flex-direction: column; gap: 5px;"></div>
 
 <button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem;">
     Confirmar Asistencia por WhatsApp
@@ -290,7 +297,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 
 <script>
 // =========================================================================
-// EFECTO DE LLUVIA DE ESTRELLAS MÁGICAS (MÁXIMA DENSIDAD)
+// EFECTO DE LLUVIA DE ESTRELLAS MÁGICAS
 // =========================================================================
 function crearLluviaDeEstrellas() {
     const contenedorPrincipal = document.getElementById('contenedor-principal');
@@ -306,34 +313,23 @@ function crearLluviaDeEstrellas() {
     
     contenedorPrincipal.appendChild(capaBrillos);
 
-    // ¡Aumentamos a 250 estrellas para un efecto de lluvia espectacular!
-    for (let i = 0; i < 950; i++) {
+    for (let i = 0; i < 250; i++) {
         const destello = document.createElement('div');
         destello.style.position = 'absolute';
-        
-        // Nacen desde más arriba y se extienden más a los lados para cubrir todo al caer en diagonal
         destello.style.top = (Math.random() * 140 - 40) + '%'; 
         destello.style.left = (Math.random() * 140 - 20) + '%';
-        
-        // Tamaños variados: muchas pequeñas de fondo (3px) y algunas más grandes (hasta 11px)
         const tamaño = (Math.random() * 8 + 3) + 'px'; 
         destello.style.width = tamaño;
         destello.style.height = tamaño;
         destello.style.background = '#ffffff'; 
-        
         destello.style.clipPath = 'polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%)';
         destello.style.webkitClipPath = 'polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%)';
-        
-        // Un resplandor ligeramente más suave para que al ser muchas no saturen la pantalla
         destello.style.filter = 'drop-shadow(0 0 3px rgba(212, 137, 185, 0.7))';
         destello.style.opacity = '0';
         
-        // Tiempos ajustados para dar un flujo constante y fluido
         const duracion = Math.random() * 5 + 3; 
         const retraso = Math.random() * 10;
-        
         destello.style.animation = `lluvia ${duracion}s infinite linear ${retraso}s`;
-        
         capaBrillos.appendChild(destello);
     }
 }
@@ -360,32 +356,39 @@ document.addEventListener('keydown', function(e) {
 });
 
 // =========================================================================
-// 1. BASE DE DATOS DE INVITADOS (OFICIAL DEL EXCEL)
+// 1. BASE DE DATOS DE FAMILIAS (EXTRAÍDA DE TU EXCEL CON SLOTS)
 // =========================================================================
-const baseDeDatosInvitados = {
-    "familia Lara Valladares": ["MARIO LARA P", "MARIO LARA V", "DIANA VALLADARES", "DALIA DE LA O", "RODRIGO LARA", "ADRIANA"],
-    "familia Lara Tolentino": ["DALIA LARA", "CRESCENCIO TOLENTINO", "ZALMA CORREA", "CARLOS MARTINEZ", "ALMA SANJUAN", "NOVIO ALMA"],
-    "familia Moya Valladares": ["SONIA VALLADARES", "MARIANA MOYA", "SONIA MOYA", "LUIS MOYA", "INVITADO 1", "INVITADO 2", "INVITADO 3", "INVITADO4"],
-    "familia De La O Garcia": ["ADRIAN DE LA O", "PATRICIA GARCIA", "ALAN DE LA O", "INTADO 1", "DANIELA AGUILAR", "THIAGO DE LA O"],
-    "familia De La O": ["OSCAR VALLADARES", "INVITADO", "LEO DE LA O"],
-    "familia": ["VERONICA BORGES", "MOISES ENRIQUEZ", "MOISES ENRIQUEZ BORGES", "BETZI ENRIQUEZ", "INVITADO"],
-    "familia De La O Vazques": ["CARLOS DE LA O", "ESTELA VASQUEZ", "CARLOS DE LA O VESQUEZ", "JENNYFER VASQUEZ", "INVITADO", "NAOMI", "ARIANA"],
-    "familia Vasquesz Borges": ["CLAUDIA BORGES", "RAFAEL VASQUEZ", "DAVID VASQUEZ BORGES", "RAFAEL VASQUEZ BORGES", "KARINA SEDEÑO"],
-    "familia Borges De La O": ["ELIOS DE LA O", "MIZRAHIM", "MIZ", "AIDA DE LA O", "TEODORO OLVERA"],
-    "familia Chavarria De La O": ["LIBERETAD DE LA O", "MONICA RANGEL", "ARMANDO CHAVARRÍA", "RICARDO CHAVARRÍA", "ESPOSA", "HIJO", "ESPOSA", "HIJO 2", "CLAUDIA CHAVARRIA", "ALICIA RANGEL", "FRANCISCO GUERRERO", "ELSA BORGES", "VICTOR GARCIA", "DAVID RANGEL"],
-    "familia 11": ["WERA", "ERIKA RIOS", "ESPOSO"],
-    "familia 12": ["SANDRA LARA", "HIJO 1", "HIJO 2"],
-    "familia 13": ["MONSERRAT LARA", "ESPOSO", "HIJO", "HIJO 2"],
-    "familia 14": ["LILIANA LARA", "FRANCISCO", "HIJO 1", "HIJO 2"],
-    "familia 15": ["MARINA LARA", "JOSE", "ARTEMISA RIOS", "RAZIEL RIOS", "URIEL RIOS"],
-    "familia 16": ["GUILLERMO RIOS", "ESPOSA", "IRVING", "ESPOSA", "CRISTIAN", "ESPOSA"],
-    "familia 17": ["PADRINO 1", "PADRINO 2", "RAMSES", "NOVIA", "RENE", "NOVIA", "RODRIGO", "NOVIA"],
-    "amigos": ["DASTAN", "DIANA", "GERALDINE", "ERICK", "IKER", "HELENA", "JOHA", "REGI", "VALE", "VELE2"],
-    "familia 19": ["HUGO MULTIMED", "ESPOSA", "HIJA", "PRICILA", "ESPOSO", "HIJA", "INGE", "INVITADA INGE", "CHIMBOMBITO"],
-    "mario inv": ["AXEL", "ALEX", "REGINA", "ELIEL", "MARU"],
-    "rodrigo": ["ANGEL", "QUIQUE", "BRYAN", "SU ESPOSA", "BRANDON", "CRIS TCL", "KAREN", "TUYA"],
-    "diana inv": ["INVITADOS", "INVITADOS", "INVITADOS", "INVITADOS"],
-    "adriana": ["SAM", "JORGE", "VALE", "NETO", "SARA", "DIRSE", "JOEL", "DYLAN", "LALO", "JULIETA"]
+const baseDeDatosFamilias = {
+    "familia lara valladares": 7,
+    "familia lara tolentino": 3,
+    "ana amigos": 6,
+    "familia moya valladares": 7,
+    "familia orta moya": 3,
+    "familia de la o garcia": 7,
+    "familia de la o": 4,
+    "familia enriquez borges": 6,
+    "familia de la o vazquez": 4,
+    "familia vasquez": 5,
+    "familia vazquez borges": 4,
+    "familia vasquez sedeño": 3,
+    "familia borges sosa": 6,
+    "familia chavarria de la o": 9,
+    "familia guerrero rangel": 3,
+    "familia rangel": 4,
+    "familia lara rios": 4,
+    "familia sandra": 5,
+    "familia monserrat": 5,
+    "familia liliana": 5,
+    "familia rios lara": 6,
+    "familia rios cano": 3,
+    "familia rios sanchez": 6,
+    "familia rios castro": 9,
+    "amigos": 11,
+    "familia lopez": 9,
+    "mario amigos": 6,
+    "rodrigo amigos": 9,
+    "diana amigos": 5,
+    "adriana": 11
 };
 
 // =========================================================================
@@ -410,63 +413,58 @@ document.addEventListener("DOMContentLoaded", function() {
     const textInstruccionConfirmacion = document.getElementById('instruccion-confirmacion');
     const msjDeadlineConfirmacion = document.getElementById('mensaje-deadline-confirmacion');
 
-    const storedFamilyKey = localStorage.getItem('adrianaXV_v7_key');
-    let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXV_v7_list') || '[]');
-    let storedEditCount = parseInt(localStorage.getItem('adrianaXV_v7_edits') || '0', 10);
+    const storedFamilyKey = localStorage.getItem('adrianaXV_v8_key');
+    let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXV_v8_list') || '[]');
+    let storedEditCount = parseInt(localStorage.getItem('adrianaXV_v8_edits') || '0', 10);
 
     function quitarAcentos(texto) {
         return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
     }
 
-    function yaPasoLaFecha() {
-        return new Date().getTime() > FECHA_LIMITE;
-    }
+    function yaPasoLaFecha() { return new Date().getTime() > FECHA_LIMITE; }
 
     function aplicarBloqueoPorFecha() {
         if(wrapperBusqueda) wrapperBusqueda.style.display = 'none';
         if(textInstruccionBusqueda) textInstruccionBusqueda.style.display = 'none';
         if(msjDeadlineBusqueda) msjDeadlineBusqueda.style.display = 'block';
-
         if(textInstruccionConfirmacion) textInstruccionConfirmacion.style.display = 'none';
         if(btnWhatsapp) btnWhatsapp.disabled = true;
         if(msjDeadlineConfirmacion) msjDeadlineConfirmacion.style.display = 'block';
         
-        const checkboxes = listaContainer.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(cb => cb.disabled = true);
+        const inputs = listaContainer.querySelectorAll('.input-invitado');
+        inputs.forEach(inp => inp.disabled = true);
     }
 
     function comprobarYAplicarLimiteModificaciones() {
         if (storedEditCount >= LIMITE_MODIFICACIONES) {
             btnWhatsapp.disabled = true;
             msjLimiteModificaciones.style.display = 'block';
-            
-            const checkboxes = listaContainer.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(cb => cb.disabled = true);
+            const inputs = listaContainer.querySelectorAll('.input-invitado');
+            inputs.forEach(inp => inp.disabled = true);
             return true; 
         }
         return false; 
     }
 
     function cargarListaDeInvitados(claveBaseDatos, listaAComparar = []) {
-        const arregloInvitados = baseDeDatosInvitados[claveBaseDatos];
-        if (!arregloInvitados) return; 
-        document.getElementById('numero-pases').textContent = arregloInvitados.length;
+        const numPases = baseDeDatosFamilias[claveBaseDatos];
+        if (!numPases) return; 
+        document.getElementById('numero-pases').textContent = numPases;
         
         listaContainer.innerHTML = '';
-        arregloInvitados.forEach((nombre, index) => {
-            const estabaConfirmado = listaAComparar.length > 0 ? listaAComparar.includes(nombre) : true;
-            
+        for (let i = 0; i < numPases; i++) {
+            const valorGuardado = listaAComparar[i] || '';
             listaContainer.innerHTML += `
-                <div class="asistente-row">
-                    <input type="checkbox" id="invitado-${index}" value="${nombre}" ${estabaConfirmado ? 'checked' : ''}>
-                    <label for="invitado-${index}">${nombre}</label>
+                <div class="slot-container">
+                    <span class="slot-numero">${i + 1}.</span>
+                    <input type="text" class="input-invitado" id="invitado-${i}" placeholder="Nombre y Apellido" value="${valorGuardado}">
                 </div>
             `;
-        });
+        }
     }
 
     if (yaPasoLaFecha()) {
-        if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
+        if (storedFamilyKey && baseDeDatosFamilias[storedFamilyKey]) {
             seccionBusqueda.style.display = 'none';
             seccionPase.style.display = 'block';
             document.getElementById('nombre-encontrado').textContent = storedFamilyKey.toUpperCase();
@@ -479,9 +477,8 @@ document.addEventListener("DOMContentLoaded", function() {
         wrapperBusqueda.style.display = 'none';
         msjDeadlineBusqueda.style.display = 'block';
         textInstruccionBusqueda.style.display = 'none';
-        
     } else {
-        if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
+        if (storedFamilyKey && baseDeDatosFamilias[storedFamilyKey]) {
             seccionBusqueda.style.display = 'none';
             seccionPase.style.display = 'block';
             document.getElementById('nombre-encontrado').textContent = storedFamilyKey.toUpperCase();
@@ -506,61 +503,43 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             if (busquedaUsuario === "familia") {
-                alert("Por favor, escribe el apellido de la familia o tu nombre (Ej. Lara o Dalia).");
+                alert("Por favor, escribe el apellido de tu familia o grupo.");
                 return;
             }
 
             const palabrasIgnoradas = ["familia", "los", "las", "el", "la", "y", "de"];
             let terminos = busquedaUsuario.split(" ").filter(palabra => !palabrasIgnoradas.includes(palabra) && palabra.length > 2);
 
-            if (terminos.length === 0) {
-                terminos = [busquedaUsuario]; 
-            }
+            if (terminos.length === 0) { terminos = [busquedaUsuario]; }
 
-            let coincidencia = null;
+            let mejorCoincidencia = null;
+            let mejorPuntaje = 0;
 
-            for (let clave in baseDeDatosInvitados) {
+            for (let clave in baseDeDatosFamilias) {
                 let claveLimpia = quitarAcentos(clave);
-                let integrantes = baseDeDatosInvitados[clave];
-                let coincide = false;
+                let puntaje = 0;
 
                 for (let t = 0; t < terminos.length; t++) {
-                    let termino = terminos[t];
-                    
-                    if (claveLimpia.includes(termino)) {
-                        coincide = true;
-                        break;
+                    if (claveLimpia.includes(terminos[t])) {
+                        puntaje++;
                     }
-                    
-                    for (let i = 0; i < integrantes.length; i++) {
-                        let integranteLimpio = quitarAcentos(integrantes[i]);
-                        if (integranteLimpio.includes(termino)) {
-                            coincide = true;
-                            break;
-                        }
-                    }
-                    if (coincide) break;
                 }
-
-                if (coincide) {
-                    coincidencia = clave;
-                    break;
+                
+                if (puntaje > mejorPuntaje) {
+                    mejorPuntaje = puntaje;
+                    mejorCoincidencia = clave;
                 }
             }
 
-            if (coincidencia) {
+            if (mejorCoincidencia) {
                 msjError.style.display = 'none';
                 seccionBusqueda.style.display = 'none';
                 seccionPase.style.display = 'block';
 
-                document.getElementById('nombre-encontrado').textContent = coincidencia.toUpperCase();
-                
-                cargarListaDeInvitados(coincidencia);
+                document.getElementById('nombre-encontrado').textContent = mejorCoincidencia.toUpperCase();
+                cargarListaDeInvitados(mejorCoincidencia);
 
-                btnWhatsapp.onclick = function() {
-                    handleConfirmacion(coincidencia);
-                };
-
+                btnWhatsapp.onclick = function() { handleConfirmacion(mejorCoincidencia); };
             } else {
                 msjError.style.display = 'block';
             }
@@ -576,51 +555,62 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    if(storedFamilyKey && baseDeDatosInvitados[storedFamilyKey] && !yaPasoLaFecha() && storedEditCount < LIMITE_MODIFICACIONES) {
-        btnWhatsapp.onclick = function() {
-            handleConfirmacion(storedFamilyKey);
-        };
+    if(storedFamilyKey && baseDeDatosFamilias[storedFamilyKey] && !yaPasoLaFecha() && storedEditCount < LIMITE_MODIFICACIONES) {
+        btnWhatsapp.onclick = function() { handleConfirmacion(storedFamilyKey); };
     }
 
     function handleConfirmacion(claveFamilia) {
         if (yaPasoLaFecha()) { aplicarBloqueoPorFecha(); return; }
         if (storedEditCount >= LIMITE_MODIFICACIONES) { comprobarYAplicarLimiteModificaciones(); return; }
 
-        const arregloInvitados = baseDeDatosInvitados[claveFamilia];
-        if(!arregloInvitados) return;
+        const numPases = baseDeDatosFamilias[claveFamilia];
+        if(!numPases) return;
 
-        let confirmadosActuales = [];
-        let noAsistiranList = [];
-        const checkboxes = listaContainer.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(cb => {
-            if (cb.checked) { confirmadosActuales.push(cb.value); } 
-            else { noAsistiranList.push(cb.value); }
-        });
+        let confirmadosNombres = [];
+        let valoresInputsGuardado = [];
+        let inputsVacios = 0;
 
-        if (confirmadosActuales.length === 0 && noAsistiranList.length > 0) {
-            if(!confirm("⚠️ Parece que nadie de la familia asistirá. ¿Deseas enviar este mensaje de declinación?")) { return; }
-        } else if (confirmadosActuales.length === 0 && noAsistiranList.length === 0) {
-             alert("Error: No hay invitados registrados en esta familia."); return;
+        for (let i = 0; i < numPases; i++) {
+            const input = document.getElementById(`invitado-${i}`);
+            if (input) {
+                const nombre = input.value.trim();
+                valoresInputsGuardado.push(nombre); // Guardamos la foto exacta de sus slots
+                if (nombre !== "") {
+                    confirmadosNombres.push(nombre);
+                } else {
+                    inputsVacios++;
+                }
+            }
+        }
+
+        if (confirmadosNombres.length === 0 && inputsVacios > 0) {
+            if(!confirm("⚠️ Parece que todos los pases están en blanco. ¿Confirmas que nadie asistirá?")) { return; }
         }
 
         storedEditCount++; 
+        storedConfirmedList = valoresInputsGuardado;
         
-        storedConfirmedList = confirmadosActuales;
+        // Guardado local de datos para no perder su progreso si recargan
+        localStorage.setItem('adrianaXV_v8_key', claveFamilia);
+        localStorage.setItem('adrianaXV_v8_list', JSON.stringify(valoresInputsGuardado));
+        localStorage.setItem('adrianaXV_v8_edits', storedEditCount);
         comprobarYAplicarLimiteModificaciones();
 
+        // Estructuración de WhatsApp para funcionar como tu base de datos central
         let mensajeWa = `Hola Adriana, somos *${claveFamilia.toUpperCase()}*.%0A%0AQueremos confirmar nuestra asistencia a tus XV años:%0A`;
         
-        if (confirmadosActuales.length > 0) {
-            mensajeWa += `%0A✅ *Sí asistiremos (${confirmadosActuales.length}):*%0A`;
-            confirmadosActuales.forEach((nombre, i) => { mensajeWa += `${i + 1}. ${nombre}%0A`; });
+        if (confirmadosNombres.length > 0) {
+            mensajeWa += `%0A✅ *Asistirán (${confirmadosNombres.length} de ${numPases} pases):*%0A`;
+            confirmadosNombres.forEach((nombre, i) => { mensajeWa += `${i + 1}. ${nombre}%0A`; });
+        } else {
+            mensajeWa += `%0A❌ *Lamentablemente no podremos asistir.*%0A`;
         }
 
-        if (noAsistiranList.length > 0) {
-            mensajeWa += `%0A❌ *No podremos asistir:*%0A`;
-            noAsistiranList.forEach((nombre, i) => { mensajeWa += `${i + 1}. ${nombre}%0A`; });
+        if (inputsVacios > 0 && confirmadosNombres.length > 0) {
+            mensajeWa += `%0A❌ *Pases no utilizados:* ${inputsVacios}%0A`;
         }
         
-        mensajeWa += `%0A¡Muchas gracias por invitarnos!`;
+        mensajeWa += `%0A¡Muchas gracias por la invitación!`;
         window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
     }
 });
