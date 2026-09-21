@@ -137,7 +137,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 }
 .input-busqueda:focus { outline: none; border-color: var(--color-principal); }
 
-/* --- NUEVOS ESTILOS PARA LOS SLOTS DE INVITADOS --- */
 .slot-container { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .slot-numero { font-family: var(--fuente-cuerpo); font-weight: 600; color: var(--color-principal); font-size: 1.1rem; width: 25px; text-align: right; }
 .input-invitado { 
@@ -267,7 +266,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div style="margin-top: 5px;">Pases asignados: <span class="pase-destacado" id="numero-pases">0</span></div>
 
 <div class="info-row" style="margin-top: 20px; font-weight: bold; font-size: 0.85rem;" id="instruccion-confirmacion">
-    Por favor, escribe el nombre y apellido de los asistentes. Deja en blanco los pases que no utilizarán:
+    Por favor, verifica o escribe los nombres y apellidos de los asistentes:
 </div>
 
 <div id="lista-invitados-container" style="margin-top: 15px; display: flex; flex-direction: column; gap: 5px;"></div>
@@ -293,7 +292,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <img src="imagenfinal.png" alt="Detalle final" class="img-final-pequena">
 </div>
 
-</div> 
+</div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
 
 <script>
 // =========================================================================
@@ -356,39 +355,213 @@ document.addEventListener('keydown', function(e) {
 });
 
 // =========================================================================
-// 1. BASE DE DATOS DE FAMILIAS (EXTRAÍDA DE TU EXCEL CON SLOTS)
+// 1. BASE DE DATOS DE INVITADOS (OFICIAL DEL EXCEL COMPLETA)
 // =========================================================================
-const baseDeDatosFamilias = {
-    "familia lara valladares": 7,
-    "familia lara tolentino": 3,
-    "ana amigos": 6,
-    "familia moya valladares": 7,
-    "familia orta moya": 3,
-    "familia de la o garcia": 7,
-    "familia de la o": 4,
-    "familia enriquez borges": 6,
-    "familia de la o vazquez": 4,
-    "familia vasquez": 5,
-    "familia vazquez borges": 4,
-    "familia vasquez sedeño": 3,
-    "familia borges sosa": 6,
-    "familia chavarria de la o": 9,
-    "familia guerrero rangel": 3,
-    "familia rangel": 4,
-    "familia lara rios": 4,
-    "familia sandra": 5,
-    "familia monserrat": 5,
-    "familia liliana": 5,
-    "familia rios lara": 6,
-    "familia rios cano": 3,
-    "familia rios sanchez": 6,
-    "familia rios castro": 9,
-    "amigos": 11,
-    "familia lopez": 9,
-    "mario amigos": 6,
-    "rodrigo amigos": 9,
-    "diana amigos": 5,
-    "adriana": 11
+const baseDeDatosInvitados = {
+    "familia lara valladares": [
+        "MARIO LARA P",
+        "MARIO LARA V",
+        "DIANA VALLADARES",
+        "DALIA DE LA O",
+        "RODRIGO LARA",
+        "ADRIANA LARA"
+    ],
+    "familia lara tolentino": [
+        "DALIA LARA",
+        "CRESCENCIO TOLENTINO"
+    ],
+    "ana amigos": [
+        "ZALMA CORREA",
+        "CARLOS MARTINEZ",
+        "ALMA SANJUAN",
+        "EDUARDO MARTINEZ"
+    ],
+    "familia moya valladares": [
+        "SONIA VALLADARES",
+        "MARIANA MOYA",
+        "INVITADO MARIANA",
+        "LUIS MOYA",
+        "SAMANTHA ARAUJO",
+        "INVITADO SONIA"
+    ],
+    "familia orta moya": [
+        "SONIA MOYA",
+        "ROBERTO"
+    ],
+    "familia de la o garcia": [
+        "ADRIAN DE LA O",
+        "PATRICIA GARCIA",
+        "ALAN DE LA O",
+        "INTADO",
+        "DANIELA AGUILAR",
+        "THIAGO DE LA O"
+    ],
+    "familia de la o": [
+        "OSCAR VALLADARES",
+        "INVITADO",
+        "LEO DE LA O"
+    ],
+    "familia enriquez borges": [
+        "VERONICA BORGES",
+        "MOISES ENRIQUEZ",
+        "MOISES ENRIQUEZ BORGES",
+        "BETSABE ENRIQUEZ",
+        "INVITADO"
+    ],
+    "familia de la o vazquez": [
+        "CARLOS DE LA O",
+        "ESTELA VAZQUEZ",
+        "CARLOS DE LA O VAZQUEZ"
+    ],
+    "familia vasquez": [
+        "JENNYFER DE LA O",
+        "JONATHAN GUTIERREZ",
+        "NAOMI",
+        "ARI"
+    ],
+    "familia vazquez borges": [
+        "CLAUDIA BORGES",
+        "RAFAEL VASQUEZ",
+        "DAVID VASQUEZ BORGES"
+    ],
+    "familia vasquez  sedeño": [
+        "RAFAEL VASQUEZ",
+        "KARINA SEDEÑO"
+    ],
+    "familia  borges sosa": [
+        "ELIOS DE LA O",
+        "MIZRAHIM SOSA",
+        "MIZ DE LA O SOSA",
+        "AIDA DE LA O",
+        "TEODORO OLVERA"
+    ],
+    "familia chavarria de la o": [
+        "LIBERTAD DE LA O",
+        "MONICA RANGEL",
+        "ARMANDO CHAVARRÍA",
+        "RICARDO CHAVARRÍA",
+        "ESPOSA",
+        "HIJO",
+        "ESPOSA",
+        "HIJO 2"
+    ],
+    "familia guerrero rangel": [
+        "ALICIA RANGEL",
+        "FRANCISCO GUERRERO"
+    ],
+    "familia rangel": [
+        "ELSA RANGEL",
+        "VICTOR GARCIA",
+        "DAVID RANGEL"
+    ],
+    "familia lara rios": [
+        "ELSA LARA",
+        "ERIKA RIOS",
+        "ESPOSO"
+    ],
+    "familia sandra": [
+        "SANDRA LARA",
+        "INVITADO",
+        "INVITADO",
+        "INVITADO"
+    ],
+    "familia monserrat": [
+        "MONSERRAT LARA",
+        "INVITADO",
+        "INVITADO",
+        "INVITADO"
+    ],
+    "familia liliana": [
+        "LILIANA LARA",
+        "FRANCISCO",
+        "HIJO",
+        "HIJA"
+    ],
+    "familia rios lara": [
+        "MARINA LARA",
+        "JOSE RIOS",
+        "ARTEMISA RIOS",
+        "RAZIEL RIOS",
+        "URIEL RIOS"
+    ],
+    "familia rios cano": [
+        "IRWYN RIOS",
+        "KIARET CANO"
+    ],
+    "familia rios sanchez": [
+        "GUILLERMO RIOS",
+        "ALMA DELIA SANCHEZ",
+        "CRISTIAN RIOS",
+        "INVITADO",
+        "INVITADO"
+    ],
+    "familia rios castro": [
+        "JOSE RENE RIOS",
+        "YOLANDA CASTRO",
+        "RAMSES RIOS",
+        "ISELA CABRALES",
+        "RENE RIOS",
+        "INVITADO",
+        "RODRIGO RIOS",
+        "INVITADO"
+    ],
+    "amigos": [
+        "DASTAN",
+        "DIANA",
+        "GERALDINE",
+        "ERICK",
+        "IKER",
+        "HELENA",
+        "JOHA",
+        "REGI",
+        "VALE",
+        "VELE2"
+    ],
+    "familia lopez": [
+        "HUGO LOPEZ",
+        "ESPOSO",
+        "HIJA",
+        "PRICILA LOPEZ",
+        "ESPOSO",
+        "HIJA",
+        "CARLOS MENDOZA",
+        "INVITADO"
+    ],
+    "mario amigos": [
+        "AXEL",
+        "ALEX",
+        "REGINA",
+        "ELIEL",
+        "MARU"
+    ],
+    "rodrigo amigos": [
+        "ANGEL",
+        "QUIQUE",
+        "BRYAN",
+        "ESPOSO",
+        "BRANDON",
+        "CRIS TCL",
+        "KAREN",
+        "MIA"
+    ],
+    "diana amigos": [
+        "GRISELDA RAMIREZ",
+        "INVITADOS",
+        "INVITADOS",
+        "INVITADOS"
+    ],
+    "adriana": [
+        "SAM",
+        "JORGE",
+        "VALE",
+        "NETO",
+        "SARA",
+        "DIRSE",
+        "JOEL",
+        "DYLAN",
+        "LALO",
+        "JULIETA"
+    ]
 };
 
 // =========================================================================
@@ -413,9 +586,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const textInstruccionConfirmacion = document.getElementById('instruccion-confirmacion');
     const msjDeadlineConfirmacion = document.getElementById('mensaje-deadline-confirmacion');
 
-    const storedFamilyKey = localStorage.getItem('adrianaXV_v8_key');
-    let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXV_v8_list') || '[]');
-    let storedEditCount = parseInt(localStorage.getItem('adrianaXV_v8_edits') || '0', 10);
+    const storedFamilyKey = localStorage.getItem('adrianaXV_v9_key');
+    let storedConfirmedList = JSON.parse(localStorage.getItem('adrianaXV_v9_list') || '[]');
+    let storedEditCount = parseInt(localStorage.getItem('adrianaXV_v9_edits') || '0', 10);
 
     function quitarAcentos(texto) {
         return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
@@ -447,24 +620,24 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function cargarListaDeInvitados(claveBaseDatos, listaAComparar = []) {
-        const numPases = baseDeDatosFamilias[claveBaseDatos];
-        if (!numPases) return; 
-        document.getElementById('numero-pases').textContent = numPases;
+        const arregloNombres = baseDeDatosInvitados[claveBaseDatos];
+        if (!arregloNombres) return; 
+        document.getElementById('numero-pases').textContent = arregloNombres.length;
         
         listaContainer.innerHTML = '';
-        for (let i = 0; i < numPases; i++) {
-            const valorGuardado = listaAComparar[i] || '';
+        arregloNombres.forEach((nombrePredeterminado, i) => {
+            const valorSlot = (listaAComparar.length > 0 && listaAComparar[i] !== undefined) ? listaAComparar[i] : nombrePredeterminado;
             listaContainer.innerHTML += `
                 <div class="slot-container">
                     <span class="slot-numero">${i + 1}.</span>
-                    <input type="text" class="input-invitado" id="invitado-${i}" placeholder="Nombre y Apellido" value="${valorGuardado}">
+                    <input type="text" class="input-invitado" id="invitado-${i}" placeholder="Nombre y Apellido" value="${valorSlot}">
                 </div>
             `;
-        }
+        });
     }
 
     if (yaPasoLaFecha()) {
-        if (storedFamilyKey && baseDeDatosFamilias[storedFamilyKey]) {
+        if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
             seccionBusqueda.style.display = 'none';
             seccionPase.style.display = 'block';
             document.getElementById('nombre-encontrado').textContent = storedFamilyKey.toUpperCase();
@@ -478,7 +651,7 @@ document.addEventListener("DOMContentLoaded", function() {
         msjDeadlineBusqueda.style.display = 'block';
         textInstruccionBusqueda.style.display = 'none';
     } else {
-        if (storedFamilyKey && baseDeDatosFamilias[storedFamilyKey]) {
+        if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
             seccionBusqueda.style.display = 'none';
             seccionPase.style.display = 'block';
             document.getElementById('nombre-encontrado').textContent = storedFamilyKey.toUpperCase();
@@ -515,7 +688,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let mejorCoincidencia = null;
             let mejorPuntaje = 0;
 
-            for (let clave in baseDeDatosFamilias) {
+            for (let clave in baseDeDatosInvitados) {
                 let claveLimpia = quitarAcentos(clave);
                 let puntaje = 0;
 
@@ -555,7 +728,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    if(storedFamilyKey && baseDeDatosFamilias[storedFamilyKey] && !yaPasoLaFecha() && storedEditCount < LIMITE_MODIFICACIONES) {
+    if(storedFamilyKey && baseDeDatosInvitados[storedFamilyKey] && !yaPasoLaFecha() && storedEditCount < LIMITE_MODIFICACIONES) {
         btnWhatsapp.onclick = function() { handleConfirmacion(storedFamilyKey); };
     }
 
@@ -563,51 +736,42 @@ document.addEventListener("DOMContentLoaded", function() {
         if (yaPasoLaFecha()) { aplicarBloqueoPorFecha(); return; }
         if (storedEditCount >= LIMITE_MODIFICACIONES) { comprobarYAplicarLimiteModificaciones(); return; }
 
-        const numPases = baseDeDatosFamilias[claveFamilia];
-        if(!numPases) return;
+        const arregloNombres = baseDeDatosInvitados[claveFamilia];
+        if(!arregloNombres) return;
 
         let confirmadosNombres = [];
         let valoresInputsGuardado = [];
-        let inputsVacios = 0;
 
-        for (let i = 0; i < numPases; i++) {
+        for (let i = 0; i < arregloNombres.length; i++) {
             const input = document.getElementById(`invitado-${i}`);
             if (input) {
                 const nombre = input.value.trim();
-                valoresInputsGuardado.push(nombre); // Guardamos la foto exacta de sus slots
+                valoresInputsGuardado.push(nombre); 
                 if (nombre !== "") {
                     confirmadosNombres.push(nombre);
-                } else {
-                    inputsVacios++;
                 }
             }
         }
 
-        if (confirmadosNombres.length === 0 && inputsVacios > 0) {
-            if(!confirm("⚠️ Parece que todos los pases están en blanco. ¿Confirmas que nadie asistirá?")) { return; }
+        if (confirmadosNombres.length === 0) {
+            if(!confirm("⚠️ Parece que todos los campos están en blanco. ¿Confirmas que nadie asistirá?")) { return; }
         }
 
         storedEditCount++; 
         storedConfirmedList = valoresInputsGuardado;
         
-        // Guardado local de datos para no perder su progreso si recargan
-        localStorage.setItem('adrianaXV_v8_key', claveFamilia);
-        localStorage.setItem('adrianaXV_v8_list', JSON.stringify(valoresInputsGuardado));
-        localStorage.setItem('adrianaXV_v8_edits', storedEditCount);
+        localStorage.setItem('adrianaXV_v9_key', claveFamilia);
+        localStorage.setItem('adrianaXV_v9_list', JSON.stringify(valoresInputsGuardado));
+        localStorage.setItem('adrianaXV_v9_edits', storedEditCount);
         comprobarYAplicarLimiteModificaciones();
 
-        // Estructuración de WhatsApp para funcionar como tu base de datos central
+        // Estructuración de WhatsApp limpia (SOLO LOS NOMBRES)
         let mensajeWa = `Hola Adriana, somos *${claveFamilia.toUpperCase()}*.%0A%0AQueremos confirmar nuestra asistencia a tus XV años:%0A`;
         
         if (confirmadosNombres.length > 0) {
-            mensajeWa += `%0A✅ *Asistirán (${confirmadosNombres.length} de ${numPases} pases):*%0A`;
             confirmadosNombres.forEach((nombre, i) => { mensajeWa += `${i + 1}. ${nombre}%0A`; });
         } else {
-            mensajeWa += `%0A❌ *Lamentablemente no podremos asistir.*%0A`;
-        }
-
-        if (inputsVacios > 0 && confirmadosNombres.length > 0) {
-            mensajeWa += `%0A❌ *Pases no utilizados:* ${inputsVacios}%0A`;
+            mensajeWa += `Lamentablemente no podremos asistir.%0A`;
         }
         
         mensajeWa += `%0A¡Muchas gracias por la invitación!`;
