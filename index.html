@@ -8,8 +8,8 @@
 
 <!-- IMPORTACIÓN DE FUENTES -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Alex+Brush&display=swap" rel="stylesheet">
-<!-- LIBRERÍA PARA GENERAR PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<!-- LIBRERÍA HTML2CANVAS PARA GENERAR LA IMAGEN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
 /* --- ESTILOS GENERALES Y COLORES --- */
@@ -137,6 +137,20 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 .opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
 .opcion-radio input:disabled { cursor: not-allowed; }
 
+/* --- PLANTILLA OCULTA DEL BOLETO PARA GENERAR LA IMAGEN --- */
+#boleto-imagen-template {
+    position: absolute; left: -9999px; top: 0;
+    width: 600px; background-color: #fffafc; border: 4px double #85386e;
+    padding: 40px; text-align: center; font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+}
+.img-titulo { font-family: 'Cinzel', serif; font-size: 1.8rem; color: #85386e; font-weight: bold; margin-bottom: 5px; }
+.img-subtitulo { font-family: 'Alex Brush', cursive; font-size: 3.8rem; color: #85386e; margin: 0 0 15px 0; line-height: 1; }
+.img-seccion { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #3b1138; font-weight: bold; margin-top: 20px; text-transform: uppercase; }
+.img-lista { list-style: none; padding: 0; margin: 15px auto; width: 90%; }
+.img-lista li { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #333333; padding: 8px 0; border-bottom: 1px dashed #d9b8cd; font-weight: bold; text-transform: capitalize; }
+.img-footer { font-size: 0.95rem; font-style: italic; color: #666; margin-top: 30px; font-family: 'Montserrat', sans-serif; }
+
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
 .img-final-pequena { width: 15%; max-width: 35px; height: auto; margin: 0 auto; display: block; opacity: 0.95; }
@@ -254,9 +268,9 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
     ¡Gracias por tu confirmación! ✨
 </div>
 
-<!-- BOTÓN PARA DESCARGAR EL PDF -->
-<button id="btn-descargar-pdf" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem; background-color: #B87333; display: none;">
-    📥 Descargar Pase (PDF)
+<!-- BOTÓN PARA DESCARGAR EL PASE COMO IMAGEN -->
+<button id="btn-descargar-imagen" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem; background-color: #85386e; display: none;">
+    📥 Descargar Pase en Imagen (PNG)
 </button>
 
 </div>
@@ -267,6 +281,16 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </div>
 
 </div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
+
+<!-- PLANTILLA OCULTA PARA CAPTURAR LA IMAGEN -->
+<div id="boleto-imagen-template">
+    <div class="img-titulo">PASE DE RECEPCIÓN OFICIAL</div>
+    <div class="img-subtitulo">Mis XV Años Adriana</div>
+    <hr style="border: 1px solid #85386e; margin: 15px 0;">
+    <div class="img-seccion" id="img-titulo-estado">Pases Confirmados:</div>
+    <ul class="img-lista" id="img-lista-nombres"></ul>
+    <div class="img-footer">Fecha: 19 de Diciembre de 2026 — Presenta este pase en la entrada.</div>
+</div>
 
 <script>
 // =========================================================================
@@ -325,7 +349,7 @@ const baseDeDatosInvitados = {
     "FAMILIA 21": [ "ALEJANDRA DE LA O" ],
     "FAMILIA 22": [ "ELSA RANGEL", "VICTOR GARCIA", "DAVID RANGEL" ],
     "FAMILIA 23": [ "ELSA LARA", "ERIKA RIOS", "LUIS J. LOZANO" ],
-    "FAMILIA 24": [ "SANDRA LARA", "JORGE PINEDIA", "BRIAN CRUZ", "JAN C. CRUZ" ],
+    "FAMILIA 24": [ "SANDRA LARA", "JORGE PINEDA", "BRIAN CRUZ", "JAN C. CRUZ" ],
     "FAMILIA 25": [ "MONSERRAT LARA", "MIGUEL A. RAÑO", "DIEGO NERIO", "LUCIANO MORENO" ],
     "FAMILIA 26": [ "LILIANA LARA", "FRANCISCO J. COLIN", "FRANCISCO Y. COLIN" ],
     "FAMILIA 27": [ "MARINA LARA", "JOSE RIOS", "ARTEMISA RIOS", "RAZIEL RIOS", "URIEL RIOS" ],
@@ -378,11 +402,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
     const textInstruccionConfirmacion = document.getElementById('instruccion-confirmacion');
     const msjAgradecimiento = document.getElementById('mensaje-agradecimiento');
-    const btnDescargarPdf = document.getElementById('btn-descargar-pdf');
+    const btnDescargarImagen = document.getElementById('btn-descargar-imagen');
 
-    const STORAGE_KEY = 'adrianaXV_v20_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v20_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v20_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v21_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v21_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v21_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
@@ -427,16 +451,19 @@ document.addEventListener("DOMContentLoaded", function() {
         msjAgradecimiento.style.display = 'block';
         
         let asistentes = 0;
+        let listaImgHtml = '';
         nombres.forEach((nombre, i) => {
             if(valoresGuardados[i] === 'si') {
+                listaImgHtml += `<li>${nombre}</li>`;
                 asistentes++;
             }
         });
 
         if (asistentes > 0) {
-            btnDescargarPdf.style.display = 'inline-flex';
+            document.getElementById('img-lista-nombres').innerHTML = listaImgHtml;
+            btnDescargarImagen.style.display = 'inline-flex';
         } else {
-            btnDescargarPdf.style.display = 'none';
+            btnDescargarImagen.style.display = 'none';
         }
     }
 
@@ -556,44 +583,23 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // --- GENERACIÓN DEL PDF DIRECTAMENTE EN JAVASCRIPT (SIN ELEMENTOS OCULTOS) ---
-    if(btnDescargarPdf) {
-        btnDescargarPdf.addEventListener('click', function() {
-            let nombreGrupo = localStorage.getItem(STORAGE_KEY);
-            let valoresAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
-            let nombres = baseDeDatosInvitados[nombreGrupo] || [];
+    // --- DESCARGA AUTOMÁTICA DEL PASE COMO IMAGEN PNG ---
+    if(btnDescargarImagen) {
+        btnDescargarImagen.addEventListener('click', function() {
+            const elementoBoleto = document.getElementById('boleto-imagen-template');
+            
+            // Se hace visible temporalmente para que html2canvas lo convierta en imagen
+            elementoBoleto.style.display = 'block';
 
-            let listaHtml = '';
-            nombres.forEach((nombre, i) => {
-                if(valoresAsistencia[i] === 'si') {
-                    listaHtml += `<li style="font-family: 'Cinzel', serif; font-size: 1.2rem; color: #333333; padding: 10px 0; border-bottom: 1px dashed #d9b8cd; font-weight: bold; text-transform: capitalize;">${nombre}</li>`;
-                }
+            html2canvas(elementoBoleto, { scale: 2, useCORS: true }).then(canvas => {
+                elementoBoleto.style.display = 'none'; // Se vuelve a ocultar
+
+                // Crea el enlace de descarga automática de la imagen
+                const link = document.createElement('a');
+                link.download = 'Pase_XV_Adriana.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
             });
-
-            // Creamos un contenedor temporal en memoria con el diseño exacto del boleto
-            const elementoTemporal = document.createElement('div');
-            elementoTemporal.innerHTML = `
-                <div style="width: 600px; background-color: #fffafc; border: 4px double #85386e; padding: 40px; text-align: center; font-family: 'Montserrat', sans-serif; box-sizing: border-box;">
-                    <div style="font-family: 'Cinzel', serif; font-size: 1.8rem; color: #85386e; font-weight: bold; margin-bottom: 5px;">PASE DE RECEPCIÓN OFICIAL</div>
-                    <div style="font-family: 'Alex Brush', cursive; font-size: 3.8rem; color: #85386e; margin: 0 0 15px 0; line-height: 1;">Mis XV Años Adriana</div>
-                    <hr style="border: 1px solid #85386e; margin: 15px 0;">
-                    <div style="font-family: 'Cinzel', serif; font-size: 1.1rem; color: #3b1138; font-weight: bold; margin-top: 20px; text-transform: uppercase;">Pases Confirmados (${nombreGrupo}):</div>
-                    <ul style="list-style: none; padding: 0; margin: 15px auto; width: 90%;">
-                        ${listaHtml}
-                    </ul>
-                    <div style="font-size: 0.95rem; font-style: italic; color: #666; margin-top: 30px; font-family: 'Montserrat', sans-serif;">Fecha: 19 de Diciembre de 2026 — Presenta este pase en la entrada.</div>
-                </div>
-            `;
-
-            const opt = {
-              margin:       0.5,
-              filename:     'Pases_XV_Adriana.pdf',
-              image:        { type: 'jpeg', quality: 0.98 },
-              html2canvas:  { scale: 2, useCORS: true, logging: false },
-              jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-
-            html2pdf().set(opt).from(elementoTemporal).save();
         });
     }
 });
