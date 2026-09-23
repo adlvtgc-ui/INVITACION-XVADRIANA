@@ -137,11 +137,15 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 .opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
 .opcion-radio input:disabled { cursor: not-allowed; }
 
-/* --- PLANTILLA DEL BOLETO PARA EL PDF (Fuera de pantalla de forma segura) --- */
+/* --- PLANTILLA DEL BOLETO OCULTA EN LA INTERFAZ --- */
 #boleto-pdf-template {
-    position: absolute; left: -9999px; top: 0;
-    width: 600px; background-color: #fffafc; border: 4px double #85386e;
-    padding: 40px; text-align: center; font-family: 'Montserrat', sans-serif;
+    display: none; /* Oculto visualmente en la pantalla */
+    width: 600px; 
+    background-color: #fffafc; 
+    border: 4px double #85386e;
+    padding: 40px; 
+    text-align: center; 
+    font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
 }
 .pdf-titulo { font-family: 'Cinzel', serif; font-size: 1.8rem; color: #85386e; font-weight: bold; margin-bottom: 5px; }
@@ -404,9 +408,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const msjAgradecimiento = document.getElementById('mensaje-agradecimiento');
     const btnDescargarPdf = document.getElementById('btn-descargar-pdf');
 
-    const STORAGE_KEY = 'adrianaXV_v18_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v18_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v18_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v19_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v19_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v19_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
@@ -588,6 +592,9 @@ document.addEventListener("DOMContentLoaded", function() {
         btnDescargarPdf.addEventListener('click', function() {
             const elementoBoleto = document.getElementById('boleto-pdf-template');
             
+            // Se hace visible temporalmente para que html2canvas lo lea correctamente y luego se vuelve a ocultar
+            elementoBoleto.style.display = 'block';
+
             const opt = {
               margin:       0.5,
               filename:     'Pases_XV_Adriana.pdf',
@@ -596,7 +603,9 @@ document.addEventListener("DOMContentLoaded", function() {
               jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 
-            html2pdf().set(opt).from(elementoBoleto).save();
+            html2pdf().set(opt).from(elementoBoleto).save().then(function() {
+                elementoBoleto.style.display = 'none';
+            });
         });
     }
 });
