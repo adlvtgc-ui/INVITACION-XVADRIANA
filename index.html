@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -27,33 +28,23 @@ html { -webkit-text-size-adjust: 100%; }
 
 /* --- MEDIDAS DE SEGURIDAD EXTREMA --- */
 body {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-touch-callout: none; 
-    margin: 0; padding: 0;
+    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+    -webkit-touch-callout: none; margin: 0; padding: 0;
     background-image: linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url('thumb-1920-1275718.jpg');
     background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat;
     font-family: var(--fuente-cuerpo); color: var(--color-texto); text-align: center;
 }
 
 img {
-    -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
-    user-drag: none;
-    -webkit-touch-callout: none !important;
-    pointer-events: none;
+    -webkit-user-drag: none; -khtml-user-drag: none; -moz-user-drag: none; -o-user-drag: none; user-drag: none;
+    -webkit-touch-callout: none !important; pointer-events: none;
 }
 
 .btn img { pointer-events: auto; }
 
 /* Contenedor principal */
 .container {
-    position: relative; z-index: 5;
-    overflow: hidden; 
+    position: relative; z-index: 5; overflow: hidden; 
     max-width: 500px; margin: 20px auto; padding: 20px 20px 30px 20px;
     background: linear-gradient(rgba(249, 226, 245, 0.9), rgba(255, 250, 254, 0.30)), url('linea.jpg');
     background-size: cover; background-position: center; background-repeat: no-repeat;
@@ -68,9 +59,7 @@ border-radius: 8px; border: 1px solid #B87333; box-shadow: 0 2px 8px rgba(0,0,0,
 overflow: hidden; z-index: 10; background-color: #fff;
 }
 
-.galeria-inicio::after {
-    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; background: transparent;
-}
+.galeria-inicio::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; background: transparent; }
 
 .galeria-inicio img {
 position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
@@ -119,7 +108,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
     100% { box-shadow: 0 2px 8px rgba(184, 115, 51, 0.1); transform: scale(1); }
 }
 
-/* --- ANIMACIÓN DE LLUVIA DE ESTRELLAS --- */
 @keyframes lluvia {
     0% { opacity: 0; transform: translateY(-40px) translateX(20px) scale(0.5) rotate(0deg); }
     15% { opacity: 1; transform: translateY(0px) translateX(10px) scale(1.2) rotate(45deg); }
@@ -141,7 +129,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 }
 .input-busqueda:focus { outline: none; border-color: var(--color-principal); }
 
-/* --- ESTILOS DE LA SELECCIÓN --- */
 .invitado-row {
     background: rgba(255, 255, 255, 0.85); border: 1px solid #d9b8cd;
     border-radius: 8px; padding: 12px; margin-bottom: 10px; text-align: left;
@@ -153,27 +140,18 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 .opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
 .opcion-radio input:disabled { cursor: not-allowed; }
 
-/* --- DISEÑO DEL BOLETO PARA DESCARGAR --- */
-#contenedor-boleto-pdf {
-    display: none; /* Se oculta de inicio */
-    margin-top: 20px; 
+/* --- DISEÑO EXCLUSIVO DEL BOLETO PARA EL PDF --- */
+#boleto-pdf-template {
+    position: absolute; left: -9999px; top: -9999px;
+    width: 600px; background: #fffafc; border: 3px double #B87333;
+    padding: 30px; text-align: center; font-family: var(--fuente-cuerpo);
 }
-.boleto-oficial {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(242, 218, 236, 0.95)), url('linea.jpg');
-    background-size: cover;
-    border: 2px dashed #B87333;
-    border-radius: 12px;
-    padding: 25px 20px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-.boleto-titulo { font-family: var(--fuente-titulos); font-size: 1.5rem; color: var(--color-principal); font-weight: bold; margin-bottom: 5px; }
-.boleto-subtitulo { font-family: var(--fuente-nombre); font-size: 2.8rem; color: var(--color-principal); margin: 0; line-height: 1; margin-bottom: 15px; }
-.boleto-invitados-title { font-family: var(--fuente-cuerpo); font-weight: bold; font-size: 1rem; color: var(--color-dorado); text-transform: uppercase; margin-bottom: 10px; }
-.boleto-lista { list-style: none; padding: 0; margin: 0 auto 15px auto; max-width: 80%; }
-.boleto-lista li { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-texto); padding: 5px 0; border-bottom: 1px solid rgba(184, 115, 51, 0.3); font-weight: 600; text-transform: capitalize; }
-.boleto-lista li:last-child { border-bottom: none; }
-.boleto-fecha { font-family: var(--fuente-cuerpo); font-size: 0.85rem; font-style: italic; color: #666; margin-top: 10px; }
+.pdf-titulo { font-family: var(--fuente-titulos); font-size: 1.8rem; color: var(--color-principal); font-weight: bold; margin-bottom: 5px; }
+.pdf-subtitulo { font-family: var(--fuente-nombre); font-size: 3.5rem; color: var(--color-principal); margin: 0 0 15px 0; line-height: 1; }
+.pdf-seccion { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-dorado); font-weight: bold; margin-top: 15px; text-transform: uppercase; }
+.pdf-lista { list-style: none; padding: 0; margin: 10px auto; width: 85%; }
+.pdf-lista li { font-family: var(--fuente-titulos); font-size: 1.15rem; color: var(--color-texto); padding: 6px 0; border-bottom: 1px dashed #d9b8cd; font-weight: 600; text-transform: capitalize; }
+.pdf-footer { font-size: 0.9rem; font-style: italic; color: #666; margin-top: 25px; }
 
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
@@ -185,10 +163,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
     header h1 { font-size: 1.6rem; }
     header h2 { font-size: 3.6rem; }
     .galeria-inicio { width: 240px; height: 180px; }
-    .separador-header { max-width: 240px; margin: 15px auto 15px auto; }
     .card { margin: 5px 2px 20px 2px; padding: 15px; }
-    .contador-item { min-width: 38px; padding: 5px 6px; }
-    .contador-numero { font-size: 1.1rem; }
 }
 </style>
 </head>
@@ -207,9 +182,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <img src="foto3.jpg" alt="Foto 3 Adriana" oncontextmenu="return false;">
 </div>
 
-<div class="separador-header">
-<img src="separador.png" alt="Separador floral">
-</div>
+<div class="separador-header"><img src="separador.png" alt="Separador floral"></div>
 
 <h1>Mis XV Años</h1>
 <h2>Adriana</h2>
@@ -221,9 +194,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div class="contador-item"><span class="contador-numero" id="segundos">00</span><span class="contador-etiqueta">Seg</span></div>
 </div>
 
-<div class="separador-header">
-<img src="separador.png" alt="Separador floral">
-</div>
+<div class="separador-header"><img src="separador.png" alt="Separador floral"></div>
 </header>
 
 <div class="card">
@@ -256,13 +227,9 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div class="card-title">Mesas de Regalos</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row">El mejor regalo es tu presencia, pero si deseas hacerme un obsequio, puedes consultar mis mesas de regalos:</div>
-<a href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/60011674" target="_blank" class="btn">
-<img src="liverpool.jpeg" alt="Liverpool" class="logo-tienda"> Mesa Liverpool
-</a>
+<a href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/60011674" target="_blank" class="btn"><img src="liverpool.jpeg" alt="Liverpool" class="logo-tienda"> Mesa Liverpool</a>
 <br>
-<a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&language=en-US" target="_blank" class="btn">
-<img src="amazon.jpg" alt="Amazon" class="logo-tienda"> Mesa Amazon
-</a>
+<a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&language=en-US" target="_blank" class="btn"><img src="amazon.jpg" alt="Amazon" class="logo-tienda"> Mesa Amazon</a>
 </div>
 
 <!-- SECCIÓN DE BÚSQUEDA -->
@@ -270,19 +237,19 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Recuerda que solo tienes una oportunidad de búsqueda.</span></div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> (puedes usar minúsculas o mayúsculas) para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Solo tienes una oportunidad de búsqueda.</span></div>
 
 <div id="wrapper-busqueda">
-    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. Pedro Picapiedra..." autocomplete="off">
+    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. pedro picapiedra..." autocomplete="off">
     <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pases</button>
 </div>
 
 <div id="mensaje-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: bold; margin-top: 12px; display: none;">
-    Lo sentimos, no encontramos una invitación. Asegúrate de escribir al menos tu nombre y un apellido.
+    Lo sentimos, no encontramos una invitación. Asegúrate de escribir tu nombre y apellido correctamente.
 </div>
 </div>
 
-<!-- PASE DE ENTRADA CON NOMBRES PRE-CARGADOS -->
+<!-- PASE DE ENTRADA -->
 <div class="card" id="pase-entrada">
 <div class="card-title">Tu Pase Especial</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -303,24 +270,10 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
     ¡Gracias por tu confirmación! ✨
 </div>
 
-<!-- CONTENEDOR DEL BOLETO GENERADO (Solo visible al confirmar) -->
-<div id="contenedor-boleto-pdf">
-    <div class="boleto-oficial" id="boleto-render">
-        <div class="boleto-titulo">PASE DE RECEPCIÓN</div>
-        <div class="boleto-subtitulo">Mis XV Años Adriana</div>
-        <div class="separador-rizos"><div class="linea-centro"></div></div>
-        
-        <div class="boleto-invitados-title" id="titulo-estado-boleto">Pases Confirmados:</div>
-        <ul class="boleto-lista" id="lista-boleto">
-            <!-- Nombres insertados por JS -->
-        </ul>
-        <div class="boleto-fecha">19 de Diciembre de 2026</div>
-    </div>
-    
-    <button id="btn-descargar-pdf" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem; background-color: #B87333;">
-        📥 Descargar Pase (PDF)
-    </button>
-</div>
+<!-- BOTÓN LIMPIO PARA DESCARGAR EL PDF -->
+<button id="btn-descargar-pdf" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem; background-color: #B87333; display: none;">
+    📥 Descargar Pase (PDF)
+</button>
 
 </div>
 
@@ -331,6 +284,16 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 
 </div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
 
+<!-- PLANTILLA OCULTA EXCLUSIVA PARA EL PDF -->
+<div id="boleto-pdf-template">
+    <div class="pdf-titulo">PASE DE RECEPCIÓN OFICIAL</div>
+    <div class="pdf-subtitulo">Mis XV Años Adriana</div>
+    <hr style="border: 1px solid #B87333; margin: 15px 0;">
+    <div class="pdf-seccion" id="pdf-titulo-estado">Pases Confirmados:</div>
+    <ul class="pdf-lista" id="pdf-lista-nombres"></ul>
+    <div class="pdf-footer">Fecha: 19 de Diciembre de 2026 — Presenta este pase en la entrada.</div>
+</div>
+
 <script>
 // =========================================================================
 // EFECTO DE LLUVIA DE ESTRELLAS MÁGICAS
@@ -338,15 +301,8 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 function crearLluviaDeEstrellas() {
     const contenedorPrincipal = document.getElementById('contenedor-principal');
     const capaBrillos = document.createElement('div');
-    
-    capaBrillos.style.position = 'absolute';
-    capaBrillos.style.top = '0';
-    capaBrillos.style.left = '0';
-    capaBrillos.style.width = '100%';
-    capaBrillos.style.height = '100%';
-    capaBrillos.style.pointerEvents = 'none'; 
-    capaBrillos.style.zIndex = '1'; 
-    
+    capaBrillos.style.position = 'absolute'; capaBrillos.style.top = '0'; capaBrillos.style.left = '0';
+    capaBrillos.style.width = '100%'; capaBrillos.style.height = '100%'; capaBrillos.style.pointerEvents = 'none'; capaBrillos.style.zIndex = '1'; 
     contenedorPrincipal.appendChild(capaBrillos);
 
     for (let i = 0; i < 250; i++) {
@@ -355,36 +311,22 @@ function crearLluviaDeEstrellas() {
         destello.style.top = (Math.random() * 140 - 40) + '%'; 
         destello.style.left = (Math.random() * 140 - 20) + '%';
         const tamaño = (Math.random() * 8 + 3) + 'px'; 
-        destello.style.width = tamaño;
-        destello.style.height = tamaño;
-        destello.style.background = '#ffffff'; 
+        destello.style.width = tamaño; destello.style.height = tamaño; destello.style.background = '#ffffff'; 
         destello.style.clipPath = 'polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%)';
-        destello.style.webkitClipPath = 'polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%)';
-        destello.style.filter = 'drop-shadow(0 0 3px rgba(212, 137, 185, 0.7))';
-        destello.style.opacity = '0';
-        
-        const duracion = Math.random() * 5 + 3; 
-        const retraso = Math.random() * 10;
-        destello.style.animation = `lluvia ${duracion}s infinite linear ${retraso}s`;
+        destello.style.filter = 'drop-shadow(0 0 3px rgba(212, 137, 185, 0.7))'; destello.style.opacity = '0';
+        destello.style.animation = `lluvia ${Math.random() * 5 + 3}s infinite linear ${Math.random() * 10}s`;
         capaBrillos.appendChild(destello);
     }
 }
 crearLluviaDeEstrellas();
 
-// =========================================================================
-// SCRIPT DE SEGURIDAD EXTREMA CONTRA DESCARGAS Y COPIAS
-// =========================================================================
+// Seguridad contra copias
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('dragstart', e => e.preventDefault());
 document.addEventListener('copy', e => e.preventDefault());
-document.addEventListener('keydown', function(e) {
-    if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 67))) { 
-        e.preventDefault(); return false;
-    }
-});
 
 // =========================================================================
-// 1. BASE DE DATOS DE NOMBRES EXACTOS POR GRUPO/FAMILIA
+// BASE DE DATOS DE NOMBRES EXACTOS POR GRUPO/FAMILIA
 // =========================================================================
 const baseDeDatosInvitados = {
     "FAMILIA 1": [ "MARIO LARA P", "MARIO LARA V", "DIANA VALLADARES", "DALIA DE LA O", "RODRIGO LARA", "ADRIANA LARA" ],
@@ -410,7 +352,7 @@ const baseDeDatosInvitados = {
     "FAMILIA 21": [ "ALEJANDRA DE LA O" ],
     "FAMILIA 22": [ "ELSA RANGEL", "VICTOR GARCIA", "DAVID RANGEL" ],
     "FAMILIA 23": [ "ELSA LARA", "ERIKA RIOS", "LUIS J. LOZANO" ],
-    "FAMILIA 24": [ "SANDRA LARA", "JORGE PINEDA", "BRIAN CRUZ", "JAN C. CRUZ" ],
+    "FAMILIA 24": [ "SANDRA LARA", "JORGE PINEDIA", "BRIAN CRUZ", "JAN C. CRUZ" ],
     "FAMILIA 25": [ "MONSERRAT LARA", "MIGUEL A. RAÑO", "DIEGO NERIO", "LUCIANO MORENO" ],
     "FAMILIA 26": [ "LILIANA LARA", "FRANCISCO J. COLIN", "FRANCISCO Y. COLIN" ],
     "FAMILIA 27": [ "MARINA LARA", "JOSE RIOS", "ARTEMISA RIOS", "RAZIEL RIOS", "URIEL RIOS" ],
@@ -457,36 +399,35 @@ document.addEventListener("DOMContentLoaded", function() {
     const btnBuscar = document.getElementById('btn-buscar');
     const inputBusqueda = document.getElementById('input-busqueda');
     const seccionBusqueda = document.getElementById('seccion-busqueda');
-    
     const seccionPase = document.getElementById('pase-entrada');
     const msjError = document.getElementById('mensaje-error');
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
     const textInstruccionConfirmacion = document.getElementById('instruccion-confirmacion');
     const msjAgradecimiento = document.getElementById('mensaje-agradecimiento');
-    
-    const contenedorBoleto = document.getElementById('contenedor-boleto-pdf');
-    const listaBoleto = document.getElementById('lista-boleto');
-    const tituloEstadoBoleto = document.getElementById('titulo-estado-boleto');
     const btnDescargarPdf = document.getElementById('btn-descargar-pdf');
 
-    const STORAGE_KEY = 'adrianaXV_v15_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v15_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v15_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v16_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v16_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v16_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
     let isConfirmed = localStorage.getItem(CONFIRMED_KEY) === 'true';
 
+    // Normalizador de texto (Reconoce minúsculas, mayúsculas, acentos y 'ñ')
     function normalizarTexto(texto) {
         return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     }
 
+    // Índice de búsqueda estricta por invitado individual para evitar confusiones
     let indiceBusqueda = {};
     for (let grupo in baseDeDatosInvitados) {
         let invitados = baseDeDatosInvitados[grupo];
-        invitados.forEach(invitado => { indiceBusqueda[normalizarTexto(invitado)] = grupo; });
-        indiceBusqueda[normalizarTexto(grupo)] = grupo; 
+        invitados.forEach(invitado => {
+            indiceBusqueda[normalizarTexto(invitado)] = grupo;
+        });
+        indiceBusqueda[normalizarTexto(grupo)] = grupo;
     }
 
     function renderInvitados(nombres, valoresGuardados = [], bloqueado = false) {
@@ -508,31 +449,28 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // FUNCIÓN PARA GENERAR Y MOSTRAR EL BOLETO DESCARGABLE
-    function generarBoletoYBloquear(nombres, valoresGuardados) {
+    function prepararBoletoYBloquear(nombres, valoresGuardados) {
         renderInvitados(nombres, valoresGuardados, true);
         btnWhatsapp.style.display = 'none';
         textInstruccionConfirmacion.style.display = 'none';
         msjAgradecimiento.style.display = 'block';
         
-        // Construir la lista del boleto
-        listaBoleto.innerHTML = '';
         let asistentes = 0;
+        let listaPdfHtml = '';
         nombres.forEach((nombre, i) => {
             if(valoresGuardados[i] === 'si') {
-                listaBoleto.innerHTML += `<li>${nombre}</li>`;
+                listaPdfHtml += `<li>${nombre}</li>`;
                 asistentes++;
             }
         });
 
-        if (asistentes === 0) {
-            tituloEstadoBoleto.textContent = "Estado: No asistirán";
-            tituloEstadoBoleto.style.color = "#d32f2f";
-            listaBoleto.innerHTML = `<li>Lamentablemente no podremos asistir</li>`;
-            btnDescargarPdf.style.display = 'none'; // No tiene sentido descargar si no van
+        if (asistentes > 0) {
+            document.getElementById('pdf-titulo-estado').textContent = "Pases Confirmados:";
+            document.getElementById('pdf-lista-nombres').innerHTML = listaPdfHtml;
+            btnDescargarPdf.style.display = 'inline-flex';
+        } else {
+            btnDescargarPdf.style.display = 'none';
         }
-        
-        contenedorBoleto.style.display = 'block';
     }
 
     if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
@@ -542,12 +480,15 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('nombre-encontrado').textContent = storedFamilyKey;
 
         if (isConfirmed) {
-            generarBoletoYBloquear(nombresDelGrupo, storedAsistencia);
+            prepararBoletoYBloquear(nombresDelGrupo, storedAsistencia);
         } else {
             renderInvitados(nombresDelGrupo, storedAsistencia, false);
         }
     }
 
+    // =========================================================================
+    // LÓGICA DE BÚSQUEDA PRECISA (Minúsculas, acentos, nombre + apellido)
+    // =========================================================================
     if(btnBuscar) {
         btnBuscar.addEventListener('click', function() {
             if (localStorage.getItem(STORAGE_KEY)) return;
@@ -556,25 +497,24 @@ document.addEventListener("DOMContentLoaded", function() {
             let palabrasReales = busquedaUsuario.split(" ").filter(p => p.length > 0);
 
             if (palabrasReales.length < 2) {
-                alert("Para evitar confusiones, por favor escribe tu Nombre y tu Apellido separados por un espacio (ej. Pedro Picapiedra).");
+                alert("Por favor, escribe tu Nombre y tu Apellido (ej. dalia lara) para encontrar tus pases.");
                 return;
             }
 
             let mejorCoincidencia = null;
-            let mejorPuntaje = 0;
 
-            for (let clave in indiceBusqueda) {
-                let clavePalabras = clave.split(" ").filter(p => p.length > 0);
-                let puntaje = 0;
-                
-                for (let i = 0; i < clavePalabras.length; i++) {
-                    if (busquedaUsuario.includes(clavePalabras[i])) puntaje++;
+            // Búsqueda exacta de coincidencia de los términos ingresados en el nombre completo del invitado
+            for (let invitadoClave in indiceBusqueda) {
+                let coincideTodas = true;
+                for (let i = 0; i < palabrasReales.length; i++) {
+                    if (!invitadoClave.includes(palabrasReales[i])) {
+                        coincideTodas = false;
+                        break;
+                    }
                 }
-                
-                let coincideCompleto = (puntaje === clavePalabras.length && puntaje > 0);
-                if ((puntaje >= 2 || coincideCompleto) && puntaje > mejorPuntaje) {
-                    mejorPuntaje = puntaje;
-                    mejorCoincidencia = indiceBusqueda[clave];
+                if (coincideTodas) {
+                    mejorCoincidencia = indiceBusqueda[invitadoClave];
+                    break;
                 }
             }
 
@@ -598,6 +538,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // =========================================================================
+    // CONFIRMACIÓN Y WHATSAPP
+    // =========================================================================
     if(btnWhatsapp) {
         btnWhatsapp.addEventListener('click', function() {
             if (localStorage.getItem(CONFIRMED_KEY) === 'true') return; 
@@ -624,14 +567,14 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             if (!todosSeleccionados) {
-                alert("Por favor, revisa la lista y marca 'Asiste' o 'No asiste' para todos los integrantes.");
+                alert("Por favor, marca 'Asiste' o 'No asiste' para todos los integrantes antes de confirmar.");
                 return;
             }
 
             localStorage.setItem(ASISTENCIA_KEY, JSON.stringify(valoresAsistencia));
             localStorage.setItem(CONFIRMED_KEY, 'true');
             
-            generarBoletoYBloquear(nombres, valoresAsistencia);
+            prepararBoletoYBloquear(nombres, valoresAsistencia);
 
             let mensajeWa = `Hola Adriana, queremos confirmar asistencia:%0A%0A`;
             if (confirmadosNombres.length > 0) {
@@ -653,21 +596,22 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // --- FUNCIONALIDAD PARA DESCARGAR PDF ---
+    // =========================================================================
+    // DESCARGA LIMPIA DEL PDF
+    // =========================================================================
     if(btnDescargarPdf) {
         btnDescargarPdf.addEventListener('click', function() {
-            const elementoABajar = document.getElementById('boleto-render');
+            const elementoBoleto = document.getElementById('boleto-pdf-template');
             
             const opt = {
-              margin:       1,
+              margin:       0.5,
               filename:     'Pases_XV_Adriana.pdf',
               image:        { type: 'jpeg', quality: 0.98 },
-              html2canvas:  { scale: 2 },
+              html2canvas:  { scale: 2, useCORS: true },
               jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 
-            // Llama a la librería para descargar
-            html2pdf().set(opt).from(elementoABajar).save();
+            html2pdf().set(opt).from(elementoBoleto).save();
         });
     }
 });
