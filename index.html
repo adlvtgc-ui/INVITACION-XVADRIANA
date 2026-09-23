@@ -15,7 +15,7 @@
 /* --- ESTILOS GENERALES Y COLORES --- */
 :root {
 color-scheme: light; 
---color-principal: #85386e;
+--color-principal: #63224b; /* Tono borgoña/ciruela elegante */
 --color-texto: #333333;
 --color-dorado: #B87333;
 --fuente-titulos: 'Cinzel', serif;
@@ -66,7 +66,7 @@ opacity: 0; transition: opacity 1s ease-in-out;
 
 h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
 header h1 { position: relative; z-index: 10; font-size: 2.2rem; letter-spacing: 3px; color: var(--color-principal); margin: 0; line-height: 1.2; }
-header h2 { position: relative; z-index: 10; font-family: var(--fuente-nombre); font-size: 5.2rem; color: var(--color-principal); margin: 0px 0 0 0; font-weight: normal; line-height: 1; letter-spacing: 2px; text-shadow: 2px 2px 4px #7B8B75; }
+header h2 { position: relative; z-index: 10; font-family: var(--fuente-nombre); font-size: 5.2rem; color: var(--color-principal); margin: 0px 0 0 0; font-weight: normal; line-height: 1; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.15); }
 
 .contador-container { display: flex; justify-content: center; gap: 10px; margin: 15px auto 10px auto; position: relative; z-index: 20; }
 .contador-item { display: flex; flex-direction: column; align-items: center; background: rgba(242, 218, 236, 0.92); border: 1px solid var(--color-dorado); border-radius: 8px; padding: 6px 8px; min-width: 45px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
@@ -89,20 +89,20 @@ margin: 10px 5px 25px 5px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02)
 
 .btn {
 display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-background-color: #3b1138; color: #fff; padding: 10px 20px; text-decoration: none;
+background-color: var(--color-principal); color: #fff; padding: 10px 20px; text-decoration: none;
 border-radius: 6px; font-weight: 600; margin-top: 12px; font-size: 0.9rem; transition: background 0.3s; border: none; cursor: pointer;
 box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
-.btn:hover { background-color: var(--color-principal); }
+.btn:hover { background-color: #4a153b; }
 
 .logo-tienda { height: 20px; width: auto; object-fit: contain; border-radius: 2px; }
 .prohibido { color: var(--color-principal); font-style: italic; font-weight: bold; margin-top: 12px; font-family: var(--fuente-titulos); }
 .img-dress-code { width: 55%; max-width: 160px; height: auto; margin: 12px auto; display: block; border: none; background: none; }
 
 @keyframes resplandor-pase-nuevo {
-    0% { box-shadow: 0 2px 8px rgba(133, 56, 110, 0.2); transform: scale(1); }
-    50% { box-shadow: 0 6px 18px rgba(133, 56, 110, 0.4); transform: scale(1.01); }
-    100% { box-shadow: 0 2px 8px rgba(133, 56, 110, 0.2); transform: scale(1); }
+    0% { box-shadow: 0 2px 8px rgba(99, 34, 75, 0.2); transform: scale(1); }
+    50% { box-shadow: 0 6px 18px rgba(99, 34, 75, 0.4); transform: scale(1.01); }
+    100% { box-shadow: 0 2px 8px rgba(99, 34, 75, 0.2); transform: scale(1); }
 }
 
 @keyframes lluvia {
@@ -135,32 +135,40 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 .opcion-radio { display: flex; align-items: center; gap: 5px; font-family: var(--fuente-cuerpo); font-size: 0.85rem; color: var(--color-texto); cursor: pointer; }
 .opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
 
-/* --- PLANTILLA OCULTA DEL PASE DIGITAL (TOTALMENTE INTEGRADA A LA IMAGEN) --- */
+/* --- PLANTILLA OCULTA DEL PASE DIGITAL (HORIZONTAL / LADO A LADO) --- */
 #pase-imagen-template {
     position: absolute; left: -9999px; top: 0;
-    width: 720px; height: 1080px; /* Tamaño vertical perfecto estilo póster */
-    background-image: url('pase.jpeg'); /* LA IMAGEN ES EL FONDO DE TODO */
-    background-size: cover; background-position: center bottom; /* Mantiene a la chica abajo visible */
-    display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
+    width: 1100px; height: 750px; /* Formato panorámico para distribuir el espacio */
+    background-image: url('fondopase.jpeg'); /* Fondo general con brillitos */
+    background-size: cover; background-position: center;
+    display: flex; flex-direction: row; align-items: stretch; justify-content: space-between;
     font-family: 'Montserrat', sans-serif; box-sizing: border-box;
-    padding-top: 80px; /* Empuja el texto hacia el inicio, despejando el vestido */
+    padding: 35px; gap: 30px;
 }
-.tpl-content {
-    position: relative; z-index: 2; width: 85%;
-    /* Fondo oscuro semitransparente elegante */
-    background: rgba(59, 17, 56, 0.85); 
-    border: 2px solid rgba(244, 208, 111, 0.7); border-radius: 15px;
-    padding: 35px 25px; text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+/* MITAD IZQUIERDA: IMAGEN DE LA CHICA */
+.tpl-lado-chica {
+    width: 42%; border-radius: 20px; overflow: hidden;
+    border: 3px solid rgba(244, 208, 111, 0.8);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
 }
-.tpl-xv { font-family: 'Cinzel', serif; font-size: 1.6rem; letter-spacing: 5px; color: #ffffff; font-weight: bold; margin: 0; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
-.tpl-nombre { font-family: 'Alex Brush', cursive; font-size: 4.8rem; color: #ffffff; margin: -5px 0 10px 0; line-height: 1; text-shadow: 2px 2px 6px rgba(0,0,0,0.5); }
-.tpl-fecha { font-family: 'Cinzel', serif; font-size: 1rem; color: #f4d06f; letter-spacing: 3px; margin-bottom: 20px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
-.tpl-divisor { width: 80%; height: 1px; background: linear-gradient(to right, transparent, #f4d06f, transparent); margin: 0 auto 20px auto; }
-.tpl-sub { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 2px; color: #fce4ec; text-transform: uppercase; margin-bottom: 20px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
-.tpl-lista { list-style: none; padding: 0; margin: 0 0 25px 0; max-height: 380px; overflow: hidden; }
-.tpl-lista li { font-family: 'Cinzel', serif; font-size: 1.25rem; color: #ffffff; padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,0.3); font-weight: bold; text-transform: capitalize; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
-.tpl-footer { font-size: 0.9rem; font-style: italic; color: #dddddd; font-family: 'Montserrat', sans-serif; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
+.tpl-lado-chica img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+/* MITAD DERECHA: TEXTO EN RECUADRO BORGOÑA */
+.tpl-lado-texto {
+    width: 58%; background: #4a153b; /* Color borgoña elegante basado en tu referencia */
+    border: 3px solid rgba(244, 208, 111, 0.8); border-radius: 20px;
+    padding: 40px 30px; text-align: center; color: #fff;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.tpl-xv { font-family: 'Cinzel', serif; font-size: 2rem; letter-spacing: 5px; color: #ffffff; font-weight: bold; margin: 0; }
+.tpl-nombre { font-family: 'Alex Brush', cursive; font-size: 6rem; color: #ffffff; margin: -10px 0 15px 0; line-height: 1; }
+.tpl-fecha { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #f4d06f; letter-spacing: 3px; margin-bottom: 25px; font-weight: bold; }
+.tpl-sub { font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 2px; color: #ffffff; text-transform: uppercase; margin-bottom: 25px; font-weight: bold; }
+.tpl-lista { list-style: none; padding: 0; margin: 0 0 25px 0; width: 90%; max-height: 340px; overflow: hidden; }
+.tpl-lista li { font-family: 'Cinzel', serif; font-size: 1.4rem; color: #ffffff; padding: 10px 0; border-bottom: 1px dashed rgba(244, 208, 111, 0.4); font-weight: bold; text-transform: capitalize; }
+.tpl-footer { font-size: 1rem; font-style: italic; color: #dddddd; font-family: 'Montserrat', sans-serif; margin-top: auto; }
 
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
@@ -274,19 +282,19 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 </button>
 
 <div style="font-size: 0.75rem; color: #555; margin-top: 8px; font-style: italic;">
-    Al confirmar se enviará tu mensaje y se descargará automáticamente tu pase digital oficial de alta calidad.
+    Al confirmar se descargará tu pase digital de alta resolución y enviaremos un mensaje a Adriana.
 </div>
 </div>
 
-<!-- CONTENEDOR DE ÉXITO (SE MUESTRA AL CONFIRMAR PARA CELULARES COMPLICADOS COMO IPHONE) -->
+<!-- CONTENEDOR DE ÉXITO (SE MUESTRA AL CONFIRMAR PARA IOS / REDES SOCIALES) -->
 <div class="card" id="pase-final-container" style="display: none;">
 <div class="card-title">¡Pase Generado!</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-size: 0.85rem; color: #333;">
-    Tu pase ha sido generado con éxito. Si tu celular no lo descargó automáticamente, <b>mantén presionada la imagen de abajo</b> y selecciona "Guardar en Fotos".
+    Tu pase ha sido generado con éxito. Si tu dispositivo no lo descargó automáticamente, <b>mantén presionada la imagen de abajo</b> y selecciona "Guardar en Fotos".
 </div>
 <!-- Aquí se inyectará la imagen generada visible para el usuario -->
-<img id="img-pase-generado" src="" alt="Tu Pase Oficial" style="width: 100%; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.25); margin-top: 15px; pointer-events: auto !important; -webkit-user-drag: auto; user-drag: auto;">
+<img id="img-pase-generado" src="" alt="Tu Pase Oficial" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.25); margin-top: 15px; pointer-events: auto !important; -webkit-user-drag: auto; user-drag: auto;">
 </div>
 
 <div class="frase-final-container">
@@ -296,14 +304,18 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 
 </div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
 
-<!-- PLANTILLA OCULTA DEL PASE DIGITAL (TOTALMENTE INTEGRADA A LA IMAGEN) -->
+<!-- PLANTILLA OCULTA DEL PASE DIGITAL (LADO A LADO) -->
 <div id="pase-imagen-template">
-    <!-- El texto se aloja aquí arriba, dejando libre el vestido en la parte de abajo -->
-    <div class="tpl-content">
+    <!-- LADO IZQUIERDO: NIÑA -->
+    <div class="tpl-lado-chica">
+        <img src="pase.jpeg" alt="Quinceañera Adriana">
+    </div>
+    
+    <!-- LADO DERECHO: TEXTO -->
+    <div class="tpl-lado-texto">
         <div class="tpl-xv">MIS XV AÑOS</div>
         <div class="tpl-nombre">Adriana</div>
         <div class="tpl-fecha">19 · DICIEMBRE · 2026</div>
-        <div class="tpl-divisor"></div>
         <div class="tpl-sub">Pase Oficial Confirmado</div>
         <ul class="tpl-lista" id="tpl-lista-nombres">
             <!-- Nombres dinámicos -->
@@ -338,7 +350,7 @@ function crearLluviaDeEstrellas() {
 }
 crearLluviaDeEstrellas();
 
-// Solo evitamos el clic derecho en el contenedor principal, pero permitimos guardado en la imagen final
+// Evitar clic derecho en la página excepto en la imagen final del pase para poder guardarla
 document.getElementById('contenedor-principal').addEventListener('contextmenu', e => {
     if(e.target.id !== 'img-pase-generado') { e.preventDefault(); }
 });
@@ -422,8 +434,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v26_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v26_asistencia';
+    const STORAGE_KEY = 'adrianaXV_v27_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v27_asistencia';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
@@ -438,6 +450,7 @@ document.addEventListener("DOMContentLoaded", function() {
         invitados.forEach(invitado => {
             indiceBusqueda[normalizarTexto(invitado)] = grupo;
         });
+        // Permitimos también buscar por el nombre interno por si acaso
         indiceBusqueda[normalizarTexto(grupo)] = grupo;
     }
 
@@ -459,14 +472,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Si ya había entrado, ocultar búsqueda y mostrar formulario (si no ha generado el final)
-    if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey] && !localStorage.getItem('adrianaXV_v26_confirmed')) {
+    // Comprobar si ya había confirmado antes
+    if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey] && !localStorage.getItem('adrianaXV_v27_confirmed')) {
         seccionBusqueda.style.display = 'none';
         seccionPase.style.display = 'block';
         let nombresDelGrupo = baseDeDatosInvitados[storedFamilyKey];
         renderInvitados(nombresDelGrupo, storedAsistencia);
-    } else if (localStorage.getItem('adrianaXV_v26_confirmed')) {
-        // Si ya había confirmado antes, mostramos directamente un mensaje bonito sin formulario
+    } else if (localStorage.getItem('adrianaXV_v27_confirmed')) {
         seccionBusqueda.style.display = 'none';
         document.getElementById('pase-final-container').style.display = 'block';
         document.getElementById('pase-final-container').innerHTML = `
@@ -523,7 +535,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // --- ACCIÓN DE WHATSAPP + DESCARGA AUTOMÁTICA Y VISUALIZACIÓN COMPATIBLE ---
+    // --- ACCIÓN DE WHATSAPP + DESCARGA AUTOMÁTICA UNIVERSAL ---
     if(btnWhatsapp) {
         btnWhatsapp.addEventListener('click', function() {
             let nombreGrupo = localStorage.getItem(STORAGE_KEY);
@@ -543,16 +555,16 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             localStorage.setItem(ASISTENCIA_KEY, JSON.stringify(valoresAsistencia));
-            localStorage.setItem('adrianaXV_v26_confirmed', 'true');
+            localStorage.setItem('adrianaXV_v27_confirmed', 'true');
 
-            // 1. Preparar la plantilla oculta con los nombres confirmados
+            // 1. Preparar la plantilla oculta
             let listaHtml = '';
             confirmadosNombres.forEach(n => {
                 listaHtml += `<li>${n}</li>`;
             });
             document.getElementById('tpl-lista-nombres').innerHTML = listaHtml || '<li>Ningún asistente confirmado</li>';
 
-            // 2. Generar imagen (resolviendo problema de compatibilidad en iOS/Samsung/Oppo)
+            // 2. Generar imagen (resolviendo problema de compatibilidad en iOS/Samsung/Oppo/Redes)
             const templateElement = document.getElementById('pase-imagen-template');
             templateElement.style.display = 'flex';
 
@@ -569,12 +581,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 try { enlace.click(); } catch(e){}
                 document.body.removeChild(enlace);
 
-                // B) Mostrar la imagen en pantalla obligatoriamente para aquellos donde falla el paso A (Ej. iPhone)
+                // B) Mostrar la imagen en pantalla obligatoriamente (Vital para iPhones y navegadores web integrados)
                 document.getElementById('pase-entrada').style.display = 'none';
                 document.getElementById('img-pase-generado').src = dataUrl;
                 document.getElementById('pase-final-container').style.display = 'block';
 
-                // C) Abrir WhatsApp con el mensaje limpio
+                // C) Abrir WhatsApp con el mensaje personalizado y sin nombres de "Familia X"
                 let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
                 if (confirmadosNombres.length > 0) {
                     mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
@@ -589,7 +601,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
             }).catch(err => {
                 templateElement.style.display = 'none';
-                alert("Redirigiendo a WhatsApp...");
+                alert("Tu dispositivo bloqueó la generación de la imagen, pero redirigiendo a WhatsApp...");
                 let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
                 if (confirmadosNombres.length > 0) {
                     mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
