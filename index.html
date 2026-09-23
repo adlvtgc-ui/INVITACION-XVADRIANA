@@ -136,23 +136,21 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 .opcion-radio { display: flex; align-items: center; gap: 5px; font-family: var(--fuente-cuerpo); font-size: 0.85rem; color: var(--color-texto); cursor: pointer; }
 .opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
 
-/* --- DISEÑO DEL BOLETO VISIBLE Y ELEGANTE (CON TONOS BORGOÑA Y DORADO) --- */
-#tarjeta-pase-visual {
-    background: linear-gradient(135deg, #fffafc 0%, #f7e6f3 100%);
-    border: 3px double var(--color-dorado);
-    border-radius: 12px;
-    padding: 25px 15px;
-    margin-top: 20px;
-    text-align: center;
-    box-shadow: 0 6px 20px rgba(133, 56, 110, 0.15);
-    position: relative;
+/* --- PLANTILLA OCULTA PARA GENERAR LA IMAGEN ESTILO LUJO (INSPIRADA EN REFERENCIA) --- */
+#pase-imagen-template {
+    position: absolute; left: -9999px; top: 0;
+    width: 600px; background-color: #85386e; border: 6px double #f4d06f;
+    padding: 50px 40px; text-align: center; font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box; color: #ffffff;
 }
-.b-titulo { font-family: var(--fuente-titulos); font-size: 1.4rem; color: var(--color-principal); font-weight: bold; letter-spacing: 2px; }
-.b-subtitulo { font-family: var(--fuente-nombre); font-size: 3.2rem; color: var(--color-principal); margin: -5px 0 10px 0; line-height: 1; }
-.b-seccion { font-family: var(--fuente-titulos); font-size: 0.95rem; color: var(--color-dorado); font-weight: bold; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; }
-.b-lista { list-style: none; padding: 0; margin: 10px auto; width: 90%; text-align: left; }
-.b-lista li { font-family: var(--fuente-titulos); font-size: 1rem; color: var(--color-texto); padding: 7px 10px; border-bottom: 1px dashed #d9b8cd; font-weight: bold; text-transform: capitalize; background: rgba(255,255,255,0.6); border-radius: 4px; margin-bottom: 4px; }
-.b-footer { font-size: 0.8rem; font-style: italic; color: #666; margin-top: 15px; font-family: var(--fuente-cuerpo); }
+.tpl-xv { font-family: 'Cinzel', serif; font-size: 2.2rem; letter-spacing: 4px; color: #f4d06f; font-weight: bold; margin-bottom: 0; }
+.tpl-nombre { font-family: 'Alex Brush', cursive; font-size: 4.5rem; color: #ffffff; margin: -5px 0 15px 0; line-height: 1; }
+.tpl-fecha { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #f4d06f; letter-spacing: 2px; margin-bottom: 25px; }
+.tpl-divisor { width: 60px; height: 2px; background-color: #f4d06f; margin: 0 auto 25px auto; }
+.tpl-sub { font-family: 'Cinzel', serif; font-size: 0.95rem; letter-spacing: 1px; color: #fce4ec; text-transform: uppercase; margin-bottom: 12px; font-weight: bold; }
+.tpl-lista { list-style: none; padding: 0; margin: 0 auto 30px auto; width: 90%; }
+.tpl-lista li { font-family: 'Cinzel', serif; font-size: 1.15rem; color: #ffffff; padding: 8px 0; border-bottom: 1px dashed rgba(244, 208, 111, 0.4); font-weight: bold; text-transform: capitalize; }
+.tpl-footer { font-size: 0.85rem; font-style: italic; color: #fce4ec; font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px; }
 
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
@@ -250,7 +248,7 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 </div>
 </div>
 
-<!-- PASE DE ENTRADA CON TARJETA ELEGANTE VISIBLE -->
+<!-- PASE DE ENTRADA (SOLO FORMULARIO Y BOTÓN DE WHATSAPP OBLIGATORIO) -->
 <div class="card" id="pase-entrada">
 <div class="card-title">Tus Pases Asignados</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -258,39 +256,17 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 <div style="font-size: 1.1rem; margin-top: 10px;">Invitación para: <span class="pase-destacado" id="nombre-encontrado">Familia</span></div>
 
 <div class="info-row" style="margin-top: 15px; font-weight: bold; font-size: 0.85rem;" id="instruccion-confirmacion">
-    Por favor, marca si asistirá o no asistirá cada uno de invitados:
+    Por favor, marca si asistirá o no asistirá cada invitado:
 </div>
 
 <div id="lista-invitados-container" style="margin-top: 15px; display: flex; flex-direction: column; gap: 5px;"></div>
 
-<!-- TARJETA DE BOLETO ELEGANTE (VISIBLE EN PANTALLA) -->
-<div id="tarjeta-pase-visual">
-    <div class="b-titulo">PASE DE RECEPCIÓN OFICIAL</div>
-    <div class="b-subtitulo">Mis XV Años Adriana</div>
-    <hr style="border: 1px solid var(--color-dorado); margin: 10px 0;">
-    <div class="b-seccion" id="b-titulo-grupo">Integrantes:</div>
-    <ul class="b-lista" id="b-lista-nombres">
-        <!-- Nombres dinámicos -->
-    </ul>
-    <div class="b-footer">19 de Diciembre de 2026 — Presenta este pase en la entrada.</div>
-</div>
-
-<!-- BOTÓN PARA DESCARGAR O AVISO PARA IPHONE -->
-<div style="margin-top: 15px;">
-    <button id="btn-descargar-imagen" class="btn" style="width: 100%; background-color: #85386e;">
-        📥 Descargar Pase en Imagen (PNG)
-    </button>
-    <div style="font-size: 0.75rem; color: #555; margin-top: 6px; font-style: italic;">
-        📱 Si estás en iPhone y no descarga automáticamente, mantén presionado el boleto de arriba y selecciona "Guardar en Fotos".
-    </div>
-</div>
-
-<button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 15px; background-color: #2e7d32;">
-    Confirmar Asistencia por WhatsApp ✨
+<button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 15px; background-color: #2e7d32; font-size: 0.95rem;">
+    Confirmar Asistencia por WhatsApp 📥 ✨
 </button>
 
-<div id="mensaje-agradecimiento" style="font-family: var(--fuente-titulos); font-size: 1.2rem; color: #B87333; font-weight: bold; margin-top: 15px; display: none;">
-    ¡Gracias por tu registro! ✨
+<div style="font-size: 0.75rem; color: #555; margin-top: 6px; font-style: italic;">
+    Al confirmar se enviará tu mensaje y se descargará automáticamente tu pase digital oficial.
 </div>
 
 </div>
@@ -301,6 +277,19 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 </div>
 
 </div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
+
+<!-- PLANTILLA OCULTA DEL PASE ESTILO LUJO (PARA LA IMAGEN) -->
+<div id="pase-imagen-template">
+    <div class="tpl-xv">XV</div>
+    <div class="tpl-nombre">Adriana</div>
+    <div class="tpl-fecha">19 · DICIEMBRE · 2026</div>
+    <div class="tpl-divisor"></div>
+    <div class="tpl-sub" id="tpl-grupo-titulo">Pase Digital Oficial</div>
+    <ul class="tpl-lista" id="tpl-lista-nombres">
+        <!-- Nombres dinámicos -->
+    </ul>
+    <div class="tpl-footer">Presenta este pase digital en la entrada del salón.</div>
+</div>
 
 <script>
 // =========================================================================
@@ -359,7 +348,7 @@ const baseDeDatosInvitados = {
     "FAMILIA 21": [ "ALEJANDRA DE LA O" ],
     "FAMILIA 22": [ "ELSA RANGEL", "VICTOR GARCIA", "DAVID RANGEL" ],
     "FAMILIA 23": [ "ELSA LARA", "ERIKA RIOS", "LUIS J. LOZANO" ],
-    "FAMILIA 24": [ "SANDRA LARA", "JORGE PINEDA", "BRIAN CRUZ", "JAN C. CRUZ" ],
+    "FAMILIA 24": [ "SANDRA LARA", "JORGE PINEDIA", "BRIAN CRUZ", "JAN C. CRUZ" ],
     "FAMILIA 25": [ "MONSERRAT LARA", "MIGUEL A. RAÑO", "DIEGO NERIO", "LUCIANO MORENO" ],
     "FAMILIA 26": [ "LILIANA LARA", "FRANCISCO J. COLIN", "FRANCISCO Y. COLIN" ],
     "FAMILIA 27": [ "MARINA LARA", "JOSE RIOS", "ARTEMISA RIOS", "RAZIEL RIOS", "URIEL RIOS" ],
@@ -410,10 +399,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const msjError = document.getElementById('mensaje-error');
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
-    const btnDescargarImagen = document.getElementById('btn-descargar-imagen');
 
-    const STORAGE_KEY = 'adrianaXV_v22_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v22_asistencia';
+    const STORAGE_KEY = 'adrianaXV_v23_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v23_asistencia';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
@@ -431,18 +419,6 @@ document.addEventListener("DOMContentLoaded", function() {
         indiceBusqueda[normalizarTexto(grupo)] = grupo;
     }
 
-    function actualizarBoletoVisual(nombres, valoresAsistencia = []) {
-        let listaBoletoHtml = '';
-        nombres.forEach((nombre, i) => {
-            // Si ya marcó asistencia y dijo "no", podemos omitirlo o mostrarlo; por defecto mostramos todos los asignados o los que asisten
-            let asiste = (!valoresAsistencia[i] || valoresAsistencia[i] === "si");
-            if (asiste) {
-                listaBoletoHtml += `<li>${nombre}</li>`;
-            }
-        });
-        document.getElementById('b-lista-nombres').innerHTML = listaBoletoHtml;
-    }
-
     function renderInvitados(nombres, valoresGuardados = []) {
         listaContainer.innerHTML = '';
         nombres.forEach((nombre, i) => {
@@ -453,27 +429,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="invitado-row">
                     <div class="invitado-nombre">${i + 1}. ${nombre}</div>
                     <div class="opciones-asistencia">
-                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="si" ${seleccionSi} class="radio-asistencia" data-index="${i}"> Asiste</label>
-                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="no" ${seleccionNo} class="radio-asistencia" data-index="${i}"> No asiste</label>
+                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="si" ${seleccionSi}> Asiste</label>
+                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="no" ${seleccionNo}> No asiste</label>
                     </div>
                 </div>
             `;
         });
-
-        // Escuchar cambios en los radios para actualizar el boleto visual en tiempo real
-        document.querySelectorAll('.radio-asistencia').forEach(radio => {
-            radio.addEventListener('change', function() {
-                let currentAsistencia = [];
-                nombres.forEach((_, idx) => {
-                    let r = document.querySelector(`input[name="asistencia_${idx}"]:checked`);
-                    currentAsistencia.push(r ? r.value : "si");
-                });
-                actualizarBoletoVisual(nombres, currentAsistencia);
-                localStorage.setItem(ASISTENCIA_KEY, JSON.stringify(currentAsistencia));
-            });
-        });
-
-        actualizarBoletoVisual(nombres, valoresGuardados.length ? valoresGuardados : nombres.map(() => "si"));
     }
 
     if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
@@ -532,27 +493,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // --- DESCARGA DE IMAGEN (OPTIMIZADA PARA IPHONE Y PC) ---
-    if(btnDescargarImagen) {
-        btnDescargarImagen.addEventListener('click', function() {
-            const tarjetaPase = document.getElementById('tarjeta-pase-visual');
-            
-            html2canvas(tarjetaPase, { scale: 3, useCORS: true, backgroundColor: '#fffafc' }).then(canvas => {
-                const enlace = document.createElement('a');
-                enlace.download = 'Pase_XV_Adriana.png';
-                enlace.href = canvas.toDataURL('image/png');
-                
-                // Disparo de descarga compatible
-                document.body.appendChild(enlace);
-                enlace.click();
-                document.body.removeChild(enlace);
-            }).catch(err => {
-                alert("Si estás en iPhone, mantén presionado el boleto en pantalla para guardarlo en tus Fotos.");
-            });
-        });
-    }
-
-    // --- BOTÓN WHATSAPP ---
+    // --- ACCIÓN OBLIGATORIA DE WHATSAPP + DESCARGA AUTOMÁTICA DE IMAGEN ---
     if(btnWhatsapp) {
         btnWhatsapp.addEventListener('click', function() {
             let nombreGrupo = localStorage.getItem(STORAGE_KEY);
@@ -561,25 +502,59 @@ document.addEventListener("DOMContentLoaded", function() {
             const nombres = baseDeDatosInvitados[nombreGrupo];
             let confirmadosNombres = [];
             let noAsistenNombres = [];
+            let valoresAsistencia = [];
 
             nombres.forEach((nombre, i) => {
                 let radio = document.querySelector(`input[name="asistencia_${i}"]:checked`);
-                if (radio && radio.value === "si") confirmadosNombres.push(nombre);
+                let valor = radio ? radio.value : "si";
+                valoresAsistencia.push(valor);
+                if (valor === "si") confirmadosNombres.push(nombre);
                 else noAsistenNombres.push(nombre);
             });
 
-            let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia (%0A*${nombreGrupo}*):%0A%0A`;
-            if (confirmadosNombres.length > 0) {
-                mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
-                confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
-            }
-            if (noAsistenNombres.length > 0) {
-                mensajeWa += `%0A❌ *NO PODRÁN ASISTIR:*%0A`;
-                noAsistenNombres.forEach((n) => { mensajeWa += `- ${n}%0A`; });
-            }
-            mensajeWa += `%0A¡Allá nos vemos! ✨`;
+            localStorage.setItem(ASISTENCIA_KEY, JSON.stringify(valoresAsistencia));
 
-            window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
+            // 1. Preparar la plantilla oculta con los nombres confirmados
+            let listaHtml = '';
+            confirmadosNombres.forEach(n => {
+                listaHtml += `<li>${n}</li>`;
+            });
+            document.getElementById('tpl-lista-nombres').innerHTML = listaHtml || '<li>Ningún asistente seleccionado</li>';
+            document.getElementById('tpl-grupo-titulo').textContent = `Pase Oficial — ${nombreGrupo}`;
+
+            // 2. Generar y descargar la imagen automáticamente
+            const templateElement = document.getElementById('pase-imagen-template');
+            templateElement.style.display = 'block';
+
+            html2canvas(templateElement, { scale: 3, useCORS: true, backgroundColor: '#85386e' }).then(canvas => {
+                templateElement.style.display = 'none';
+
+                const enlace = document.createElement('a');
+                enlace.download = `Pase_XV_Adriana_${nombreGrupo.replace(/\s+/g, '_')}.png`;
+                enlace.href = canvas.toDataURL('image/png');
+                document.body.appendChild(enlace);
+                enlace.click();
+                document.body.removeChild(enlace);
+
+                // 3. Abrir WhatsApp con el mensaje de confirmación
+                let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia (%0A*${nombreGrupo}*):%0A%0A`;
+                if (confirmadosNombres.length > 0) {
+                    mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
+                    confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
+                }
+                if (noAsistenNombres.length > 0) {
+                    mensajeWa += `%0A❌ *NO PODRÁN ASISTIR:*%0A`;
+                    noAsistenNombres.forEach((n) => { mensajeWa += `- ${n}%0A`; });
+                }
+                mensajeWa += `%0A¡Ya descargué mi pase digital! Allá nos vemos ✨`;
+
+                window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
+            }).catch(err => {
+                templateElement.style.display = 'none';
+                alert("Ocurrió un error al generar la imagen, pero tu confirmación por WhatsApp procederá.");
+                let mensajeWa = `Hola Adriana, confirmo asistencia de *${nombreGrupo}*. ¡Allá nos vemos!`;
+                window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
+            });
         });
     }
 });
@@ -601,7 +576,7 @@ setInterval(() => {
 // --- CUENTA REGRESIVA ---
 const fechaFiestaReal = new Date(2026, 11, 19, 18, 0, 0).getTime(); 
 const intervalo = setInterval(function() {
-    constahora = new Date().getTime();
+    const ahora = new Date().getTime();
     const distancia = fechaFiestaReal - ahora;
     if (distancia < 0) {
         clearInterval(intervalo);
