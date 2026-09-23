@@ -17,7 +17,7 @@
 color-scheme: light; 
 --color-principal: #85386e;
 --color-texto: #333333;
---color-dorado: #3b1138;
+--color-dorado: #B87333;
 --fuente-titulos: 'Cinzel', serif;
 --fuente-cuerpo: 'Montserrat', sans-serif;
 --fuente-nombre: 'Alex Brush', cursive;
@@ -52,7 +52,7 @@ header { position: relative; padding: 5px 10px 0px 10px; border-radius: 12px 12p
 
 .galeria-inicio {
 position: relative; width: 260px; height: 200px; margin: 10px auto 10px auto;
-border-radius: 8px; border: 1px solid #B87333; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+border-radius: 8px; border: 1px solid var(--color-dorado); box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 overflow: hidden; z-index: 10; background-color: #fff;
 }
 
@@ -69,7 +69,7 @@ header h1 { position: relative; z-index: 10; font-size: 2.2rem; letter-spacing: 
 header h2 { position: relative; z-index: 10; font-family: var(--fuente-nombre); font-size: 5.2rem; color: var(--color-principal); margin: 0px 0 0 0; font-weight: normal; line-height: 1; letter-spacing: 2px; text-shadow: 2px 2px 4px #7B8B75; }
 
 .contador-container { display: flex; justify-content: center; gap: 10px; margin: 15px auto 10px auto; position: relative; z-index: 20; }
-.contador-item { display: flex; flex-direction: column; align-items: center; background: rgba(242, 218, 236, 0.92); border: 1px solid #B87333; border-radius: 8px; padding: 6px 8px; min-width: 45px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.contador-item { display: flex; flex-direction: column; align-items: center; background: rgba(242, 218, 236, 0.92); border: 1px solid var(--color-dorado); border-radius: 8px; padding: 6px 8px; min-width: 45px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 .contador-numero { font-family: var(--fuente-titulos); font-size: 1.2rem; color: var(--color-principal); font-weight: bold; line-height: 1; }
 .contador-etiqueta { font-family: var(--fuente-cuerpo); font-size: 0.6rem; text-transform: uppercase; color: var(--color-texto); margin-top: 3px; letter-spacing: 1px; font-weight: 600; }
 
@@ -77,7 +77,7 @@ header h2 { position: relative; z-index: 10; font-family: var(--fuente-nombre); 
 .separador-header img { width: 100%; height: auto; object-fit: contain; display: block; }
 
 .card {
-background: rgba(242, 218, 236, 0.92); border: 1px solid #B87333; border-radius: 8px;
+background: rgba(242, 218, 236, 0.92); border: 1px solid var(--color-dorado); border-radius: 8px;
 margin: 10px 5px 25px 5px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); position: relative; z-index: 5;
 }
 
@@ -89,20 +89,20 @@ margin: 10px 5px 25px 5px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02)
 
 .btn {
 display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-background-color: var(--color-dorado); color: #fff; padding: 9px 18px; text-decoration: none;
-border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; transition: background 0.3s; border: none; cursor: pointer;
+background-color: #3b1138; color: #fff; padding: 10px 20px; text-decoration: none;
+border-radius: 6px; font-weight: 600; margin-top: 12px; font-size: 0.9rem; transition: background 0.3s; border: none; cursor: pointer;
+box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
-.btn:hover { background-color: #66225c; }
-.btn:disabled { background-color: #a0a0a0; color: #d0d0d0; cursor: not-allowed; }
+.btn:hover { background-color: var(--color-principal); }
 
 .logo-tienda { height: 20px; width: auto; object-fit: contain; border-radius: 2px; }
 .prohibido { color: var(--color-principal); font-style: italic; font-weight: bold; margin-top: 12px; font-family: var(--fuente-titulos); }
 .img-dress-code { width: 55%; max-width: 160px; height: auto; margin: 12px auto; display: block; border: none; background: none; }
 
 @keyframes resplandor-pase-nuevo {
-    0% { box-shadow: 0 2px 8px rgba(184, 115, 51, 0.1); transform: scale(1); }
-    50% { box-shadow: 0 6px 15px rgba(184, 115, 51, 0.4); transform: scale(1.02); }
-    100% { box-shadow: 0 2px 8px rgba(184, 115, 51, 0.1); transform: scale(1); }
+    0% { box-shadow: 0 2px 8px rgba(133, 56, 110, 0.2); transform: scale(1); }
+    50% { box-shadow: 0 6px 18px rgba(133, 56, 110, 0.4); transform: scale(1.01); }
+    100% { box-shadow: 0 2px 8px rgba(133, 56, 110, 0.2); transform: scale(1); }
 }
 
 @keyframes lluvia {
@@ -119,10 +119,10 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 .input-busqueda {
     -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text;
     width: 90%; padding: 12px; margin-top: 10px;
-    border: 1px solid #B87333; border-radius: 5px;
+    border: 1px solid var(--color-dorado); border-radius: 5px;
     font-family: var(--fuente-cuerpo); font-size: 1rem;
     text-align: center; color: var(--color-texto);
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
 }
 .input-busqueda:focus { outline: none; border-color: var(--color-principal); }
 
@@ -135,21 +135,24 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 .opciones-asistencia { display: flex; gap: 20px; }
 .opcion-radio { display: flex; align-items: center; gap: 5px; font-family: var(--fuente-cuerpo); font-size: 0.85rem; color: var(--color-texto); cursor: pointer; }
 .opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
-.opcion-radio input:disabled { cursor: not-allowed; }
 
-/* --- PLANTILLA OCULTA DEL BOLETO PARA GENERAR LA IMAGEN --- */
-#boleto-imagen-template {
-    position: absolute; left: -9999px; top: 0;
-    width: 600px; background-color: #fffafc; border: 4px double #85386e;
-    padding: 40px; text-align: center; font-family: 'Montserrat', sans-serif;
-    box-sizing: border-box;
+/* --- DISEÑO DEL BOLETO VISIBLE Y ELEGANTE (CON TONOS BORGOÑA Y DORADO) --- */
+#tarjeta-pase-visual {
+    background: linear-gradient(135deg, #fffafc 0%, #f7e6f3 100%);
+    border: 3px double var(--color-dorado);
+    border-radius: 12px;
+    padding: 25px 15px;
+    margin-top: 20px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(133, 56, 110, 0.15);
+    position: relative;
 }
-.img-titulo { font-family: 'Cinzel', serif; font-size: 1.8rem; color: #85386e; font-weight: bold; margin-bottom: 5px; }
-.img-subtitulo { font-family: 'Alex Brush', cursive; font-size: 3.8rem; color: #85386e; margin: 0 0 15px 0; line-height: 1; }
-.img-seccion { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #3b1138; font-weight: bold; margin-top: 20px; text-transform: uppercase; }
-.img-lista { list-style: none; padding: 0; margin: 15px auto; width: 90%; }
-.img-lista li { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #333333; padding: 8px 0; border-bottom: 1px dashed #d9b8cd; font-weight: bold; text-transform: capitalize; }
-.img-footer { font-size: 0.95rem; font-style: italic; color: #666; margin-top: 30px; font-family: 'Montserrat', sans-serif; }
+.b-titulo { font-family: var(--fuente-titulos); font-size: 1.4rem; color: var(--color-principal); font-weight: bold; letter-spacing: 2px; }
+.b-subtitulo { font-family: var(--fuente-nombre); font-size: 3.2rem; color: var(--color-principal); margin: -5px 0 10px 0; line-height: 1; }
+.b-seccion { font-family: var(--fuente-titulos); font-size: 0.95rem; color: var(--color-dorado); font-weight: bold; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; }
+.b-lista { list-style: none; padding: 0; margin: 10px auto; width: 90%; text-align: left; }
+.b-lista li { font-family: var(--fuente-titulos); font-size: 1rem; color: var(--color-texto); padding: 7px 10px; border-bottom: 1px dashed #d9b8cd; font-weight: bold; text-transform: capitalize; background: rgba(255,255,255,0.6); border-radius: 4px; margin-bottom: 4px; }
+.b-footer { font-size: 0.8rem; font-style: italic; color: #666; margin-top: 15px; font-family: var(--fuente-cuerpo); }
 
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
@@ -235,7 +238,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> (puedes usar minúsculas o mayúsculas) para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Solo tienes una oportunidad de búsqueda.</span></div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> (minúsculas o mayúsculas) para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Solo tienes una oportunidad de búsqueda.</span></div>
 
 <div id="wrapper-busqueda">
     <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. dalia lara..." autocomplete="off">
@@ -247,31 +250,48 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </div>
 </div>
 
-<!-- PASE DE ENTRADA -->
+<!-- PASE DE ENTRADA CON TARJETA ELEGANTE VISIBLE -->
 <div class="card" id="pase-entrada">
-<div class="card-title">Tu Pase Especial</div>
+<div class="card-title">Tus Pases Asignados</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 
 <div style="font-size: 1.1rem; margin-top: 10px;">Invitación para: <span class="pase-destacado" id="nombre-encontrado">Familia</span></div>
 
-<div class="info-row" style="margin-top: 20px; font-weight: bold; font-size: 0.85rem;" id="instruccion-confirmacion">
-    Por favor, marca si asistirá o no asistirá cada uno de tus invitados:
+<div class="info-row" style="margin-top: 15px; font-weight: bold; font-size: 0.85rem;" id="instruccion-confirmacion">
+    Por favor, marca si asistirá o no asistirá cada uno de invitados:
 </div>
 
 <div id="lista-invitados-container" style="margin-top: 15px; display: flex; flex-direction: column; gap: 5px;"></div>
 
-<button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem;">
-    Confirmar Asistencia por WhatsApp
-</button>
-
-<div id="mensaje-agradecimiento" style="font-family: var(--fuente-titulos); font-size: 1.3rem; color: #B87333; font-weight: bold; margin-top: 20px; display: none; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
-    ¡Gracias por tu confirmación! ✨
+<!-- TARJETA DE BOLETO ELEGANTE (VISIBLE EN PANTALLA) -->
+<div id="tarjeta-pase-visual">
+    <div class="b-titulo">PASE DE RECEPCIÓN OFICIAL</div>
+    <div class="b-subtitulo">Mis XV Años Adriana</div>
+    <hr style="border: 1px solid var(--color-dorado); margin: 10px 0;">
+    <div class="b-seccion" id="b-titulo-grupo">Integrantes:</div>
+    <ul class="b-lista" id="b-lista-nombres">
+        <!-- Nombres dinámicos -->
+    </ul>
+    <div class="b-footer">19 de Diciembre de 2026 — Presenta este pase en la entrada.</div>
 </div>
 
-<!-- BOTÓN PARA DESCARGAR EL PASE COMO IMAGEN -->
-<button id="btn-descargar-imagen" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem; background-color: #85386e; display: none;">
-    📥 Descargar Pase en Imagen (PNG)
+<!-- BOTÓN PARA DESCARGAR O AVISO PARA IPHONE -->
+<div style="margin-top: 15px;">
+    <button id="btn-descargar-imagen" class="btn" style="width: 100%; background-color: #85386e;">
+        📥 Descargar Pase en Imagen (PNG)
+    </button>
+    <div style="font-size: 0.75rem; color: #555; margin-top: 6px; font-style: italic;">
+        📱 Si estás en iPhone y no descarga automáticamente, mantén presionado el boleto de arriba y selecciona "Guardar en Fotos".
+    </div>
+</div>
+
+<button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 15px; background-color: #2e7d32;">
+    Confirmar Asistencia por WhatsApp ✨
 </button>
+
+<div id="mensaje-agradecimiento" style="font-family: var(--fuente-titulos); font-size: 1.2rem; color: #B87333; font-weight: bold; margin-top: 15px; display: none;">
+    ¡Gracias por tu registro! ✨
+</div>
 
 </div>
 
@@ -281,16 +301,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </div>
 
 </div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
-
-<!-- PLANTILLA OCULTA PARA CAPTURAR LA IMAGEN -->
-<div id="boleto-imagen-template">
-    <div class="img-titulo">PASE DE RECEPCIÓN OFICIAL</div>
-    <div class="img-subtitulo">Mis XV Años Adriana</div>
-    <hr style="border: 1px solid #85386e; margin: 15px 0;">
-    <div class="img-seccion" id="img-titulo-estado">Pases Confirmados:</div>
-    <ul class="img-lista" id="img-lista-nombres"></ul>
-    <div class="img-footer">Fecha: 19 de Diciembre de 2026 — Presenta este pase en la entrada.</div>
-</div>
 
 <script>
 // =========================================================================
@@ -400,17 +410,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const msjError = document.getElementById('mensaje-error');
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
-    const textInstruccionConfirmacion = document.getElementById('instruccion-confirmacion');
-    const msjAgradecimiento = document.getElementById('mensaje-agradecimiento');
     const btnDescargarImagen = document.getElementById('btn-descargar-imagen');
 
-    const STORAGE_KEY = 'adrianaXV_v21_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v21_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v21_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v22_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v22_asistencia';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
-    let isConfirmed = localStorage.getItem(CONFIRMED_KEY) === 'true';
 
     function normalizarTexto(texto) {
         return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
@@ -425,46 +431,49 @@ document.addEventListener("DOMContentLoaded", function() {
         indiceBusqueda[normalizarTexto(grupo)] = grupo;
     }
 
-    function renderInvitados(nombres, valoresGuardados = [], bloqueado = false) {
+    function actualizarBoletoVisual(nombres, valoresAsistencia = []) {
+        let listaBoletoHtml = '';
+        nombres.forEach((nombre, i) => {
+            // Si ya marcó asistencia y dijo "no", podemos omitirlo o mostrarlo; por defecto mostramos todos los asignados o los que asisten
+            let asiste = (!valoresAsistencia[i] || valoresAsistencia[i] === "si");
+            if (asiste) {
+                listaBoletoHtml += `<li>${nombre}</li>`;
+            }
+        });
+        document.getElementById('b-lista-nombres').innerHTML = listaBoletoHtml;
+    }
+
+    function renderInvitados(nombres, valoresGuardados = []) {
         listaContainer.innerHTML = '';
         nombres.forEach((nombre, i) => {
-            let seleccionSi = (valoresGuardados && valoresGuardados[i] === "si") ? "checked" : "";
-            let seleccionNo = (valoresGuardados && valoresGuardados[i] === "no") ? "checked" : "";
-            let disabledAttr = bloqueado ? "disabled" : "";
+            let seleccionSi = (!valoresGuardados[i] || valoresGuardados[i] === "si") ? "checked" : "";
+            let seleccionNo = (valoresGuardados[i] === "no") ? "checked" : "";
 
             listaContainer.innerHTML += `
                 <div class="invitado-row">
                     <div class="invitado-nombre">${i + 1}. ${nombre}</div>
                     <div class="opciones-asistencia">
-                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="si" ${seleccionSi} ${disabledAttr}> Asiste</label>
-                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="no" ${seleccionNo} ${disabledAttr}> No asiste</label>
+                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="si" ${seleccionSi} class="radio-asistencia" data-index="${i}"> Asiste</label>
+                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="no" ${seleccionNo} class="radio-asistencia" data-index="${i}"> No asiste</label>
                     </div>
                 </div>
             `;
         });
-    }
 
-    function prepararBoletoYBloquear(nombres, valoresGuardados) {
-        renderInvitados(nombres, valoresGuardados, true);
-        btnWhatsapp.style.display = 'none';
-        textInstruccionConfirmacion.style.display = 'none';
-        msjAgradecimiento.style.display = 'block';
-        
-        let asistentes = 0;
-        let listaImgHtml = '';
-        nombres.forEach((nombre, i) => {
-            if(valoresGuardados[i] === 'si') {
-                listaImgHtml += `<li>${nombre}</li>`;
-                asistentes++;
-            }
+        // Escuchar cambios en los radios para actualizar el boleto visual en tiempo real
+        document.querySelectorAll('.radio-asistencia').forEach(radio => {
+            radio.addEventListener('change', function() {
+                let currentAsistencia = [];
+                nombres.forEach((_, idx) => {
+                    let r = document.querySelector(`input[name="asistencia_${idx}"]:checked`);
+                    currentAsistencia.push(r ? r.value : "si");
+                });
+                actualizarBoletoVisual(nombres, currentAsistencia);
+                localStorage.setItem(ASISTENCIA_KEY, JSON.stringify(currentAsistencia));
+            });
         });
 
-        if (asistentes > 0) {
-            document.getElementById('img-lista-nombres').innerHTML = listaImgHtml;
-            btnDescargarImagen.style.display = 'inline-flex';
-        } else {
-            btnDescargarImagen.style.display = 'none';
-        }
+        actualizarBoletoVisual(nombres, valoresGuardados.length ? valoresGuardados : nombres.map(() => "si"));
     }
 
     if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
@@ -472,12 +481,7 @@ document.addEventListener("DOMContentLoaded", function() {
         seccionPase.style.display = 'block';
         let nombresDelGrupo = baseDeDatosInvitados[storedFamilyKey];
         document.getElementById('nombre-encontrado').textContent = storedFamilyKey;
-
-        if (isConfirmed) {
-            prepararBoletoYBloquear(nombresDelGrupo, storedAsistencia);
-        } else {
-            renderInvitados(nombresDelGrupo, storedAsistencia, false);
-        }
+        renderInvitados(nombresDelGrupo, storedAsistencia);
     }
 
     if(btnBuscar) {
@@ -515,7 +519,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 seccionBusqueda.style.display = 'none';
                 seccionPase.style.display = 'block';
                 document.getElementById('nombre-encontrado').textContent = mejorCoincidencia;
-                renderInvitados(nombresDelGrupo, [], false);
+                renderInvitados(nombresDelGrupo, []);
             } else {
                 msjError.style.display = 'block';
             }
@@ -528,42 +532,43 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // --- DESCARGA DE IMAGEN (OPTIMIZADA PARA IPHONE Y PC) ---
+    if(btnDescargarImagen) {
+        btnDescargarImagen.addEventListener('click', function() {
+            const tarjetaPase = document.getElementById('tarjeta-pase-visual');
+            
+            html2canvas(tarjetaPase, { scale: 3, useCORS: true, backgroundColor: '#fffafc' }).then(canvas => {
+                const enlace = document.createElement('a');
+                enlace.download = 'Pase_XV_Adriana.png';
+                enlace.href = canvas.toDataURL('image/png');
+                
+                // Disparo de descarga compatible
+                document.body.appendChild(enlace);
+                enlace.click();
+                document.body.removeChild(enlace);
+            }).catch(err => {
+                alert("Si estás en iPhone, mantén presionado el boleto en pantalla para guardarlo en tus Fotos.");
+            });
+        });
+    }
+
+    // --- BOTÓN WHATSAPP ---
     if(btnWhatsapp) {
         btnWhatsapp.addEventListener('click', function() {
-            if (localStorage.getItem(CONFIRMED_KEY) === 'true') return; 
-
             let nombreGrupo = localStorage.getItem(STORAGE_KEY);
             if (!nombreGrupo) return;
             
             const nombres = baseDeDatosInvitados[nombreGrupo];
             let confirmadosNombres = [];
             let noAsistenNombres = [];
-            let valoresAsistencia = [];
-            let todosSeleccionados = true;
 
             nombres.forEach((nombre, i) => {
-                let radios = document.getElementsByName(`asistencia_${i}`);
-                let valorSeleccionado = Array.from(radios).find(r => r.checked)?.value;
-                
-                if (!valorSeleccionado) { todosSeleccionados = false; } 
-                else {
-                    valoresAsistencia.push(valorSeleccionado);
-                    if (valorSeleccionado === "si") confirmadosNombres.push(nombre);
-                    else noAsistenNombres.push(nombre);
-                }
+                let radio = document.querySelector(`input[name="asistencia_${i}"]:checked`);
+                if (radio && radio.value === "si") confirmadosNombres.push(nombre);
+                else noAsistenNombres.push(nombre);
             });
 
-            if (!todosSeleccionados) {
-                alert("Por favor, marca 'Asiste' o 'No asiste' para todos los integrantes antes de confirmar.");
-                return;
-            }
-
-            localStorage.setItem(ASISTENCIA_KEY, JSON.stringify(valoresAsistencia));
-            localStorage.setItem(CONFIRMED_KEY, 'true');
-            
-            prepararBoletoYBloquear(nombres, valoresAsistencia);
-
-            let mensajeWa = `Hola Adriana, queremos confirmar asistencia:%0A%0A`;
+            let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia (%0A*${nombreGrupo}*):%0A%0A`;
             if (confirmadosNombres.length > 0) {
                 mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
                 confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
@@ -572,34 +577,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 mensajeWa += `%0A❌ *NO PODRÁN ASISTIR:*%0A`;
                 noAsistenNombres.forEach((n) => { mensajeWa += `- ${n}%0A`; });
             }
-
-            if (confirmadosNombres.length === 0) {
-                mensajeWa = `Hola Adriana, lamentablemente *nadie podrá asistir* a tu fiesta. ¡Muchas gracias por la invitación y que disfrutes mucho tu día!`;
-            } else {
-                mensajeWa += `%0A¡Allá nos vemos!`;
-            }
+            mensajeWa += `%0A¡Allá nos vemos! ✨`;
 
             window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
-        });
-    }
-
-    // --- DESCARGA AUTOMÁTICA DEL PASE COMO IMAGEN PNG ---
-    if(btnDescargarImagen) {
-        btnDescargarImagen.addEventListener('click', function() {
-            const elementoBoleto = document.getElementById('boleto-imagen-template');
-            
-            // Se hace visible temporalmente para que html2canvas lo convierta en imagen
-            elementoBoleto.style.display = 'block';
-
-            html2canvas(elementoBoleto, { scale: 2, useCORS: true }).then(canvas => {
-                elementoBoleto.style.display = 'none'; // Se vuelve a ocultar
-
-                // Crea el enlace de descarga automática de la imagen
-                const link = document.createElement('a');
-                link.download = 'Pase_XV_Adriana.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            });
         });
     }
 });
@@ -621,7 +601,7 @@ setInterval(() => {
 // --- CUENTA REGRESIVA ---
 const fechaFiestaReal = new Date(2026, 11, 19, 18, 0, 0).getTime(); 
 const intervalo = setInterval(function() {
-    const ahora = new Date().getTime();
+    constahora = new Date().getTime();
     const distancia = fechaFiestaReal - ahora;
     if (distancia < 0) {
         clearInterval(intervalo);
