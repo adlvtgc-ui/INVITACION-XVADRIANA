@@ -137,24 +137,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 .opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
 .opcion-radio input:disabled { cursor: not-allowed; }
 
-/* --- PLANTILLA DEL BOLETO OCULTA EN LA INTERFAZ --- */
-#boleto-pdf-template {
-    display: none; /* Oculto visualmente en la pantalla */
-    width: 600px; 
-    background-color: #fffafc; 
-    border: 4px double #85386e;
-    padding: 40px; 
-    text-align: center; 
-    font-family: 'Montserrat', sans-serif;
-    box-sizing: border-box;
-}
-.pdf-titulo { font-family: 'Cinzel', serif; font-size: 1.8rem; color: #85386e; font-weight: bold; margin-bottom: 5px; }
-.pdf-subtitulo { font-family: 'Alex Brush', cursive; font-size: 3.8rem; color: #85386e; margin: 0 0 15px 0; line-height: 1; }
-.pdf-seccion { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #3b1138; font-weight: bold; margin-top: 20px; text-transform: uppercase; }
-.pdf-lista { list-style: none; padding: 0; margin: 15px auto; width: 90%; }
-.pdf-lista li { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #333333; padding: 8px 0; border-bottom: 1px dashed #d9b8cd; font-weight: bold; text-transform: capitalize; }
-.pdf-footer { font-size: 0.95rem; font-style: italic; color: #666; margin-top: 30px; font-family: 'Montserrat', sans-serif; }
-
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
 .img-final-pequena { width: 15%; max-width: 35px; height: auto; margin: 0 auto; display: block; opacity: 0.95; }
@@ -272,7 +254,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
     ¡Gracias por tu confirmación! ✨
 </div>
 
-<!-- BOTÓN LIMPIO PARA DESCARGAR EL PDF -->
+<!-- BOTÓN PARA DESCARGAR EL PDF -->
 <button id="btn-descargar-pdf" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem; background-color: #B87333; display: none;">
     📥 Descargar Pase (PDF)
 </button>
@@ -285,16 +267,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 </div>
 
 </div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
-
-<!-- PLANTILLA DEL BOLETO PARA EL PDF -->
-<div id="boleto-pdf-template">
-    <div class="pdf-titulo">PASE DE RECEPCIÓN OFICIAL</div>
-    <div class="pdf-subtitulo">Mis XV Años Adriana</div>
-    <hr style="border: 1px solid #85386e; margin: 15px 0;">
-    <div class="pdf-seccion" id="pdf-titulo-estado">Pases Confirmados:</div>
-    <ul class="pdf-lista" id="pdf-lista-nombres"></ul>
-    <div class="pdf-footer">Fecha: 19 de Diciembre de 2026 — Presenta este pase en la entrada.</div>
-</div>
 
 <script>
 // =========================================================================
@@ -353,7 +325,7 @@ const baseDeDatosInvitados = {
     "FAMILIA 21": [ "ALEJANDRA DE LA O" ],
     "FAMILIA 22": [ "ELSA RANGEL", "VICTOR GARCIA", "DAVID RANGEL" ],
     "FAMILIA 23": [ "ELSA LARA", "ERIKA RIOS", "LUIS J. LOZANO" ],
-    "FAMILIA 24": [ "SANDRA LARA", "JORGE PINEDA", "BRIAN CRUZ", "JAN C. CRUZ" ],
+    "FAMILIA 24": [ "SANDRA LARA", "JORGE PINEDIA", "BRIAN CRUZ", "JAN C. CRUZ" ],
     "FAMILIA 25": [ "MONSERRAT LARA", "MIGUEL A. RAÑO", "DIEGO NERIO", "LUCIANO MORENO" ],
     "FAMILIA 26": [ "LILIANA LARA", "FRANCISCO J. COLIN", "FRANCISCO Y. COLIN" ],
     "FAMILIA 27": [ "MARINA LARA", "JOSE RIOS", "ARTEMISA RIOS", "RAZIEL RIOS", "URIEL RIOS" ],
@@ -408,9 +380,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const msjAgradecimiento = document.getElementById('mensaje-agradecimiento');
     const btnDescargarPdf = document.getElementById('btn-descargar-pdf');
 
-    const STORAGE_KEY = 'adrianaXV_v19_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v19_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v19_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v20_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v20_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v20_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
@@ -455,17 +427,13 @@ document.addEventListener("DOMContentLoaded", function() {
         msjAgradecimiento.style.display = 'block';
         
         let asistentes = 0;
-        let listaPdfHtml = '';
         nombres.forEach((nombre, i) => {
             if(valoresGuardados[i] === 'si') {
-                listaPdfHtml += `<li>${nombre}</li>`;
                 asistentes++;
             }
         });
 
         if (asistentes > 0) {
-            document.getElementById('pdf-titulo-estado').textContent = "Pases Confirmados:";
-            document.getElementById('pdf-lista-nombres').innerHTML = listaPdfHtml;
             btnDescargarPdf.style.display = 'inline-flex';
         } else {
             btnDescargarPdf.style.display = 'none';
@@ -588,12 +556,34 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // --- GENERACIÓN DEL PDF DIRECTAMENTE EN JAVASCRIPT (SIN ELEMENTOS OCULTOS) ---
     if(btnDescargarPdf) {
         btnDescargarPdf.addEventListener('click', function() {
-            const elementoBoleto = document.getElementById('boleto-pdf-template');
-            
-            // Se hace visible temporalmente para que html2canvas lo lea correctamente y luego se vuelve a ocultar
-            elementoBoleto.style.display = 'block';
+            let nombreGrupo = localStorage.getItem(STORAGE_KEY);
+            let valoresAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
+            let nombres = baseDeDatosInvitados[nombreGrupo] || [];
+
+            let listaHtml = '';
+            nombres.forEach((nombre, i) => {
+                if(valoresAsistencia[i] === 'si') {
+                    listaHtml += `<li style="font-family: 'Cinzel', serif; font-size: 1.2rem; color: #333333; padding: 10px 0; border-bottom: 1px dashed #d9b8cd; font-weight: bold; text-transform: capitalize;">${nombre}</li>`;
+                }
+            });
+
+            // Creamos un contenedor temporal en memoria con el diseño exacto del boleto
+            const elementoTemporal = document.createElement('div');
+            elementoTemporal.innerHTML = `
+                <div style="width: 600px; background-color: #fffafc; border: 4px double #85386e; padding: 40px; text-align: center; font-family: 'Montserrat', sans-serif; box-sizing: border-box;">
+                    <div style="font-family: 'Cinzel', serif; font-size: 1.8rem; color: #85386e; font-weight: bold; margin-bottom: 5px;">PASE DE RECEPCIÓN OFICIAL</div>
+                    <div style="font-family: 'Alex Brush', cursive; font-size: 3.8rem; color: #85386e; margin: 0 0 15px 0; line-height: 1;">Mis XV Años Adriana</div>
+                    <hr style="border: 1px solid #85386e; margin: 15px 0;">
+                    <div style="font-family: 'Cinzel', serif; font-size: 1.1rem; color: #3b1138; font-weight: bold; margin-top: 20px; text-transform: uppercase;">Pases Confirmados (${nombreGrupo}):</div>
+                    <ul style="list-style: none; padding: 0; margin: 15px auto; width: 90%;">
+                        ${listaHtml}
+                    </ul>
+                    <div style="font-size: 0.95rem; font-style: italic; color: #666; margin-top: 30px; font-family: 'Montserrat', sans-serif;">Fecha: 19 de Diciembre de 2026 — Presenta este pase en la entrada.</div>
+                </div>
+            `;
 
             const opt = {
               margin:       0.5,
@@ -603,9 +593,7 @@ document.addEventListener("DOMContentLoaded", function() {
               jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 
-            html2pdf().set(opt).from(elementoBoleto).save().then(function() {
-                elementoBoleto.style.display = 'none';
-            });
+            html2pdf().set(opt).from(elementoTemporal).save();
         });
     }
 });
