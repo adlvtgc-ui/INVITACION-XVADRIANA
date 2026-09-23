@@ -146,6 +146,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
     background: rgba(255, 255, 255, 0.85); box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
 }
 .input-invitado:focus { outline: none; border-color: var(--color-principal); background: #fff; }
+.input-invitado:disabled { background-color: #f0f0f0; color: #666; border-color: #ccc; cursor: not-allowed; }
 
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
@@ -242,7 +243,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu nombre para buscar tus pases (Ej. Juan Gómez, Ana Roa, etc.).</div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe tu nombre o el de tu familia para buscar tus pases (Ej. Familia 1, Alejandro Perez, etc.).</div>
 
 <div id="wrapper-busqueda">
     <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Buscar familia o grupo..." autocomplete="off">
@@ -272,7 +273,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
     Confirmar Asistencia por WhatsApp
 </button>
 
-<div id="mensaje-agradecimiento" style="font-family: var(--fuente-titulos); font-size: 1.3rem; color: var(--color-principal); font-weight: bold; margin-top: 15px; display: none;">
+<div id="mensaje-agradecimiento" style="font-family: var(--fuente-titulos); font-size: 1.3rem; color: #B87333; font-weight: bold; margin-top: 20px; display: none; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
     ¡Gracias por tu confirmación! ✨
 </div>
 
@@ -349,46 +350,78 @@ document.addEventListener('keydown', function(e) {
 });
 
 // =========================================================================
-// 1. BASE DE DATOS DE FAMILIAS Y NÚMERO DE PASES (OFICIAL DEL EXCEL)[cite: 1]
+// 1. BASE DE DATOS DE FAMILIAS Y NÚMERO DE PASES OFICIAL
 // =========================================================================
 const baseDeDatosFamilias = {
-    "familia lara valladares": 6,
-    "familia lara tolentino": 2,
-    "ana amigos": 4,
-    "familia moya valladares": 6,
-    "familia orta moya": 2,
-    "familia de la o garcia": 6,
-    "familia de la o": 3,
-    "familia enriquez borges": 5,
-    "familia de la o vazquez": 3,
-    "familia vasquez": 4,
-    "familia vasquez borges": 3,
-    "familia vasquez sedeño": 2,
-    "familia borges sosa": 5,
-    "familia chavarria de la o": 8,
-    "familia guerrero rangel": 2,
-    "familia rangel": 3,
-    "familia lara rios": 3,
-    "familia sandra": 4,
-    "familia monserrat": 4,
-    "familia liliana": 4,
-    "familia rios lara": 5,
-    "familia rios cano": 2,
-    "familia rios sanchez": 5,
-    "familia rios castro": 8,
-    "amigos": 10,
-    "familia lopez": 8,
-    "mario amigos": 5,
-    "rodrigo amigos": 8,
-    "diana amigos": 4,
-    "adriana": 10
+    "familia 1": 6,
+    "familia 2": 2,
+    "familia 3": 2,
+    "familia 4": 2,
+    "familia 5": 6,
+    "familia 6": 2,
+    "familia 7": 5,
+    "familia 8": 2,
+    "familia 9": 5,
+    "familia 10": 3,
+    "familia 11": 2,
+    "familia 12": 3,
+    "familia 13": 2,
+    "familia 14": 3,
+    "familia 15": 2,
+    "familia 16": 3,
+    "familia 17": 1,
+    "familia 18": 2,
+    "familia 19": 2,
+    "familia 20": 2,
+    "familia 21": 1,
+    "familia 22": 3,
+    "familia 23": 3,
+    "familia 24": 4,
+    "familia 25": 4,
+    "familia 26": 3,
+    "familia 27": 5,
+    "familia 28": 2,
+    "familia 29": 2,
+    "familia 30": 2,
+    "familia 31": 6,
+    "familia 32": 3,
+    "familia 33": 4,
+    "familia 34": 3,
+    "familia 35": 2,
+    "familia 36": 3,
+    "familia 37": 4,
+    "familia 38": 2,
+    "familia 39": 2,
+    "familia 40": 2,
+    "familia 41": 2,
+    "karen cortes": 1,
+    "mia": 1,
+    "alejandro perez": 1,
+    "eliel huizar": 1,
+    "dastan": 1,
+    "diana": 1,
+    "geraldine": 1,
+    "erick": 1,
+    "iker": 1,
+    "helena": 1,
+    "joha": 1,
+    "regi": 1,
+    "vale": 1,
+    "vele2": 1,
+    "sam": 1,
+    "jorge": 1,
+    "neto": 1,
+    "sara": 1,
+    "dirse": 1,
+    "joel": 1,
+    "dylan": 1,
+    "lalo": 1,
+    "julieta": 1
 };
 
 document.addEventListener("DOMContentLoaded", function() {
     const btnBuscar = document.getElementById('btn-buscar');
     const inputBusqueda = document.getElementById('input-busqueda');
-    const wrapperBusqueda = document.getElementById('wrapper-busqueda');
-    const textInstruccionBusqueda = document.getElementById('text-busqueda-instruccion');
     const seccionBusqueda = document.getElementById('seccion-busqueda');
     
     const seccionPase = document.getElementById('pase-entrada');
@@ -398,9 +431,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const textInstruccionConfirmacion = document.getElementById('instruccion-confirmacion');
     const msjAgradecimiento = document.getElementById('mensaje-agradecimiento');
 
-    const STORAGE_KEY = 'adrianaXV_v10_key';
-    const SLOTS_KEY = 'adrianaXV_v10_slots';
-    const CONFIRMED_KEY = 'adrianaXV_v10_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v11_key';
+    const SLOTS_KEY = 'adrianaXV_v11_slots';
+    const CONFIRMED_KEY = 'adrianaXV_v11_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedSlotsValues = JSON.parse(localStorage.getItem(SLOTS_KEY) || '[]');
@@ -436,7 +469,7 @@ document.addEventListener("DOMContentLoaded", function() {
         msjAgradecimiento.style.display = 'block';
     }
 
-    // Si ya realizó su búsqueda previa en este dispositivo/navegador, bloquear acceso a búsqueda y mostrar su pase directamente
+    // Si ya realizó su búsqueda y confirmación, bloquear acceso a todo lo demás permanentemente
     if (storedFamilyKey && baseDeDatosFamilias[storedFamilyKey]) {
         seccionBusqueda.style.display = 'none';
         seccionPase.style.display = 'block';
@@ -456,10 +489,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // =========================================================================
     if(btnBuscar) {
         btnBuscar.addEventListener('click', function() {
-            // Bloqueo de intento único si ya se registró
-            if (localStorage.getItem(STORAGE_KEY)) {
-                return;
-            }
+            if (localStorage.getItem(STORAGE_KEY)) return;
 
             let busquedaUsuario = normalizarTexto(inputBusqueda.value);
 
@@ -473,7 +503,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            const palabrasIgnoradas = ["familia", "los", "las", "el", "la", "y", "de"];
+            const palabrasIgnoradas = ["familia", "los", "las", "el", "la", "y", "de", "amigos"];
             let terminos = busquedaUsuario.split(" ").filter(palabra => !palabrasIgnoradas.includes(palabra) && palabra.length > 2);
 
             if (terminos.length === 0) { terminos = [busquedaUsuario]; }
@@ -498,7 +528,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             if (mejorCoincidencia) {
-                // Bloquear permanentemente el intento de búsqueda en este dispositivo
+                // Bloquear permanentemente la búsqueda tras encontrar su pase
                 localStorage.setItem(STORAGE_KEY, mejorCoincidencia);
 
                 msjError.style.display = 'none';
@@ -530,6 +560,11 @@ document.addEventListener("DOMContentLoaded", function() {
     // =========================================================================
     if(btnWhatsapp) {
         btnWhatsapp.addEventListener('click', function() {
+            // Verificar si ya confirmó
+            if (localStorage.getItem(CONFIRMED_KEY) === 'true') {
+                return; 
+            }
+
             let claveFamilia = localStorage.getItem(STORAGE_KEY);
             if (!claveFamilia) return;
 
@@ -549,18 +584,18 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             if (confirmadosNombres.length === 0) {
-                alert("Por favor, escribe al menos un nombre para confirmar.");
+                alert("Por favor, escribe al menos un nombre para confirmar la asistencia.");
                 return;
             }
 
-            // Guardar confirmación en localStorage
+            // Guardar confirmación permanente
             localStorage.setItem(SLOTS_KEY, JSON.stringify(valoresSlots));
             localStorage.setItem(CONFIRMED_KEY, 'true');
 
-            // Bloquear interfaz inmediatamente y mostrar mensaje de agradecimiento
+            // Bloquear interfaz inmediatamente y mostrar agradecimiento
             bloquearInterfazConfirmada(valoresSlots);
 
-            // Estructuración de WhatsApp (SOLO LOS NOMBRES)
+            // Estructuración de WhatsApp (Mensaje limpio, solo con los nombres reales de los confirmados)
             let mensajeWa = `Hola Adriana, somos *${claveFamilia.toUpperCase()}*.%0A%0AConfirmamos nuestra asistencia:%0A`;
             confirmadosNombres.forEach((nombre, i) => {
                 mensajeWa += `${i + 1}. ${nombre}%0A`;
