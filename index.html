@@ -243,15 +243,15 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu nombre para buscar tus pases (Ej. Alejandro Perez.).</div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe tu nombre o el de un miembro de tu familia para buscar tus pases.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Recuerda que solo tienes una oportunidad de búsqueda.</span></div>
 
 <div id="wrapper-busqueda">
-    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Buscar familia o grupo..." autocomplete="off">
+    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Buscar nombre..." autocomplete="off">
     <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pases</button>
 </div>
 
 <div id="mensaje-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: bold; margin-top: 12px; display: none;">
-    Lo sentimos, no encontramos una invitación con ese nombre. Por favor intenta escribiéndolo diferente o contacta a los organizadores.
+    Lo sentimos, no encontramos una invitación con ese nombre. Por favor intenta escribiéndolo diferente (solo un nombre y un apellido).
 </div>
 </div>
 
@@ -350,73 +350,189 @@ document.addEventListener('keydown', function(e) {
 });
 
 // =========================================================================
-// 1. BASE DE DATOS DE FAMILIAS Y NÚMERO DE PASES OFICIAL
+// 1. BASE DE DATOS DE BÚSQUEDA AVANZADA (INDEXADA POR NOMBRES)
 // =========================================================================
-const baseDeDatosFamilias = {
-    "familia 1": 6,
-    "familia 2": 2,
-    "familia 3": 2,
-    "familia 4": 2,
-    "familia 5": 6,
-    "familia 6": 2,
-    "familia 7": 5,
-    "familia 8": 2,
-    "familia 9": 5,
-    "familia 10": 3,
-    "familia 11": 2,
-    "familia 12": 3,
-    "familia 13": 2,
-    "familia 14": 3,
-    "familia 15": 2,
-    "familia 16": 3,
-    "familia 17": 1,
-    "familia 18": 2,
-    "familia 19": 2,
-    "familia 20": 2,
-    "familia 21": 1,
-    "familia 22": 3,
-    "familia 23": 3,
-    "familia 24": 4,
-    "familia 25": 4,
-    "familia 26": 3,
-    "familia 27": 5,
-    "familia 28": 2,
-    "familia 29": 2,
-    "familia 30": 2,
-    "familia 31": 6,
-    "familia 32": 3,
-    "familia 33": 4,
-    "familia 34": 3,
-    "familia 35": 2,
-    "familia 36": 3,
-    "familia 37": 4,
-    "familia 38": 2,
-    "familia 39": 2,
-    "familia 40": 2,
-    "familia 41": 2,
-    "karen cortes": 1,
-    "mia": 1,
-    "alejandro perez": 1,
-    "eliel huizar": 1,
-    "dastan": 1,
-    "diana": 1,
-    "geraldine": 1,
-    "erick": 1,
-    "iker": 1,
-    "helena": 1,
-    "joha": 1,
-    "regi": 1,
-    "vale": 1,
-    "vele2": 1,
-    "sam": 1,
-    "jorge": 1,
-    "neto": 1,
-    "sara": 1,
-    "dirse": 1,
-    "joel": 1,
-    "dylan": 1,
-    "lalo": 1,
-    "julieta": 1
+const baseDeDatosBusqueda = {
+    "familia 1": { "grupo": "FAMILIA 1", "pases": 6 },
+    "mario lara p": { "grupo": "FAMILIA 1", "pases": 6 },
+    "mario lara v": { "grupo": "FAMILIA 1", "pases": 6 },
+    "diana valladares": { "grupo": "FAMILIA 1", "pases": 6 },
+    "dalia de la o": { "grupo": "FAMILIA 1", "pases": 6 },
+    "rodrigo lara": { "grupo": "FAMILIA 1", "pases": 6 },
+    "adriana lara": { "grupo": "FAMILIA 1", "pases": 6 },
+    "familia 2": { "grupo": "FAMILIA 2", "pases": 2 },
+    "dalia lara": { "grupo": "FAMILIA 2", "pases": 2 },
+    "crescencio tolentino": { "grupo": "FAMILIA 2", "pases": 2 },
+    "familia 3": { "grupo": "FAMILIA 3", "pases": 2 },
+    "zalma correa": { "grupo": "FAMILIA 3", "pases": 2 },
+    "carlos martinez": { "grupo": "FAMILIA 3", "pases": 2 },
+    "familia 4": { "grupo": "FAMILIA 4", "pases": 2 },
+    "alma sanjuan": { "grupo": "FAMILIA 4", "pases": 2 },
+    "eduardo martinez": { "grupo": "FAMILIA 4", "pases": 2 },
+    "familia 5": { "grupo": "FAMILIA 5", "pases": 6 },
+    "sonia valladares": { "grupo": "FAMILIA 5", "pases": 6 },
+    "mariana moya": { "grupo": "FAMILIA 5", "pases": 6 },
+    "invitado mariana": { "grupo": "FAMILIA 5", "pases": 6 },
+    "luis moya": { "grupo": "FAMILIA 5", "pases": 6 },
+    "samantha araujo": { "grupo": "FAMILIA 5", "pases": 6 },
+    "invitado sonia": { "grupo": "FAMILIA 5", "pases": 6 },
+    "familia 6": { "grupo": "FAMILIA 6", "pases": 2 },
+    "sonia moya": { "grupo": "FAMILIA 6", "pases": 2 },
+    "roberto vazquez": { "grupo": "FAMILIA 6", "pases": 2 },
+    "familia 7": { "grupo": "FAMILIA 7", "pases": 5 },
+    "adrian de la o": { "grupo": "FAMILIA 7", "pases": 5 },
+    "patricia garcia": { "grupo": "FAMILIA 7", "pases": 5 },
+    "alan de la o": { "grupo": "FAMILIA 7", "pases": 5 },
+    "daniela aguilar": { "grupo": "FAMILIA 7", "pases": 5 },
+    "thiago de la o": { "grupo": "FAMILIA 7", "pases": 5 },
+    "familia 8": { "grupo": "FAMILIA 8", "pases": 2 },
+    "oscar valladares": { "grupo": "FAMILIA 8", "pases": 2 },
+    "leo de la o": { "grupo": "FAMILIA 8", "pases": 2 },
+    "familia 9": { "grupo": "FAMILIA 9", "pases": 5 },
+    "veronica borges": { "grupo": "FAMILIA 9", "pases": 5 },
+    "moises enriquez": { "grupo": "FAMILIA 9", "pases": 5 },
+    "moises enriquez borges": { "grupo": "FAMILIA 9", "pases": 5 },
+    "betsabe enriquez": { "grupo": "FAMILIA 9", "pases": 5 },
+    "familia 10": { "grupo": "FAMILIA 10", "pases": 3 },
+    "carlos de la o": { "grupo": "FAMILIA 10", "pases": 3 },
+    "estela vazquez": { "grupo": "FAMILIA 10", "pases": 3 },
+    "carlos de la o v.": { "grupo": "FAMILIA 10", "pases": 3 },
+    "familia 11": { "grupo": "FAMILIA 11", "pases": 2 },
+    "jennyfer de la o": { "grupo": "FAMILIA 11", "pases": 2 },
+    "jonathan gutierrez": { "grupo": "FAMILIA 11", "pases": 2 },
+    "familia 12": { "grupo": "FAMILIA 12", "pases": 3 },
+    "claudia borges": { "grupo": "FAMILIA 12", "pases": 3 },
+    "rafael vazquez": { "grupo": "FAMILIA 13", "pases": 2 },
+    "david vazquez": { "grupo": "FAMILIA 12", "pases": 3 },
+    "familia 13": { "grupo": "FAMILIA 13", "pases": 2 },
+    "karina sedeño": { "grupo": "FAMILIA 13", "pases": 2 },
+    "familia 14": { "grupo": "FAMILIA 14", "pases": 3 },
+    "elios de la o": { "grupo": "FAMILIA 14", "pases": 3 },
+    "mizraim sosa": { "grupo": "FAMILIA 14", "pases": 3 },
+    "mizraim de la o sosa": { "grupo": "FAMILIA 14", "pases": 3 },
+    "familia 15": { "grupo": "FAMILIA 15", "pases": 2 },
+    "aida de la o": { "grupo": "FAMILIA 15", "pases": 2 },
+    "teodoro olvera": { "grupo": "FAMILIA 15", "pases": 2 },
+    "familia 16": { "grupo": "FAMILIA 16", "pases": 3 },
+    "ricardo chavarria": { "grupo": "FAMILIA 16", "pases": 3 },
+    "ana lilia plata": { "grupo": "FAMILIA 16", "pases": 3 },
+    "fernando chavarria": { "grupo": "FAMILIA 16", "pases": 3 },
+    "familia 17": { "grupo": "FAMILIA 17", "pases": 1 },
+    "libertad de la o": { "grupo": "FAMILIA 17", "pases": 1 },
+    "familia 18": { "grupo": "FAMILIA 18", "pases": 2 },
+    "monica rangel": { "grupo": "FAMILIA 18", "pases": 2 },
+    "armando chavarría": { "grupo": "FAMILIA 18", "pases": 2 },
+    "familia 19": { "grupo": "FAMILIA 19", "pases": 2 },
+    "alicia rangel": { "grupo": "FAMILIA 19", "pases": 2 },
+    "francisco guerrero": { "grupo": "FAMILIA 19", "pases": 2 },
+    "familia 20": { "grupo": "FAMILIA 20", "pases": 2 },
+    "mabe de la o": { "grupo": "FAMILIA 20", "pases": 2 },
+    "juan carreño": { "grupo": "FAMILIA 20", "pases": 2 },
+    "familia 21": { "grupo": "FAMILIA 21", "pases": 1 },
+    "alejandra de la o": { "grupo": "FAMILIA 21", "pases": 1 },
+    "familia 22": { "grupo": "FAMILIA 22", "pases": 3 },
+    "elsa rangel": { "grupo": "FAMILIA 22", "pases": 3 },
+    "victor garcia": { "grupo": "FAMILIA 22", "pases": 3 },
+    "david rangel": { "grupo": "FAMILIA 22", "pases": 3 },
+    "familia 23": { "grupo": "FAMILIA 23", "pases": 3 },
+    "elsa lara": { "grupo": "FAMILIA 23", "pases": 3 },
+    "erika rios": { "grupo": "FAMILIA 23", "pases": 3 },
+    "luis j. lozano": { "grupo": "FAMILIA 23", "pases": 3 },
+    "familia 24": { "grupo": "FAMILIA 24", "pases": 4 },
+    "sandra lara": { "grupo": "FAMILIA 24", "pases": 4 },
+    "jorge pineda": { "grupo": "FAMILIA 24", "pases": 4 },
+    "brian cruz": { "grupo": "FAMILIA 24", "pases": 4 },
+    "jan c. cruz": { "grupo": "FAMILIA 24", "pases": 4 },
+    "familia 25": { "grupo": "FAMILIA 25", "pases": 4 },
+    "monserrat lara": { "grupo": "FAMILIA 25", "pases": 4 },
+    "miguel a. raño": { "grupo": "FAMILIA 25", "pases": 4 },
+    "diego nerio": { "grupo": "FAMILIA 25", "pases": 4 },
+    "luciano moreno": { "grupo": "FAMILIA 25", "pases": 4 },
+    "familia 26": { "grupo": "FAMILIA 26", "pases": 3 },
+    "liliana lara": { "grupo": "FAMILIA 26", "pases": 3 },
+    "francisco j. colin": { "grupo": "FAMILIA 26", "pases": 3 },
+    "francisco y. colin": { "grupo": "FAMILIA 26", "pases": 3 },
+    "familia 27": { "grupo": "FAMILIA 27", "pases": 5 },
+    "marina lara": { "grupo": "FAMILIA 27", "pases": 5 },
+    "jose rios": { "grupo": "FAMILIA 27", "pases": 5 },
+    "artemisa rios": { "grupo": "FAMILIA 27", "pases": 5 },
+    "raziel rios": { "grupo": "FAMILIA 27", "pases": 5 },
+    "uriel rios": { "grupo": "FAMILIA 27", "pases": 5 },
+    "familia 28": { "grupo": "FAMILIA 28", "pases": 2 },
+    "irwyn rios": { "grupo": "FAMILIA 28", "pases": 2 },
+    "kiaret cano": { "grupo": "FAMILIA 28", "pases": 2 },
+    "familia 29": { "grupo": "FAMILIA 29", "pases": 2 },
+    "guillermo rios": { "grupo": "FAMILIA 29", "pases": 2 },
+    "alma delia sanchez": { "grupo": "FAMILIA 29", "pases": 2 },
+    "familia 30": { "grupo": "FAMILIA 30", "pases": 2 },
+    "cristian rios": { "grupo": "FAMILIA 30", "pases": 2 },
+    "fernando vela": { "grupo": "FAMILIA 30", "pases": 2 },
+    "familia 31": { "grupo": "FAMILIA 31", "pases": 6 },
+    "jose rene rios": { "grupo": "FAMILIA 31", "pases": 6 },
+    "yolanda castro": { "grupo": "FAMILIA 31", "pases": 6 },
+    "rene rios": { "grupo": "FAMILIA 31", "pases": 6 },
+    "abril mendoza": { "grupo": "FAMILIA 31", "pases": 6 },
+    "evelin l. ramos": { "grupo": "FAMILIA 31", "pases": 6 },
+    "familia 32": { "grupo": "FAMILIA 32", "pases": 3 },
+    "ramses rios": { "grupo": "FAMILIA 32", "pases": 3 },
+    "rosa i. cabrales": { "grupo": "FAMILIA 32", "pases": 3 },
+    "josé j. rios": { "grupo": "FAMILIA 32", "pases": 3 },
+    "familia 33": { "grupo": "FAMILIA 33", "pases": 4 },
+    "hugo a. lopez": { "grupo": "FAMILIA 33", "pases": 4 },
+    "perla j. cavazos": { "grupo": "FAMILIA 33", "pases": 4 },
+    "valentina lopez": { "grupo": "FAMILIA 33", "pases": 4 },
+    "genoveva martinez": { "grupo": "FAMILIA 33", "pases": 4 },
+    "familia 34": { "grupo": "FAMILIA 34", "pases": 3 },
+    "pricila lopez": { "grupo": "FAMILIA 34", "pases": 3 },
+    "manuel estrada": { "grupo": "FAMILIA 34", "pases": 3 },
+    "estefany estrada": { "grupo": "FAMILIA 34", "pases": 3 },
+    "familia 35": { "grupo": "FAMILIA 35", "pases": 2 },
+    "carlos e. mendoza": { "grupo": "FAMILIA 35", "pases": 2 },
+    "rocio n. jimenez": { "grupo": "FAMILIA 35", "pases": 2 },
+    "familia 36": { "grupo": "FAMILIA 36", "pases": 3 },
+    "angel j. ochoa": { "grupo": "FAMILIA 36", "pases": 3 },
+    "enrique x. contreras": { "grupo": "FAMILIA 36", "pases": 3 },
+    "brandon sanchez": { "grupo": "FAMILIA 36", "pases": 3 },
+    "familia 37": { "grupo": "FAMILIA 37", "pases": 4 },
+    "griselda ramirez": { "grupo": "FAMILIA 37", "pases": 4 },
+    "victor h. pesina": { "grupo": "FAMILIA 37", "pases": 4 },
+    "janet torres": { "grupo": "FAMILIA 37", "pases": 4 },
+    "valeria i. pesina": { "grupo": "FAMILIA 37", "pases": 4 },
+    "familia 38": { "grupo": "FAMILIA 38", "pases": 2 },
+    "cristopher salzar": { "grupo": "FAMILIA 38", "pases": 2 },
+    "betzabe legorreta": { "grupo": "FAMILIA 38", "pases": 2 },
+    "familia 39": { "grupo": "FAMILIA 39", "pases": 2 },
+    "regina solis": { "grupo": "FAMILIA 39", "pases": 2 },
+    "alberto ornelas": { "grupo": "FAMILIA 39", "pases": 2 },
+    "familia 40": { "grupo": "FAMILIA 40", "pases": 2 },
+    "alma delia de la cruz": { "grupo": "FAMILIA 40", "pases": 2 },
+    "bryan sanchez": { "grupo": "FAMILIA 40", "pases": 2 },
+    "familia 41": { "grupo": "FAMILIA 41", "pases": 2 },
+    "axel de la vega": { "grupo": "FAMILIA 41", "pases": 2 },
+    "maro granados": { "grupo": "FAMILIA 41", "pases": 2 },
+    "karen cortes": { "grupo": "KAREN CORTES", "pases": 1 },
+    "mia": { "grupo": "MIA", "pases": 1 },
+    "alejandro perez": { "grupo": "ALEJANDRO PEREZ", "pases": 1 },
+    "eliel huizar": { "grupo": "ELIEL HUIZAR", "pases": 1 },
+    "dastan": { "grupo": "DASTAN", "pases": 1 },
+    "diana": { "grupo": "DIANA", "pases": 1 },
+    "geraldine": { "grupo": "GERALDINE", "pases": 1 },
+    "erick": { "grupo": "ERICK", "pases": 1 },
+    "iker": { "grupo": "IKER", "pases": 1 },
+    "helena": { "grupo": "HELENA", "pases": 1 },
+    "joha": { "grupo": "JOHA", "pases": 1 },
+    "regi": { "grupo": "REGI", "pases": 1 },
+    "vale": { "grupo": "VALE", "pases": 1 },
+    "vele2": { "grupo": "VELE2", "pases": 1 },
+    "sam": { "grupo": "SAM", "pases": 1 },
+    "jorge": { "grupo": "JORGE", "pases": 1 },
+    "neto": { "grupo": "NETO", "pases": 1 },
+    "sara": { "grupo": "SARA", "pases": 1 },
+    "dirse": { "grupo": "DIRSE", "pases": 1 },
+    "joel": { "grupo": "JOEL", "pases": 1 },
+    "dylan": { "grupo": "DYLAN", "pases": 1 },
+    "lalo": { "grupo": "LALO", "pases": 1 },
+    "julieta": { "grupo": "JULIETA", "pases": 1 }
 };
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -431,9 +547,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const textInstruccionConfirmacion = document.getElementById('instruccion-confirmacion');
     const msjAgradecimiento = document.getElementById('mensaje-agradecimiento');
 
-    const STORAGE_KEY = 'adrianaXV_v11_key';
-    const SLOTS_KEY = 'adrianaXV_v11_slots';
-    const CONFIRMED_KEY = 'adrianaXV_v11_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v12_key';
+    const SLOTS_KEY = 'adrianaXV_v12_slots';
+    const CONFIRMED_KEY = 'adrianaXV_v12_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedSlotsValues = JSON.parse(localStorage.getItem(SLOTS_KEY) || '[]');
@@ -470,22 +586,35 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Si ya realizó su búsqueda y confirmación, bloquear acceso a todo lo demás permanentemente
-    if (storedFamilyKey && baseDeDatosFamilias[storedFamilyKey]) {
+    if (storedFamilyKey) {
         seccionBusqueda.style.display = 'none';
         seccionPase.style.display = 'block';
-        document.getElementById('nombre-encontrado').textContent = storedFamilyKey.toUpperCase();
-        const numPases = baseDeDatosFamilias[storedFamilyKey];
-        document.getElementById('numero-pases').textContent = numPases;
+        
+        let datosGrupo = baseDeDatosBusqueda[storedFamilyKey];
+        // En caso de que se haya guardado directamente el nombre del grupo ("FAMILIA 1")
+        if (!datosGrupo) {
+            for (let clave in baseDeDatosBusqueda) {
+                if (baseDeDatosBusqueda[clave].grupo === storedFamilyKey) {
+                    datosGrupo = baseDeDatosBusqueda[clave];
+                    break;
+                }
+            }
+        }
+        
+        if (datosGrupo) {
+            document.getElementById('nombre-encontrado').textContent = datosGrupo.grupo.toUpperCase();
+            document.getElementById('numero-pases').textContent = datosGrupo.pases;
 
-        if (isConfirmed) {
-            bloquearInterfazConfirmada(storedSlotsValues);
-        } else {
-            renderSlots(numPases, storedSlotsValues, false);
+            if (isConfirmed) {
+                bloquearInterfazConfirmada(storedSlotsValues);
+            } else {
+                renderSlots(datosGrupo.pases, storedSlotsValues, false);
+            }
         }
     }
 
     // =========================================================================
-    // LÓGICA DE BÚSQUEDA ÚNICA E INTELIGENTE
+    // LÓGICA DE BÚSQUEDA ÚNICA E INTELIGENTE POR PERSONA O GRUPO
     // =========================================================================
     if(btnBuscar) {
         btnBuscar.addEventListener('click', function() {
@@ -498,12 +627,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            if (busquedaUsuario === "familia") {
-                alert("Por favor, escribe el apellido de tu familia o grupo.");
-                return;
-            }
-
-            const palabrasIgnoradas = ["familia", "los", "las", "el", "la", "y", "de", "amigos"];
+            const palabrasIgnoradas = ["los", "las", "el", "la", "y", "de"];
             let terminos = busquedaUsuario.split(" ").filter(palabra => !palabrasIgnoradas.includes(palabra) && palabra.length > 2);
 
             if (terminos.length === 0) { terminos = [busquedaUsuario]; }
@@ -511,7 +635,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let mejorCoincidencia = null;
             let mejorPuntaje = 0;
 
-            for (let clave in baseDeDatosFamilias) {
+            for (let clave in baseDeDatosBusqueda) {
                 let claveLimpia = normalizarTexto(clave);
                 let puntaje = 0;
 
@@ -528,18 +652,19 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             if (mejorCoincidencia) {
-                // Bloquear permanentemente la búsqueda tras encontrar su pase
-                localStorage.setItem(STORAGE_KEY, mejorCoincidencia);
+                const datosGrupo = baseDeDatosBusqueda[mejorCoincidencia];
+                
+                // Bloquear permanentemente la búsqueda guardando el nombre oficial del grupo
+                localStorage.setItem(STORAGE_KEY, datosGrupo.grupo);
 
                 msjError.style.display = 'none';
                 seccionBusqueda.style.display = 'none';
                 seccionPase.style.display = 'block';
 
-                document.getElementById('nombre-encontrado').textContent = mejorCoincidencia.toUpperCase();
-                const numPases = baseDeDatosFamilias[mejorCoincidencia];
-                document.getElementById('numero-pases').textContent = numPases;
+                document.getElementById('nombre-encontrado').textContent = datosGrupo.grupo.toUpperCase();
+                document.getElementById('numero-pases').textContent = datosGrupo.pases;
                 
-                renderSlots(numPases, [], false);
+                renderSlots(datosGrupo.pases, [], false);
             } else {
                 msjError.style.display = 'block';
             }
@@ -560,15 +685,20 @@ document.addEventListener("DOMContentLoaded", function() {
     // =========================================================================
     if(btnWhatsapp) {
         btnWhatsapp.addEventListener('click', function() {
-            // Verificar si ya confirmó
-            if (localStorage.getItem(CONFIRMED_KEY) === 'true') {
-                return; 
+            if (localStorage.getItem(CONFIRMED_KEY) === 'true') return; 
+
+            let nombreGrupo = localStorage.getItem(STORAGE_KEY);
+            if (!nombreGrupo) return;
+            
+            // Encontrar cuántos pases tiene este grupo buscando en la base de datos
+            let numPases = 0;
+            for (let clave in baseDeDatosBusqueda) {
+                if (baseDeDatosBusqueda[clave].grupo === nombreGrupo) {
+                    numPases = baseDeDatosBusqueda[clave].pases;
+                    break;
+                }
             }
 
-            let claveFamilia = localStorage.getItem(STORAGE_KEY);
-            if (!claveFamilia) return;
-
-            const numPases = baseDeDatosFamilias[claveFamilia];
             let confirmadosNombres = [];
             let valoresSlots = [];
 
@@ -595,8 +725,8 @@ document.addEventListener("DOMContentLoaded", function() {
             // Bloquear interfaz inmediatamente y mostrar agradecimiento
             bloquearInterfazConfirmada(valoresSlots);
 
-            // Estructuración de WhatsApp (Mensaje limpio, solo con los nombres reales de los confirmados)
-            let mensajeWa = `Hola Adriana, somos *${claveFamilia.toUpperCase()}*.%0A%0AConfirmamos nuestra asistencia:%0A`;
+            // Estructuración de WhatsApp
+            let mensajeWa = `Hola Adriana, somos *${nombreGrupo.toUpperCase()}*.%0A%0AConfirmamos nuestra asistencia:%0A`;
             confirmadosNombres.forEach((nombre, i) => {
                 mensajeWa += `${i + 1}. ${nombre}%0A`;
             });
