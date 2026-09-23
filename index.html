@@ -25,7 +25,6 @@ color-scheme: light;
 
 html { -webkit-text-size-adjust: 100%; }
 
-/* --- MEDIDAS DE SEGURIDAD EXTREMA --- */
 body {
     -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
     -webkit-touch-callout: none; margin: 0; padding: 0;
@@ -41,7 +40,6 @@ img {
 
 .btn img { pointer-events: auto; }
 
-/* Contenedor principal */
 .container {
     position: relative; z-index: 5; overflow: hidden; 
     max-width: 500px; margin: 20px auto; padding: 20px 20px 30px 20px;
@@ -139,18 +137,19 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 .opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
 .opcion-radio input:disabled { cursor: not-allowed; }
 
-/* --- PLANTILLA OCULTA PERFECTAMENTE PARA EL PDF --- */
+/* --- PLANTILLA DEL BOLETO PARA EL PDF (Fuera de pantalla de forma segura) --- */
 #boleto-pdf-template {
-    position: fixed; top: 0; left: 0; opacity: 0; z-index: -999; pointer-events: none;
-    width: 600px; background: #fffafc; border: 3px double #B87333;
-    padding: 30px; text-align: center; font-family: var(--fuente-cuerpo);
+    position: absolute; left: -9999px; top: 0;
+    width: 600px; background-color: #fffafc; border: 4px double #85386e;
+    padding: 40px; text-align: center; font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
 }
-.pdf-titulo { font-family: var(--fuente-titulos); font-size: 1.8rem; color: var(--color-principal); font-weight: bold; margin-bottom: 5px; }
-.pdf-subtitulo { font-family: var(--fuente-nombre); font-size: 3.5rem; color: var(--color-principal); margin: 0 0 15px 0; line-height: 1; }
-.pdf-seccion { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-dorado); font-weight: bold; margin-top: 15px; text-transform: uppercase; }
-.pdf-lista { list-style: none; padding: 0; margin: 10px auto; width: 85%; }
-.pdf-lista li { font-family: var(--fuente-titulos); font-size: 1.15rem; color: var(--color-texto); padding: 6px 0; border-bottom: 1px dashed #d9b8cd; font-weight: 600; text-transform: capitalize; }
-.pdf-footer { font-size: 0.9rem; font-style: italic; color: #666; margin-top: 25px; }
+.pdf-titulo { font-family: 'Cinzel', serif; font-size: 1.8rem; color: #85386e; font-weight: bold; margin-bottom: 5px; }
+.pdf-subtitulo { font-family: 'Alex Brush', cursive; font-size: 3.8rem; color: #85386e; margin: 0 0 15px 0; line-height: 1; }
+.pdf-seccion { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #3b1138; font-weight: bold; margin-top: 20px; text-transform: uppercase; }
+.pdf-lista { list-style: none; padding: 0; margin: 15px auto; width: 90%; }
+.pdf-lista li { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #333333; padding: 8px 0; border-bottom: 1px dashed #d9b8cd; font-weight: bold; text-transform: capitalize; }
+.pdf-footer { font-size: 0.95rem; font-style: italic; color: #666; margin-top: 30px; font-family: 'Montserrat', sans-serif; }
 
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
@@ -239,7 +238,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> (puedes usar minúsculas o mayúsculas) para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Solo tienes una oportunidad de búsqueda.</span></div>
 
 <div id="wrapper-busqueda">
-    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. pedro picapiedra..." autocomplete="off">
+    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. dalia lara..." autocomplete="off">
     <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pases</button>
 </div>
 
@@ -283,11 +282,11 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 
 </div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
 
-<!-- PLANTILLA INVISIBLE PERFECTA PARA EL PDF -->
+<!-- PLANTILLA DEL BOLETO PARA EL PDF -->
 <div id="boleto-pdf-template">
     <div class="pdf-titulo">PASE DE RECEPCIÓN OFICIAL</div>
     <div class="pdf-subtitulo">Mis XV Años Adriana</div>
-    <hr style="border: 1px solid #B87333; margin: 15px 0;">
+    <hr style="border: 1px solid #85386e; margin: 15px 0;">
     <div class="pdf-seccion" id="pdf-titulo-estado">Pases Confirmados:</div>
     <ul class="pdf-lista" id="pdf-lista-nombres"></ul>
     <div class="pdf-footer">Fecha: 19 de Diciembre de 2026 — Presenta este pase en la entrada.</div>
@@ -350,7 +349,7 @@ const baseDeDatosInvitados = {
     "FAMILIA 21": [ "ALEJANDRA DE LA O" ],
     "FAMILIA 22": [ "ELSA RANGEL", "VICTOR GARCIA", "DAVID RANGEL" ],
     "FAMILIA 23": [ "ELSA LARA", "ERIKA RIOS", "LUIS J. LOZANO" ],
-    "FAMILIA 24": [ "SANDRA LARA", "JORGE PINEDIA", "BRIAN CRUZ", "JAN C. CRUZ" ],
+    "FAMILIA 24": [ "SANDRA LARA", "JORGE PINEDA", "BRIAN CRUZ", "JAN C. CRUZ" ],
     "FAMILIA 25": [ "MONSERRAT LARA", "MIGUEL A. RAÑO", "DIEGO NERIO", "LUCIANO MORENO" ],
     "FAMILIA 26": [ "LILIANA LARA", "FRANCISCO J. COLIN", "FRANCISCO Y. COLIN" ],
     "FAMILIA 27": [ "MARINA LARA", "JOSE RIOS", "ARTEMISA RIOS", "RAZIEL RIOS", "URIEL RIOS" ],
@@ -405,9 +404,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const msjAgradecimiento = document.getElementById('mensaje-agradecimiento');
     const btnDescargarPdf = document.getElementById('btn-descargar-pdf');
 
-    const STORAGE_KEY = 'adrianaXV_v17_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v17_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v17_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v18_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v18_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v18_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
@@ -612,7 +611,7 @@ setInterval(() => {
     if(imagenesGaleria.length > 0) {
         imagenesGaleria[indiceActual].classList.remove('activa');
         indiceActual = (indiceActual + 1) % imagenesGaleria.length;
-        imagenesGalergia[indiceActual].classList.add('activa');
+        imagenesGaleria[indiceActual].classList.add('activa');
     }
 }, 3500);
 
