@@ -273,7 +273,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Recuerda que solo tienes una oportunidad de búsqueda.</span></div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y Apellido</b> para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Recuerda que solo tienes una oportunidad de búsqueda.</span></div>
 
 <div id="wrapper-busqueda">
     <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. Carlos Martinez..." autocomplete="off">
@@ -547,7 +547,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // RESTRICCIÓN DE SEGURIDAD EXIGIDA: Mínimo 2 palabras para evitar cruce de "Marios"
             if (palabrasReales.length < 2) {
-                alert("Para evitar confusiones con otros invitados, por favor escribe tu Nombre y tu Apellido separados por un espacio (ej. Carlos Martinez).");
+                alert("Para evitar confusiones con otros invitados, por favor escribe tu Nombre y tu Apellido separados por un espacio (ej. Juan Martinez).");
                 return;
             }
 
@@ -647,7 +647,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Construcción del Mensaje Profesional por WhatsApp
             let prefijo = nombreGrupo.includes("FAMILIA") ? "la " : "";
-            let mensajeWa = `Hola Adriana, somos ${prefijo}*${nombreGrupo}*.%0A%0A`;
+            let mensajeWa = `Hola Adriana;
 
             if (confirmadosNombres.length > 0) {
                 mensajeWa += `Queremos confirmar nuestra asistencia:%0A%0A✅ *SÍ ASISTIRÁN:*%0A`;
