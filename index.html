@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -140,9 +139,9 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 .opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
 .opcion-radio input:disabled { cursor: not-allowed; }
 
-/* --- DISEÑO EXCLUSIVO DEL BOLETO PARA EL PDF --- */
+/* --- PLANTILLA OCULTA PERFECTAMENTE PARA EL PDF --- */
 #boleto-pdf-template {
-    position: absolute; left: -9999px; top: -9999px;
+    position: fixed; top: 0; left: 0; opacity: 0; z-index: -999; pointer-events: none;
     width: 600px; background: #fffafc; border: 3px double #B87333;
     padding: 30px; text-align: center; font-family: var(--fuente-cuerpo);
 }
@@ -284,7 +283,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 
 </div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
 
-<!-- PLANTILLA OCULTA EXCLUSIVA PARA EL PDF -->
+<!-- PLANTILLA INVISIBLE PERFECTA PARA EL PDF -->
 <div id="boleto-pdf-template">
     <div class="pdf-titulo">PASE DE RECEPCIÓN OFICIAL</div>
     <div class="pdf-subtitulo">Mis XV Años Adriana</div>
@@ -320,13 +319,12 @@ function crearLluviaDeEstrellas() {
 }
 crearLluviaDeEstrellas();
 
-// Seguridad contra copias
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('dragstart', e => e.preventDefault());
 document.addEventListener('copy', e => e.preventDefault());
 
 // =========================================================================
-// BASE DE DATOS DE NOMBRES EXACTOS POR GRUPO/FAMILIA
+// BASE DE DATOS DE NOMBRES
 // =========================================================================
 const baseDeDatosInvitados = {
     "FAMILIA 1": [ "MARIO LARA P", "MARIO LARA V", "DIANA VALLADARES", "DALIA DE LA O", "RODRIGO LARA", "ADRIANA LARA" ],
@@ -407,20 +405,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const msjAgradecimiento = document.getElementById('mensaje-agradecimiento');
     const btnDescargarPdf = document.getElementById('btn-descargar-pdf');
 
-    const STORAGE_KEY = 'adrianaXV_v16_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v16_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v16_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v17_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v17_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v17_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
     let isConfirmed = localStorage.getItem(CONFIRMED_KEY) === 'true';
 
-    // Normalizador de texto (Reconoce minúsculas, mayúsculas, acentos y 'ñ')
     function normalizarTexto(texto) {
         return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     }
 
-    // Índice de búsqueda estricta por invitado individual para evitar confusiones
     let indiceBusqueda = {};
     for (let grupo in baseDeDatosInvitados) {
         let invitados = baseDeDatosInvitados[grupo];
@@ -486,9 +482,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // =========================================================================
-    // LÓGICA DE BÚSQUEDA PRECISA (Minúsculas, acentos, nombre + apellido)
-    // =========================================================================
     if(btnBuscar) {
         btnBuscar.addEventListener('click', function() {
             if (localStorage.getItem(STORAGE_KEY)) return;
@@ -503,7 +496,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
             let mejorCoincidencia = null;
 
-            // Búsqueda exacta de coincidencia de los términos ingresados en el nombre completo del invitado
             for (let invitadoClave in indiceBusqueda) {
                 let coincideTodas = true;
                 for (let i = 0; i < palabrasReales.length; i++) {
@@ -538,9 +530,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // =========================================================================
-    // CONFIRMACIÓN Y WHATSAPP
-    // =========================================================================
     if(btnWhatsapp) {
         btnWhatsapp.addEventListener('click', function() {
             if (localStorage.getItem(CONFIRMED_KEY) === 'true') return; 
@@ -596,9 +585,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // =========================================================================
-    // DESCARGA LIMPIA DEL PDF
-    // =========================================================================
     if(btnDescargarPdf) {
         btnDescargarPdf.addEventListener('click', function() {
             const elementoBoleto = document.getElementById('boleto-pdf-template');
@@ -607,7 +593,7 @@ document.addEventListener("DOMContentLoaded", function() {
               margin:       0.5,
               filename:     'Pases_XV_Adriana.pdf',
               image:        { type: 'jpeg', quality: 0.98 },
-              html2canvas:  { scale: 2, useCORS: true },
+              html2canvas:  { scale: 2, useCORS: true, logging: false },
               jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 
@@ -626,7 +612,7 @@ setInterval(() => {
     if(imagenesGaleria.length > 0) {
         imagenesGaleria[indiceActual].classList.remove('activa');
         indiceActual = (indiceActual + 1) % imagenesGaleria.length;
-        imagenesGaleria[indiceActual].classList.add('activa');
+        imagenesGalergia[indiceActual].classList.add('activa');
     }
 }, 3500);
 
