@@ -136,21 +136,27 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 .opcion-radio { display: flex; align-items: center; gap: 5px; font-family: var(--fuente-cuerpo); font-size: 0.85rem; color: var(--color-texto); cursor: pointer; }
 .opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
 
-/* --- PLANTILLA OCULTA PARA GENERAR LA IMAGEN ESTILO LUJO (INSPIRADA EN REFERENCIA) --- */
+/* --- PLANTILLA OCULTA DEL PASE DIGITAL (ESTILO DOS COLUMNAS CON FOTO DE REFERENCIA) --- */
 #pase-imagen-template {
     position: absolute; left: -9999px; top: 0;
-    width: 600px; background-color: #85386e; border: 6px double #f4d06f;
-    padding: 50px 40px; text-align: center; font-family: 'Montserrat', sans-serif;
-    box-sizing: border-box; color: #ffffff;
+    width: 750px; background-color: #fffafc; border: 5px double #85386e;
+    padding: 30px; display: flex; align-items: center; gap: 30px;
+    font-family: 'Montserrat', sans-serif; box-sizing: border-box;
 }
-.tpl-xv { font-family: 'Cinzel', serif; font-size: 2.2rem; letter-spacing: 4px; color: #f4d06f; font-weight: bold; margin-bottom: 0; }
-.tpl-nombre { font-family: 'Alex Brush', cursive; font-size: 4.5rem; color: #ffffff; margin: -5px 0 15px 0; line-height: 1; }
-.tpl-fecha { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #f4d06f; letter-spacing: 2px; margin-bottom: 25px; }
-.tpl-divisor { width: 60px; height: 2px; background-color: #f4d06f; margin: 0 auto 25px auto; }
-.tpl-sub { font-family: 'Cinzel', serif; font-size: 0.95rem; letter-spacing: 1px; color: #fce4ec; text-transform: uppercase; margin-bottom: 12px; font-weight: bold; }
-.tpl-lista { list-style: none; padding: 0; margin: 0 auto 30px auto; width: 90%; }
-.tpl-lista li { font-family: 'Cinzel', serif; font-size: 1.15rem; color: #ffffff; padding: 8px 0; border-bottom: 1px dashed rgba(244, 208, 111, 0.4); font-weight: bold; text-transform: capitalize; }
-.tpl-footer { font-size: 0.85rem; font-style: italic; color: #fce4ec; font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px; }
+.tpl-foto-container {
+    width: 280px; height: 380px; border-radius: 10px; overflow: hidden;
+    border: 3px solid #B87333; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.tpl-foto-container img { width: 100%; height: 100%; object-fit: cover; }
+.tpl-info-container { flex-grow: 1; text-align: left; padding-right: 10px; }
+.tpl-xv { font-family: 'Cinzel', serif; font-size: 1.5rem; letter-spacing: 3px; color: #85386e; font-weight: bold; margin: 0; }
+.tpl-nombre { font-family: 'Alex Brush', cursive; font-size: 4rem; color: #85386e; margin: -10px 0 5px 0; line-height: 1; }
+.tpl-fecha { font-family: 'Cinzel', serif; font-size: 0.9rem; color: #B87333; letter-spacing: 2px; margin-bottom: 15px; font-weight: bold; }
+.tpl-divisor { width: 100%; height: 1px; background: linear-gradient(to right, #85386e, #B87333, transparent); margin-bottom: 15px; }
+.tpl-sub { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 1px; color: #3b1138; text-transform: uppercase; margin-bottom: 8px; font-weight: bold; }
+.tpl-lista { list-style: none; padding: 0; margin: 0 0 15px 0; max-height: 140px; overflow: hidden; }
+.tpl-lista li { font-family: 'Cinzel', serif; font-size: 1rem; color: #333333; padding: 5px 0; border-bottom: 1px dashed #d9b8cd; font-weight: bold; text-transform: capitalize; }
+.tpl-footer { font-size: 0.75rem; font-style: italic; color: #666; font-family: 'Montserrat', sans-serif; }
 
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
@@ -248,7 +254,7 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 </div>
 </div>
 
-<!-- PASE DE ENTRADA (SOLO FORMULARIO Y BOTÓN DE WHATSAPP OBLIGATORIO) -->
+<!-- PASE DE ENTRADA -->
 <div class="card" id="pase-entrada">
 <div class="card-title">Tus Pases Asignados</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -278,17 +284,22 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 
 </div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
 
-<!-- PLANTILLA OCULTA DEL PASE ESTILO LUJO (PARA LA IMAGEN) -->
+<!-- PLANTILLA OCULTA DEL PASE DIGITAL (DOS COLUMNAS CON LA FOTO DE REFERENCIA) -->
 <div id="pase-imagen-template">
-    <div class="tpl-xv">XV</div>
-    <div class="tpl-nombre">Adriana</div>
-    <div class="tpl-fecha">19 · DICIEMBRE · 2026</div>
-    <div class="tpl-divisor"></div>
-    <div class="tpl-sub" id="tpl-grupo-titulo">Pase Digital Oficial</div>
-    <ul class="tpl-lista" id="tpl-lista-nombres">
-        <!-- Nombres dinámicos -->
-    </ul>
-    <div class="tpl-footer">Presenta este pase digital en la entrada del salón.</div>
+    <div class="tpl-foto-container">
+        <img src="pase.jpeg" alt="Quinceañera Adriana">
+    </div>
+    <div class="tpl-info-container">
+        <div class="tpl-xv">MIS XV AÑOS</div>
+        <div class="tpl-nombre">Adriana</div>
+        <div class="tpl-fecha">19 · DICIEMBRE · 2026</div>
+        <div class="tpl-divisor"></div>
+        <div class="tpl-sub" id="tpl-grupo-titulo">Pase Oficial</div>
+        <ul class="tpl-lista" id="tpl-lista-nombres">
+            <!-- Nombres dinámicos -->
+        </ul>
+        <div class="tpl-footer">Presenta este pase digital en la entrada. ¡Te esperamos!</div>
+    </div>
 </div>
 
 <script>
@@ -348,7 +359,7 @@ const baseDeDatosInvitados = {
     "FAMILIA 21": [ "ALEJANDRA DE LA O" ],
     "FAMILIA 22": [ "ELSA RANGEL", "VICTOR GARCIA", "DAVID RANGEL" ],
     "FAMILIA 23": [ "ELSA LARA", "ERIKA RIOS", "LUIS J. LOZANO" ],
-    "FAMILIA 24": [ "SANDRA LARA", "JORGE PINEDIA", "BRIAN CRUZ", "JAN C. CRUZ" ],
+    "FAMILIA 24": [ "SANDRA LARA", "JORGE PINEDA", "BRIAN CRUZ", "JAN C. CRUZ" ],
     "FAMILIA 25": [ "MONSERRAT LARA", "MIGUEL A. RAÑO", "DIEGO NERIO", "LUCIANO MORENO" ],
     "FAMILIA 26": [ "LILIANA LARA", "FRANCISCO J. COLIN", "FRANCISCO Y. COLIN" ],
     "FAMILIA 27": [ "MARINA LARA", "JOSE RIOS", "ARTEMISA RIOS", "RAZIEL RIOS", "URIEL RIOS" ],
@@ -400,8 +411,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v23_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v23_asistencia';
+    const STORAGE_KEY = 'adrianaXV_v24_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v24_asistencia';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
@@ -453,7 +464,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let palabrasReales = busquedaUsuario.split(" ").filter(p => p.length > 0);
 
             if (palabrasReales.length < 2) {
-                alert("Por favor, escribe tu Nombre y tu Apellido (ej. dalia lara) para encontrar tus pases.");
+                alert("Por favor, escribe tu Nombre y tu Apellido (ej. Pedro Picapiedra) para encontrar tus pases.");
                 return;
             }
 
@@ -493,7 +504,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // --- ACCIÓN OBLIGATORIA DE WHATSAPP + DESCARGA AUTOMÁTICA DE IMAGEN ---
+    // --- ACCIÓN DE WHATSAPP + DESCARGA AUTOMÁTICA DE IMAGEN ESTILIZADA ---
     if(btnWhatsapp) {
         btnWhatsapp.addEventListener('click', function() {
             let nombreGrupo = localStorage.getItem(STORAGE_KEY);
@@ -524,9 +535,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // 2. Generar y descargar la imagen automáticamente
             const templateElement = document.getElementById('pase-imagen-template');
-            templateElement.style.display = 'block';
+            templateElement.style.display = 'flex';
 
-            html2canvas(templateElement, { scale: 3, useCORS: true, backgroundColor: '#85386e' }).then(canvas => {
+            html2canvas(templateElement, { scale: 3, useCORS: true, backgroundColor: '#fffafc' }).then(canvas => {
                 templateElement.style.display = 'none';
 
                 const enlace = document.createElement('a');
