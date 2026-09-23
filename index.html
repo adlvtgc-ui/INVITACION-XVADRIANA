@@ -114,7 +114,7 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 
 #seccion-busqueda { margin-top: 30px; animation: resplandor-pase-nuevo 3.5s infinite ease-in-out; }
 #pase-entrada { display: none; animation: resplandor-pase-nuevo 3.5s infinite ease-in-out; margin-top: 30px; }
-.pase-destacado { font-family: var(--fuente-titulos); font-weight: bold; font-size: 1.3rem; color: var(--color-principal); }
+.pase-destacado { font-family: var(--fuente-titulos); font-weight: bold; font-size: 1.2rem; color: var(--color-principal); }
 
 .input-busqueda {
     -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text;
@@ -136,27 +136,36 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 .opcion-radio { display: flex; align-items: center; gap: 5px; font-family: var(--fuente-cuerpo); font-size: 0.85rem; color: var(--color-texto); cursor: pointer; }
 .opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
 
-/* --- PLANTILLA OCULTA DEL PASE DIGITAL (ESTILO DOS COLUMNAS CON FOTO DE REFERENCIA) --- */
+/* --- PLANTILLA OCULTA DEL PASE DIGITAL (IMAGEN 100% INTEGRADA DE FONDO) --- */
 #pase-imagen-template {
     position: absolute; left: -9999px; top: 0;
-    width: 750px; background-color: #fffafc; border: 5px double #85386e;
-    padding: 30px; display: flex; align-items: center; gap: 30px;
+    width: 600px; min-height: 900px;
+    background-image: url('pase.jpeg'); /* LA IMAGEN ES EL FONDO DE TODO */
+    background-size: cover; background-position: center;
+    display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
     font-family: 'Montserrat', sans-serif; box-sizing: border-box;
+    padding: 30px;
 }
-.tpl-foto-container {
-    width: 280px; height: 380px; border-radius: 10px; overflow: hidden;
-    border: 3px solid #B87333; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+.tpl-espacio-arriba {
+    /* Este espacio permite que la quinceañera se vea hermosa sin letras encima */
+    flex-grow: 1; width: 100%; min-height: 380px;
 }
-.tpl-foto-container img { width: 100%; height: 100%; object-fit: cover; }
-.tpl-info-container { flex-grow: 1; text-align: left; padding-right: 10px; }
-.tpl-xv { font-family: 'Cinzel', serif; font-size: 1.5rem; letter-spacing: 3px; color: #85386e; font-weight: bold; margin: 0; }
-.tpl-nombre { font-family: 'Alex Brush', cursive; font-size: 4rem; color: #85386e; margin: -10px 0 5px 0; line-height: 1; }
-.tpl-fecha { font-family: 'Cinzel', serif; font-size: 0.9rem; color: #B87333; letter-spacing: 2px; margin-bottom: 15px; font-weight: bold; }
-.tpl-divisor { width: 100%; height: 1px; background: linear-gradient(to right, #85386e, #B87333, transparent); margin-bottom: 15px; }
-.tpl-sub { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 1px; color: #3b1138; text-transform: uppercase; margin-bottom: 8px; font-weight: bold; }
-.tpl-lista { list-style: none; padding: 0; margin: 0 0 15px 0; max-height: 140px; overflow: hidden; }
-.tpl-lista li { font-family: 'Cinzel', serif; font-size: 1rem; color: #333333; padding: 5px 0; border-bottom: 1px dashed #d9b8cd; font-weight: bold; text-transform: capitalize; }
-.tpl-footer { font-size: 0.75rem; font-style: italic; color: #666; font-family: 'Montserrat', sans-serif; }
+.tpl-content {
+    position: relative; z-index: 2; width: 100%;
+    /* Fondo oscuro semitransparente para que el texto resalte elegantemente */
+    background: rgba(59, 17, 56, 0.75); 
+    border: 2px solid rgba(244, 208, 111, 0.6); border-radius: 15px;
+    padding: 30px 20px; text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+.tpl-xv { font-family: 'Cinzel', serif; font-size: 1.8rem; letter-spacing: 5px; color: #ffffff; font-weight: bold; margin: 0; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
+.tpl-nombre { font-family: 'Alex Brush', cursive; font-size: 4.8rem; color: #ffffff; margin: -5px 0 10px 0; line-height: 1; text-shadow: 2px 2px 6px rgba(0,0,0,0.5); }
+.tpl-fecha { font-family: 'Cinzel', serif; font-size: 1rem; color: #f4d06f; letter-spacing: 3px; margin-bottom: 20px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
+.tpl-divisor { width: 80%; height: 1px; background: linear-gradient(to right, transparent, #f4d06f, transparent); margin: 0 auto 20px auto; }
+.tpl-sub { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 2px; color: #fce4ec; text-transform: uppercase; margin-bottom: 15px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+.tpl-lista { list-style: none; padding: 0; margin: 0 0 25px 0; }
+.tpl-lista li { font-family: 'Cinzel', serif; font-size: 1.15rem; color: #ffffff; padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.3); font-weight: bold; text-transform: capitalize; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
+.tpl-footer { font-size: 0.85rem; font-style: italic; color: #dddddd; font-family: 'Montserrat', sans-serif; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
 
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
@@ -259,20 +268,18 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 <div class="card-title">Tus Pases Asignados</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 
-<div style="font-size: 1.1rem; margin-top: 10px;">Invitación para: <span class="pase-destacado" id="nombre-encontrado">Familia</span></div>
-
-<div class="info-row" style="margin-top: 15px; font-weight: bold; font-size: 0.85rem;" id="instruccion-confirmacion">
+<div class="info-row" style="margin-top: 15px; font-weight: bold; font-size: 0.85rem;">
     Por favor, marca si asistirá o no asistirá cada invitado:
 </div>
 
 <div id="lista-invitados-container" style="margin-top: 15px; display: flex; flex-direction: column; gap: 5px;"></div>
 
-<button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 15px; background-color: #2e7d32; font-size: 0.95rem;">
+<button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 20px; background-color: #2e7d32; font-size: 0.95rem;">
     Confirmar Asistencia por WhatsApp 📥 ✨
 </button>
 
-<div style="font-size: 0.75rem; color: #555; margin-top: 6px; font-style: italic;">
-    Al confirmar se enviará tu mensaje y se descargará automáticamente tu pase digital oficial.
+<div style="font-size: 0.75rem; color: #555; margin-top: 8px; font-style: italic;">
+    Al confirmar se enviará tu mensaje y se descargará automáticamente tu pase digital oficial de alta calidad.
 </div>
 
 </div>
@@ -284,17 +291,15 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 
 </div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
 
-<!-- PLANTILLA OCULTA DEL PASE DIGITAL (DOS COLUMNAS CON LA FOTO DE REFERENCIA) -->
+<!-- PLANTILLA OCULTA DEL PASE DIGITAL (TOTALMENTE INTEGRADA A LA IMAGEN) -->
 <div id="pase-imagen-template">
-    <div class="tpl-foto-container">
-        <img src="pase.jpeg" alt="Quinceañera Adriana">
-    </div>
-    <div class="tpl-info-container">
+    <div class="tpl-espacio-arriba"></div>
+    <div class="tpl-content">
         <div class="tpl-xv">MIS XV AÑOS</div>
         <div class="tpl-nombre">Adriana</div>
         <div class="tpl-fecha">19 · DICIEMBRE · 2026</div>
         <div class="tpl-divisor"></div>
-        <div class="tpl-sub" id="tpl-grupo-titulo">Pase Oficial</div>
+        <div class="tpl-sub">Pase Oficial Confirmado</div>
         <ul class="tpl-lista" id="tpl-lista-nombres">
             <!-- Nombres dinámicos -->
         </ul>
@@ -411,8 +416,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v24_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v24_asistencia';
+    const STORAGE_KEY = 'adrianaXV_v25_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v25_asistencia';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
@@ -452,7 +457,6 @@ document.addEventListener("DOMContentLoaded", function() {
         seccionBusqueda.style.display = 'none';
         seccionPase.style.display = 'block';
         let nombresDelGrupo = baseDeDatosInvitados[storedFamilyKey];
-        document.getElementById('nombre-encontrado').textContent = storedFamilyKey;
         renderInvitados(nombresDelGrupo, storedAsistencia);
     }
 
@@ -464,7 +468,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let palabrasReales = busquedaUsuario.split(" ").filter(p => p.length > 0);
 
             if (palabrasReales.length < 2) {
-                alert("Por favor, escribe tu Nombre y tu Apellido (ej. Pedro Picapiedra) para encontrar tus pases.");
+                alert("Por favor, escribe tu Nombre y tu Apellido (ej. dalia lara) para encontrar tus pases.");
                 return;
             }
 
@@ -490,7 +494,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 msjError.style.display = 'none';
                 seccionBusqueda.style.display = 'none';
                 seccionPase.style.display = 'block';
-                document.getElementById('nombre-encontrado').textContent = mejorCoincidencia;
                 renderInvitados(nombresDelGrupo, []);
             } else {
                 msjError.style.display = 'block';
@@ -525,30 +528,31 @@ document.addEventListener("DOMContentLoaded", function() {
 
             localStorage.setItem(ASISTENCIA_KEY, JSON.stringify(valoresAsistencia));
 
-            // 1. Preparar la plantilla oculta con los nombres confirmados
+            // 1. Preparar la plantilla oculta con los nombres confirmados (sin nombre de familia)
             let listaHtml = '';
             confirmadosNombres.forEach(n => {
                 listaHtml += `<li>${n}</li>`;
             });
-            document.getElementById('tpl-lista-nombres').innerHTML = listaHtml || '<li>Ningún asistente seleccionado</li>';
-            document.getElementById('tpl-grupo-titulo').textContent = `Pase Oficial — ${nombreGrupo}`;
+            document.getElementById('tpl-lista-nombres').innerHTML = listaHtml || '<li>Ningún asistente confirmado</li>';
 
             // 2. Generar y descargar la imagen automáticamente
             const templateElement = document.getElementById('pase-imagen-template');
             templateElement.style.display = 'flex';
 
-            html2canvas(templateElement, { scale: 3, useCORS: true, backgroundColor: '#fffafc' }).then(canvas => {
+            html2canvas(templateElement, { scale: 2, useCORS: true }).then(canvas => {
                 templateElement.style.display = 'none';
 
                 const enlace = document.createElement('a');
-                enlace.download = `Pase_XV_Adriana_${nombreGrupo.replace(/\s+/g, '_')}.png`;
+                // Nombramos el archivo usando el primer nombre de la lista, en lugar de "Familia 1"
+                let primerNombre = confirmadosNombres.length > 0 ? confirmadosNombres[0].replace(/\s+/g, '_') : 'Invitados';
+                enlace.download = `Pase_XV_Adriana_${primerNombre}.png`;
                 enlace.href = canvas.toDataURL('image/png');
                 document.body.appendChild(enlace);
                 enlace.click();
                 document.body.removeChild(enlace);
 
-                // 3. Abrir WhatsApp con el mensaje de confirmación
-                let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia (%0A*${nombreGrupo}*):%0A%0A`;
+                // 3. Abrir WhatsApp con el mensaje de confirmación limpio (sin nombre de familia)
+                let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
                 if (confirmadosNombres.length > 0) {
                     mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
                     confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
@@ -563,7 +567,12 @@ document.addEventListener("DOMContentLoaded", function() {
             }).catch(err => {
                 templateElement.style.display = 'none';
                 alert("Ocurrió un error al generar la imagen, pero tu confirmación por WhatsApp procederá.");
-                let mensajeWa = `Hola Adriana, confirmo asistencia de *${nombreGrupo}*. ¡Allá nos vemos!`;
+                
+                let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
+                if (confirmadosNombres.length > 0) {
+                    mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
+                    confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
+                }
                 window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
             });
         });
