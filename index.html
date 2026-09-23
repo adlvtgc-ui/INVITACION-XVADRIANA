@@ -15,7 +15,7 @@
 /* --- ESTILOS GENERALES Y COLORES --- */
 :root {
 color-scheme: light; 
---color-principal: #63224b; /* Tono borgoña/ciruela elegante */
+--color-principal: #63224b;
 --color-texto: #333333;
 --color-dorado: #B87333;
 --fuente-titulos: 'Cinzel', serif;
@@ -135,40 +135,41 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 .opcion-radio { display: flex; align-items: center; gap: 5px; font-family: var(--fuente-cuerpo); font-size: 0.85rem; color: var(--color-texto); cursor: pointer; }
 .opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
 
-/* --- PLANTILLA OCULTA DEL PASE DIGITAL (HORIZONTAL / LADO A LADO) --- */
+/* --- PLANTILLA OCULTA DEL PASE DIGITAL (NUEVO DISEÑO SIN BORDES Y TRASLÚCIDO) --- */
 #pase-imagen-template {
     position: absolute; left: -9999px; top: 0;
-    width: 1100px; height: 750px; /* Formato panorámico para distribuir el espacio */
-    background-image: url('fondopase.jpeg'); /* Fondo general con brillitos */
+    width: 1100px; height: 750px; 
+    background-image: url('fondopase.jpeg'); 
     background-size: cover; background-position: center;
     display: flex; flex-direction: row; align-items: stretch; justify-content: space-between;
     font-family: 'Montserrat', sans-serif; box-sizing: border-box;
     padding: 35px; gap: 30px;
 }
-/* MITAD IZQUIERDA: IMAGEN DE LA CHICA */
+/* MITAD IZQUIERDA: IMAGEN DE LA CHICA (SIN BORDE) */
 .tpl-lado-chica {
     width: 42%; border-radius: 20px; overflow: hidden;
-    border: 3px solid rgba(244, 208, 111, 0.8);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
 }
 .tpl-lado-chica img {
     width: 100%; height: 100%; object-fit: cover;
 }
-/* MITAD DERECHA: TEXTO EN RECUADRO BORGOÑA */
+/* MITAD DERECHA: TEXTO EN RECUADRO TRASLÚCIDO (SIN BORDE) */
 .tpl-lado-texto {
-    width: 58%; background: #4a153b; /* Color borgoña elegante basado en tu referencia */
-    border: 3px solid rgba(244, 208, 111, 0.8); border-radius: 20px;
+    width: 58%; 
+    background: rgba(74, 21, 59, 0.25); /* #4a153b sumamente traslúcido y tenue */
+    border-radius: 20px;
     padding: 40px 30px; text-align: center; color: #fff;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Sombra difuminada para separarlo del fondo */
     display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
-.tpl-xv { font-family: 'Cinzel', serif; font-size: 2rem; letter-spacing: 5px; color: #ffffff; font-weight: bold; margin: 0; }
-.tpl-nombre { font-family: 'Alex Brush', cursive; font-size: 6rem; color: #ffffff; margin: -10px 0 15px 0; line-height: 1; }
-.tpl-fecha { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #f4d06f; letter-spacing: 3px; margin-bottom: 25px; font-weight: bold; }
-.tpl-sub { font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 2px; color: #ffffff; text-transform: uppercase; margin-bottom: 25px; font-weight: bold; }
+/* Agregamos text-shadow a las letras para que resalten perfectamente sobre el fondo tenue */
+.tpl-xv { font-family: 'Cinzel', serif; font-size: 2rem; letter-spacing: 5px; color: #ffffff; font-weight: bold; margin: 0; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
+.tpl-nombre { font-family: 'Alex Brush', cursive; font-size: 6rem; color: #ffffff; margin: -10px 0 15px 0; line-height: 1; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
+.tpl-fecha { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #f4d06f; letter-spacing: 3px; margin-bottom: 25px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
+.tpl-sub { font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 2px; color: #ffffff; text-transform: uppercase; margin-bottom: 25px; font-weight: bold; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); }
 .tpl-lista { list-style: none; padding: 0; margin: 0 0 25px 0; width: 90%; max-height: 340px; overflow: hidden; }
-.tpl-lista li { font-family: 'Cinzel', serif; font-size: 1.4rem; color: #ffffff; padding: 10px 0; border-bottom: 1px dashed rgba(244, 208, 111, 0.4); font-weight: bold; text-transform: capitalize; }
-.tpl-footer { font-size: 1rem; font-style: italic; color: #dddddd; font-family: 'Montserrat', sans-serif; margin-top: auto; }
+.tpl-lista li { font-family: 'Cinzel', serif; font-size: 1.4rem; color: #ffffff; padding: 10px 0; border-bottom: 1px dashed rgba(244, 208, 111, 0.4); font-weight: bold; text-transform: capitalize; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
+.tpl-footer { font-size: 1rem; font-style: italic; color: #dddddd; font-family: 'Montserrat', sans-serif; margin-top: auto; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
 
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
@@ -257,7 +258,7 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 <div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Solo tienes una oportunidad de búsqueda.</span></div>
 
 <div id="wrapper-busqueda">
-    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. PEDRO PICAPIEDRA" autocomplete="off">
+    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. dalia lara" autocomplete="off">
     <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pases</button>
 </div>
 
@@ -304,14 +305,14 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 
 </div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
 
-<!-- PLANTILLA OCULTA DEL PASE DIGITAL (LADO A LADO) -->
+<!-- PLANTILLA OCULTA DEL PASE DIGITAL (LADO A LADO SIN BORDES) -->
 <div id="pase-imagen-template">
     <!-- LADO IZQUIERDO: NIÑA -->
     <div class="tpl-lado-chica">
         <img src="pase.jpeg" alt="Quinceañera Adriana">
     </div>
     
-    <!-- LADO DERECHO: TEXTO -->
+    <!-- LADO DERECHO: TEXTO TRASLÚCIDO -->
     <div class="tpl-lado-texto">
         <div class="tpl-xv">MIS XV AÑOS</div>
         <div class="tpl-nombre">Adriana</div>
@@ -434,12 +435,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v27_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v27_asistencia';
+    const STORAGE_KEY = 'adrianaXV_v28_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v28_asistencia';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
 
+    // Función que elimina acentos y convierte TODO a minúsculas
     function normalizarTexto(texto) {
         return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     }
@@ -450,7 +452,7 @@ document.addEventListener("DOMContentLoaded", function() {
         invitados.forEach(invitado => {
             indiceBusqueda[normalizarTexto(invitado)] = grupo;
         });
-        // Permitimos también buscar por el nombre interno por si acaso
+        // Permitimos también buscar por el nombre interno (ej. "Familia 1") por si acaso
         indiceBusqueda[normalizarTexto(grupo)] = grupo;
     }
 
@@ -473,12 +475,12 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Comprobar si ya había confirmado antes
-    if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey] && !localStorage.getItem('adrianaXV_v27_confirmed')) {
+    if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey] && !localStorage.getItem('adrianaXV_v28_confirmed')) {
         seccionBusqueda.style.display = 'none';
         seccionPase.style.display = 'block';
         let nombresDelGrupo = baseDeDatosInvitados[storedFamilyKey];
         renderInvitados(nombresDelGrupo, storedAsistencia);
-    } else if (localStorage.getItem('adrianaXV_v27_confirmed')) {
+    } else if (localStorage.getItem('adrianaXV_v28_confirmed')) {
         seccionBusqueda.style.display = 'none';
         document.getElementById('pase-final-container').style.display = 'block';
         document.getElementById('pase-final-container').innerHTML = `
@@ -492,11 +494,12 @@ document.addEventListener("DOMContentLoaded", function() {
         btnBuscar.addEventListener('click', function() {
             if (localStorage.getItem(STORAGE_KEY)) return;
 
+            // Al leer lo que el usuario escribe, se convierte a minúsculas para hacer match exacto
             let busquedaUsuario = normalizarTexto(inputBusqueda.value);
             let palabrasReales = busquedaUsuario.split(" ").filter(p => p.length > 0);
 
             if (palabrasReales.length < 2) {
-                alert("Por favor, escribe tu Nombre y tu Apellido (ej. PEDRO PICAPIEDRA) para encontrar tus pases.");
+                alert("Por favor, escribe al menos un Nombre y un Apellido (ej. dalia lara) para encontrar tus pases.");
                 return;
             }
 
@@ -505,6 +508,7 @@ document.addEventListener("DOMContentLoaded", function() {
             for (let invitadoClave in indiceBusqueda) {
                 let coincideTodas = true;
                 for (let i = 0; i < palabrasReales.length; i++) {
+                    // Verificamos si cada palabra escrita está incluida en el nombre de la base de datos
                     if (!invitadoClave.includes(palabrasReales[i])) {
                         coincideTodas = false;
                         break;
@@ -555,7 +559,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             localStorage.setItem(ASISTENCIA_KEY, JSON.stringify(valoresAsistencia));
-            localStorage.setItem('adrianaXV_v27_confirmed', 'true');
+            localStorage.setItem('adrianaXV_v28_confirmed', 'true');
 
             // 1. Preparar la plantilla oculta
             let listaHtml = '';
