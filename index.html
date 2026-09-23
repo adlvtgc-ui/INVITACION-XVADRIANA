@@ -5,8 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light"> 
 <title>Mis XV Años - Adri</title>
+
 <!-- IMPORTACIÓN DE FUENTES -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Alex+Brush&display=swap" rel="stylesheet">
+<!-- LIBRERÍA PARA GENERAR PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 <style>
 /* --- ESTILOS GENERALES Y COLORES --- */
 :root {
@@ -137,46 +141,39 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 }
 .input-busqueda:focus { outline: none; border-color: var(--color-principal); }
 
-/* --- NUEVOS ESTILOS PARA LA SELECCIÓN DE INVITADOS CON NOMBRES --- */
+/* --- ESTILOS DE LA SELECCIÓN --- */
 .invitado-row {
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid #d9b8cd;
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 10px;
-    text-align: left;
+    background: rgba(255, 255, 255, 0.85); border: 1px solid #d9b8cd;
+    border-radius: 8px; padding: 12px; margin-bottom: 10px; text-align: left;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
-.invitado-nombre {
-    font-family: var(--fuente-cuerpo);
-    font-weight: 600;
-    color: var(--color-principal);
-    margin-bottom: 8px;
-    font-size: 0.95rem;
-    text-transform: capitalize;
+.invitado-nombre { font-family: var(--fuente-cuerpo); font-weight: 600; color: var(--color-principal); margin-bottom: 8px; font-size: 0.95rem; text-transform: capitalize; }
+.opciones-asistencia { display: flex; gap: 20px; }
+.opcion-radio { display: flex; align-items: center; gap: 5px; font-family: var(--fuente-cuerpo); font-size: 0.85rem; color: var(--color-texto); cursor: pointer; }
+.opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
+.opcion-radio input:disabled { cursor: not-allowed; }
+
+/* --- DISEÑO DEL BOLETO PARA DESCARGAR --- */
+#contenedor-boleto-pdf {
+    display: none; /* Se oculta de inicio */
+    margin-top: 20px; 
 }
-.opciones-asistencia {
-    display: flex;
-    gap: 20px;
+.boleto-oficial {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(242, 218, 236, 0.95)), url('linea.jpg');
+    background-size: cover;
+    border: 2px dashed #B87333;
+    border-radius: 12px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
-.opcion-radio {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-family: var(--fuente-cuerpo);
-    font-size: 0.85rem;
-    color: var(--color-texto);
-    cursor: pointer;
-}
-.opcion-radio input[type="radio"] {
-    accent-color: var(--color-principal);
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-.opcion-radio input:disabled {
-    cursor: not-allowed;
-}
+.boleto-titulo { font-family: var(--fuente-titulos); font-size: 1.5rem; color: var(--color-principal); font-weight: bold; margin-bottom: 5px; }
+.boleto-subtitulo { font-family: var(--fuente-nombre); font-size: 2.8rem; color: var(--color-principal); margin: 0; line-height: 1; margin-bottom: 15px; }
+.boleto-invitados-title { font-family: var(--fuente-cuerpo); font-weight: bold; font-size: 1rem; color: var(--color-dorado); text-transform: uppercase; margin-bottom: 10px; }
+.boleto-lista { list-style: none; padding: 0; margin: 0 auto 15px auto; max-width: 80%; }
+.boleto-lista li { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-texto); padding: 5px 0; border-bottom: 1px solid rgba(184, 115, 51, 0.3); font-weight: 600; text-transform: capitalize; }
+.boleto-lista li:last-child { border-bottom: none; }
+.boleto-fecha { font-family: var(--fuente-cuerpo); font-size: 0.85rem; font-style: italic; color: #666; margin-top: 10px; }
 
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
@@ -276,7 +273,7 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Recuerda que solo tienes una oportunidad de búsqueda.</span></div>
 
 <div id="wrapper-busqueda">
-    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. Carlos Martinez..." autocomplete="off">
+    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. Pedro Picapiedra..." autocomplete="off">
     <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pases</button>
 </div>
 
@@ -291,7 +288,6 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 
 <div style="font-size: 1.1rem; margin-top: 10px;">Invitación para: <span class="pase-destacado" id="nombre-encontrado">Familia</span></div>
-<div style="margin-top: 5px;">Pases asignados: <span class="pase-destacado" id="numero-pases">0</span></div>
 
 <div class="info-row" style="margin-top: 20px; font-weight: bold; font-size: 0.85rem;" id="instruccion-confirmacion">
     Por favor, marca si asistirá o no asistirá cada uno de tus invitados:
@@ -307,9 +303,25 @@ border-radius: 4px; font-weight: 600; margin-top: 12px; font-size: 0.85rem; tran
     ¡Gracias por tu confirmación! ✨
 </div>
 
-<div class="info-row" style="font-size: 0.8rem; font-style: italic; color: var(--color-principal); margin-top: 15px;">
-    * Presenta esta invitación digital en la recepción el día del evento.
+<!-- CONTENEDOR DEL BOLETO GENERADO (Solo visible al confirmar) -->
+<div id="contenedor-boleto-pdf">
+    <div class="boleto-oficial" id="boleto-render">
+        <div class="boleto-titulo">PASE DE RECEPCIÓN</div>
+        <div class="boleto-subtitulo">Mis XV Años Adriana</div>
+        <div class="separador-rizos"><div class="linea-centro"></div></div>
+        
+        <div class="boleto-invitados-title" id="titulo-estado-boleto">Pases Confirmados:</div>
+        <ul class="boleto-lista" id="lista-boleto">
+            <!-- Nombres insertados por JS -->
+        </ul>
+        <div class="boleto-fecha">19 de Diciembre de 2026</div>
+    </div>
+    
+    <button id="btn-descargar-pdf" class="btn" style="width: 100%; margin-top: 15px; font-size: 0.95rem; background-color: #B87333;">
+        📥 Descargar Pase (PDF)
+    </button>
 </div>
+
 </div>
 
 <div class="frase-final-container">
@@ -365,16 +377,8 @@ crearLluviaDeEstrellas();
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('dragstart', e => e.preventDefault());
 document.addEventListener('copy', e => e.preventDefault());
-
-document.querySelectorAll('img').forEach(img => {
-    img.addEventListener('touchstart', function(e) { img.style.pointerEvents = 'none'; });
-    img.addEventListener('mousedown', e => e.preventDefault());
-});
-
 document.addEventListener('keydown', function(e) {
-    if (e.keyCode === 123 || 
-       (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || 
-       (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 67))) { 
+    if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 67))) { 
         e.preventDefault(); return false;
     }
 });
@@ -460,94 +464,99 @@ document.addEventListener("DOMContentLoaded", function() {
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
     const textInstruccionConfirmacion = document.getElementById('instruccion-confirmacion');
     const msjAgradecimiento = document.getElementById('mensaje-agradecimiento');
+    
+    const contenedorBoleto = document.getElementById('contenedor-boleto-pdf');
+    const listaBoleto = document.getElementById('lista-boleto');
+    const tituloEstadoBoleto = document.getElementById('titulo-estado-boleto');
+    const btnDescargarPdf = document.getElementById('btn-descargar-pdf');
 
-    const STORAGE_KEY = 'adrianaXV_v13_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v13_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v13_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v15_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v15_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v15_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
     let isConfirmed = localStorage.getItem(CONFIRMED_KEY) === 'true';
 
-    // Normalizador de texto
     function normalizarTexto(texto) {
         return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     }
 
-    // CREACIÓN DEL MOTOR DE BÚSQUEDA CRUZADA (Cualquier integrante desbloquea a la familia completa)
     let indiceBusqueda = {};
     for (let grupo in baseDeDatosInvitados) {
         let invitados = baseDeDatosInvitados[grupo];
-        invitados.forEach(invitado => {
-            indiceBusqueda[normalizarTexto(invitado)] = grupo;
-        });
-        indiceBusqueda[normalizarTexto(grupo)] = grupo; // También permite buscar por nombre del grupo
+        invitados.forEach(invitado => { indiceBusqueda[normalizarTexto(invitado)] = grupo; });
+        indiceBusqueda[normalizarTexto(grupo)] = grupo; 
     }
 
-    // Renderizar a las personas en lugar de cajitas vacías
     function renderInvitados(nombres, valoresGuardados = [], bloqueado = false) {
         listaContainer.innerHTML = '';
         nombres.forEach((nombre, i) => {
-            let seleccionSi = "";
-            let seleccionNo = "";
-            
-            if (valoresGuardados && valoresGuardados[i] === "si") seleccionSi = "checked";
-            if (valoresGuardados && valoresGuardados[i] === "no") seleccionNo = "checked";
-            
+            let seleccionSi = (valoresGuardados && valoresGuardados[i] === "si") ? "checked" : "";
+            let seleccionNo = (valoresGuardados && valoresGuardados[i] === "no") ? "checked" : "";
             let disabledAttr = bloqueado ? "disabled" : "";
 
             listaContainer.innerHTML += `
                 <div class="invitado-row">
                     <div class="invitado-nombre">${i + 1}. ${nombre}</div>
                     <div class="opciones-asistencia">
-                        <label class="opcion-radio">
-                            <input type="radio" name="asistencia_${i}" value="si" ${seleccionSi} ${disabledAttr}> Asiste
-                        </label>
-                        <label class="opcion-radio">
-                            <input type="radio" name="asistencia_${i}" value="no" ${seleccionNo} ${disabledAttr}> No asiste
-                        </label>
+                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="si" ${seleccionSi} ${disabledAttr}> Asiste</label>
+                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="no" ${seleccionNo} ${disabledAttr}> No asiste</label>
                     </div>
                 </div>
             `;
         });
     }
 
-    function bloquearInterfazConfirmada(nombres, valoresGuardados) {
+    // FUNCIÓN PARA GENERAR Y MOSTRAR EL BOLETO DESCARGABLE
+    function generarBoletoYBloquear(nombres, valoresGuardados) {
         renderInvitados(nombres, valoresGuardados, true);
         btnWhatsapp.style.display = 'none';
         textInstruccionConfirmacion.style.display = 'none';
         msjAgradecimiento.style.display = 'block';
+        
+        // Construir la lista del boleto
+        listaBoleto.innerHTML = '';
+        let asistentes = 0;
+        nombres.forEach((nombre, i) => {
+            if(valoresGuardados[i] === 'si') {
+                listaBoleto.innerHTML += `<li>${nombre}</li>`;
+                asistentes++;
+            }
+        });
+
+        if (asistentes === 0) {
+            tituloEstadoBoleto.textContent = "Estado: No asistirán";
+            tituloEstadoBoleto.style.color = "#d32f2f";
+            listaBoleto.innerHTML = `<li>Lamentablemente no podremos asistir</li>`;
+            btnDescargarPdf.style.display = 'none'; // No tiene sentido descargar si no van
+        }
+        
+        contenedorBoleto.style.display = 'block';
     }
 
-    // VALIDACIÓN AL CARGAR PÁGINA (Bloqueo permanente)
     if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
         seccionBusqueda.style.display = 'none';
         seccionPase.style.display = 'block';
-        
         let nombresDelGrupo = baseDeDatosInvitados[storedFamilyKey];
         document.getElementById('nombre-encontrado').textContent = storedFamilyKey;
-        document.getElementById('numero-pases').textContent = nombresDelGrupo.length;
 
         if (isConfirmed) {
-            bloquearInterfazConfirmada(nombresDelGrupo, storedAsistencia);
+            generarBoletoYBloquear(nombresDelGrupo, storedAsistencia);
         } else {
             renderInvitados(nombresDelGrupo, storedAsistencia, false);
         }
     }
 
-    // =========================================================================
-    // LÓGICA DE BÚSQUEDA FORZOSA POR NOMBRE + APELLIDO
-    // =========================================================================
     if(btnBuscar) {
         btnBuscar.addEventListener('click', function() {
-            if (localStorage.getItem(STORAGE_KEY)) return; // Bloqueo si intentan hackear
+            if (localStorage.getItem(STORAGE_KEY)) return;
 
             let busquedaUsuario = normalizarTexto(inputBusqueda.value);
             let palabrasReales = busquedaUsuario.split(" ").filter(p => p.length > 0);
 
-            // RESTRICCIÓN DE SEGURIDAD EXIGIDA: Mínimo 2 palabras para evitar cruce de "Marios"
             if (palabrasReales.length < 2) {
-                alert("Para evitar confusiones con otros invitados, por favor escribe tu Nombre y tu Apellido separados por un espacio (ej. Carlos Martinez).");
+                alert("Para evitar confusiones, por favor escribe tu Nombre y tu Apellido separados por un espacio (ej. Pedro Picapiedra).");
                 return;
             }
 
@@ -559,34 +568,23 @@ document.addEventListener("DOMContentLoaded", function() {
                 let puntaje = 0;
                 
                 for (let i = 0; i < clavePalabras.length; i++) {
-                    let palabraBD = clavePalabras[i];
-                    if (busquedaUsuario.includes(palabraBD)) {
-                        puntaje++;
-                    }
+                    if (busquedaUsuario.includes(clavePalabras[i])) puntaje++;
                 }
                 
                 let coincideCompleto = (puntaje === clavePalabras.length && puntaje > 0);
-                
-                // Exigir una coincidencia estricta (Mínimo el nombre y el apellido deben coincidir)
                 if ((puntaje >= 2 || coincideCompleto) && puntaje > mejorPuntaje) {
                     mejorPuntaje = puntaje;
-                    mejorCoincidencia = indiceBusqueda[clave]; // Extraemos el Grupo
+                    mejorCoincidencia = indiceBusqueda[clave];
                 }
             }
 
             if (mejorCoincidencia) {
                 const nombresDelGrupo = baseDeDatosInvitados[mejorCoincidencia];
-                
-                // Guardar permanentemente la clave y ocultar buscador
                 localStorage.setItem(STORAGE_KEY, mejorCoincidencia);
-
                 msjError.style.display = 'none';
                 seccionBusqueda.style.display = 'none';
                 seccionPase.style.display = 'block';
-
                 document.getElementById('nombre-encontrado').textContent = mejorCoincidencia;
-                document.getElementById('numero-pases').textContent = nombresDelGrupo.length;
-                
                 renderInvitados(nombresDelGrupo, [], false);
             } else {
                 msjError.style.display = 'block';
@@ -596,16 +594,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if(inputBusqueda) {
         inputBusqueda.addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                btnBuscar.click();
-            }
+            if (event.key === "Enter") { event.preventDefault(); btnBuscar.click(); }
         });
     }
 
-    // =========================================================================
-    // LECTURA DE RESPUESTAS Y ENVÍO ESTRUCTURADO A WHATSAPP
-    // =========================================================================
     if(btnWhatsapp) {
         btnWhatsapp.addEventListener('click', function() {
             if (localStorage.getItem(CONFIRMED_KEY) === 'true') return; 
@@ -623,15 +615,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 let radios = document.getElementsByName(`asistencia_${i}`);
                 let valorSeleccionado = Array.from(radios).find(r => r.checked)?.value;
                 
-                if (!valorSeleccionado) {
-                    todosSeleccionados = false;
-                } else {
+                if (!valorSeleccionado) { todosSeleccionados = false; } 
+                else {
                     valoresAsistencia.push(valorSeleccionado);
-                    if (valorSeleccionado === "si") {
-                        confirmadosNombres.push(nombre);
-                    } else {
-                        noAsistenNombres.push(nombre);
-                    }
+                    if (valorSeleccionado === "si") confirmadosNombres.push(nombre);
+                    else noAsistenNombres.push(nombre);
                 }
             });
 
@@ -640,32 +628,46 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            // Guardar respuestas permanente para bloquear interfaz
             localStorage.setItem(ASISTENCIA_KEY, JSON.stringify(valoresAsistencia));
             localStorage.setItem(CONFIRMED_KEY, 'true');
-            bloquearInterfazConfirmada(nombres, valoresAsistencia);
+            
+            generarBoletoYBloquear(nombres, valoresAsistencia);
 
-            // Construcción del Mensaje Profesional por WhatsApp
-            let prefijo = nombreGrupo.includes("FAMILIA") ? "la " : "";
-            let mensajeWa = `Hola Adriana, somos ${prefijo}*${nombreGrupo}*.%0A%0A`;
-
+            let mensajeWa = `Hola Adriana, queremos confirmar asistencia:%0A%0A`;
             if (confirmadosNombres.length > 0) {
-                mensajeWa += `Queremos confirmar nuestra asistencia:%0A%0A✅ *SÍ ASISTIRÁN:*%0A`;
+                mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
                 confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
             }
-
             if (noAsistenNombres.length > 0) {
                 mensajeWa += `%0A❌ *NO PODRÁN ASISTIR:*%0A`;
                 noAsistenNombres.forEach((n) => { mensajeWa += `- ${n}%0A`; });
             }
 
             if (confirmadosNombres.length === 0) {
-                mensajeWa += `Lamentablemente *nadie podrá asistir* a tu fiesta. ¡Muchas gracias por la invitación y que disfrutes mucho tu día!`;
+                mensajeWa = `Hola Adriana, lamentablemente *nadie podrá asistir* a tu fiesta. ¡Muchas gracias por la invitación y que disfrutes mucho tu día!`;
             } else {
                 mensajeWa += `%0A¡Allá nos vemos!`;
             }
 
             window.open(`https://wa.me/525611730224?text=${mensajeWa}`, '_blank');
+        });
+    }
+
+    // --- FUNCIONALIDAD PARA DESCARGAR PDF ---
+    if(btnDescargarPdf) {
+        btnDescargarPdf.addEventListener('click', function() {
+            const elementoABajar = document.getElementById('boleto-render');
+            
+            const opt = {
+              margin:       1,
+              filename:     'Pases_XV_Adriana.pdf',
+              image:        { type: 'jpeg', quality: 0.98 },
+              html2canvas:  { scale: 2 },
+              jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            // Llama a la librería para descargar
+            html2pdf().set(opt).from(elementoABajar).save();
         });
     }
 });
