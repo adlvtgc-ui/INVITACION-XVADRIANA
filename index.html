@@ -28,7 +28,7 @@ html { -webkit-text-size-adjust: 100%; }
 body {
     -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
     -webkit-touch-callout: none; margin: 0; padding: 0;
-    /* FONDO DEL PASE DIRECTO, SIN COLORES NI DEGRADADOS BLANCOS */
+    /* FONDO DEL PASE DIRECTO */
     background-image: url('fondopase.jpeg');
     background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat;
     font-family: var(--fuente-cuerpo); color: var(--color-texto); text-align: center;
@@ -41,12 +41,15 @@ img {
 
 .btn img { pointer-events: auto; }
 
-/* CONTENEDOR PRINCIPAL TOTALMENTE TRANSPARENTE */
+/* CONTENEDOR PRINCIPAL CON EFECTO CRISTAL MUY LIGERO */
 .container {
     position: relative; z-index: 5; overflow: hidden; 
     max-width: 500px; margin: 20px auto; padding: 20px 20px 30px 20px;
-    background: transparent; 
-    box-shadow: none; border: none; box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.25); /* Capa blanca muy translúcida */
+    backdrop-filter: blur(3px); /* Desenfoque sutil para que las letras resalten */
+    -webkit-backdrop-filter: blur(3px);
+    border-radius: 15px; box-sizing: border-box;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.15);
 }
 
 header { position: relative; padding: 5px 10px 0px 10px; }
@@ -79,25 +82,29 @@ header { position: relative; padding: 5px 10px 0px 10px; }
 }
 
 h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
-header h1 { position: relative; z-index: 10; font-size: 2.2rem; letter-spacing: 3px; color: var(--color-principal); margin: 0; line-height: 1.2; }
-header h2 { position: relative; z-index: 10; font-family: var(--fuente-nombre); font-size: 5.2rem; color: var(--color-principal); margin: 0px 0 0 0; font-weight: normal; line-height: 1; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(255,255,255,0.4); }
+header h1 { position: relative; z-index: 10; font-size: 2.2rem; letter-spacing: 3px; color: var(--color-principal); margin: 0; line-height: 1.2; text-shadow: 1px 1px 3px rgba(255,255,255,0.8); }
+header h2 { position: relative; z-index: 10; font-family: var(--fuente-nombre); font-size: 5.2rem; color: var(--color-principal); margin: 0px 0 0 0; font-weight: normal; line-height: 1; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(255,255,255,0.7); }
 
 .contador-container { display: flex; justify-content: center; gap: 10px; margin: 15px auto 10px auto; position: relative; z-index: 20; }
-/* CONTADOR TRANSPARENTE */
-.contador-item { display: flex; flex-direction: column; align-items: center; background: transparent; border: none; padding: 6px 8px; min-width: 45px; box-shadow: none; }
-.contador-numero { font-family: var(--fuente-titulos); font-size: 1.4rem; color: var(--color-principal); font-weight: bold; line-height: 1; text-shadow: 1px 1px 2px rgba(255,255,255,0.5); }
+/* CONTADOR CON FONDO LIGERO */
+.contador-item { display: flex; flex-direction: column; align-items: center; background: rgba(255, 255, 255, 0.6); border-radius: 8px; padding: 6px 8px; min-width: 45px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.contador-numero { font-family: var(--fuente-titulos); font-size: 1.4rem; color: var(--color-principal); font-weight: bold; line-height: 1; }
 .contador-etiqueta { font-family: var(--fuente-cuerpo); font-size: 0.65rem; text-transform: uppercase; color: var(--color-texto); margin-top: 3px; letter-spacing: 1px; font-weight: 800; }
 
 .separador-header { width: 100%; max-width: 240px; margin: 15px auto 15px auto; position: relative; z-index: 15; display: block; }
 .separador-header img { width: 100%; height: auto; object-fit: contain; display: block; }
 
-/* TARJETAS TOTALMENTE TRANSPARENTES */
+/* TARJETAS CON FONDO SEMITRANSPARENTE PARA LEGIBILIDAD */
 .card {
-    background: transparent; border: none;
-    margin: 10px 5px 25px 5px; padding: 15px 10px; box-shadow: none; position: relative; z-index: 5;
+    background: rgba(255, 255, 255, 0.55); 
+    border-radius: 12px;
+    margin: 10px 5px 25px 5px; padding: 15px 10px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+    position: relative; z-index: 5;
+    border: 1px solid rgba(255,255,255,0.4);
 }
 
-.card-title { color: var(--color-principal); font-size: 1.3rem; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; padding-bottom: 3px; margin-bottom: 3px; text-shadow: 1px 1px 3px rgba(255,255,255,0.6); }
+.card-title { color: var(--color-principal); font-size: 1.3rem; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; padding-bottom: 3px; margin-bottom: 3px; }
 .separador-rizos { display: flex; align-items: center; justify-content: center; margin: 8px auto 15px auto; width: 80%; }
 .linea-centro { width: 100%; height: 2px; background: linear-gradient(to right, transparent, var(--color-principal), transparent); position: relative; }
 .card-lugar { font-size: 1.1rem; font-weight: bold; margin-bottom: 12px; }
@@ -137,13 +144,13 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
     border: 1px solid var(--color-dorado); border-radius: 5px;
     font-family: var(--fuente-cuerpo); font-size: 1rem;
     text-align: center; color: var(--color-texto);
-    background: rgba(255, 255, 255, 0.5); /* Semi-transparente para poder leer lo que se escribe */
+    background: rgba(255, 255, 255, 0.7); 
 }
-.input-busqueda:focus { outline: none; border-color: var(--color-principal); background: rgba(255, 255, 255, 0.8); }
+.input-busqueda:focus { outline: none; border-color: var(--color-principal); background: rgba(255, 255, 255, 0.95); }
 
 .invitado-row {
-    background: transparent; border-bottom: 1px dashed var(--color-dorado);
-    padding: 12px 5px; margin-bottom: 5px; text-align: left;
+    background: rgba(255, 255, 255, 0.4); border-bottom: 1px dashed var(--color-dorado);
+    padding: 12px 10px; margin-bottom: 5px; text-align: left; border-radius: 6px;
 }
 .invitado-nombre { font-family: var(--fuente-cuerpo); font-weight: 800; color: var(--color-principal); margin-bottom: 8px; font-size: 0.95rem; text-transform: capitalize; }
 .opciones-asistencia { display: flex; gap: 20px; }
@@ -228,7 +235,7 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 .tpl-footer { font-size: 1.1rem; font-style: italic; color: #555555; font-family: 'Montserrat', sans-serif; margin-top: 6px; font-weight: 600; }
 
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
-.frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
+.frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; text-shadow: 1px 1px 2px rgba(255,255,255,0.8); }
 .img-final-pequena { width: 15%; max-width: 35px; height: auto; margin: 0 auto; display: block; opacity: 0.95; }
 
 @media (max-width: 600px) {
@@ -498,9 +505,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v53_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v53_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v53_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v54_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v54_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v54_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
