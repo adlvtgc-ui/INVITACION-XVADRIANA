@@ -7,7 +7,7 @@
 <title>Mis XV Años - Adri</title>
 
 <!-- IMPORTACIÓN DE FUENTES -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Alex+Brush&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800&family=Montserrat:wght@300;400;600&family=Alex+Brush&display=swap" rel="stylesheet">
 <!-- LIBRERÍA HTML2CANVAS PARA GENERAR LA IMAGEN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -15,7 +15,7 @@
 /* --- ESTILOS GENERALES Y COLORES --- */
 :root {
 color-scheme: light; 
---color-principal: #63224b;
+--color-principal: #85386e; 
 --color-texto: #333333;
 --color-dorado: #B87333;
 --fuente-titulos: 'Cinzel', serif;
@@ -28,7 +28,7 @@ html { -webkit-text-size-adjust: 100%; }
 body {
     -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
     -webkit-touch-callout: none; margin: 0; padding: 0;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url('thumb-1920-1275718.jpg');
+    background-image: linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url('fondopase.jpeg');
     background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat;
     font-family: var(--fuente-cuerpo); color: var(--color-texto); text-align: center;
 }
@@ -50,19 +50,39 @@ img {
 
 header { position: relative; padding: 5px 10px 0px 10px; border-radius: 12px 12px 0 0; }
 
+/* --- CARRUSEL: FORMA CUADRADA CON BORDES DIFUMINADOS --- */
 .galeria-inicio {
-position: relative; width: 260px; height: 200px; margin: 10px auto 10px auto;
-border-radius: 8px; border: 1px solid var(--color-dorado); box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-overflow: hidden; z-index: 10; background-color: #fff;
+    position: relative; 
+    width: 100%; 
+    max-width: 380px; 
+    height: 270px; 
+    margin: 5px auto 15px auto;
+    border: none;
+    background: transparent; 
+    box-shadow: none; 
+    z-index: 10;
+    
+    /* Efecto Rectangular/Cuadrado: Mantiene la forma recta pero difumina el 15% de cada borde */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%),
+                        linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%),
+                linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-composite: intersect;
 }
 
 .galeria-inicio::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; background: transparent; }
 
 .galeria-inicio img {
-position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
-opacity: 0; transition: opacity 1s ease-in-out;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+    opacity: 0; transition: opacity 1.2s ease-in-out;
 }
 .galeria-inicio img.activa { opacity: 1; }
+
+/* Ajuste específico para que los globos de la foto 3 se vean perfectamente más abajo */
+.galeria-inicio img:nth-child(3) {
+    object-position: center 30%;
+}
 
 h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
 header h1 { position: relative; z-index: 10; font-size: 2.2rem; letter-spacing: 3px; color: var(--color-principal); margin: 0; line-height: 1.2; }
@@ -93,16 +113,16 @@ background-color: var(--color-principal); color: #fff; padding: 10px 20px; text-
 border-radius: 6px; font-weight: 600; margin-top: 12px; font-size: 0.9rem; transition: background 0.3s; border: none; cursor: pointer;
 box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
-.btn:hover { background-color: #4a153b; }
+.btn:hover { background-color: #63224b; }
 
 .logo-tienda { height: 20px; width: auto; object-fit: contain; border-radius: 2px; }
 .prohibido { color: var(--color-principal); font-style: italic; font-weight: bold; margin-top: 12px; font-family: var(--fuente-titulos); }
 .img-dress-code { width: 55%; max-width: 160px; height: auto; margin: 12px auto; display: block; border: none; background: none; }
 
 @keyframes resplandor-pase-nuevo {
-    0% { box-shadow: 0 2px 8px rgba(99, 34, 75, 0.2); transform: scale(1); }
-    50% { box-shadow: 0 6px 18px rgba(99, 34, 75, 0.4); transform: scale(1.01); }
-    100% { box-shadow: 0 2px 8px rgba(99, 34, 75, 0.2); transform: scale(1); }
+    0% { box-shadow: 0 2px 8px rgba(133, 56, 110, 0.2); transform: scale(1); }
+    50% { box-shadow: 0 6px 18px rgba(133, 56, 110, 0.4); transform: scale(1.01); }
+    100% { box-shadow: 0 2px 8px rgba(133, 56, 110, 0.2); transform: scale(1); }
 }
 
 @keyframes lluvia {
@@ -135,41 +155,82 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 .opcion-radio { display: flex; align-items: center; gap: 5px; font-family: var(--fuente-cuerpo); font-size: 0.85rem; color: var(--color-texto); cursor: pointer; }
 .opcion-radio input[type="radio"] { accent-color: var(--color-principal); width: 16px; height: 16px; cursor: pointer; }
 
-/* --- PLANTILLA OCULTA DEL PASE DIGITAL (NUEVO DISEÑO SIN BORDES Y TRASLÚCIDO) --- */
+/* --- PLANTILLA OCULTA DEL PASE DIGITAL --- */
 #pase-imagen-template {
     position: absolute; left: -9999px; top: 0;
-    width: 1100px; height: 750px; 
+    width: 800px; 
+    min-height: 1200px;
+    height: auto;
     background-image: url('fondopase.jpeg'); 
     background-size: cover; background-position: center;
-    display: flex; flex-direction: row; align-items: stretch; justify-content: space-between;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
     font-family: 'Montserrat', sans-serif; box-sizing: border-box;
-    padding: 35px; gap: 30px;
+    padding: 40px 45px 50px 45px;
+    gap: 15px; 
 }
-/* MITAD IZQUIERDA: IMAGEN DE LA CHICA (SIN BORDE) */
-.tpl-lado-chica {
-    width: 42%; border-radius: 20px; overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+
+/* TÍTULOS SUPERIORES */
+.tpl-encabezado-superior {
+    text-align: center; width: 100%; margin-top: 5px;
 }
-.tpl-lado-chica img {
-    width: 100%; height: 100%; object-fit: cover;
+.tpl-xv { 
+    font-family: 'Cinzel', serif; 
+    font-size: 3.3rem; 
+    letter-spacing: 7px; 
+    color: var(--color-principal); 
+    font-weight: 800; 
+    margin: 0; 
+    text-shadow: 2px 2px 5px rgba(255,255,255,0.95); 
 }
-/* MITAD DERECHA: TEXTO EN RECUADRO TRASLÚCIDO (SIN BORDE) */
-.tpl-lado-texto {
-    width: 58%; 
-    background: rgba(74, 21, 59, 0.25); /* #4a153b sumamente traslúcido y tenue */
+.tpl-nombre { 
+    font-family: 'Alex Brush', cursive; 
+    font-size: 8.5rem; 
+    color: var(--color-principal); 
+    margin: -15px 0 0 0; 
+    line-height: 1; 
+    text-shadow: 3px 3px 6px rgba(255,255,255,0.9); 
+}
+
+/* QUINCEAÑERA */
+.tpl-imagen-chica {
+    width: 580px; 
+    height: 550px; 
+    margin: -10px auto 0 auto; 
+    display: flex; justify-content: center; align-items: center;
+}
+.tpl-imagen-chica img {
+    width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.22));
+}
+
+/* CAJA DE INFORMACIÓN INFERIOR (ESTRECHA Y SIN BORDE) */
+.tpl-caja-info {
+    width: 82%; 
+    max-width: 650px;
+    background:#fdf5ea; 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
-    padding: 40px 30px; text-align: center; color: #fff;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Sombra difuminada para separarlo del fondo */
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    border: none;
+    padding: 25px 35px; text-align: center; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12); 
+    display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
+    gap: 10px;
+    margin: 5px auto 0 auto;
 }
-/* Agregamos text-shadow a las letras para que resalten perfectamente sobre el fondo tenue */
-.tpl-xv { font-family: 'Cinzel', serif; font-size: 2rem; letter-spacing: 5px; color: #ffffff; font-weight: bold; margin: 0; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
-.tpl-nombre { font-family: 'Alex Brush', cursive; font-size: 6rem; color: #ffffff; margin: -10px 0 15px 0; line-height: 1; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
-.tpl-fecha { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #f4d06f; letter-spacing: 3px; margin-bottom: 25px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
-.tpl-sub { font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 2px; color: #ffffff; text-transform: uppercase; margin-bottom: 25px; font-weight: bold; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); }
-.tpl-lista { list-style: none; padding: 0; margin: 0 0 25px 0; width: 90%; max-height: 340px; overflow: hidden; }
-.tpl-lista li { font-family: 'Cinzel', serif; font-size: 1.4rem; color: #ffffff; padding: 10px 0; border-bottom: 1px dashed rgba(244, 208, 111, 0.4); font-weight: bold; text-transform: capitalize; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
-.tpl-footer { font-size: 1rem; font-style: italic; color: #dddddd; font-family: 'Montserrat', sans-serif; margin-top: auto; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
+
+.tpl-sub-encabezado { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.tpl-fecha { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--color-principal); letter-spacing: 4px; font-weight: bold; margin: 0; }
+.tpl-divisor { width: 50%; height: 2px; background: linear-gradient(to right, transparent, #c5a059, transparent); opacity: 0.6; margin: 0; }
+.tpl-sub { font-family: 'Cinzel', serif; font-size: 1.5rem; letter-spacing: 3px; color: #c5a059; text-transform: uppercase; font-weight: bold; margin: 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.05); }
+
+/* LISTA DE NOMBRES */
+.tpl-lista { 
+    list-style: none; padding: 0; margin: 8px 0; width: 95%; 
+    display: flex; flex-direction: column; justify-content: center; gap: 6px; 
+}
+.tpl-lista li { font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--color-principal); padding: 6px 0; border-bottom: 1px dashed rgba(133, 56, 110, 0.3); font-weight: bold; text-transform: capitalize; width: 100%; }
+
+.tpl-footer { font-size: 1.1rem; font-style: italic; color: #555555; font-family: 'Montserrat', sans-serif; margin-top: 6px; font-weight: 600; }
 
 .frase-final-container { margin: 15px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; }
@@ -180,7 +241,8 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
     .container { margin: 10px 8px; padding: 15px 12px 20px 12px; }
     header h1 { font-size: 1.6rem; }
     header h2 { font-size: 3.6rem; }
-    .galeria-inicio { width: 240px; height: 180px; }
+    /* Ajuste responsivo del carrusel difuminado */
+    .galeria-inicio { width: 100%; max-width: 320px; height: 230px; }
     .card { margin: 5px 2px 20px 2px; padding: 15px; }
 }
 </style>
@@ -196,8 +258,8 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 <header>
 <div class="galeria-inicio">
 <img src="foto1.jpg" alt="Foto 1 Adriana" class="activa" oncontextmenu="return false;">
-<img src="foto2.jpg" alt="Foto 2 Adriana" oncontextmenu="return false;">
-<img src="foto3.jpg" alt="Foto 3 Adriana" oncontextmenu="return false;">
+<img src="foto3.jpg" alt="Foto 2 Adriana" oncontextmenu="return false;">
+<img src="foto2.jpeg" alt="Foto 3 Adriana" oncontextmenu="return false;">
 </div>
 
 <div class="separador-header"><img src="separador.png" alt="Separador floral"></div>
@@ -258,7 +320,7 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 <div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Solo tienes una oportunidad de búsqueda.</span></div>
 
 <div id="wrapper-busqueda">
-    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. dalia lara" autocomplete="off">
+    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. pedro picapiedra" autocomplete="off">
     <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pases</button>
 </div>
 
@@ -287,14 +349,13 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 </div>
 </div>
 
-<!-- CONTENEDOR DE ÉXITO (SE MUESTRA AL CONFIRMAR PARA IOS / REDES SOCIALES) -->
+<!-- CONTENEDOR DE ÉXITO -->
 <div class="card" id="pase-final-container" style="display: none;">
 <div class="card-title">¡Pase Generado!</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-size: 0.85rem; color: #333;">
     Tu pase ha sido generado con éxito. Si tu dispositivo no lo descargó automáticamente, <b>mantén presionada la imagen de abajo</b> y selecciona "Guardar en Fotos".
 </div>
-<!-- Aquí se inyectará la imagen generada visible para el usuario -->
 <img id="img-pase-generado" src="" alt="Tu Pase Oficial" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.25); margin-top: 15px; pointer-events: auto !important; -webkit-user-drag: auto; user-drag: auto;">
 </div>
 
@@ -305,22 +366,31 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 
 </div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
 
-<!-- PLANTILLA OCULTA DEL PASE DIGITAL (LADO A LADO SIN BORDES) -->
+<!-- PLANTILLA OCULTA DEL PASE DIGITAL -->
 <div id="pase-imagen-template">
-    <!-- LADO IZQUIERDO: NIÑA -->
-    <div class="tpl-lado-chica">
-        <img src="pase.jpeg" alt="Quinceañera Adriana">
-    </div>
-    
-    <!-- LADO DERECHO: TEXTO TRASLÚCIDO -->
-    <div class="tpl-lado-texto">
+    <!-- TÍTULOS ARRIBA -->
+    <div class="tpl-encabezado-superior">
         <div class="tpl-xv">MIS XV AÑOS</div>
         <div class="tpl-nombre">Adriana</div>
-        <div class="tpl-fecha">19 · DICIEMBRE · 2026</div>
-        <div class="tpl-sub">Pase Oficial Confirmado</div>
+    </div>
+
+    <!-- QUINCEAÑERA -->
+    <div class="tpl-imagen-chica">
+        <img src="pase.png" alt="Quinceañera Adriana">
+    </div>
+    
+    <!-- INFORMACIÓN ABAJO -->
+    <div class="tpl-caja-info">
+        <div class="tpl-sub-encabezado">
+            <div class="tpl-fecha">19 · DICIEMBRE · 2026</div>
+            <div class="tpl-divisor"></div>
+            <div class="tpl-sub">Pase Oficial Confirmado</div>
+        </div>
+        
         <ul class="tpl-lista" id="tpl-lista-nombres">
             <!-- Nombres dinámicos -->
         </ul>
+        
         <div class="tpl-footer">Presenta este pase digital en la entrada. ¡Te esperamos!</div>
     </div>
 </div>
@@ -351,13 +421,12 @@ function crearLluviaDeEstrellas() {
 }
 crearLluviaDeEstrellas();
 
-// Evitar clic derecho en la página excepto en la imagen final del pase para poder guardarla
 document.getElementById('contenedor-principal').addEventListener('contextmenu', e => {
     if(e.target.id !== 'img-pase-generado') { e.preventDefault(); }
 });
 
 // =========================================================================
-// BASE DE DATOS DE NOMBRES
+// BASE DE DATOS DE NOMBRES Y BLOQUEO POR DISPOSITIVO/NAVEGADOR
 // =========================================================================
 const baseDeDatosInvitados = {
     "FAMILIA 1": [ "MARIO LARA P", "MARIO LARA V", "DIANA VALLADARES", "DALIA DE LA O", "RODRIGO LARA", "ADRIANA LARA" ],
@@ -435,13 +504,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v28_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v28_asistencia';
+    const STORAGE_KEY = 'adrianaXV_v52_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v52_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v52_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
 
-    // Función que elimina acentos y convierte TODO a minúsculas
     function normalizarTexto(texto) {
         return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     }
@@ -452,7 +521,6 @@ document.addEventListener("DOMContentLoaded", function() {
         invitados.forEach(invitado => {
             indiceBusqueda[normalizarTexto(invitado)] = grupo;
         });
-        // Permitimos también buscar por el nombre interno (ej. "Familia 1") por si acaso
         indiceBusqueda[normalizarTexto(grupo)] = grupo;
     }
 
@@ -474,32 +542,75 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Comprobar si ya había confirmado antes
-    if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey] && !localStorage.getItem('adrianaXV_v28_confirmed')) {
+    if (localStorage.getItem(CONFIRMED_KEY)) {
+        seccionBusqueda.style.display = 'none';
+        let cardConfirmado = document.createElement('div');
+        cardConfirmado.className = 'card';
+        cardConfirmado.innerHTML = `
+            <div class="card-title">¡Asistencia Registrada!</div>
+            <div class="separador-rizos"><div class="linea-centro"></div></div>
+            <div class="info-row" style="font-size: 0.95rem; color: #333; margin-bottom: 15px;">
+                Ya has confirmado tu asistencia previamente en este dispositivo.
+            </div>
+            <button id="btn-ver-pase-guardado" class="btn" style="width: 100%; background-color: var(--color-principal);">
+                Ver / Descargar mi Pase Digital 🎟️
+            </button>
+        `;
+        seccionBusqueda.parentNode.insertBefore(cardConfirmado, seccionBusqueda);
+
+        document.getElementById('btn-ver-pase-guardado').addEventListener('click', function() {
+            let famKey = localStorage.getItem(STORAGE_KEY);
+            let asistenciaVals = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
+            if (!famKey || !baseDeDatosInvitados[famKey]) {
+                alert("No se encontró información de la familia en este dispositivo.");
+                return;
+            }
+            let nombres = baseDeDatosInvitados[famKey];
+            let confirmadosNombres = [];
+            nombres.forEach((n, i) => {
+                if (!asistenciaVals[i] || asistenciaVals[i] === "si") {
+                    confirmadosNombres.push(n);
+                }
+            });
+
+            let listaHtml = '';
+            confirmadosNombres.forEach(n => {
+                listaHtml += `<li>${n}</li>`;
+            });
+            document.getElementById('tpl-lista-nombres').innerHTML = listaHtml || '<li>Ningún asistente confirmado</li>';
+
+            const templateElement = document.getElementById('pase-imagen-template');
+            templateElement.style.display = 'flex';
+
+            html2canvas(templateElement, { scale: 3, useCORS: true }).then(canvas => {
+                templateElement.style.display = 'none';
+                const dataUrl = canvas.toDataURL('image/png');
+
+                cardConfirmado.style.display = 'none';
+                document.getElementById('img-pase-generado').src = dataUrl;
+                document.getElementById('pase-final-container').style.display = 'block';
+            }).catch(err => {
+                templateElement.style.display = 'none';
+                alert("Error al generar la imagen del pase.");
+            });
+        });
+
+    } else if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
         seccionBusqueda.style.display = 'none';
         seccionPase.style.display = 'block';
         let nombresDelGrupo = baseDeDatosInvitados[storedFamilyKey];
         renderInvitados(nombresDelGrupo, storedAsistencia);
-    } else if (localStorage.getItem('adrianaXV_v28_confirmed')) {
-        seccionBusqueda.style.display = 'none';
-        document.getElementById('pase-final-container').style.display = 'block';
-        document.getElementById('pase-final-container').innerHTML = `
-            <div class="card-title">Asistencia Confirmada</div>
-            <div class="separador-rizos"><div class="linea-centro"></div></div>
-            <div class="info-row" style="font-size: 0.95rem; color: #333;">¡Ya registramos tu asistencia! Nos vemos en el evento.</div>
-        `;
     }
 
     if(btnBuscar) {
         btnBuscar.addEventListener('click', function() {
-            if (localStorage.getItem(STORAGE_KEY)) return;
+            if (localStorage.getItem(STORAGE_KEY) || localStorage.getItem(CONFIRMED_KEY)) return;
 
-            // Al leer lo que el usuario escribe, se convierte a minúsculas para hacer match exacto
             let busquedaUsuario = normalizarTexto(inputBusqueda.value);
             let palabrasReales = busquedaUsuario.split(" ").filter(p => p.length > 0);
 
             if (palabrasReales.length < 2) {
-                alert("Por favor, escribe al menos un Nombre y un Apellido (ej. dalia lara) para encontrar tus pases.");
+                alert("Por favor, escribe al menos un Nombre y un Apellido para encontrar tus pases.");
                 return;
             }
 
@@ -508,7 +619,6 @@ document.addEventListener("DOMContentLoaded", function() {
             for (let invitadoClave in indiceBusqueda) {
                 let coincideTodas = true;
                 for (let i = 0; i < palabrasReales.length; i++) {
-                    // Verificamos si cada palabra escrita está incluida en el nombre de la base de datos
                     if (!invitadoClave.includes(palabrasReales[i])) {
                         coincideTodas = false;
                         break;
@@ -539,7 +649,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // --- ACCIÓN DE WHATSAPP + DESCARGA AUTOMÁTICA UNIVERSAL ---
     if(btnWhatsapp) {
         btnWhatsapp.addEventListener('click', function() {
             let nombreGrupo = localStorage.getItem(STORAGE_KEY);
@@ -559,38 +668,33 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             localStorage.setItem(ASISTENCIA_KEY, JSON.stringify(valoresAsistencia));
-            localStorage.setItem('adrianaXV_v28_confirmed', 'true');
+            localStorage.setItem(CONFIRMED_KEY, 'true');
 
-            // 1. Preparar la plantilla oculta
             let listaHtml = '';
             confirmadosNombres.forEach(n => {
                 listaHtml += `<li>${n}</li>`;
             });
             document.getElementById('tpl-lista-nombres').innerHTML = listaHtml || '<li>Ningún asistente confirmado</li>';
 
-            // 2. Generar imagen (resolviendo problema de compatibilidad en iOS/Samsung/Oppo/Redes)
             const templateElement = document.getElementById('pase-imagen-template');
             templateElement.style.display = 'flex';
 
-            html2canvas(templateElement, { scale: 2, useCORS: true }).then(canvas => {
+            html2canvas(templateElement, { scale: 3, useCORS: true }).then(canvas => {
                 templateElement.style.display = 'none';
                 const dataUrl = canvas.toDataURL('image/png');
 
-                // A) Intento de descarga automática normal
                 const enlace = document.createElement('a');
-                let primerNombre = confirmadosNombres.length > 0 ? confirmadosNombres[0].replace(/\s+/g, '_') : 'Invitados';
-                enlace.download = `Pase_XV_Adriana_${primerNombre}.png`;
+                let nombreArchivoDescarga = nombreGrupo.replace(/\s+/g, '_');
+                enlace.download = `Pase_XV_Adriana_${nombreArchivoDescarga}.png`;
                 enlace.href = dataUrl;
                 document.body.appendChild(enlace);
                 try { enlace.click(); } catch(e){}
                 document.body.removeChild(enlace);
 
-                // B) Mostrar la imagen en pantalla obligatoriamente (Vital para iPhones y navegadores web integrados)
                 document.getElementById('pase-entrada').style.display = 'none';
                 document.getElementById('img-pase-generado').src = dataUrl;
                 document.getElementById('pase-final-container').style.display = 'block';
 
-                // C) Abrir WhatsApp con el mensaje personalizado y sin nombres de "Familia X"
                 let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
                 if (confirmadosNombres.length > 0) {
                     mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
