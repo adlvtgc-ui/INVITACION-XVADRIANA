@@ -6,8 +6,8 @@
 <meta name="color-scheme" content="light"> 
 <title>Mis XV Años - Adri</title>
 
-<!-- IMPORTACIÓN DE FUENTES -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Great+Vibes&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<!-- IMPORTACIÓN DE TODAS LAS FUENTES (ORIGINALES + PORTADA) -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800&family=Cinzel+Decorative:wght@700;900&family=Montserrat:wght@300;400;600;800&family=Alex+Brush&family=Great+Vibes&display=swap" rel="stylesheet">
 <!-- LIBRERÍA HTML2CANVAS PARA GENERAR LA IMAGEN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -18,9 +18,9 @@ color-scheme: light;
 --color-principal: #85386e; 
 --color-texto: #333333;
 --color-dorado: #B87333;
---fuente-titulos: 'Cinzel Decorative', serif;
+--fuente-titulos: 'Cinzel', serif;
 --fuente-cuerpo: 'Montserrat', sans-serif;
---fuente-nombre: 'Great Vibes', cursive;
+--fuente-nombre: 'Alex Brush', cursive;
 }
 
 html, body {
@@ -123,7 +123,7 @@ img {
     opacity: 0.9;
 }
 
-/* INFORMACIÓN INTEGRADA ARMÓNICA */
+/* INFORMACIÓN INTEGRADA DE LA PORTADA (FUENTES ESPECIALES Y GRANDES) */
 .portada-info-integrated {
     flex: 1; 
     padding: 5px 15px 15px 15px;
@@ -135,8 +135,8 @@ img {
     align-items: center;
 }
 
-h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
-.target-title { 
+.portada-unificada .target-title { 
+    font-family: 'Cinzel Decorative', serif;
     font-size: 2rem; 
     font-weight: 900; 
     letter-spacing: 5px; 
@@ -145,8 +145,8 @@ h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
     line-height: 1.2; 
     text-shadow: 1px 1px 4px rgba(255,255,255,0.95); 
 }
-.target-name { 
-    font-family: var(--fuente-nombre); 
+.portada-unificada .target-name { 
+    font-family: 'Great Vibes', cursive; 
     font-size: 6.2rem; 
     color: var(--color-principal); 
     margin: -10px 0 0 0; 
@@ -156,7 +156,7 @@ h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
     text-shadow: 2px 2px 6px rgba(255,255,255,0.9); 
 }
 
-/* NUEVO CONTADOR ENMARCADO Y MÁS GRANDE PARA RELLENAR ESPACIOS */
+/* CONTADOR ENMARCADO PARA LA PORTADA */
 .contador-integrated { 
     display: flex; 
     justify-content: center; 
@@ -184,7 +184,7 @@ h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
 }
 .contador-numero-integrated { 
     font-family: var(--fuente-titulos); 
-    font-size: 1.7rem; /* Números más grandes y llamativos */
+    font-size: 1.7rem; 
     color: var(--color-principal); 
     font-weight: bold; 
     line-height: 1; 
@@ -303,8 +303,8 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .tpl-encabezado-superior { text-align: center; width: 100%; margin-top: 5px; }
-.tpl-xv { font-family: 'Cinzel Decorative', serif; font-size: 3.3rem; letter-spacing: 7px; color: var(--color-principal); font-weight: 900; margin: 0; text-shadow: 2px 2px 5px rgba(255,255,255,0.95); }
-.tpl-nombre { font-family: 'Great Vibes', cursive; font-size: 9rem; color: var(--color-principal); margin: -20px 0 0 0; line-height: 1; text-shadow: 3px 3px 6px rgba(255,255,255,0.9); }
+.tpl-xv { font-family: 'Cinzel', serif; font-size: 3.3rem; letter-spacing: 7px; color: var(--color-principal); font-weight: 800; margin: 0; text-shadow: 2px 2px 5px rgba(255,255,255,0.95); }
+.tpl-nombre { font-family: 'Alex Brush', cursive; font-size: 8.5rem; color: var(--color-principal); margin: -15px 0 0 0; line-height: 1; text-shadow: 3px 3px 6px rgba(255,255,255,0.9); }
 .tpl-imagen-chica { width: 580px; height: 550px; margin: -10px auto 0 auto; display: flex; justify-content: center; align-items: center; }
 .tpl-imagen-chica img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.22)); }
 .tpl-caja-info {
@@ -315,11 +315,11 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     display: flex; flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; margin: 5px auto 0 auto;
 }
 .tpl-sub-encabezado { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.tpl-fecha { font-family: 'Cinzel Decorative', serif; font-size: 1.3rem; color: var(--color-principal); letter-spacing: 4px; font-weight: bold; margin: 0; }
+.tpl-fecha { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--color-principal); letter-spacing: 4px; font-weight: bold; margin: 0; }
 .tpl-divisor { width: 50%; height: 2px; background: linear-gradient(to right, transparent, #c5a059, transparent); opacity: 0.6; margin: 0; }
-.tpl-sub { font-family: 'Cinzel Decorative', serif; font-size: 1.5rem; letter-spacing: 3px; color: #c5a059; text-transform: uppercase; font-weight: bold; margin: 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.05); }
+.tpl-sub { font-family: 'Cinzel', serif; font-size: 1.5rem; letter-spacing: 3px; color: #c5a059; text-transform: uppercase; font-weight: bold; margin: 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.05); }
 .tpl-lista { list-style: none; padding: 0; margin: 8px 0; width: 95%; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
-.tpl-lista li { font-family: 'Cinzel Decorative', serif; font-size: 1.4rem; color: var(--color-principal); padding: 6px 0; border-bottom: 1px dashed rgba(133, 56, 110, 0.3); font-weight: bold; text-transform: capitalize; width: 100%; }
+.tpl-lista li { font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--color-principal); padding: 6px 0; border-bottom: 1px dashed rgba(133, 56, 110, 0.3); font-weight: bold; text-transform: capitalize; width: 100%; }
 .tpl-footer { font-size: 1.1rem; font-style: italic; color: #555555; font-family: 'Montserrat', sans-serif; margin-top: 6px; font-weight: 600; }
 .frase-final-container { margin: 25px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; text-shadow: 1px 1px 2px rgba(255,255,255,0.8); }
