@@ -45,29 +45,31 @@ img {
 .portada-unificada {
     position: relative;
     width: 100%;
+    height: 100dvh; /* Ocupa exactamente la altura visible de la pantalla */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     z-index: 10;
-    padding: 0;
+    padding: 10px 0;
     box-sizing: border-box;
 }
 
 /* EFECTO CRISTAL UNIFICADO PARA TODA LA PORTADA */
 .main-cover-card {
-    position: relative; /* Necesario para posicionar el separador exactamente al borde */
+    position: relative;
     background: rgba(1, 1, 1, 0.25);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
     border-radius: 15px;
     width: 90%;
-    max-width: 450px;
+    max-width: 420px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     border: 1px solid rgba(17, 17, 17, 0.4);
-    margin: 20px auto;
-    padding: 0;
+    margin: auto 0;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
 }
 
@@ -75,7 +77,7 @@ img {
 .galeria-inicio {
     position: relative; 
     width: 100%; 
-    height: 350px; /* Altura del carrusel en escritorio */
+    height: 260px; /* Altura equilibrada para celulares */
     margin: 0;
     border-radius: 15px 15px 0 0;
     overflow: hidden;
@@ -96,78 +98,76 @@ img {
 .galeria-inicio-inner img.activa { opacity: 1; }
 .galeria-inicio-inner img:nth-child(3) { object-position: center 30%; }
 
-/* --- SEPARADOR SOBREPUESTO EXACTAMENTE EN LA LÍNEA DIVISORIA --- */
-.separador-overlap-absoluto {
-    position: absolute;
-    top: 350px; /* Coincide exactamente con la altura del carrusel en escritorio */
-    left: 0;
-    width: 100%; /* Ocupa el 100% de ancho de la tarjeta */
-    transform: translateY(-50%); /* Lo centra justo en el límite entre foto y texto */
-    z-index: 25;
+/* --- LÍNEA DIVISORIA SUTIL ENTRE FOTO Y TEXTO --- */
+.separador-linea-container {
+    width: 75%;
+    margin: 6px auto;
     text-align: center;
-    pointer-events: none;
 }
-
-.separador-overlap-absoluto img {
+.linea-divisoria {
     width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    mix-blend-mode: screen; /* Elimina fondos negros si los tuviera la imagen */
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    height: 1.5px;
+    background: linear-gradient(to right, transparent, var(--color-principal), transparent);
+    opacity: 0.7;
 }
 
 /* INFORMACIÓN INTEGRADA DEBAJO DE LAS FOTOS */
 .portada-info-integrated {
-    height: 350px; /* Misma altura exacta que la galería para mantener simetría */
-    padding: 15px 10px;
+    padding: 5px 15px 15px 15px;
     width: 100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: space-around; /* Distribuye uniformemente el contenido en todo el espacio */
+    justify-content: space-around;
     align-items: center;
 }
 
 h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
 .target-title { 
-    font-size: 2.2rem; 
+    font-size: 1.7rem; 
     letter-spacing: 3px; 
     color: var(--color-principal); 
-    margin-top: 5px; 
-    margin-bottom: 0; 
+    margin: 2px 0 0 0; 
     line-height: 1.2; 
     text-shadow: 1px 1px 3px rgba(255,255,255,0.8); 
 }
-.target-name { font-family: var(--fuente-nombre); font-size: 5.8rem; color: var(--color-principal); margin: -5px 0 0 0; font-weight: normal; line-height: 1; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(255,255,255,0.7); }
+.target-name { 
+    font-family: var(--fuente-nombre); 
+    font-size: 4.5rem; 
+    color: var(--color-principal); 
+    margin: -3px 0 5px 0; 
+    font-weight: normal; 
+    line-height: 1; 
+    letter-spacing: 2px; 
+    text-shadow: 2px 2px 4px rgba(255,255,255,0.7); 
+}
 
 /* CONTADOR INTEGRADO */
-.contador-integrated { display: flex; justify-content: center; gap: 8px; margin: 0 auto; width: 100%; }
-.contador-item-integrated { display: flex; flex-direction: column; align-items: center; background: rgba(255, 255, 255, 0.4); border-radius: 5px; padding: 6px 10px; min-width: 50px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-.contador-numero-integrated { font-family: var(--fuente-titulos); font-size: 1.4rem; color: var(--color-principal); font-weight: bold; line-height: 1; }
-.contador-etiqueta-integrated { font-family: var(--fuente-cuerpo); font-size: 0.6rem; text-transform: uppercase; color: var(--color-texto); margin-top: 3px; letter-spacing: 1px; font-weight: 800; }
+.contador-integrated { display: flex; justify-content: center; gap: 6px; margin: 0 auto; width: 100%; }
+.contador-item-integrated { display: flex; flex-direction: column; align-items: center; background: rgba(255, 255, 255, 0.4); border-radius: 5px; padding: 5px 8px; min-width: 45px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.contador-numero-integrated { font-family: var(--fuente-titulos); font-size: 1.2rem; color: var(--color-principal); font-weight: bold; line-height: 1; }
+.contador-etiqueta-integrated { font-family: var(--fuente-cuerpo); font-size: 0.55rem; text-transform: uppercase; color: var(--color-texto); margin-top: 2px; letter-spacing: 1px; font-weight: 800; }
 
 /* ANIMACIÓN PARA INDICAR DESLIZAR HACIA ARRIBA */
 .integrated-scroll-indicator {
-    margin-top: auto;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: var(--color-principal);
     font-weight: bold;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     letter-spacing: 2px;
     text-transform: uppercase;
     text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
     animation: bounce-up 2s infinite;
 }
-.integrated-scroll-indicator svg { width: 26px; height: 26px; fill: var(--color-principal); margin-bottom: 5px; }
+.integrated-scroll-indicator svg { width: 22px; height: 22px; fill: var(--color-principal); margin-bottom: 2px; }
 
 @keyframes bounce-up {
     0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
+    40% { transform: translateY(-8px); }
+    60% { transform: translateY(-4px); }
 }
 
 /* --- CONTENIDO DE LA INVITACIÓN --- */
@@ -271,13 +271,8 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 .img-final-pequena { width: 15%; max-width: 35px; height: auto; margin: 0 auto; display: block; opacity: 0.95; }
 
 @media (max-width: 600px) {
-    .target-title { font-size: 1.8rem; }
-    .target-name { font-size: 4rem; }
-    .galeria-inicio { height: 250px; width: 100%; } /* Altura en móviles */
-    .portada-info-integrated { height: 250px; } /* Misma altura en móviles para simetría perfecta */
-    .separador-overlap-absoluto { top: 250px; } /* Ajusta la posición del separador para móviles */
-    .main-cover-card { width: 95%; margin: 10px auto; }
-    .contenido-invitacion { padding: 10px 10px 30px 10px; }
+    .main-cover-card { width: 92%; max-width: 380px; }
+    .galeria-inicio { height: 220px; }
 }
 </style>
 </head>
@@ -299,6 +294,10 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             </div>
         </div>
 
+        <!-- LÍNEA DIVISORIA SUTIL -->
+        <div class="separador-linea-container">
+            <div class="linea-divisoria"></div>
+        </div>
 
         <!-- Información Integrada -->
         <div class="portada-info-integrated">
