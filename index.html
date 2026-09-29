@@ -23,11 +23,19 @@ color-scheme: light;
 --fuente-nombre: 'Alex Brush', cursive;
 }
 
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html, body {
+    -webkit-text-size-adjust: 100%; 
+    scroll-behavior: smooth; 
+    margin: 0; 
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
 
 body {
     -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
-    -webkit-touch-callout: none; margin: 0; padding: 0;
+    -webkit-touch-callout: none;
     /* FONDO DEL PASE DIRECTO - FIJADO PARA EFECTO PARALLAX */
     background-image: url('fondopase.jpeg');
     background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat;
@@ -41,45 +49,48 @@ img {
 
 .btn img { pointer-events: auto; }
 
-/* --- PORTADA DE PANTALLA COMPLETA UNIFICADA --- */
+/* --- PORTADA DE PANTALLA COMPLETA ABSOLUTA --- */
 .portada-unificada {
     position: relative;
-    width: 100%;
-    height: 100dvh; /* Ocupa exactamente la altura visible de la pantalla */
+    width: 100vw;
+    height: 100dvh; /* Ocupa exactamente toda la altura de la pantalla del celular */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     z-index: 10;
-    padding: 10px 0;
+    padding: 0;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
-/* EFECTO CRISTAL UNIFICADO PARA TODA LA PORTADA */
+/* TARJETA PRINCIPAL A PANTALLA COMPLETA */
 .main-cover-card {
     position: relative;
     background: rgba(1, 1, 1, 0.25);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
-    border-radius: 15px;
-    width: 90%;
-    max-width: 420px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    border: 1px solid rgba(17, 17, 17, 0.4);
-    margin: auto 0;
+    border-radius: 0; /* Sin bordes redondeados para cubrir todo el ancho */
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    box-shadow: none;
+    border: none;
+    margin: 0;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
-/* --- CARRUSEL INTEGRADO EN EL PANEL UNICO --- */
+/* --- CARRUSEL INTEGRADO A PANTALLA COMPLETA --- */
 .galeria-inicio {
     position: relative; 
     width: 100%; 
-    height: 260px; /* Altura equilibrada para celulares */
+    flex: 1.1; /* Ocupa la mitad superior de la pantalla */
     margin: 0;
-    border-radius: 15px 15px 0 0;
     overflow: hidden;
     z-index: 10;
 }
@@ -98,22 +109,24 @@ img {
 .galeria-inicio-inner img.activa { opacity: 1; }
 .galeria-inicio-inner img:nth-child(3) { object-position: center 30%; }
 
-/* --- LÍNEA DIVISORIA SUTIL ENTRE FOTO Y TEXTO --- */
+/* --- LÍNEA DIVISORIA SUTIL --- */
 .separador-linea-container {
-    width: 75%;
-    margin: 6px auto;
+    width: 80%;
+    margin: 4px auto;
     text-align: center;
+    z-index: 20;
 }
 .linea-divisoria {
     width: 100%;
     height: 1.5px;
     background: linear-gradient(to right, transparent, var(--color-principal), transparent);
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
-/* INFORMACIÓN INTEGRADA DEBAJO DE LAS FOTOS */
+/* INFORMACIÓN INTEGRADA EN LA MITAD INFERIOR */
 .portada-info-integrated {
-    padding: 5px 15px 15px 15px;
+    flex: 1; /* Ocupa la mitad inferior de la pantalla */
+    padding: 5px 15px 10px 15px;
     width: 100%;
     box-sizing: border-box;
     display: flex;
@@ -124,18 +137,18 @@ img {
 
 h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
 .target-title { 
-    font-size: 1.7rem; 
+    font-size: 1.8rem; 
     letter-spacing: 3px; 
     color: var(--color-principal); 
-    margin: 2px 0 0 0; 
+    margin: 0; 
     line-height: 1.2; 
     text-shadow: 1px 1px 3px rgba(255,255,255,0.8); 
 }
 .target-name { 
     font-family: var(--fuente-nombre); 
-    font-size: 4.5rem; 
+    font-size: 4.8rem; 
     color: var(--color-principal); 
-    margin: -3px 0 5px 0; 
+    margin: -5px 0 0 0; 
     font-weight: normal; 
     line-height: 1; 
     letter-spacing: 2px; 
@@ -143,14 +156,17 @@ h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
 }
 
 /* CONTADOR INTEGRADO */
-.contador-integrated { display: flex; justify-content: center; gap: 6px; margin: 0 auto; width: 100%; }
-.contador-item-integrated { display: flex; flex-direction: column; align-items: center; background: rgba(255, 255, 255, 0.4); border-radius: 5px; padding: 5px 8px; min-width: 45px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-.contador-numero-integrated { font-family: var(--fuente-titulos); font-size: 1.2rem; color: var(--color-principal); font-weight: bold; line-height: 1; }
-.contador-etiqueta-integrated { font-family: var(--fuente-cuerpo); font-size: 0.55rem; text-transform: uppercase; color: var(--color-texto); margin-top: 2px; letter-spacing: 1px; font-weight: 800; }
+.contador-integrated { display: flex; justify-content: center; gap: 8px; margin: 0 auto; width: 100%; }
+.contador-item-integrated { display: flex; flex-direction: column; align-items: center; background: rgba(255, 255, 255, 0.4); border-radius: 6px; padding: 6px 10px; min-width: 50px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.contador-numero-integrated { font-family: var(--fuente-titulos); font-size: 1.3rem; color: var(--color-principal); font-weight: bold; line-height: 1; }
+.contador-etiqueta-integrated { font-family: var(--fuente-cuerpo); font-size: 0.6rem; text-transform: uppercase; color: var(--color-texto); margin-top: 3px; letter-spacing: 1px; font-weight: 800; }
 
 /* ANIMACIÓN PARA INDICAR DESLIZAR HACIA ARRIBA */
 .integrated-scroll-indicator {
-    margin-bottom: 5px;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -161,19 +177,20 @@ h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
     text-transform: uppercase;
     text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
     animation: bounce-up 2s infinite;
+    z-index: 30;
 }
 .integrated-scroll-indicator svg { width: 22px; height: 22px; fill: var(--color-principal); margin-bottom: 2px; }
 
 @keyframes bounce-up {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-8px); }
-    60% { transform: translateY(-4px); }
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(-8px); }
+    60% { transform: translateX(-50%) translateY(-4px); }
 }
 
 /* --- CONTENIDO DE LA INVITACIÓN --- */
 .contenido-invitacion {
     position: relative; z-index: 5;
-    max-width: 500px; margin: 0 auto; padding: 10px 15px 40px 15px;
+    max-width: 500px; margin: 0 auto; padding: 20px 15px 40px 15px;
 }
 
 .card {
@@ -269,11 +286,6 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 .frase-final-container { margin: 25px auto 0 auto; text-align: center; }
 .frase-final-texto { font-family: var(--fuente-titulos); font-size: 1.1rem; color: var(--color-principal); letter-spacing: 1.2px; font-weight: bold; margin-bottom: 6px; text-shadow: 1px 1px 2px rgba(255,255,255,0.8); }
 .img-final-pequena { width: 15%; max-width: 35px; height: auto; margin: 0 auto; display: block; opacity: 0.95; }
-
-@media (max-width: 600px) {
-    .main-cover-card { width: 92%; max-width: 380px; }
-    .galeria-inicio { height: 220px; }
-}
 </style>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
@@ -282,7 +294,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 <source src="Can't Help Falling In Love - Viola Cover.mp3" type="audio/mpeg">
 </audio>
 
-<!-- ================= PORTADA UNIFICADA ================= -->
+<!-- ================= PORTADA A PANTALLA COMPLETA ================= -->
 <header class="portada-unificada">
     <div class="main-cover-card">
         <!-- Carrusel Integrado -->
@@ -314,7 +326,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         </div>
     </div>
 
-    <!-- Indicador de Deslizamiento -->
+    <!-- Indicador de Deslizamiento (Fijo abajo y visible) -->
     <div class="integrated-scroll-indicator">
         <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
         Desliza hacia arriba
