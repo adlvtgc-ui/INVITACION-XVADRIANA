@@ -71,7 +71,7 @@ img {
     background: rgba(1, 1, 1, 0.25);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
-    border-radius: 0; /* Sin bordes redondeados para cubrir todo el ancho */
+    border-radius: 0;
     width: 100%;
     height: 100%;
     max-width: 100%;
@@ -89,7 +89,7 @@ img {
 .galeria-inicio {
     position: relative; 
     width: 100%; 
-    flex: 1.1; /* Ocupa la mitad superior de la pantalla */
+    flex: 1.1; 
     margin: 0;
     overflow: hidden;
     z-index: 10;
@@ -111,60 +111,61 @@ img {
 
 /* --- LÍNEA DIVISORIA SUTIL --- */
 .separador-linea-container {
-    width: 80%;
-    margin: 4px auto;
+    width: 85%;
+    margin: 6px auto;
     text-align: center;
     z-index: 20;
 }
 .linea-divisoria {
     width: 100%;
-    height: 1.5px;
+    height: 2px;
     background: linear-gradient(to right, transparent, var(--color-principal), transparent);
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
-/* INFORMACIÓN INTEGRADA EN LA MITAD INFERIOR */
+/* INFORMACIÓN INTEGRADA ( MÁS GRANDE Y ARMÓNICA ) */
 .portada-info-integrated {
-    flex: 1; /* Ocupa la mitad inferior de la pantalla */
-    padding: 5px 15px 10px 15px;
+    flex: 1; 
+    padding: 10px 20px 20px 20px;
     width: 100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 }
 
 h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
 .target-title { 
-    font-size: 1.8rem; 
-    letter-spacing: 3px; 
+    font-size: 2.2rem; /* Título más grande y visible */
+    font-weight: 700; /* Más grueso */
+    letter-spacing: 4px; 
     color: var(--color-principal); 
     margin: 0; 
     line-height: 1.2; 
-    text-shadow: 1px 1px 3px rgba(255,255,255,0.8); 
+    text-shadow: 1px 1px 3px rgba(255,255,255,0.9); 
 }
 .target-name { 
     font-family: var(--fuente-nombre); 
-    font-size: 4.8rem; 
+    font-size: 6rem; /* Nombre mucho más impactante y amplio */
     color: var(--color-principal); 
-    margin: -5px 0 0 0; 
+    margin: -5px 0 5px 0; 
     font-weight: normal; 
     line-height: 1; 
     letter-spacing: 2px; 
-    text-shadow: 2px 2px 4px rgba(255,255,255,0.7); 
+    text-shadow: 2px 2px 5px rgba(255,255,255,0.8); 
 }
 
-/* CONTADOR INTEGRADO */
-.contador-integrated { display: flex; justify-content: center; gap: 8px; margin: 0 auto; width: 100%; }
-.contador-item-integrated { display: flex; flex-direction: column; align-items: center; background: rgba(255, 255, 255, 0.4); border-radius: 6px; padding: 6px 10px; min-width: 50px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-.contador-numero-integrated { font-family: var(--fuente-titulos); font-size: 1.3rem; color: var(--color-principal); font-weight: bold; line-height: 1; }
-.contador-etiqueta-integrated { font-family: var(--fuente-cuerpo); font-size: 0.6rem; text-transform: uppercase; color: var(--color-texto); margin-top: 3px; letter-spacing: 1px; font-weight: 800; }
+/* CONTADOR INTEGRADO MÁS DESTACADO */
+.contador-integrated { display: flex; justify-content: center; gap: 10px; margin: 0 auto; width: 100%; }
+.contador-item-integrated { display: flex; flex-direction: column; align-items: center; background: rgba(255, 255, 255, 0.45); border-radius: 8px; padding: 8px 12px; min-width: 55px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+.contador-numero-integrated { font-family: var(--fuente-titulos); font-size: 1.6rem; color: var(--color-principal); font-weight: bold; line-height: 1; }
+.contador-etiqueta-integrated { font-family: var(--fuente-cuerpo); font-size: 0.65rem; text-transform: uppercase; color: var(--color-texto); margin-top: 4px; letter-spacing: 1px; font-weight: 800; }
 
 /* ANIMACIÓN PARA INDICAR DESLIZAR HACIA ARRIBA */
 .integrated-scroll-indicator {
     position: absolute;
-    bottom: 5px;
+    bottom: 8px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -172,14 +173,14 @@ h1, h2, h3, h4 { font-family: var(--fuente-titulos); margin-bottom: 0; }
     align-items: center;
     color: var(--color-principal);
     font-weight: bold;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     letter-spacing: 2px;
     text-transform: uppercase;
     text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
     animation: bounce-up 2s infinite;
     z-index: 30;
 }
-.integrated-scroll-indicator svg { width: 22px; height: 22px; fill: var(--color-principal); margin-bottom: 2px; }
+.integrated-scroll-indicator svg { width: 24px; height: 24px; fill: var(--color-principal); margin-bottom: 2px; }
 
 @keyframes bounce-up {
     0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
@@ -326,7 +327,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         </div>
     </div>
 
-    <!-- Indicador de Deslizamiento (Fijo abajo y visible) -->
+    <!-- Indicador de Deslizamiento -->
     <div class="integrated-scroll-indicator">
         <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
         Desliza hacia arriba
