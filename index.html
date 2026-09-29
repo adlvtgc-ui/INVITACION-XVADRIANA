@@ -42,6 +42,7 @@ body {
     font-family: var(--fuente-cuerpo); color: var(--color-texto); text-align: center;
 }
 
+/* BLOQUEO GLOBAL DE IMÁGENES (NINGUNA SE PUEDE GUARDAR EXCEPTO EL PASE) */
 img {
     -webkit-user-drag: none; -khtml-user-drag: none; -moz-user-drag: none; -o-user-drag: none; user-drag: none;
     -webkit-touch-callout: none !important; pointer-events: none;
@@ -49,7 +50,7 @@ img {
 
 .btn img { pointer-events: auto; }
 
-/* --- CORRECCIÓN PARA PERMITIR GUARDAR EL PASE GENERADO EN MÓVILES --- */
+/* --- PERMITIR GUARDAR EXCLUSIVAMENTE EL PASE GENERADO EN MÓVILES --- */
 #img-pase-generado {
     -webkit-touch-callout: default !important; /* Habilita el menú nativo de guardado en iOS/Android */
     pointer-events: auto !important;
@@ -520,9 +521,24 @@ function crearLluviaDeEstrellas() {
 }
 crearLluviaDeEstrellas();
 
+// Bloquear menú contextual globalmente EXCEPTO en el pase generado
 document.addEventListener('contextmenu', e => {
-    if(e.target.id !== 'img-pase-generado') { e.preventDefault(); }
+    if(e.target.id !== 'img-pase-generado') { 
+        e.preventDefault(); 
+    }
 });
+
+// Función auxiliar para convertir DataURL a Blob (permite guardar en móviles)
+function dataURItoBlob(dataURI) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], {type: mimeString});
+}
 
 // =========================================================================
 // BASE DE DATOS DE NOMBRES Y BLOQUEO POR DISPOSITIVO
@@ -684,9 +700,11 @@ document.addEventListener("DOMContentLoaded", function() {
             html2canvas(templateElement, { scale: 3, useCORS: true }).then(canvas => {
                 templateElement.style.display = 'none';
                 const dataUrl = canvas.toDataURL('image/png');
+                const blob = dataURItoBlob(dataUrl);
+                const blobUrl = URL.createObjectURL(blob);
 
                 cardConfirmado.style.display = 'none';
-                document.getElementById('img-pase-generado').src = dataUrl;
+                document.getElementById('img-pase-generado').src = blobUrl;
                 document.getElementById('pase-final-container').style.display = 'block';
                 
                 document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
@@ -785,17 +803,19 @@ document.addEventListener("DOMContentLoaded", function() {
             html2canvas(templateElement, { scale: 3, useCORS: true }).then(canvas => {
                 templateElement.style.display = 'none';
                 const dataUrl = canvas.toDataURL('image/png');
+                const blob = dataURItoBlob(dataUrl);
+                const blobUrl = URL.createObjectURL(blob);
 
                 const enlace = document.createElement('a');
                 let nombreArchivoDescarga = nombreGrupo.replace(/\s+/g, '_');
                 enlace.download = `Pase_XV_Adriana_${nombreArchivoDescarga}.png`;
-                enlace.href = dataUrl;
+                enlace.href = blobUrl;
                 document.body.appendChild(enlace);
                 try { enlace.click(); } catch(e){}
                 document.body.removeChild(enlace);
 
                 document.getElementById('pase-entrada').style.display = 'none';
-                document.getElementById('img-pase-generado').src = dataUrl;
+                document.getElementById('img-pase-generado').src = blobUrl;
                 document.getElementById('pase-final-container').style.display = 'block';
                 
                 document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
