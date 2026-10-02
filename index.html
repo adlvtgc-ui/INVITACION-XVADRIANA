@@ -424,7 +424,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️️ Solo tienes una oportunidad de búsqueda.</span></div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Solo tienes una oportunidad de búsqueda.</span></div>
 
 <div id="wrapper-busqueda">
     <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. pedro picapiedra" autocomplete="off">
@@ -600,9 +600,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v66_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v66_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v66_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v67_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v67_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v67_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
@@ -774,31 +774,36 @@ document.addEventListener("DOMContentLoaded", function() {
             localStorage.setItem(CONFIRMED_KEY, 'true');
 
             // =========================================================
-            // 2. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO
+            // 2. ENVIAR A GOOGLE SHEETS MEDIANTE FORMULARIO OCULTO (IFRAME)
             // =========================================================
-          // =========================================================
-            // 2. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO (MÉTODO SEGURO)
-            // =========================================================
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwNzeZwIWetZdjZoYoK9ysvBwtlWuJ8j-VGnGxmnhpERkFfCOXjjGsuMLfFaMw06K7i/exec'; 
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwNzeZWIWetZdjZoYoK9ysvBwtlWuJ8j-VGnGxmnhpERkffCOxjjGsuMLfFaMw06K7i/exec'; 
             
-            let datosFormulario = new URLSearchParams();
-            datosFormulario.append('familia', nombreGrupo);
-            datosFormulario.append('confirmados', confirmadosNombres.join(" - "));
-            datosFormulario.append('noAsisten', noAsistenNombres.join(" - "));
-            datosFormulario.append('total', confirmadosNombres.length);
+            let form = document.createElement('form');
+            form.action = scriptURL;
+            form.method = 'POST';
+            form.target = 'hidden_iframe';
 
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: datosFormulario
-            }).then(() => {
-                console.log('✅ Datos enviados correctamente a Google Sheets');
-            }).catch(error => {
-                console.error('❌ Error de conexión:', error);
-            });
+            let datos = {
+                'familia': nombreGrupo,
+                'confirmados': confirmadosNombres.join(" - "),
+                'noAsisten': noAsistenNombres.join(" - "),
+                'total': confirmadosNombres.length
+            };
+
+            for (let key in datos) {
+                let input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = datos[key];
+                form.appendChild(input);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
             // =========================================================
 
-            // 3. ACTUALIZAR INTERFAZ Y GENERAR IMAGEN DEL PASE
+            // 3. ACTUALIZAR INTERFAZ Y GENERAR IMAGEN DEL PASO
             let listaHtml = '';
             confirmadosNombres.forEach(n => {
                 listaHtml += `<li>${n}</li>`;
@@ -832,7 +837,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 mensajeWa += `%0A¡Ya tengo mi pase digital! Allá nos vemos ✨`;
 
-                // Dar medio segundo de gracia para que se pinte la imagen antes del salto
                 setTimeout(() => {
                     window.location.href = `https://wa.me/525611730224?text=${mensajeWa}`;
                 }, 600);
@@ -880,6 +884,9 @@ const intervalo = setInterval(function() {
     document.getElementById("segundos").innerHTML = String(Math.floor((distancia % (1000 * 60)) / 1000)).padStart(2, '0');
 }, 1000);
 </script>
+
+<!-- IFRAME OCULTO NECESARIO PARA EL REGISTRO EN GOOGLE SHEETS -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
 </body>
 </html>
