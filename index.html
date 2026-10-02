@@ -776,26 +776,25 @@ document.addEventListener("DOMContentLoaded", function() {
             // =========================================================
             // 2. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO
             // =========================================================
+          // =========================================================
+            // 2. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO (MÉTODO SEGURO)
             // =========================================================
-            // 2. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO
-            // =========================================================
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwNzeZwIWetZdjZoYoK9ysvBwtlWuJ8j-VGnGxmnhpERkFfCOXjjGsuMLfFaMw06K7i/exec'; 
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwNzeZWIWetZdjZoYoK9ysvBwtlWuJ8j-VGnGxmnhpERkffCOxjjGsuMLfFaMw06K7i/exec'; 
             
-            let payload = {
-                familia: nombreGrupo,
-                confirmados: confirmadosNombres,
-                noAsisten: noAsistenNombres
-            };
+            let datosFormulario = new URLSearchParams();
+            datosFormulario.append('familia', nombreGrupo);
+            datosFormulario.append('confirmados', confirmadosNombres.join(" - "));
+            datosFormulario.append('noAsisten', noAsistenNombres.join(" - "));
+            datosFormulario.append('total', confirmadosNombres.length);
 
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'no-cors', 
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(response => {
-                console.log('✅ Registro guardado en Google Sheets');
+                mode: 'no-cors',
+                body: datosFormulario
+            }).then(() => {
+                console.log('✅ Datos enviados correctamente a Google Sheets');
             }).catch(error => {
-                console.error('❌ Error al guardar en Excel!', error.message);
+                console.error('❌ Error de conexión:', error);
             });
             // =========================================================
 
