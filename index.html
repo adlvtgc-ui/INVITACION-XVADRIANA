@@ -776,25 +776,27 @@ document.addEventListener("DOMContentLoaded", function() {
             // =========================================================
             // 2. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO
             // =========================================================
-            // 👇 REEMPLAZA ESTE TEXTO CON EL LINK QUE TE DIÓ GOOGLE APPS SCRIPT 👇
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwNzeZwIWetZdjZoYoK9ysvBwtlWuJ8j-VGnGxmnhpERkFfCOXjjGsuMLfFaMw06K7i/exec'; 
+            // =========================================================
+            // 2. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO
+            // =========================================================
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwNzeZWIWetZdjZoYoK9ysvBwtlWuJ8j-VGnGxmnhpERkffCOxjjGsuMLfFaMw06K7i/exec'; 
             
-            if (scriptURL !== 'https://script.google.com/macros/s/AKfycbwNzeZwIWetZdjZoYoK9ysvBwtlWuJ8j-VGnGxmnhpERkFfCOXjjGsuMLfFaMw06K7i/exec') {
-                let payload = {
-                    familia: nombreGrupo,
-                    confirmados: confirmadosNombres,
-                    noAsisten: noAsistenNombres
-                };
+            let payload = {
+                familia: nombreGrupo,
+                confirmados: confirmadosNombres,
+                noAsisten: noAsistenNombres
+            };
 
-                fetch(scriptURL, {
-                    method: 'POST',
-                    mode: 'no-cors', 
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                }).then(response => {
-                    console.log('Registro guardado en Google Sheets');
-                }).catch(error => console.error('Error al guardar en Excel!', error.message));
-            }
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(response => {
+                console.log('✅ Registro guardado en Google Sheets');
+            }).catch(error => {
+                console.error('❌ Error al guardar en Excel!', error.message);
+            });
             // =========================================================
 
             // 3. ACTUALIZAR INTERFAZ Y GENERAR IMAGEN DEL PASE
