@@ -461,7 +461,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 <div class="card-title">¡Pase Generado!</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-size: 0.85rem; color: #333;">
-    Tu pase ha sido generado con éxito. Si tu dispositivo no lo descargó automáticamente, <b>mantén presionada la imagen de abajo</b> y selecciona "Guardar en Fotos".
+    Tu pase ha sido generado con éxito.
 </div>
 <img id="img-pase-generado" src="" alt="Tu Pase Oficial" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.25); margin-top: 15px;">
 </div>
@@ -544,70 +544,223 @@ function dataURItoBlob(dataURI) {
 // BASE DE DATOS DE NOMBRES Y BLOQUEO POR DISPOSITIVO
 // =========================================================================
 const baseDeDatosInvitados = {
-    "FAMILIA 1": [ "MARIO LARA P", "MARIO LARA V", "DIANA VALLADARES", "DALIA DE LA O", "RODRIGO LARA", "ADRIANA LARA" ],
-    "FAMILIA 2": [ "DALIA LARA", "CRESCENCIO TOLENTINO" ],
-    "FAMILIA 3": [ "ZALMA CORREA", "CARLOS MARTINEZ" ],
-    "FAMILIA 4": [ "ALMA SANJUAN", "EDUARDO MARTINEZ" ],
-    "FAMILIA 5": [ "SONIA VALLADARES", "MARIANA MOYA", "INVITADO MARIANA", "LUIS MOYA", "SAMANTHA ARAUJO", "INVITADO SONIA" ],
-    "FAMILIA 6": [ "SONIA MOYA", "ROBERTO VAZQUEZ" ],
-    "FAMILIA 7": [ "ADRIAN DE LA O", "PATRICIA GARCIA", "ALAN DE LA O", "DANIELA AGUILAR", "THIAGO DE LA O" ],
-    "FAMILIA 8": [ "OSCAR VALLADARES", "LEO DE LA O" ],
-    "FAMILIA 9": [ "VERONICA BORGES", "MOISES ENRIQUEZ", "MOISES ENRIQUEZ BORGES", "BETSABE ENRIQUEZ", "INVITADO" ],
-    "FAMILIA 10": [ "CARLOS DE LA O", "ESTELA VAZQUEZ", "CARLOS DE LA O V." ],
-    "FAMILIA 11": [ "JENNYFER DE LA O", "JONATHAN GUTIERREZ" ],
-    "FAMILIA 12": [ "CLAUDIA BORGES", "RAFAEL VAZQUEZ", "DAVID VAZQUEZ" ],
-    "FAMILIA 13": [ "RAFAEL VAZQUEZ", "KARINA SEDEÑO" ],
-    "FAMILIA 14": [ "ELIOS DE LA O", "MIZRAIM SOSA", "MIZRAIM DE LA O SOSA" ],
-    "FAMILIA 15": [ "AIDA DE LA O", "TEODORO OLVERA" ],
-    "FAMILIA 16": [ "RICARDO CHAVARRIA", "ANA LILIA PLATA", "FERNANDO CHAVARRIA" ],
-    "FAMILIA 17": [ "LIBERTAD DE LA O" ],
-    "FAMILIA 18": [ "MONICA RANGEL", "ARMANDO CHAVARRÍA" ],
-    "FAMILIA 19": [ "ALICIA RANGEL", "FRANCISCO GUERRERO" ],
-    "FAMILIA 20": [ "MABE DE LA O", "JUAN CARREÑO" ],
-    "FAMILIA 21": [ "ALEJANDRA DE LA O" ],
-    "FAMILIA 22": [ "ELSA RANGEL", "VICTOR GARCIA", "DAVID RANGEL" ],
-    "FAMILIA 23": [ "ELSA LARA", "ERIKA RIOS", "LUIS J. LOZANO" ],
-    "FAMILIA 24": [ "SANDRA LARA", "JORGE PINEDA", "BRIAN CRUZ", "JAN C. CRUZ" ],
-    "FAMILIA 25": [ "MONSERRAT LARA", "MIGUEL A. RAÑO", "DIEGO NERIO", "LUCIANO MORENO" ],
-    "FAMILIA 26": [ "LILIANA LARA", "FRANCISCO J. COLIN", "FRANCISCO Y. COLIN" ],
-    "FAMILIA 27": [ "MARINA LARA", "JOSE RIOS", "ARTEMISA RIOS", "RAZIEL RIOS", "URIEL RIOS" ],
-    "FAMILIA 28": [ "IRWYN RIOS", "KIARET CANO" ],
-    "FAMILIA 29": [ "GUILLERMO RIOS", "ALMA DELIA SANCHEZ" ],
-    "FAMILIA 30": [ "CRISTIAN RIOS", "FERNANDO VELA" ],
-    "FAMILIA 31": [ "JOSE RENE RIOS", "YOLANDA CASTRO", "RENE RIOS", "ABRIL MENDOZA", "EVELIN L. RAMOS", "INVITADO" ],
-    "FAMILIA 32": [ "RAMSES RIOS", "ROSA I. CABRALES", "JOSÉ J. RIOS" ],
-    "FAMILIA 33": [ "HUGO A. LOPEZ", "PERLA J. CAVAZOS", "VALENTINA LOPEZ", "GENOVEVA MARTINEZ" ],
-    "FAMILIA 34": [ "PRICILA LOPEZ", "MANUEL ESTRADA", "ESTEFANY ESTRADA" ],
-    "FAMILIA 35": [ "CARLOS E. MENDOZA", "ROCIO N. JIMENEZ" ],
-    "FAMILIA 36": [ "ANGEL J. OCHOA", "ENRIQUE X. CONTRERAS", "BRANDON SANCHEZ" ],
-    "FAMILIA 37": [ "GRISELDA RAMIREZ", "VICTOR H. PESINA", "JANET TORRES", "VALERIA I. PESINA" ],
-    "FAMILIA 38": [ "CRISTOPHER SALZAR", "BETZABE LEGORRETA" ],
-    "FAMILIA 39": [ "REGINA SOLIS", "ALBERTO ORNELAS" ],
-    "FAMILIA 40": [ "ALMA DELIA DE LA CRUZ", "BRYAN SANCHEZ" ],
-    "FAMILIA 41": [ "AXEL DE LA VEGA", "MARO GRANADOS" ],
-    "KAREN CORTES": [ "KAREN CORTES" ],
-    "MIA": [ "MIA" ],
-    "ALEJANDRO PEREZ": [ "ALEJANDRO PEREZ" ],
-    "ELIEL HUIZAR": [ "ELIEL HUIZAR" ],
-    "DASTAN": [ "DASTAN" ],
-    "DIANA": [ "DIANA" ],
-    "GERALDINE": [ "GERALDINE" ],
-    "ERICK": [ "ERICK" ],
-    "IKER": [ "IKER" ],
-    "HELENA": [ "HELENA" ],
-    "JOHA": [ "JOHA" ],
-    "REGI": [ "REGI" ],
-    "VALE": [ "VALE" ],
-    "VELE2": [ "VELE2" ],
-    "SAM": [ "SAM" ],
-    "JORGE": [ "JORGE" ],
-    "NETO": [ "NETO" ],
-    "SARA": [ "SARA" ],
-    "DIRSE": [ "DIRSE" ],
-    "JOEL": [ "JOEL" ],
-    "DYLAN": [ "DYLAN" ],
-    "LALO": [ "LALO" ],
-    "JULIETA": [ "JULIETA" ]
+  "FAMILIA 1": [
+    "MARIO LARA P",
+    "MARIO LARA V",
+    "DIANA VALLADARES",
+    "DALIA DE LA O",
+    "RODRIGO LARA",
+    "ADRIANA LARA"
+  ],
+  "FAMILIA 2": [
+    "DALIA LARA",
+    "CRESCENCIO TOLENTINO"
+  ],
+  "FAMILIA 3": [
+    "ZALMA CORREA",
+    "CARLOS MARTINEZ"
+  ],
+  "FAMILIA 4": [
+    "ALMA SANJUAN",
+    "EDUARDO MARTINEZ"
+  ],
+  "FAMILIA 5": [
+    "SONIA VALLADARES",
+    "MARIANA MOYA",
+    "GAEL GOMEZ",
+    "BERDARDO MOYA"
+  ],
+  "FAMILIA 6": [
+    "LUIS MOYA",
+    "SAMANTHA ARAUJO"
+  ],
+  "FAMILIA 7": [
+    "SONIA MOYA",
+    "ROBERTO VAZQUEZ"
+  ],
+  "FAMILIA 8": [
+    "ADRIAN DE LA O",
+    "PATRICIA GARCIA",
+    "ALAN DE LA O",
+    "DANIELA AGUILAR",
+    "THIAGO DE LA O"
+  ],
+  "FAMILIA 9": [
+    "OSCAR VALLADARES",
+    "LEO DE LA O"
+  ],
+  "FAMILIA 10": [
+    "VERONICA BORGES",
+    "MOISES ENRIQUEZ",
+    "MOISES ENRIQUEZ BORGES",
+    "BETSABE ENRIQUEZ",
+    "LUIS ANTONIO"
+  ],
+  "FAMILIA 11": [
+    "CARLOS DE LA O",
+    "ESTELA VAZQUEZ",
+    "CARLOS DE LA O V."
+  ],
+  "FAMILIA 12": [
+    "JENNYFER DE LA O",
+    "JONATHAN GUTIERREZ"
+  ],
+  "FAMILIA 13": [
+    "CLAUDIA BORGES",
+    "RAFAEL VAZQUEZ",
+    "DAVID VAZQUEZ"
+  ],
+  "FAMILIA 14": [
+    "RAFAEL VAZQUEZ",
+    "KARINA SEDEÑO"
+  ],
+  "FAMILIA 15": [
+    "ELIOS DE LA O",
+    "MIZRAIM SOSA",
+    "MIZRAIM DE LA O SOSA"
+  ],
+  "FAMILIA 16": [
+    "AIDA DE LA O",
+    "TEODORO OLVERA"
+  ],
+  "FAMILIA 17": [
+    "RICARDO CHAVARRIA",
+    "ANA LILIA PLATA",
+    "FERNANDO CHAVARRIA"
+  ],
+  "FAMILIA 18": [
+    "LIBERTAD DE LA O"
+  ],
+  "FAMILIA 19": [
+    "MONICA RANGEL",
+    "ARMANDO CHAVARRÍA"
+  ],
+  "FAMILIA 20": [
+    "ALICIA RANGEL",
+    "FRANCISCO GUERRERO"
+  ],
+  "FAMILIA 21": [
+    "MABE DE LA O",
+    "JUAN CARREÑO"
+  ],
+  "FAMILIA 22": [
+    "ALEJANDRA DE LA O"
+  ],
+  "FAMILIA 23": [
+    "ELSA RANGEL",
+    "VICTOR GARCIA",
+    "DAVID RANGEL"
+  ],
+  "FAMILIA 24": [
+    "ELSA LARA",
+    "ERIKA RIOS",
+    "LUIS J. LOZANO"
+  ],
+  "FAMILIA 25": [
+    "SANDRA LARA",
+    "JORGE PINEDA",
+    "BRIAN CRUZ",
+    "JAN C. CRUZ"
+  ],
+  "FAMILIA 26": [
+    "MONSERRAT LARA",
+    "MIGUEL A. RAÑO",
+    "DIEGO NERIO",
+    "LUCIANO MORENO"
+  ],
+  "FAMILIA 27": [
+    "LILIANA LARA",
+    "FRANCISCO J. COLIN",
+    "FRANCISCO Y. COLIN"
+  ],
+  "FAMILIA 28": [
+    "MARINA LARA",
+    "JOSE RIOS",
+    "ARTEMISA RIOS",
+    "RAZIEL RIOS",
+    "URIEL RIOS"
+  ],
+  "FAMILIA 29": [
+    "IRWYN RIOS",
+    "DIANA Q. CANO"
+  ],
+  "FAMILIA 30": [
+    "GUILLERMO RIOS",
+    "ALMA DELIA SANCHEZ"
+  ],
+  "FAMILIA 31": [
+    "CRISTIAN RIOS",
+    "FERNANDO VELA"
+  ],
+  "FAMILIA 32": [
+    "JOSE RENE RIOS",
+    "YOLANDA CASTRO",
+    "RENE RIOS",
+    "ABRIL MENDOZA",
+    "EVELIN L. RAMOS",
+    "RODRIGO RIOS"
+  ],
+  "FAMILIA 33": [
+    "RAMSES RIOS",
+    "ROSA I. CABRALES",
+    "JOSÉ J. RIOS"
+  ],
+  "FAMILIA 34": [
+    "HUGO A. LOPEZ",
+    "PERLA J. CAVAZOS",
+    "VALENTINA LOPEZ",
+    "GENOVEVA MARTINEZ"
+  ],
+  "FAMILIA 35": [
+    "PRICILA LOPEZ",
+    "MANUEL ESTRADA",
+    "ESTEFANY ESTRADA"
+  ],
+  "FAMILIA 36": [
+    "CARLOS E. MENDOZA",
+    "ROCIO N. JIMENEZ"
+  ],
+  "FAMILIA 37": [
+    "ANGEL J. OCHOA",
+    "ENRIQUE X. CONTRERAS",
+    "BRANDON SANCHEZ"
+  ],
+  "FAMILIA 38": [
+    "GRISELDA RAMIREZ",
+    "VICTOR H. PESINA",
+    "JANET TORRES",
+    "VALERIA I. PESINA"
+  ],
+  "FAMILIA 39": [
+    "REGINA SOLIS",
+    "ALBERTO ORNELAS"
+  ],
+  "FAMILIA 40": [
+    "ALMA DELIA DE LA CRUZ",
+    "BRYAN SANCHEZ"
+  ],
+  "FAMILIA 41": [
+    "AXEL DE LA VEGA",
+    "MARO GRANADOS"
+  ],
+  "RODRIGO AMIGOS": [
+    "KAREN CORTES",
+    "MIA"
+  ],
+  "MARIO AMIGOS": [
+    "ALEJANDRO PEREZ",
+    "ELIEL HUIZAR",
+    "JIMENA CORTES",
+    "GUSTAVO TIRO"
+  ],
+  "FAMILIA 42": [
+    "MARIO URIBE",
+    "ANABEL DE URIBE"
+  ],
+  "DIANA AMIGOS": [
+    "BLANCA I. GONZALEZ",
+    "WENDY TORRES"
+  ]
 };
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -619,9 +772,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v63_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v63_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v63_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v64_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v64_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v64_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
