@@ -428,3 +428,629 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 
 <div id="wrapper-busqueda">
     <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. pedro picapiedra" autocomplete="off">
+    <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pases</button>
+</div>
+
+<div id="mensaje-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: bold; margin-top: 12px; display: none;">
+    Lo sentimos, no encontramos una invitación. Asegúrate de escribir tu nombre y apellido correctamente.
+</div>
+</div>
+
+<!-- PASE DE ENTRADA (FORMULARIO) -->
+<div class="card" id="pase-entrada">
+<div class="card-title">Tus Pases Asignados</div>
+<div class="separador-rizos"><div class="linea-centro"></div></div>
+
+<div class="info-row" style="margin-top: 15px; font-weight: bold; font-size: 0.85rem;">
+    Por favor, marca si asistirá o no asistirá cada invitado:
+</div>
+
+<div id="lista-invitados-container" style="margin-top: 15px; display: flex; flex-direction: column; gap: 5px;"></div>
+
+<button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 20px; background-color: #2e7d32; font-size: 0.95rem;">
+    Confirmar Asistencia por WhatsApp 📥 ✨
+</button>
+
+<div style="font-size: 0.75rem; color: #555; margin-top: 8px; font-style: italic;">
+    Al confirmar se descargará tu pase digital de alta resolución y enviaremos un mensaje a Adriana.
+</div>
+</div>
+
+<!-- CONTENEDOR DE ÉXITO -->
+<div class="card" id="pase-final-container" style="display: none;">
+<div class="card-title">¡Pase Generado!</div>
+<div class="separador-rizos"><div class="linea-centro"></div></div>
+<div class="info-row" style="font-size: 0.85rem; color: #333;">
+    Tu pase ha sido generado con éxito.
+</div>
+<img id="img-pase-generado" src="" alt="Tu Pase Oficial" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.25); margin-top: 15px;">
+</div>
+
+<div class="frase-final-container">
+<p class="frase-final-texto">Queremos compartir la magia de esta noche contigo</p>
+<img src="imagenfinal.png" alt="Detalle final" class="img-final-pequena">
+</div>
+
+</div> <!-- FIN DEL CONTENEDOR DE INVITACIÓN -->
+
+<!-- PLANTILLA OCULTA DEL PASE DIGITAL -->
+<div id="pase-imagen-template">
+    <div class="tpl-encabezado-superior">
+        <div class="tpl-xv">MIS XV AÑOS</div>
+        <div class="tpl-nombre">Adriana</div>
+    </div>
+    <div class="tpl-imagen-chica">
+        <img src="pase.png" alt="Quinceañera Adriana">
+    </div>
+    <div class="tpl-caja-info">
+        <div class="tpl-sub-encabezado">
+            <div class="tpl-fecha">19 · DICIEMBRE · 2026</div>
+            <div class="tpl-divisor"></div>
+            <div class="tpl-sub">Pase Oficial Confirmado</div>
+        </div>
+        <ul class="tpl-lista" id="tpl-lista-nombres"></ul>
+        <div class="tpl-footer">Presenta este pase digital en la entrada. ¡Te esperamos!</div>
+    </div>
+</div>
+
+<script>
+// =========================================================================
+// EFECTO DE LLUVIA DE ESTRELLAS MÁGICAS
+// =========================================================================
+function crearLluviaDeEstrellas() {
+    const cuerpo = document.body;
+    const capaBrillos = document.createElement('div');
+    capaBrillos.style.position = 'fixed'; 
+    capaBrillos.style.top = '0'; capaBrillos.style.left = '0';
+    capaBrillos.style.width = '100vw'; capaBrillos.style.height = '100vh'; 
+    capaBrillos.style.pointerEvents = 'none'; capaBrillos.style.zIndex = '1'; 
+    cuerpo.appendChild(capaBrillos);
+
+    for (let i = 0; i < 200; i++) {
+        const destello = document.createElement('div');
+        destello.style.position = 'absolute';
+        destello.style.top = (Math.random() * 140 - 40) + '%'; 
+        destello.style.left = (Math.random() * 140 - 20) + '%';
+        const tamaño = (Math.random() * 8 + 3) + 'px'; 
+        destello.style.width = tamaño; destello.style.height = tamaño; destello.style.background = '#ffffff'; 
+        destello.style.clipPath = 'polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%)';
+        destello.style.filter = 'drop-shadow(0 0 3px rgba(212, 137, 185, 0.7))'; destello.style.opacity = '0';
+        destello.style.animation = `lluvia ${Math.random() * 5 + 3}s infinite linear ${Math.random() * 10}s`;
+        capaBrillos.appendChild(destello);
+    }
+}
+crearLluviaDeEstrellas();
+
+// Bloquear menú contextual globalmente EXCEPTO en el pase generado
+document.addEventListener('contextmenu', e => {
+    if(e.target.id !== 'img-pase-generado') { 
+        e.preventDefault(); 
+    }
+});
+
+// Función auxiliar para convertir DataURL a Blob (permite guardar en móviles)
+function dataURItoBlob(dataURI) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], {type: mimeString});
+}
+
+// =========================================================================
+// BASE DE DATOS DE NOMBRES Y BLOQUEO POR DISPOSITIVO
+// =========================================================================
+const baseDeDatosInvitados = {
+  "FAMILIA 1": [
+    "MARIO LARA P",
+    "MARIO LARA V",
+    "DIANA VALLADARES",
+    "DALIA DE LA O",
+    "RODRIGO LARA",
+    "ADRIANA LARA"
+  ],
+  "FAMILIA 2": [
+    "DALIA LARA",
+    "CRESCENCIO TOLENTINO"
+  ],
+  "FAMILIA 3": [
+    "ZALMA CORREA",
+    "CARLOS MARTINEZ"
+  ],
+  "FAMILIA 4": [
+    "ALMA SANJUAN",
+    "EDUARDO MARTINEZ"
+  ],
+  "FAMILIA 5": [
+    "SONIA VALLADARES",
+    "MARIANA MOYA",
+    "GAEL GOMEZ",
+    "BERDARDO MOYA"
+  ],
+  "FAMILIA 6": [
+    "LUIS MOYA",
+    "SAMANTHA ARAUJO"
+  ],
+  "FAMILIA 7": [
+    "SONIA MOYA",
+    "ROBERTO VAZQUEZ"
+  ],
+  "FAMILIA 8": [
+    "ADRIAN DE LA O",
+    "PATRICIA GARCIA",
+    "ALAN DE LA O",
+    "DANIELA AGUILAR",
+    "THIAGO DE LA O"
+  ],
+  "FAMILIA 9": [
+    "OSCAR VALLADARES",
+    "LEO DE LA O"
+  ],
+  "FAMILIA 10": [
+    "VERONICA BORGES",
+    "MOISES ENRIQUEZ",
+    "MOISES ENRIQUEZ BORGES",
+    "BETSABE ENRIQUEZ",
+    "LUIS ANTONIO"
+  ],
+  "FAMILIA 11": [
+    "CARLOS DE LA O",
+    "ESTELA VAZQUEZ",
+    "CARLOS DE LA O V."
+  ],
+  "FAMILIA 12": [
+    "JENNYFER DE LA O",
+    "JONATHAN GUTIERREZ"
+  ],
+  "FAMILIA 13": [
+    "CLAUDIA BORGES",
+    "RAFAEL VAZQUEZ",
+    "DAVID VAZQUEZ"
+  ],
+  "FAMILIA 14": [
+    "RAFAEL VAZQUEZ",
+    "KARINA SEDEÑO"
+  ],
+  "FAMILIA 15": [
+    "ELIOS DE LA O",
+    "MIZRAIM SOSA",
+    "MIZRAIM DE LA O SOSA"
+  ],
+  "FAMILIA 16": [
+    "AIDA DE LA O",
+    "TEODORO OLVERA"
+  ],
+  "FAMILIA 17": [
+    "RICARDO CHAVARRIA",
+    "ANA LILIA PLATA",
+    "FERNANDO CHAVARRIA"
+  ],
+  "FAMILIA 18": [
+    "LIBERTAD DE LA O"
+  ],
+  "FAMILIA 19": [
+    "MONICA RANGEL",
+    "ARMANDO CHAVARRÍA"
+  ],
+  "FAMILIA 20": [
+    "ALICIA RANGEL",
+    "FRANCISCO GUERRERO"
+  ],
+  "FAMILIA 21": [
+    "MABE DE LA O",
+    "JUAN CARREÑO"
+  ],
+  "FAMILIA 22": [
+    "ALEJANDRA DE LA O"
+  ],
+  "FAMILIA 23": [
+    "ELSA RANGEL",
+    "VICTOR GARCIA",
+    "DAVID RANGEL"
+  ],
+  "FAMILIA 24": [
+    "ELSA LARA",
+    "ERIKA RIOS",
+    "LUIS J. LOZANO"
+  ],
+  "FAMILIA 25": [
+    "SANDRA LARA",
+    "JORGE PINEDA",
+    "BRIAN CRUZ",
+    "JAN C. CRUZ"
+  ],
+  "FAMILIA 26": [
+    "MONSERRAT LARA",
+    "MIGUEL A. RAÑO",
+    "DIEGO NERIO",
+    "LUCIANO MORENO"
+  ],
+  "FAMILIA 27": [
+    "LILIANA LARA",
+    "FRANCISCO J. COLIN",
+    "FRANCISCO Y. COLIN"
+  ],
+  "FAMILIA 28": [
+    "MARINA LARA",
+    "JOSE RIOS",
+    "ARTEMISA RIOS",
+    "RAZIEL RIOS",
+    "URIEL RIOS"
+  ],
+  "FAMILIA 29": [
+    "IRWYN RIOS",
+    "DIANA Q. CANO"
+  ],
+  "FAMILIA 30": [
+    "GUILLERMO RIOS",
+    "ALMA DELIA SANCHEZ"
+  ],
+  "FAMILIA 31": [
+    "CRISTIAN RIOS",
+    "FERNANDO VELA"
+  ],
+  "FAMILIA 32": [
+    "JOSE RENE RIOS",
+    "YOLANDA CASTRO",
+    "RENE RIOS",
+    "ABRIL MENDOZA",
+    "EVELIN L. RAMOS",
+    "RODRIGO RIOS"
+  ],
+  "FAMILIA 33": [
+    "RAMSES RIOS",
+    "ROSA I. CABRALES",
+    "JOSÉ J. RIOS"
+  ],
+  "FAMILIA 34": [
+    "HUGO A. LOPEZ",
+    "PERLA J. CAVAZOS",
+    "VALENTINA LOPEZ",
+    "GENOVEVA MARTINEZ"
+  ],
+  "FAMILIA 35": [
+    "PRICILA LOPEZ",
+    "MANUEL ESTRADA",
+    "ESTEFANY ESTRADA"
+  ],
+  "FAMILIA 36": [
+    "CARLOS E. MENDOZA",
+    "ROCIO N. JIMENEZ"
+  ],
+  "FAMILIA 37": [
+    "ANGEL J. OCHOA",
+    "ENRIQUE X. CONTRERAS",
+    "BRANDON SANCHEZ"
+  ],
+  "FAMILIA 38": [
+    "GRISELDA RAMIREZ",
+    "VICTOR H. PESINA",
+    "JANET TORRES",
+    "VALERIA I. PESINA"
+  ],
+  "FAMILIA 39": [
+    "REGINA SOLIS",
+    "ALBERTO ORNELAS"
+  ],
+  "FAMILIA 40": [
+    "ALMA DELIA DE LA CRUZ",
+    "BRYAN SANCHEZ"
+  ],
+  "FAMILIA 41": [
+    "AXEL DE LA VEGA",
+    "MARO GRANADOS"
+  ],
+  "RODRIGO AMIGOS": [
+    "KAREN CORTES",
+    "MIA"
+  ],
+  "MARIO AMIGOS": [
+    "ALEJANDRO PEREZ",
+    "ELIEL HUIZAR",
+    "JIMENA CORTES",
+    "GUSTAVO TIRO"
+  ],
+  "FAMILIA 42": [
+    "MARIO URIBE",
+    "ANABEL DE URIBE"
+  ],
+  "DIANA AMIGOS": [
+    "BLANCA I. GONZALEZ",
+    "WENDY TORRES"
+  ]
+};
+
+document.addEventListener("DOMContentLoaded", function() {
+    const btnBuscar = document.getElementById('btn-buscar');
+    const inputBusqueda = document.getElementById('input-busqueda');
+    const seccionBusqueda = document.getElementById('seccion-busqueda');
+    const seccionPase = document.getElementById('pase-entrada');
+    const msjError = document.getElementById('mensaje-error');
+    const listaContainer = document.getElementById('lista-invitados-container');
+    const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
+
+    const STORAGE_KEY = 'adrianaXV_v65_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v65_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v65_confirmed';
+
+    let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
+    let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
+
+    function normalizarTexto(texto) {
+        return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    }
+
+    let indiceBusqueda = {};
+    for (let grupo in baseDeDatosInvitados) {
+        let invitados = baseDeDatosInvitados[grupo];
+        invitados.forEach(invitado => {
+            indiceBusqueda[normalizarTexto(invitado)] = grupo;
+        });
+        indiceBusqueda[normalizarTexto(grupo)] = grupo;
+    }
+
+    function renderInvitados(nombres, valoresGuardados = []) {
+        listaContainer.innerHTML = '';
+        nombres.forEach((nombre, i) => {
+            let seleccionSi = (!valoresGuardados[i] || valoresGuardados[i] === "si") ? "checked" : "";
+            let seleccionNo = (valoresGuardados[i] === "no") ? "checked" : "";
+
+            listaContainer.innerHTML += `
+                <div class="invitado-row">
+                    <div class="invitado-nombre">${i + 1}. ${nombre}</div>
+                    <div class="opciones-asistencia">
+                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="si" ${seleccionSi}> Asiste</label>
+                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="no" ${seleccionNo}> No asiste</label>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    if (localStorage.getItem(CONFIRMED_KEY)) {
+        seccionBusqueda.style.display = 'none';
+        let cardConfirmado = document.createElement('div');
+        cardConfirmado.className = 'card';
+        cardConfirmado.innerHTML = `
+            <div class="card-title">¡Asistencia Registrada!</div>
+            <div class="separador-rizos"><div class="linea-centro"></div></div>
+            <div class="info-row" style="font-size: 0.95rem; color: #333; margin-bottom: 15px;">
+                Ya has confirmado tu asistencia previamente en este dispositivo.
+            </div>
+            <button id="btn-ver-pase-guardado" class="btn" style="width: 100%; background-color: var(--color-principal);">
+                Ver / Descargar mi Pase Digital 🎟️
+            </button>
+        `;
+        seccionBusqueda.parentNode.insertBefore(cardConfirmado, seccionBusqueda);
+
+        document.getElementById('btn-ver-pase-guardado').addEventListener('click', function() {
+            let famKey = localStorage.getItem(STORAGE_KEY);
+            let asistenciaVals = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
+            if (!famKey || !baseDeDatosInvitados[famKey]) {
+                alert("No se encontró información de la familia en este dispositivo.");
+                return;
+            }
+            let nombres = baseDeDatosInvitados[famKey];
+            let confirmadosNombres = [];
+            nombres.forEach((n, i) => {
+                if (!asistenciaVals[i] || asistenciaVals[i] === "si") {
+                    confirmadosNombres.push(n);
+                }
+            });
+
+            let listaHtml = '';
+            confirmadosNombres.forEach(n => {
+                listaHtml += `<li>${n}</li>`;
+            });
+            document.getElementById('tpl-lista-nombres').innerHTML = listaHtml || '<li>Ningún asistente confirmado</li>';
+
+            const templateElement = document.getElementById('pase-imagen-template');
+            templateElement.style.display = 'flex';
+
+            html2canvas(templateElement, { scale: 3, useCORS: true }).then(canvas => {
+                templateElement.style.display = 'none';
+                const dataUrl = canvas.toDataURL('image/png');
+                const blob = dataURItoBlob(dataUrl);
+                const blobUrl = URL.createObjectURL(blob);
+
+                cardConfirmado.style.display = 'none';
+                document.getElementById('img-pase-generado').src = blobUrl;
+                document.getElementById('pase-final-container').style.display = 'block';
+                
+                document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
+            }).catch(err => {
+                templateElement.style.display = 'none';
+                alert("Error al generar la imagen del pase.");
+            });
+        });
+
+    } else if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
+        seccionBusqueda.style.display = 'none';
+        seccionPase.style.display = 'block';
+        let nombresDelGrupo = baseDeDatosInvitados[storedFamilyKey];
+        renderInvitados(nombresDelGrupo, storedAsistencia);
+    }
+
+    if(btnBuscar) {
+        btnBuscar.addEventListener('click', function() {
+            if (localStorage.getItem(STORAGE_KEY) || localStorage.getItem(CONFIRMED_KEY)) return;
+
+            let busquedaUsuario = normalizarTexto(inputBusqueda.value);
+            let palabrasReales = busquedaUsuario.split(" ").filter(p => p.length > 0);
+
+            if (palabrasReales.length < 2) {
+                alert("Por favor, escribe al menos un Nombre y un Apellido para encontrar tus pases.");
+                return;
+            }
+
+            let mejorCoincidencia = null;
+
+            for (let invitadoClave in indiceBusqueda) {
+                let coincideTodas = true;
+                for (let i = 0; i < palabrasReales.length; i++) {
+                    if (!invitadoClave.includes(palabrasReales[i])) {
+                        coincideTodas = false;
+                        break;
+                    }
+                }
+                if (coincideTodas) {
+                    mejorCoincidencia = indiceBusqueda[invitadoClave];
+                    break;
+                }
+            }
+
+            if (mejorCoincidencia) {
+                const nombresDelGrupo = baseDeDatosInvitados[mejorCoincidencia];
+                localStorage.setItem(STORAGE_KEY, mejorCoincidencia);
+                msjError.style.display = 'none';
+                seccionBusqueda.style.display = 'none';
+                seccionPase.style.display = 'block';
+                renderInvitados(nombresDelGrupo, []);
+                
+                seccionPase.scrollIntoView({behavior: "smooth", block: "center"});
+            } else {
+                msjError.style.display = 'block';
+            }
+        });
+    }
+
+    if(inputBusqueda) {
+        inputBusqueda.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") { event.preventDefault(); btnBuscar.click(); }
+        });
+    }
+
+    if(btnWhatsapp) {
+        btnWhatsapp.addEventListener('click', function() {
+            let nombreGrupo = localStorage.getItem(STORAGE_KEY);
+            if (!nombreGrupo) return;
+            
+            const nombres = baseDeDatosInvitados[nombreGrupo];
+            let confirmadosNombres = [];
+            let noAsistenNombres = [];
+            let valoresAsistencia = [];
+
+            nombres.forEach((nombre, i) => {
+                let radio = document.querySelector(`input[name="asistencia_${i}"]:checked`);
+                let valor = radio ? radio.value : "si";
+                valoresAsistencia.push(valor);
+                if (valor === "si") confirmadosNombres.push(nombre);
+                else noAsistenNombres.push(nombre);
+            });
+
+            // 1. GUARDAR EN EL CELULAR
+            localStorage.setItem(ASISTENCIA_KEY, JSON.stringify(valoresAsistencia));
+            localStorage.setItem(CONFIRMED_KEY, 'true');
+
+            // =========================================================
+            // 2. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO
+            // =========================================================
+            // 👇 REEMPLAZA ESTE TEXTO CON EL LINK QUE TE DIÓ GOOGLE APPS SCRIPT 👇
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwNzeZwIWetZdjZoYoK9ysvBwtlWuJ8j-VGnGxmnhpERkFfCOXjjGsuMLfFaMw06K7i/exec'; 
+            
+            if (scriptURL !== 'https://script.google.com/macros/s/AKfycbwNzeZwIWetZdjZoYoK9ysvBwtlWuJ8j-VGnGxmnhpERkFfCOXjjGsuMLfFaMw06K7i/execE') {
+                let payload = {
+                    familia: nombreGrupo,
+                    confirmados: confirmadosNombres,
+                    noAsisten: noAsistenNombres
+                };
+
+                fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).then(response => {
+                    console.log('Registro guardado en Google Sheets');
+                }).catch(error => console.error('Error al guardar en Excel!', error.message));
+            }
+            // =========================================================
+
+            // 3. ACTUALIZAR INTERFAZ Y GENERAR IMAGEN DEL PASE
+            let listaHtml = '';
+            confirmadosNombres.forEach(n => {
+                listaHtml += `<li>${n}</li>`;
+            });
+            document.getElementById('tpl-lista-nombres').innerHTML = listaHtml || '<li>Ningún asistente confirmado</li>';
+
+            const templateElement = document.getElementById('pase-imagen-template');
+            templateElement.style.display = 'flex';
+
+            html2canvas(templateElement, { scale: 3, useCORS: true }).then(canvas => {
+                templateElement.style.display = 'none';
+                const dataUrl = canvas.toDataURL('image/png');
+                const blob = dataURItoBlob(dataUrl);
+                const blobUrl = URL.createObjectURL(blob);
+
+                document.getElementById('pase-entrada').style.display = 'none';
+                document.getElementById('img-pase-generado').src = blobUrl;
+                document.getElementById('pase-final-container').style.display = 'block';
+                
+                document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
+
+                // 4. REDIRIGIR A WHATSAPP DE FORMA SEGURA PARA IPHONE
+                let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
+                if (confirmadosNombres.length > 0) {
+                    mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
+                    confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
+                }
+                if (noAsistenNombres.length > 0) {
+                    mensajeWa += `%0A❌ *NO PODRÁN ASISTIR:*%0A`;
+                    noAsistenNombres.forEach((n) => { mensajeWa += `- ${n}%0A`; });
+                }
+                mensajeWa += `%0A¡Ya tengo mi pase digital! Allá nos vemos ✨`;
+
+                // Dar medio segundo de gracia para que se pinte la imagen antes del salto
+                setTimeout(() => {
+                    window.location.href = `https://wa.me/525611730224?text=${mensajeWa}`;
+                }, 600);
+
+            }).catch(err => {
+                templateElement.style.display = 'none';
+                let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
+                if (confirmadosNombres.length > 0) {
+                    mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
+                    confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
+                }
+                window.location.href = `https://wa.me/525611730224?text=${mensajeWa}`;
+            });
+        });
+    }
+});
+
+// --- AUDIO Y GALERÍA ---
+window.addEventListener('click', () => { const audio = document.getElementById('musicaFondo'); if (audio.paused) { audio.play(); } }, { once: true });
+window.addEventListener('touchstart', () => { const audio = document.getElementById('musicaFondo'); if (audio.paused) { audio.play(); } }, { once: true });
+
+let indiceActual = 0;
+const imagenesGaleria = document.querySelectorAll('.galeria-inicio-inner img');
+setInterval(() => {
+    if(imagenesGaleria.length > 0) {
+        imagenesGaleria[indiceActual].classList.remove('activa');
+        indiceActual = (indiceActual + 1) % imagenesGaleria.length;
+        imagenesGaleria[indiceActual].classList.add('activa');
+    }
+}, 3500);
+
+// --- CUENTA REGRESIVA ---
+const fechaFiestaReal = new Date(2026, 11, 19, 18, 0, 0).getTime(); 
+const intervalo = setInterval(function() {
+    const ahora = new Date().getTime();
+    const distancia = fechaFiestaReal - ahora;
+    if (distancia < 0) {
+        clearInterval(intervalo);
+        document.getElementById("contador").innerHTML = "<div class='contador-numero'>¡El gran día ha llegado!</div>";
+        return;
+    }
+    document.getElementById("dias").innerHTML = Math.floor(distancia / (1000 * 60 * 60 * 24));
+    document.getElementById("horas").innerHTML = String(Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+    document.getElementById("minutos").innerHTML = String(Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+    document.getElementById("segundos").innerHTML = String(Math.floor((distancia % (1000 * 60)) / 1000)).padStart(2, '0');
+}, 1000);
+</script>
+
+</body>
+</html>
