@@ -424,7 +424,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠ Solo tienes una oportunidad de búsqueda.</span></div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Solo tienes una oportunidad de búsqueda.</span></div>
 
 <div id="wrapper-busqueda">
     <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. pedro picapiedra" autocomplete="off">
@@ -432,7 +432,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 </div>
 
 <div id="mensaje-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: bold; margin-top: 12px; display: none;">
-    Lo sentimos, no encontramos una invitación. Asegúrate de escribir tu nombre y apellido correctamente.
+    Lo sentimos, no encontramos una invitación. Asegúrate de escribir tu nombre o apellido correctamente.
 </div>
 </div>
 
@@ -587,11 +587,11 @@ const baseDeDatosInvitados = {
   "FAMILIA 41": [ "AXEL DE LA VEGA", "MARO GRANADOS" ],
   "FAMILIA 42": [ "MARIO URIBE", "ANABEL DE URIBE" ],
   "FAMILIA 43": [ "JIMENA CORTES", "GUSTAVO TIRO" ],
-  "AMIGOS": [ "KAREN CORTES" ],
-  "AMIGOS": [ "MIA" ],
-  "AMIGOS": [ "ALEJANDRO PEREZ" ],
-  "AMIGOS": [ "ELIEL HUIZAR" ],
-  "AMIGOS": [ "BLANCA I. GONZALEZ", "WENDY TORRES" ]
+  "AMIGO 1": [ "KAREN CORTES" ],
+  "AMIGO 2": [ "MIA" ],
+  "AMIGO 3": [ "ALEJANDRO PEREZ" ],
+  "AMIGO 4": [ "ELIEL HUIZAR" ],
+  "AMIGAS DIANA": [ "BLANCA I. GONZALEZ", "WENDY TORRES" ]
 };
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -603,9 +603,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v73_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v73_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v73_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v74_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v74_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v74_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
@@ -620,6 +620,7 @@ document.addEventListener("DOMContentLoaded", function() {
         invitados.forEach(invitado => {
             indiceBusqueda[normalizarTexto(invitado)] = grupo;
         });
+        // Agregar el nombre del grupo también al índice
         indiceBusqueda[normalizarTexto(grupo)] = grupo;
     }
 
@@ -721,14 +722,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
             let mejorCoincidencia = null;
 
+            // BUSCADOR MEJORADO: Valida palabra por palabra para no confundir nombres
             for (let invitadoClave in indiceBusqueda) {
+                let palabrasClave = invitadoClave.split(" ");
                 let coincideTodas = true;
+                
                 for (let i = 0; i < palabrasReales.length; i++) {
-                    if (!invitadoClave.includes(palabrasReales[i])) {
+                    // Verificamos si la palabra que buscó el usuario coincide EXACTAMENTE
+                    // con alguna de las palabras en el nombre del invitado guardado
+                    let encontrada = palabrasClave.some(p => p === palabrasReales[i]);
+                    
+                    if (!encontrada) {
                         coincideTodas = false;
                         break;
                     }
                 }
+                
                 if (coincideTodas) {
                     mejorCoincidencia = indiceBusqueda[invitadoClave];
                     break;
