@@ -424,7 +424,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 <div class="card-title">Confirmación</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Solo tienes una oportunidad de búsqueda.</span></div>
+<div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠ Solo tienes una oportunidad de búsqueda.</span></div>
 
 <div id="wrapper-busqueda">
     <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. pedro picapiedra" autocomplete="off">
@@ -585,9 +585,12 @@ const baseDeDatosInvitados = {
   "FAMILIA 39": [ "REGINA SOLIS", "ALBERTO ORNELAS" ],
   "FAMILIA 40": [ "ALMA DELIA DE LA CRUZ", "BRYAN SANCHEZ" ],
   "FAMILIA 41": [ "AXEL DE LA VEGA", "MARO GRANADOS" ],
-  "RODRIGO AMIGOS": [ "KAREN CORTES", "MIA" ],
-  "MARIO AMIGOS": [ "ALEJANDRO PEREZ", "ELIEL HUIZAR", "JIMENA CORTES", "GUSTAVO TIRO" ],
   "FAMILIA 42": [ "MARIO URIBE", "ANABEL DE URIBE" ],
+  "FAMILIA 43": [ "JIMENA CORTES", "GUSTAVO TIRO" ],
+  "AMIGO KAREN": [ "KAREN CORTES" ],
+  "AMIGO MIA": [ "MIA" ],
+  "AMIGO ALEJANDRO": [ "ALEJANDRO PEREZ" ],
+  "AMIGO ELIER": [ "ELIER HUIZAR" ],
   "DIANA AMIGOS": [ "BLANCA I. GONZALEZ", "WENDY TORRES" ]
 };
 
@@ -600,9 +603,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v68_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v68_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v68_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v73_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v73_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v73_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
@@ -678,21 +681,23 @@ document.addEventListener("DOMContentLoaded", function() {
             const templateElement = document.getElementById('pase-imagen-template');
             templateElement.style.display = 'flex';
 
-            html2canvas(templateElement, { scale: 3, useCORS: true }).then(canvas => {
-                templateElement.style.display = 'none';
-                const dataUrl = canvas.toDataURL('image/png');
-                const blob = dataURItoBlob(dataUrl);
-                const blobUrl = URL.createObjectURL(blob);
+            setTimeout(() => {
+                html2canvas(templateElement, { scale: 3, useCORS: true, allowTaint: true }).then(canvas => {
+                    templateElement.style.display = 'none';
+                    const dataUrl = canvas.toDataURL('image/png');
+                    const blob = dataURItoBlob(dataUrl);
+                    const blobUrl = URL.createObjectURL(blob);
 
-                cardConfirmado.style.display = 'none';
-                document.getElementById('img-pase-generado').src = blobUrl;
-                document.getElementById('pase-final-container').style.display = 'block';
-                
-                document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
-            }).catch(err => {
-                templateElement.style.display = 'none';
-                alert("Error al generar la imagen del pase.");
-            });
+                    cardConfirmado.style.display = 'none';
+                    document.getElementById('img-pase-generado').src = blobUrl;
+                    document.getElementById('pase-final-container').style.display = 'block';
+                    
+                    document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
+                }).catch(err => {
+                    templateElement.style.display = 'none';
+                    alert("Error al generar la imagen del pase.");
+                });
+            }, 600);
         });
 
     } else if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
@@ -709,8 +714,8 @@ document.addEventListener("DOMContentLoaded", function() {
             let busquedaUsuario = normalizarTexto(inputBusqueda.value);
             let palabrasReales = busquedaUsuario.split(" ").filter(p => p.length > 0);
 
-            if (palabrasReales.length < 2) {
-                alert("Por favor, escribe al menos un Nombre y un Apellido para encontrar tus pases.");
+            if (palabrasReales.length < 1) {
+                alert("Por favor, escribe un Nombre para buscar tu pase.");
                 return;
             }
 
@@ -783,43 +788,45 @@ document.addEventListener("DOMContentLoaded", function() {
             const templateElement = document.getElementById('pase-imagen-template');
             templateElement.style.display = 'flex';
 
-            html2canvas(templateElement, { scale: 3, useCORS: true }).then(canvas => {
-                templateElement.style.display = 'none';
-                const dataUrl = canvas.toDataURL('image/png');
-                const blob = dataURItoBlob(dataUrl);
-                const blobUrl = URL.createObjectURL(blob);
+            setTimeout(() => {
+                html2canvas(templateElement, { scale: 3, useCORS: true, allowTaint: true }).then(canvas => {
+                    templateElement.style.display = 'none';
+                    const dataUrl = canvas.toDataURL('image/png');
+                    const blob = dataURItoBlob(dataUrl);
+                    const blobUrl = URL.createObjectURL(blob);
 
-                document.getElementById('pase-entrada').style.display = 'none';
-                document.getElementById('img-pase-generado').src = blobUrl;
-                document.getElementById('pase-final-container').style.display = 'block';
-                
-                document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
+                    document.getElementById('pase-entrada').style.display = 'none';
+                    document.getElementById('img-pase-generado').src = blobUrl;
+                    document.getElementById('pase-final-container').style.display = 'block';
+                    
+                    document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
 
-                // 3. REDIRIGIR A WHATSAPP DE FORMA SEGURA PARA IPHONE Y ANDROID
-                let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
-                if (confirmadosNombres.length > 0) {
-                    mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
-                    confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
-                }
-                if (noAsistenNombres.length > 0) {
-                    mensajeWa += `%0A❌ *NO PODRÁN ASISTIR:*%0A`;
-                    noAsistenNombres.forEach((n) => { mensajeWa += `- ${n}%0A`; });
-                }
-                mensajeWa += `%0A¡Ya tengo mi pase digital! Allá nos vemos ✨`;
+                    // 3. REDIRIGIR A WHATSAPP DE FORMA SEGURA PARA IPHONE Y ANDROID
+                    let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
+                    if (confirmadosNombres.length > 0) {
+                        mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
+                        confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
+                    }
+                    if (noAsistenNombres.length > 0) {
+                        mensajeWa += `%0A❌ *NO PODRÁN ASISTIR:*%0A`;
+                        noAsistenNombres.forEach((n) => { mensajeWa += `- ${n}%0A`; });
+                    }
+                    mensajeWa += `%0A¡Ya tengo mi pase digital! Allá nos vemos ✨`;
 
-                setTimeout(() => {
+                    setTimeout(() => {
+                        window.location.href = `https://wa.me/525611730224?text=${mensajeWa}`;
+                    }, 800);
+
+                }).catch(err => {
+                    templateElement.style.display = 'none';
+                    let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
+                    if (confirmadosNombres.length > 0) {
+                        mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
+                        confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
+                    }
                     window.location.href = `https://wa.me/525611730224?text=${mensajeWa}`;
-                }, 600);
-
-            }).catch(err => {
-                templateElement.style.display = 'none';
-                let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
-                if (confirmadosNombres.length > 0) {
-                    mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
-                    confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
-                }
-                window.location.href = `https://wa.me/525611730224?text=${mensajeWa}`;
-            });
+                });
+            }, 600);
         });
     }
 });
