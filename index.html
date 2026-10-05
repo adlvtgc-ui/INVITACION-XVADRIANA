@@ -448,22 +448,27 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 <div id="lista-invitados-container" style="margin-top: 15px; display: flex; flex-direction: column; gap: 5px;"></div>
 
 <button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 20px; background-color: #2e7d32; font-size: 0.95rem;">
-    Confirmar Asistencia por WhatsApp 📥 ✨
+    Generar mi Pase y Enviar WhatsApp 📥 ✨
 </button>
 
 <div style="font-size: 0.75rem; color: #555; margin-top: 8px; font-style: italic;">
-    Al confirmar se descargará tu pase digital de alta resolución y enviaremos un mensaje a Adriana.
+    Al confirmar se descargará tu pase digital y aparecerá el botón directo a su WhatsApp.
 </div>
 </div>
 
 <!-- CONTENEDOR DE ÉXITO -->
 <div class="card" id="pase-final-container" style="display: none;">
-<div class="card-title">¡Pase Generado!</div>
+<div class="card-title">¡Pase Generado con Éxito!</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-size: 0.85rem; color: #333;">
-    Tu pase ha sido generado con éxito.
+    Mantén presionada la imagen para guardarla en tu celular (o descárgala desde tu navegador).
 </div>
 <img id="img-pase-generado" src="" alt="Tu Pase Oficial" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.25); margin-top: 15px;">
+
+<!-- BOTÓN SEGURO PARA WHATSAPP (100% COMPATIBLE CON IPHONE Y ANDROID) -->
+<a id="btn-enlace-whatsapp" href="#" target="_blank" class="btn" style="width: 100%; margin-top: 20px; background-color: #2e7d32; font-size: 0.95rem; text-decoration: none; display: inline-flex;">
+    Enviar Confirmación a Adriana por WhatsApp 💬 ✨
+</a>
 </div>
 
 <div class="frase-final-container">
@@ -586,7 +591,8 @@ const baseDeDatosInvitados = {
   "FAMILIA 40": [ "ALMA DELIA DE LA CRUZ", "BRYAN SANCHEZ" ],
   "FAMILIA 41": [ "AXEL DE LA VEGA", "MARO GRANADOS" ],
   "FAMILIA 42": [ "MARIO URIBE", "ANABEL DE URIBE" ],
-  "FAMILIA 43": [ "JIMENA CORTES", "GUSTAVO TIRO" ],
+  "AMIGO 5": [ "JIMENA CORTES" ],
+  "AMIGO 6": [ "GUSTAVO TIRO" ],
   "AMIGO 1": [ "KAREN CORTES" ],
   "AMIGO 2": [ "MIA" ],
   "AMIGO 3": [ "ALEJANDRO PEREZ" ],
@@ -603,9 +609,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v74_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v74_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v74_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v75_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v75_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v75_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
@@ -620,7 +626,6 @@ document.addEventListener("DOMContentLoaded", function() {
         invitados.forEach(invitado => {
             indiceBusqueda[normalizarTexto(invitado)] = grupo;
         });
-        // Agregar el nombre del grupo también al índice
         indiceBusqueda[normalizarTexto(grupo)] = grupo;
     }
 
@@ -691,8 +696,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     cardConfirmado.style.display = 'none';
                     document.getElementById('img-pase-generado').src = blobUrl;
-                    document.getElementById('pase-final-container').style.display = 'block';
                     
+                    // Configurar link de WhatsApp también para los que ya habían confirmado antes
+                    let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
+                    if (confirmadosNombres.length > 0) {
+                        mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
+                        confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
+                    }
+                    document.getElementById('btn-enlace-whatsapp').href = `https://wa.me/525611730224?text=${mensajeWa}`;
+
+                    document.getElementById('pase-final-container').style.display = 'block';
                     document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
                 }).catch(err => {
                     templateElement.style.display = 'none';
@@ -722,16 +735,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
             let mejorCoincidencia = null;
 
-            // BUSCADOR MEJORADO: Valida palabra por palabra para no confundir nombres
             for (let invitadoClave in indiceBusqueda) {
                 let palabrasClave = invitadoClave.split(" ");
                 let coincideTodas = true;
                 
                 for (let i = 0; i < palabrasReales.length; i++) {
-                    // Verificamos si la palabra que buscó el usuario coincide EXACTAMENTE
-                    // con alguna de las palabras en el nombre del invitado guardado
                     let encontrada = palabrasClave.some(p => p === palabrasReales[i]);
-                    
                     if (!encontrada) {
                         coincideTodas = false;
                         break;
@@ -806,11 +815,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     document.getElementById('pase-entrada').style.display = 'none';
                     document.getElementById('img-pase-generado').src = blobUrl;
-                    document.getElementById('pase-final-container').style.display = 'block';
                     
-                    document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
-
-                    // 3. REDIRIGIR A WHATSAPP DE FORMA SEGURA PARA IPHONE Y ANDROID
+                    // 3. CONSTRUCCIÓN DEL MENSAJE Y ENLACE SEGURO PARA WHATSAPP (COMPATIBLE CON IPHONE)
                     let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
                     if (confirmadosNombres.length > 0) {
                         mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
@@ -822,18 +828,16 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                     mensajeWa += `%0A¡Ya tengo mi pase digital! Allá nos vemos ✨`;
 
-                    setTimeout(() => {
-                        window.location.href = `https://wa.me/525611730224?text=${mensajeWa}`;
-                    }, 800);
+                    // Asignamos el enlace al botón seguro
+                    document.getElementById('btn-enlace-whatsapp').href = `https://wa.me/525611730224?text=${mensajeWa}`;
+
+                    // Mostramos la tarjeta final
+                    document.getElementById('pase-final-container').style.display = 'block';
+                    document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
 
                 }).catch(err => {
                     templateElement.style.display = 'none';
-                    let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
-                    if (confirmadosNombres.length > 0) {
-                        mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
-                        confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
-                    }
-                    window.location.href = `https://wa.me/525611730224?text=${mensajeWa}`;
+                    alert("Ocurrió un error al generar la imagen. Inténtalo de nuevo.");
                 });
             }, 600);
         });
