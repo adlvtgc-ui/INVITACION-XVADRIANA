@@ -597,7 +597,28 @@ const baseDeDatosInvitados = {
   "AMIGO 2": [ "MIA" ],
   "AMIGO 3": [ "ALEJANDRO PEREZ" ],
   "AMIGO 4": [ "ELIEL HUIZAR" ],
-  "AMIGAS DIANA": [ "BLANCA I. GONZALEZ", "WENDY TORRES" ]
+  "AMIGAS DIANA": [ "BLANCA I. GONZALEZ", "WENDY TORRES" ],
+  /* NUEVOS AMIGOS (LISTA DE LA IMAGEN) */
+  "VALERIA MIRANDA": [ "VALERIA MIRANDA" ],
+  "RAFAEL AVELAR": [ "RAFAEL AVELAR" ],
+  "EDUARDO MERCADO": [ "EDUARDO MERCADO" ],
+  "ERNESTO SÁNCHEZ": [ "ERNESTO SÁNCHEZ" ],
+  "JORGE SÁNCHEZ": [ "JORGE SÁNCHEZ" ],
+  "VALERIA SÁNCHEZ": [ "VALERIA SÁNCHEZ" ],
+  "EDWAR GÓMEZ": [ "EDWAR GÓMEZ" ],
+  "EMILIANO FÉLIX": [ "EMILIANO FÉLIX" ],
+  "MAYTE HAXOXCO": [ "MAYTE HAXOXCO" ],
+  "MARÍA GUILLÉN": [ "MARÍA GUILLÉN" ],
+  "SAMUEL JUÁREZ": [ "SAMUEL JUÁREZ" ],
+  "IKER CANO": [ "IKER CANO" ],
+  "MICHELLE FERRIZ": [ "MICHELLE FERRIZ" ],
+  "YANET ORTIZ": [ "YANET ORTIZ" ],
+  "JONATHAN FLORES": [ "JONATHAN FLORES" ],
+  "IKER GONZÁLEZ": [ "IKER GONZÁLEZ" ],
+  "ERICK LEÓN": [ "ERICK LEÓN" ],
+  "IKER CALEB": [ "IKER CALEB" ],
+  "SAMANTHA YELIAN": [ "SAMANTHA YELIAN" ],
+  "DASTAN FUENTES": [ "DASTAN FUENTES" ]
 };
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -609,9 +630,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v75_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v75_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v75_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v77_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v77_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v77_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
@@ -660,8 +681,18 @@ document.addEventListener("DOMContentLoaded", function() {
             <button id="btn-ver-pase-guardado" class="btn" style="width: 100%; background-color: var(--color-principal);">
                 Ver / Descargar mi Pase Digital 🎟️
             </button>
+            <button id="btn-reiniciar-busqueda" class="btn" style="width: 100%; background-color: #d32f2f; margin-top: 10px;">
+                🔄 ¿Te equivocaste de nombre? Buscar de nuevo
+            </button>
         `;
         seccionBusqueda.parentNode.insertBefore(cardConfirmado, seccionBusqueda);
+
+        document.getElementById('btn-reiniciar-busqueda').addEventListener('click', function() {
+            localStorage.removeItem(STORAGE_KEY);
+            localStorage.removeItem(ASISTENCIA_KEY);
+            localStorage.removeItem(CONFIRMED_KEY);
+            location.reload();
+        });
 
         document.getElementById('btn-ver-pase-guardado').addEventListener('click', function() {
             let famKey = localStorage.getItem(STORAGE_KEY);
@@ -697,7 +728,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     cardConfirmado.style.display = 'none';
                     document.getElementById('img-pase-generado').src = blobUrl;
                     
-                    // Configurar link de WhatsApp también para los que ya habían confirmado antes
                     let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
                     if (confirmadosNombres.length > 0) {
                         mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
@@ -792,11 +822,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 else noAsistenNombres.push(nombre);
             });
 
-            // 1. GUARDAR EN EL CELULAR
             localStorage.setItem(ASISTENCIA_KEY, JSON.stringify(valoresAsistencia));
             localStorage.setItem(CONFIRMED_KEY, 'true');
 
-            // 2. ACTUALIZAR INTERFAZ Y GENERAR IMAGEN DEL PASE
             let listaHtml = '';
             confirmadosNombres.forEach(n => {
                 listaHtml += `<li>${n}</li>`;
@@ -816,7 +844,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     document.getElementById('pase-entrada').style.display = 'none';
                     document.getElementById('img-pase-generado').src = blobUrl;
                     
-                    // 3. CONSTRUCCIÓN DEL MENSAJE Y ENLACE SEGURO PARA WHATSAPP (COMPATIBLE CON IPHONE)
                     let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
                     if (confirmadosNombres.length > 0) {
                         mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
@@ -828,10 +855,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                     mensajeWa += `%0A¡Ya tengo mi pase digital! Allá nos vemos ✨`;
 
-                    // Asignamos el enlace al botón seguro
                     document.getElementById('btn-enlace-whatsapp').href = `https://wa.me/525611730224?text=${mensajeWa}`;
 
-                    // Mostramos la tarjeta final
                     document.getElementById('pase-final-container').style.display = 'block';
                     document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
 
