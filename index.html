@@ -572,7 +572,7 @@ const baseDeDatosInvitados = {
   "FAMILIA 21": [ "MABE DE LA O", "JUAN CARREÑO" ],
   "FAMILIA 22": [ "ALEJANDRA DE LA O" ],
   "FAMILIA 23": [ "ELSA RANGEL", "VICTOR GARCIA", "DAVID RANGEL", "DANIELA LUGO" ],
-  "FAMILIA 24": [ "ELSA LARA", "ERIKA RIOS", "LUIS J. LOZANO" ],
+  "FAMILIA 24": [ "ELSA LARA", "ERIKA RIOS" ],
   "FAMILIA 25": [ "SANDRA LARA", "JORGE PINEDA", "BRIAN CRUZ", "JAN C. CRUZ" ],
   "FAMILIA 26": [ "MONSERRAT LARA", "MIGUEL A. RAÑO", "DIEGO NERIO", "LUCIANO MORENO" ],
   "FAMILIA 27": [ "LILIANA LARA", "FRANCISCO J. COLIN", "FRANCISCO Y. COLIN" ],
@@ -598,27 +598,27 @@ const baseDeDatosInvitados = {
   "AMIGO 3": [ "ALEJANDRO PEREZ" ],
   "AMIGO 4": [ "ELIEL HUIZAR" ],
   "AMIGAS DIANA": [ "BLANCA I. GONZALEZ", "WENDY TORRES" ],
-  /* NUEVOS AMIGOS (LISTA DE LA IMAGEN) */
+  /* NUEVA LISTA DE AMIGOS ACTUALIZADA */
   "VALERIA MIRANDA": [ "VALERIA MIRANDA" ],
   "RAFAEL AVELAR": [ "RAFAEL AVELAR" ],
   "EDUARDO MERCADO": [ "EDUARDO MERCADO" ],
-  "ERNESTO SÁNCHEZ": [ "ERNESTO SÁNCHEZ" ],
+  "ERNESTO SANCHEZ": [ "ERNESTO SANCHEZ" ],
   "JORGE SÁNCHEZ": [ "JORGE SÁNCHEZ" ],
   "VALERIA SÁNCHEZ": [ "VALERIA SÁNCHEZ" ],
-  "EDWAR GÓMEZ": [ "EDWAR GÓMEZ" ],
-  "EMILIANO FÉLIX": [ "EMILIANO FÉLIX" ],
+  "EDWAR GOMEZ": [ "EDWAR GOMEZ" ],
+  "EMILIANO GARCIA": [ "EMILIANO GARCIA" ],
   "MAYTE HAXOXCO": [ "MAYTE HAXOXCO" ],
-  "MARÍA GUILLÉN": [ "MARÍA GUILLÉN" ],
-  "SAMUEL JUÁREZ": [ "SAMUEL JUÁREZ" ],
+  "MARÍA JOSE GUILLEN": [ "MARÍA JOSE GUILLEN" ],
+  "SAMUEL JUAREZ": [ "SAMUEL JUAREZ" ],
   "IKER CANO": [ "IKER CANO" ],
   "MICHELLE FERRIZ": [ "MICHELLE FERRIZ" ],
   "YANET ORTIZ": [ "YANET ORTIZ" ],
   "JONATHAN FLORES": [ "JONATHAN FLORES" ],
-  "IKER GONZÁLEZ": [ "IKER GONZÁLEZ" ],
-  "ERICK LEÓN": [ "ERICK LEÓN" ],
-  "IKER CALEB": [ "IKER CALEB" ],
-  "SAMANTHA YELIAN": [ "SAMANTHA YELIAN" ],
-  "DASTAN FUENTES": [ "DASTAN FUENTES" ]
+  "IKER GONZALEZ": [ "IKER GONZALEZ" ],
+  "ERICK LEON": [ "ERICK LEON" ],
+  "SAMANTHA GOMEZ": [ "SAMANTHA GOMEZ" ],
+  "DASTAN FUENTES": [ "DASTAN FUENTES" ],
+  "FAMILIA 43": [ "ENRIQUE PRIOR", "JAZMIN TORRES" ]
 };
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -630,9 +630,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const listaContainer = document.getElementById('lista-invitados-container');
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v77_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v77_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v77_confirmed';
+    const STORAGE_KEY = 'adrianaXV_v78_key';
+    const ASISTENCIA_KEY = 'adrianaXV_v78_asistencia';
+    const CONFIRMED_KEY = 'adrianaXV_v78_confirmed';
 
     let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
     let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
