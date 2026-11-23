@@ -419,46 +419,22 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 <a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&language=en-US" target="_blank" class="btn"><img src="amazon.jpg" alt="Amazon" class="logo-tienda"> Mesa Amazon</a>
 </div>
 
-<!-- SECCIÓN DE BÚSQUEDA -->
+<!-- SECCIÓN DE BÚSQUEDA (BLOQUEADA PARA NUEVOS REGISTROS) -->
 <div class="card" id="seccion-busqueda">
-<div class="card-title">Confirmación</div>
+<div class="card-title">Confirmación Cerrada</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
-<div class="info-row" style="font-weight: 600;">Nos encantaría contar con tu presencia.</div>
-<div class="info-row" id="text-busqueda-instruccion">Escribe tu <b>Nombre y un Apellido</b> para buscar tus pases asignados.<br><br><span style="color: #d32f2f; font-weight: bold;">⚠️ Solo tienes una oportunidad de búsqueda.</span></div>
-
-<div id="wrapper-busqueda">
-    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. pedro picapiedra" autocomplete="off">
-    <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pases</button>
-</div>
-
-<div id="mensaje-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: bold; margin-top: 12px; display: none;">
-    Lo sentimos, no encontramos una invitación. Asegúrate de escribir tu nombre o apellido correctamente.
+<div class="info-row" style="font-weight: 600;">El periodo para buscar pases y confirmar asistencia ha finalizado.</div>
+<div class="info-row" style="font-size: 0.85rem; color: #555;">
+    Si ya confirmaste previamente en este dispositivo, tu pase digital sigue disponible aquí mismo.
 </div>
 </div>
 
-<!-- PASE DE ENTRADA (FORMULARIO) -->
-<div class="card" id="pase-entrada">
-<div class="card-title">Tus Pases Asignados</div>
-<div class="separador-rizos"><div class="linea-centro"></div></div>
-
-<div class="info-row" style="margin-top: 15px; font-weight: bold; font-size: 0.85rem;">
-    Por favor, marca si asistirá o no asistirá cada invitado:
-</div>
-
-<div id="lista-invitados-container" style="margin-top: 15px; display: flex; flex-direction: column; gap: 5px;"></div>
-
-<button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 20px; background-color: #2e7d32; font-size: 0.95rem;">
-    Generar mi Pase y Enviar WhatsApp 📥 ✨
-</button>
-
-<div style="font-size: 0.75rem; color: #555; margin-top: 8px; font-style: italic;">
-    Al confirmar se descargará tu pase digital y aparecerá el botón directo a su WhatsApp.
-</div>
-</div>
+<!-- PASE DE ENTRADA (DESHABILITADO PARA NUEVAS CONFIRMACIONES) -->
+<div class="card" id="pase-entrada" style="display: none !important;"></div>
 
 <!-- CONTENEDOR DE ÉXITO -->
 <div class="card" id="pase-final-container" style="display: none;">
-<div class="card-title">¡Pase Generado con Éxito!</div>
+<div class="card-title">¡Tu Pase Digital!</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-size: 0.85rem; color: #333;">
     Mantén presionada la imagen para guardarla en tu celular (o descárgala desde tu navegador).
@@ -546,7 +522,7 @@ function dataURItoBlob(dataURI) {
 }
 
 // =========================================================================
-// BASE DE DATOS DE NOMBRES Y BLOQUEO POR DISPOSITIVO
+// BASE DE DATOS DE NOMBRES (SOLO LECTURA PARA PASES YA CONFIRMADOS)
 // =========================================================================
 const baseDeDatosInvitados = {
   "FAMILIA 1": [ "MARIO LARA P", "MARIO LARA V", "DIANA VALLADARES", "DALIA DE LA O", "RODRIGO LARA", "ADRIANA LARA" ],
@@ -586,7 +562,7 @@ const baseDeDatosInvitados = {
   "FAMILIA 35": [ "PRISCILA LOPEZ", "MANUEL ESTRADA", "ESTEFANY ESTRADA" ],
   "FAMILIA 36": [ "CARLOS E. MENDOZA", "ROCIO N. JIMENEZ" ],
   "FAMILIA 37": [ "ANGEL J. OCHOA", "ENRIQUE X. CONTRERAS", "BRANDON SANCHEZ" ],
-  "FAMILIA 38": [ "GRISELDA RAMIREZ", "VICTOR H. PESINA", "JANET TORRES", "VALERIA I. PESINA" "FERNANDO RUIZ" ],
+  "FAMILIA 38": [ "GRISELDA RAMIREZ", "VICTOR H. PESINA", "JANET TORRES", "VALERIA I. PESINA", "FERNANDO RUIZ" ],
   "FAMILIA 39": [ "REGINA SOLIS", "ALBERTO ORNELAS" ],
   "FAMILIA 40": [ "ALMA DELIA DE LA CRUZ", "BRYAN SANCHEZ" ],
   "FAMILIA 41": [ "AXEL DE LA VEGA", "MARO GRANADOS" ],
@@ -598,7 +574,7 @@ const baseDeDatosInvitados = {
   "AMIGO 3": [ "ALEJANDRO PEREZ" ],
   "AMIGO 4": [ "ELIEL HUIZAR" ],
   "AMIGAS DIANA": [ "BLANCA I. GONZALEZ", "WENDY TORRES" ],
-  /* NUEVA LISTA DE AMIGOS ACTUALIZADA */
+  /* LISTA DE AMIGOS */
   "VALERIA MIRANDA": [ "VALERIA MIRANDA" ],
   "RAFAEL AVELAR": [ "RAFAEL AVELAR" ],
   "EDUARDO MERCADO": [ "EDUARDO MERCADO" ],
@@ -625,53 +601,30 @@ const baseDeDatosInvitados = {
 };
 
 document.addEventListener("DOMContentLoaded", function() {
-    const btnBuscar = document.getElementById('btn-buscar');
-    const inputBusqueda = document.getElementById('input-busqueda');
     const seccionBusqueda = document.getElementById('seccion-busqueda');
-    const seccionPase = document.getElementById('pase-entrada');
-    const msjError = document.getElementById('mensaje-error');
-    const listaContainer = document.getElementById('lista-invitados-container');
-    const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
-    const STORAGE_KEY = 'adrianaXV_v78_key';
-    const ASISTENCIA_KEY = 'adrianaXV_v78_asistencia';
-    const CONFIRMED_KEY = 'adrianaXV_v78_confirmed';
+    // Se revisan las claves usadas en versiones anteriores para no dejar fuera a nadie que ya confirmó
+    const keysToCheck = [
+        { k: 'adrianaXV_v78_key', a: 'adrianaXV_v78_asistencia', c: 'adrianaXV_v78_confirmed' },
+        { k: 'adrianaXV_v77_key', a: 'adrianaXV_v77_asistencia', c: 'adrianaXV_v77_confirmed' },
+        { k: 'adrianaXV_v76_key', a: 'adrianaXV_v76_asistencia', c: 'adrianaXV_v76_confirmed' },
+        { k: 'adrianaXV_v75_key', a: 'adrianaXV_v75_asistencia', c: 'adrianaXV_v75_confirmed' }
+    ];
 
-    let storedFamilyKey = localStorage.getItem(STORAGE_KEY);
-    let storedAsistencia = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
+    let famKey = null;
+    let asistenciaVals = [];
+    let yaConfirmado = false;
 
-    function normalizarTexto(texto) {
-        return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    for (let item of keysToCheck) {
+        if (localStorage.getItem(item.c) === 'true' && localStorage.getItem(item.k)) {
+            yaConfirmado = true;
+            famKey = localStorage.getItem(item.k);
+            asistenciaVals = JSON.parse(localStorage.getItem(item.a) || '[]');
+            break;
+        }
     }
 
-    let indiceBusqueda = {};
-    for (let grupo in baseDeDatosInvitados) {
-        let invitados = baseDeDatosInvitados[grupo];
-        invitados.forEach(invitado => {
-            indiceBusqueda[normalizarTexto(invitado)] = grupo;
-        });
-        indiceBusqueda[normalizarTexto(grupo)] = grupo;
-    }
-
-    function renderInvitados(nombres, valoresGuardados = []) {
-        listaContainer.innerHTML = '';
-        nombres.forEach((nombre, i) => {
-            let seleccionSi = (!valoresGuardados[i] || valoresGuardados[i] === "si") ? "checked" : "";
-            let seleccionNo = (valoresGuardados[i] === "no") ? "checked" : "";
-
-            listaContainer.innerHTML += `
-                <div class="invitado-row">
-                    <div class="invitado-nombre">${i + 1}. ${nombre}</div>
-                    <div class="opciones-asistencia">
-                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="si" ${seleccionSi}> Asiste</label>
-                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="no" ${seleccionNo}> No asiste</label>
-                    </div>
-                </div>
-            `;
-        });
-    }
-
-    if (localStorage.getItem(CONFIRMED_KEY)) {
+    if (yaConfirmado && famKey && baseDeDatosInvitados[famKey]) {
         seccionBusqueda.style.display = 'none';
         let cardConfirmado = document.createElement('div');
         cardConfirmado.className = 'card';
@@ -679,31 +632,15 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="card-title">¡Asistencia Registrada!</div>
             <div class="separador-rizos"><div class="linea-centro"></div></div>
             <div class="info-row" style="font-size: 0.95rem; color: #333; margin-bottom: 15px;">
-                Ya has confirmado tu asistencia previamente en este dispositivo.
+                Tu pase ya está confirmado en este dispositivo. Aquí puedes verlo y descargarlo.
             </div>
             <button id="btn-ver-pase-guardado" class="btn" style="width: 100%; background-color: var(--color-principal);">
                 Ver / Descargar mi Pase Digital 🎟️
             </button>
-            <button id="btn-reiniciar-busqueda" class="btn" style="width: 100%; background-color: #d32f2f; margin-top: 10px;">
-                🔄 ¿Te equivocaste de nombre? Buscar de nuevo
-            </button>
         `;
         seccionBusqueda.parentNode.insertBefore(cardConfirmado, seccionBusqueda);
 
-        document.getElementById('btn-reiniciar-busqueda').addEventListener('click', function() {
-            localStorage.removeItem(STORAGE_KEY);
-            localStorage.removeItem(ASISTENCIA_KEY);
-            localStorage.removeItem(CONFIRMED_KEY);
-            location.reload();
-        });
-
         document.getElementById('btn-ver-pase-guardado').addEventListener('click', function() {
-            let famKey = localStorage.getItem(STORAGE_KEY);
-            let asistenciaVals = JSON.parse(localStorage.getItem(ASISTENCIA_KEY) || '[]');
-            if (!famKey || !baseDeDatosInvitados[famKey]) {
-                alert("No se encontró información de la familia en este dispositivo.");
-                return;
-            }
             let nombres = baseDeDatosInvitados[famKey];
             let confirmadosNombres = [];
             nombres.forEach((n, i) => {
@@ -743,129 +680,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }).catch(err => {
                     templateElement.style.display = 'none';
                     alert("Error al generar la imagen del pase.");
-                });
-            }, 600);
-        });
-
-    } else if (storedFamilyKey && baseDeDatosInvitados[storedFamilyKey]) {
-        seccionBusqueda.style.display = 'none';
-        seccionPase.style.display = 'block';
-        let nombresDelGrupo = baseDeDatosInvitados[storedFamilyKey];
-        renderInvitados(nombresDelGrupo, storedAsistencia);
-    }
-
-    if(btnBuscar) {
-        btnBuscar.addEventListener('click', function() {
-            if (localStorage.getItem(STORAGE_KEY) || localStorage.getItem(CONFIRMED_KEY)) return;
-
-            let busquedaUsuario = normalizarTexto(inputBusqueda.value);
-            let palabrasReales = busquedaUsuario.split(" ").filter(p => p.length > 0);
-
-            if (palabrasReales.length < 1) {
-                alert("Por favor, escribe un Nombre para buscar tu pase.");
-                return;
-            }
-
-            let mejorCoincidencia = null;
-
-            for (let invitadoClave in indiceBusqueda) {
-                let palabrasClave = invitadoClave.split(" ");
-                let coincideTodas = true;
-                
-                for (let i = 0; i < palabrasReales.length; i++) {
-                    let encontrada = palabrasClave.some(p => p === palabrasReales[i]);
-                    if (!encontrada) {
-                        coincideTodas = false;
-                        break;
-                    }
-                }
-                
-                if (coincideTodas) {
-                    mejorCoincidencia = indiceBusqueda[invitadoClave];
-                    break;
-                }
-            }
-
-            if (mejorCoincidencia) {
-                const nombresDelGrupo = baseDeDatosInvitados[mejorCoincidencia];
-                localStorage.setItem(STORAGE_KEY, mejorCoincidencia);
-                msjError.style.display = 'none';
-                seccionBusqueda.style.display = 'none';
-                seccionPase.style.display = 'block';
-                renderInvitados(nombresDelGrupo, []);
-                
-                seccionPase.scrollIntoView({behavior: "smooth", block: "center"});
-            } else {
-                msjError.style.display = 'block';
-            }
-        });
-    }
-
-    if(inputBusqueda) {
-        inputBusqueda.addEventListener("keypress", function(event) {
-            if (event.key === "Enter") { event.preventDefault(); btnBuscar.click(); }
-        });
-    }
-
-    if(btnWhatsapp) {
-        btnWhatsapp.addEventListener('click', function() {
-            let nombreGrupo = localStorage.getItem(STORAGE_KEY);
-            if (!nombreGrupo) return;
-            
-            const nombres = baseDeDatosInvitados[nombreGrupo];
-            let confirmadosNombres = [];
-            let noAsistenNombres = [];
-            let valoresAsistencia = [];
-
-            nombres.forEach((nombre, i) => {
-                let radio = document.querySelector(`input[name="asistencia_${i}"]:checked`);
-                let valor = radio ? radio.value : "si";
-                valoresAsistencia.push(valor);
-                if (valor === "si") confirmadosNombres.push(nombre);
-                else noAsistenNombres.push(nombre);
-            });
-
-            localStorage.setItem(ASISTENCIA_KEY, JSON.stringify(valoresAsistencia));
-            localStorage.setItem(CONFIRMED_KEY, 'true');
-
-            let listaHtml = '';
-            confirmadosNombres.forEach(n => {
-                listaHtml += `<li>${n}</li>`;
-            });
-            document.getElementById('tpl-lista-nombres').innerHTML = listaHtml || '<li>Ningún asistente confirmado</li>';
-
-            const templateElement = document.getElementById('pase-imagen-template');
-            templateElement.style.display = 'flex';
-
-            setTimeout(() => {
-                html2canvas(templateElement, { scale: 3, useCORS: true, allowTaint: true }).then(canvas => {
-                    templateElement.style.display = 'none';
-                    const dataUrl = canvas.toDataURL('image/png');
-                    const blob = dataURItoBlob(dataUrl);
-                    const blobUrl = URL.createObjectURL(blob);
-
-                    document.getElementById('pase-entrada').style.display = 'none';
-                    document.getElementById('img-pase-generado').src = blobUrl;
-                    
-                    let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
-                    if (confirmadosNombres.length > 0) {
-                        mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
-                        confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
-                    }
-                    if (noAsistenNombres.length > 0) {
-                        mensajeWa += `%0A❌ *NO PODRÁN ASISTIR:*%0A`;
-                        noAsistenNombres.forEach((n) => { mensajeWa += `- ${n}%0A`; });
-                    }
-                    mensajeWa += `%0A¡Ya tengo mi pase digital! Allá nos vemos ✨`;
-
-                    document.getElementById('btn-enlace-whatsapp').href = `https://wa.me/525611730224?text=${mensajeWa}`;
-
-                    document.getElementById('pase-final-container').style.display = 'block';
-                    document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
-
-                }).catch(err => {
-                    templateElement.style.display = 'none';
-                    alert("Ocurrió un error al generar la imagen. Inténtalo de nuevo.");
                 });
             }, 600);
         });
