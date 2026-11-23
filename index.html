@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -270,14 +270,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 .prohibido { color: var(--color-principal); font-style: italic; font-weight: bold; margin-top: 12px; font-family: var(--fuente-titulos); }
 .img-dress-code { width: 55%; max-width: 160px; height: auto; margin: 12px auto; display: block; border: none; background: none; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15)); }
 
-@keyframes resplandor-pase-nuevo {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
-}
-
-#seccion-busqueda { margin-top: 40px; animation: resplandor-pase-nuevo 3.5s infinite ease-in-out; }
-#pase-entrada { display: none; animation: resplandor-pase-nuevo 3.5s infinite ease-in-out; margin-top: 30px; }
+#pase-entrada { display: none; margin-top: 30px; }
 
 .input-busqueda {
     -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text;
@@ -419,7 +412,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 <a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&language=en-US" target="_blank" class="btn"><img src="amazon.jpg" alt="Amazon" class="logo-tienda"> Mesa Amazon</a>
 </div>
 
-<!-- SECCIÓN DE BÚSQUEDA (BLOQUEADA PARA NUEVOS REGISTROS) -->
+<!-- SECCIÓN DE CONFIRMACIÓN / ACCESO EXCLUSIVO -->
 <div class="card" id="seccion-busqueda">
 <div class="card-title">Confirmación Cerrada</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
@@ -427,21 +420,58 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 <div class="info-row" style="font-size: 0.85rem; color: #555;">
     Si ya confirmaste previamente en este dispositivo, tu pase digital sigue disponible aquí mismo.
 </div>
+
+<!-- ACCESO EXCLUSIVO PARA TI (ADMIN) -->
+<div id="panel-acceso-admin" style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed rgba(133, 56, 110, 0.35);">
+    <button id="btn-abrir-admin" class="btn" style="background-color: transparent; color: var(--color-principal); border: 1px solid var(--color-principal); box-shadow: none; font-size: 0.8rem; padding: 7px 14px;">
+        🔐 Acceso organizadora
+    </button>
+    <div id="formulario-clave-admin" style="display: none; margin-top: 10px;">
+        <input type="password" id="input-clave-admin" class="input-busqueda" placeholder="Ingresa tu clave de acceso" autocomplete="off">
+        <button id="btn-validar-admin" class="btn" style="width: 90%;">Desbloquear buscador</button>
+        <div id="error-clave-admin" style="color: #d32f2f; font-size: 0.8rem; font-weight: bold; margin-top: 8px; display: none;">
+            Clave incorrecta.
+        </div>
+    </div>
 </div>
 
-<!-- PASE DE ENTRADA (DESHABILITADO PARA NUEVAS CONFIRMACIONES) -->
-<div class="card" id="pase-entrada" style="display: none !important;"></div>
+<!-- BUSCADOR OCULTO HASTA VALIDAR TU CLAVE -->
+<div id="wrapper-busqueda" style="display: none; margin-top: 15px;">
+    <div class="info-row" style="color: #2e7d32; font-size: 0.85rem;">✅ Modo organizadora activo</div>
+    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. pedro picapiedra" autocomplete="off">
+    <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pases</button>
+    <div id="mensaje-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: bold; margin-top: 12px; display: none;">
+        Lo sentimos, no encontramos una invitación. Asegúrate de escribir tu nombre o apellido correctamente.
+    </div>
+</div>
+</div>
+
+<!-- PASE DE ENTRADA (FORMULARIO PARA GENERAR PASE AL BUSCAR) -->
+<div class="card" id="pase-entrada">
+<div class="card-title">Pases Asignados</div>
+<div class="separador-rizos"><div class="linea-centro"></div></div>
+
+<div class="info-row" style="margin-top: 15px; font-weight: bold; font-size: 0.85rem;">
+    Marca quién asistirá para generar su pase:
+</div>
+
+<div id="lista-invitados-container" style="margin-top: 15px; display: flex; flex-direction: column; gap: 5px;"></div>
+
+<button id="btn-confirmar-whatsapp" class="btn" style="width: 100%; margin-top: 20px; background-color: #2e7d32; font-size: 0.95rem;">
+    Generar Pase Digital 📥 ✨
+</button>
+</div>
 
 <!-- CONTENEDOR DE ÉXITO -->
 <div class="card" id="pase-final-container" style="display: none;">
-<div class="card-title">¡Tu Pase Digital!</div>
+<div class="card-title">¡Pase Digital Listo!</div>
 <div class="separador-rizos"><div class="linea-centro"></div></div>
 <div class="info-row" style="font-size: 0.85rem; color: #333;">
     Mantén presionada la imagen para guardarla en tu celular (o descárgala desde tu navegador).
 </div>
 <img id="img-pase-generado" src="" alt="Tu Pase Oficial" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.25); margin-top: 15px;">
 
-<!-- BOTÓN SEGURO PARA WHATSAPP (100% COMPATIBLE CON IPHONE Y ANDROID) -->
+<!-- BOTÓN SEGURO PARA WHATSAPP -->
 <a id="btn-enlace-whatsapp" href="#" target="_blank" class="btn" style="width: 100%; margin-top: 20px; background-color: #2e7d32; font-size: 0.95rem; text-decoration: none; display: inline-flex;">
     Enviar Confirmación a Adriana por WhatsApp 💬 ✨
 </a>
@@ -475,6 +505,12 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 </div>
 
 <script>
+// =========================================================================
+// CLAVE EXCLUSIVA PARA QUE SOLO TÚ PUEDAS BUSCAR PASES
+// =========================================================================
+const CLAVE_ADMIN = "adri2026"; // Cambia esta clave antes de publicar
+const ADMIN_SESSION_KEY = "adrianaXV_admin_unlocked";
+
 // =========================================================================
 // EFECTO DE LLUVIA DE ESTRELLAS MÁGICAS
 // =========================================================================
@@ -522,7 +558,7 @@ function dataURItoBlob(dataURI) {
 }
 
 // =========================================================================
-// BASE DE DATOS DE NOMBRES (SOLO LECTURA PARA PASES YA CONFIRMADOS)
+// BASE DE DATOS DE NOMBRES
 // =========================================================================
 const baseDeDatosInvitados = {
   "FAMILIA 1": [ "MARIO LARA P", "MARIO LARA V", "DIANA VALLADARES", "DALIA DE LA O", "RODRIGO LARA", "ADRIANA LARA" ],
@@ -602,8 +638,65 @@ const baseDeDatosInvitados = {
 
 document.addEventListener("DOMContentLoaded", function() {
     const seccionBusqueda = document.getElementById('seccion-busqueda');
+    const panelAccesoAdmin = document.getElementById('panel-acceso-admin');
+    const btnAbrirAdmin = document.getElementById('btn-abrir-admin');
+    const formularioClaveAdmin = document.getElementById('formulario-clave-admin');
+    const inputClaveAdmin = document.getElementById('input-clave-admin');
+    const btnValidarAdmin = document.getElementById('btn-validar-admin');
+    const errorClaveAdmin = document.getElementById('error-clave-admin');
 
-    // Se revisan las claves usadas en versiones anteriores para no dejar fuera a nadie que ya confirmó
+    const wrapperBusqueda = document.getElementById('wrapper-busqueda');
+    const btnBuscar = document.getElementById('btn-buscar');
+    const inputBusqueda = document.getElementById('input-busqueda');
+    const seccionPase = document.getElementById('pase-entrada');
+    const msjError = document.getElementById('mensaje-error');
+    const listaContainer = document.getElementById('lista-invitados-container');
+    const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
+
+    const ADMIN_GRUPO_KEY = 'adrianaXV_admin_grupo_actual';
+    let adminDesbloqueado = sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
+
+    function activarModoAdmin() {
+        adminDesbloqueado = true;
+        sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+        panelAccesoAdmin.style.display = 'none';
+        wrapperBusqueda.style.display = 'block';
+    }
+
+    if (adminDesbloqueado) {
+        activarModoAdmin();
+    }
+
+    if (btnAbrirAdmin) {
+        btnAbrirAdmin.addEventListener('click', function() {
+            formularioClaveAdmin.style.display = formularioClaveAdmin.style.display === 'none' ? 'block' : 'none';
+            inputClaveAdmin.focus();
+        });
+    }
+
+    function intentarDesbloquear() {
+        if (inputClaveAdmin.value.trim() === CLAVE_ADMIN) {
+            errorClaveAdmin.style.display = 'none';
+            activarModoAdmin();
+        } else {
+            errorClaveAdmin.style.display = 'block';
+        }
+    }
+
+    if (btnValidarAdmin) {
+        btnValidarAdmin.addEventListener('click', intentarDesbloquear);
+    }
+
+    if (inputClaveAdmin) {
+        inputClaveAdmin.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                intentarDesbloquear();
+            }
+        });
+    }
+
+    // Revisar si el visitante ya tenía un pase confirmado en su dispositivo
     const keysToCheck = [
         { k: 'adrianaXV_v78_key', a: 'adrianaXV_v78_asistencia', c: 'adrianaXV_v78_confirmed' },
         { k: 'adrianaXV_v77_key', a: 'adrianaXV_v77_asistencia', c: 'adrianaXV_v77_confirmed' },
@@ -624,7 +717,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    if (yaConfirmado && famKey && baseDeDatosInvitados[famKey]) {
+    if (yaConfirmado && famKey && baseDeDatosInvitados[famKey] && !adminDesbloqueado) {
         seccionBusqueda.style.display = 'none';
         let cardConfirmado = document.createElement('div');
         cardConfirmado.className = 'card';
@@ -680,6 +773,147 @@ document.addEventListener("DOMContentLoaded", function() {
                 }).catch(err => {
                     templateElement.style.display = 'none';
                     alert("Error al generar la imagen del pase.");
+                });
+            }, 600);
+        });
+    }
+
+    function normalizarTexto(texto) {
+        return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    }
+
+    let indiceBusqueda = {};
+    for (let grupo in baseDeDatosInvitados) {
+        let invitados = baseDeDatosInvitados[grupo];
+        invitados.forEach(invitado => {
+            indiceBusqueda[normalizarTexto(invitado)] = grupo;
+        });
+        indiceBusqueda[normalizarTexto(grupo)] = grupo;
+    }
+
+    function renderInvitados(nombres, valoresGuardados = []) {
+        listaContainer.innerHTML = '';
+        nombres.forEach((nombre, i) => {
+            let seleccionSi = (!valoresGuardados[i] || valoresGuardados[i] === "si") ? "checked" : "";
+            let seleccionNo = (valoresGuardados[i] === "no") ? "checked" : "";
+
+            listaContainer.innerHTML += `
+                <div class="invitado-row">
+                    <div class="invitado-nombre">${i + 1}. ${nombre}</div>
+                    <div class="opciones-asistencia">
+                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="si" ${seleccionSi}> Asiste</label>
+                        <label class="opcion-radio"><input type="radio" name="asistencia_${i}" value="no" ${seleccionNo}> No asiste</label>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    if (btnBuscar) {
+        btnBuscar.addEventListener('click', function() {
+            if (!adminDesbloqueado) return;
+
+            let busquedaUsuario = normalizarTexto(inputBusqueda.value);
+            let palabrasReales = busquedaUsuario.split(" ").filter(p => p.length > 0);
+
+            if (palabrasReales.length < 1) {
+                alert("Por favor, escribe un Nombre para buscar el pase.");
+                return;
+            }
+
+            let mejorCoincidencia = null;
+
+            for (let invitadoClave in indiceBusqueda) {
+                let palabrasClave = invitadoClave.split(" ");
+                let coincideTodas = true;
+                
+                for (let i = 0; i < palabrasReales.length; i++) {
+                    let encontrada = palabrasClave.some(p => p === palabrasReales[i]);
+                    if (!encontrada) {
+                        coincideTodas = false;
+                        break;
+                    }
+                }
+                
+                if (coincideTodas) {
+                    mejorCoincidencia = indiceBusqueda[invitadoClave];
+                    break;
+                }
+            }
+
+            if (mejorCoincidencia) {
+                const nombresDelGrupo = baseDeDatosInvitados[mejorCoincidencia];
+                sessionStorage.setItem(ADMIN_GRUPO_KEY, mejorCoincidencia);
+                msjError.style.display = 'none';
+                seccionPase.style.display = 'block';
+                renderInvitados(nombresDelGrupo, []);
+                seccionPase.scrollIntoView({behavior: "smooth", block: "center"});
+            } else {
+                msjError.style.display = 'block';
+            }
+        });
+    }
+
+    if (inputBusqueda) {
+        inputBusqueda.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") { event.preventDefault(); btnBuscar.click(); }
+        });
+    }
+
+    if (btnWhatsapp) {
+        btnWhatsapp.addEventListener('click', function() {
+            if (!adminDesbloqueado) return;
+            let nombreGrupo = sessionStorage.getItem(ADMIN_GRUPO_KEY);
+            if (!nombreGrupo) return;
+            
+            const nombres = baseDeDatosInvitados[nombreGrupo];
+            let confirmadosNombres = [];
+            let noAsistenNombres = [];
+
+            nombres.forEach((nombre, i) => {
+                let radio = document.querySelector(`input[name="asistencia_${i}"]:checked`);
+                let valor = radio ? radio.value : "si";
+                if (valor === "si") confirmadosNombres.push(nombre);
+                else noAsistenNombres.push(nombre);
+            });
+
+            let listaHtml = '';
+            confirmadosNombres.forEach(n => {
+                listaHtml += `<li>${n}</li>`;
+            });
+            document.getElementById('tpl-lista-nombres').innerHTML = listaHtml || '<li>Ningún asistente confirmado</li>';
+
+            const templateElement = document.getElementById('pase-imagen-template');
+            templateElement.style.display = 'flex';
+
+            setTimeout(() => {
+                html2canvas(templateElement, { scale: 3, useCORS: true, allowTaint: true }).then(canvas => {
+                    templateElement.style.display = 'none';
+                    const dataUrl = canvas.toDataURL('image/png');
+                    const blob = dataURItoBlob(dataUrl);
+                    const blobUrl = URL.createObjectURL(blob);
+
+                    document.getElementById('img-pase-generado').src = blobUrl;
+                    
+                    let mensajeWa = `Hola Adriana, aquí mi confirmación de asistencia:%0A%0A`;
+                    if (confirmadosNombres.length > 0) {
+                        mensajeWa += `✅ *SÍ ASISTIRÁN:*%0A`;
+                        confirmadosNombres.forEach((n, i) => { mensajeWa += `${i + 1}. ${n}%0A`; });
+                    }
+                    if (noAsistenNombres.length > 0) {
+                        mensajeWa += `%0A❌ *NO PODRÁN ASISTIR:*%0A`;
+                        noAsistenNombres.forEach((n) => { mensajeWa += `- ${n}%0A`; });
+                    }
+                    mensajeWa += `%0A¡Ya tengo mi pase digital! Allá nos vemos ✨`;
+
+                    document.getElementById('btn-enlace-whatsapp').href = `https://wa.me/525611730224?text=${mensajeWa}`;
+
+                    document.getElementById('pase-final-container').style.display = 'block';
+                    document.getElementById('pase-final-container').scrollIntoView({behavior: "smooth", block: "center"});
+
+                }).catch(err => {
+                    templateElement.style.display = 'none';
+                    alert("Ocurrió un error al generar la imagen. Inténtalo de nuevo.");
                 });
             }, 600);
         });
