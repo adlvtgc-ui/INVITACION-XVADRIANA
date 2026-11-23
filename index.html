@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -412,36 +412,26 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 <a href="https://www.amazon.com.mx/registries/gl/guest-view/5FD64CHCPDQH?ref_=cm_sw_r_apin_ggr-subnav-share_S77DAKW45RM2QZF75R80&language=en-US" target="_blank" class="btn"><img src="amazon.jpg" alt="Amazon" class="logo-tienda"> Mesa Amazon</a>
 </div>
 
-<!-- SECCIÓN DE CONFIRMACIÓN / ACCESO EXCLUSIVO -->
+<!-- SECCIÓN DE CONFIRMACIÓN / BUSCADOR PRIVADO -->
 <div class="card" id="seccion-busqueda">
-<div class="card-title">Confirmación Cerrada</div>
-<div class="separador-rizos"><div class="linea-centro"></div></div>
-<div class="info-row" style="font-weight: 600;">El periodo para buscar pases y confirmar asistencia ha finalizado.</div>
-<div class="info-row" style="font-size: 0.85rem; color: #555;">
-    Si ya confirmaste previamente en este dispositivo, tu pase digital sigue disponible aquí mismo.
-</div>
-
-<!-- ACCESO EXCLUSIVO PARA TI (ADMIN) -->
-<div id="panel-acceso-admin" style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed rgba(133, 56, 110, 0.35);">
-    <button id="btn-abrir-admin" class="btn" style="background-color: transparent; color: var(--color-principal); border: 1px solid var(--color-principal); box-shadow: none; font-size: 0.8rem; padding: 7px 14px;">
-        🔐 Acceso organizadora
-    </button>
-    <div id="formulario-clave-admin" style="display: none; margin-top: 10px;">
-        <input type="password" id="input-clave-admin" class="input-busqueda" placeholder="Ingresa tu clave de acceso" autocomplete="off">
-        <button id="btn-validar-admin" class="btn" style="width: 90%;">Desbloquear buscador</button>
-        <div id="error-clave-admin" style="color: #d32f2f; font-size: 0.8rem; font-weight: bold; margin-top: 8px; display: none;">
-            Clave incorrecta.
-        </div>
+<div id="aviso-cerrado-publico">
+    <div class="card-title">Confirmación Cerrada</div>
+    <div class="separador-rizos"><div class="linea-centro"></div></div>
+    <div class="info-row" style="font-weight: 600;">El periodo para buscar pases y confirmar asistencia ha finalizado.</div>
+    <div class="info-row" style="font-size: 0.85rem; color: #555;">
+        Si ya confirmaste previamente en este dispositivo, tu pase digital sigue disponible aquí mismo.
     </div>
 </div>
 
-<!-- BUSCADOR OCULTO HASTA VALIDAR TU CLAVE -->
-<div id="wrapper-busqueda" style="display: none; margin-top: 15px;">
+<!-- BUSCADOR VISIBLE SOLO PARA TI (CON #admin=adri2026 EN LA URL) -->
+<div id="wrapper-busqueda" style="display: none;">
+    <div class="card-title">Buscador de Pases</div>
+    <div class="separador-rizos"><div class="linea-centro"></div></div>
     <div class="info-row" style="color: #2e7d32; font-size: 0.85rem;">✅ Modo organizadora activo</div>
-    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Ej. pedro picapiedra" autocomplete="off">
+    <input type="text" id="input-busqueda" class="input-busqueda" placeholder="Escribe nombre o familia (ej. Valeria Miranda)" autocomplete="off">
     <button id="btn-buscar" class="btn" style="width: 90%;">Buscar Pases</button>
     <div id="mensaje-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: bold; margin-top: 12px; display: none;">
-        Lo sentimos, no encontramos una invitación. Asegúrate de escribir tu nombre o apellido correctamente.
+        No encontramos una invitación con ese nombre o apellido.
     </div>
 </div>
 </div>
@@ -506,9 +496,9 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 
 <script>
 // =========================================================================
-// CLAVE EXCLUSIVA PARA QUE SOLO TÚ PUEDAS BUSCAR PASES
+// ACCESO EXCLUSIVO PARA TI: agrega #admin=adri2026 al final de la URL
 // =========================================================================
-const CLAVE_ADMIN = "adri2026"; // Cambia esta clave antes de publicar
+const CLAVE_ADMIN = "adri2026";
 const ADMIN_SESSION_KEY = "adrianaXV_admin_unlocked";
 
 // =========================================================================
@@ -638,13 +628,7 @@ const baseDeDatosInvitados = {
 
 document.addEventListener("DOMContentLoaded", function() {
     const seccionBusqueda = document.getElementById('seccion-busqueda');
-    const panelAccesoAdmin = document.getElementById('panel-acceso-admin');
-    const btnAbrirAdmin = document.getElementById('btn-abrir-admin');
-    const formularioClaveAdmin = document.getElementById('formulario-clave-admin');
-    const inputClaveAdmin = document.getElementById('input-clave-admin');
-    const btnValidarAdmin = document.getElementById('btn-validar-admin');
-    const errorClaveAdmin = document.getElementById('error-clave-admin');
-
+    const avisoCerradoPublico = document.getElementById('aviso-cerrado-publico');
     const wrapperBusqueda = document.getElementById('wrapper-busqueda');
     const btnBuscar = document.getElementById('btn-buscar');
     const inputBusqueda = document.getElementById('input-busqueda');
@@ -654,46 +638,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const btnWhatsapp = document.getElementById('btn-confirmar-whatsapp');
 
     const ADMIN_GRUPO_KEY = 'adrianaXV_admin_grupo_actual';
-    let adminDesbloqueado = sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
 
-    function activarModoAdmin() {
-        adminDesbloqueado = true;
+    // Detectar si entraste con #admin=adri2026 en la URL o ya lo tenías activo en la sesión
+    const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    if (hashParams.get('admin') === CLAVE_ADMIN) {
         sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
-        panelAccesoAdmin.style.display = 'none';
+    }
+
+    const adminDesbloqueado = sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
+
+    function mostrarBuscadorAdmin() {
+        seccionBusqueda.style.display = 'block';
+        avisoCerradoPublico.style.display = 'none';
         wrapperBusqueda.style.display = 'block';
-    }
-
-    if (adminDesbloqueado) {
-        activarModoAdmin();
-    }
-
-    if (btnAbrirAdmin) {
-        btnAbrirAdmin.addEventListener('click', function() {
-            formularioClaveAdmin.style.display = formularioClaveAdmin.style.display === 'none' ? 'block' : 'none';
-            inputClaveAdmin.focus();
-        });
-    }
-
-    function intentarDesbloquear() {
-        if (inputClaveAdmin.value.trim() === CLAVE_ADMIN) {
-            errorClaveAdmin.style.display = 'none';
-            activarModoAdmin();
-        } else {
-            errorClaveAdmin.style.display = 'block';
-        }
-    }
-
-    if (btnValidarAdmin) {
-        btnValidarAdmin.addEventListener('click', intentarDesbloquear);
-    }
-
-    if (inputClaveAdmin) {
-        inputClaveAdmin.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                intentarDesbloquear();
-            }
-        });
     }
 
     // Revisar si el visitante ya tenía un pase confirmado en su dispositivo
@@ -717,7 +674,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    if (yaConfirmado && famKey && baseDeDatosInvitados[famKey] && !adminDesbloqueado) {
+    if (adminDesbloqueado) {
+        mostrarBuscadorAdmin();
+    } else if (yaConfirmado && famKey && baseDeDatosInvitados[famKey]) {
         seccionBusqueda.style.display = 'none';
         let cardConfirmado = document.createElement('div');
         cardConfirmado.className = 'card';
